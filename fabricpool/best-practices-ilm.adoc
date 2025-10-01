@@ -1,0 +1,47 @@
+---
+permalink: fabricpool/best-practices-ilm.html 
+sidebar: sidebar 
+keywords: FabricPool, best practices, ILM, information lifecycle management, ILM rule, ILM policy, erasure-coding, replication 
+summary: 'Si está utilizando FabricPool para organizar datos en niveles en StorageGRID, debe comprender los requisitos para usar la gestión del ciclo de vida de la información (ILM) de StorageGRID con datos de FabricPool .' 
+---
+= Mejores prácticas para usar ILM con datos de FabricPool
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si está utilizando FabricPool para organizar datos en niveles en StorageGRID, debe comprender los requisitos para usar la gestión del ciclo de vida de la información (ILM) de StorageGRID con datos de FabricPool .
+
+
+CAUTION: FabricPool no tiene conocimiento de las reglas o políticas de StorageGRID ILM.  Puede ocurrir pérdida de datos si la política ILM de StorageGRID está mal configurada.  Para obtener información detallada, consultelink:../ilm/what-ilm-rule-is.html["Utilice reglas ILM para administrar objetos"] ylink:../ilm/creating-ilm-policy.html["Crear políticas ILM"] .
+
+
+
+== Pautas para usar ILM con FabricPool
+
+Cuando utiliza el asistente de configuración de FabricPool , este crea automáticamente una nueva regla ILM para cada bucket S3 que cree y agrega esa regla a una política inactiva.  Se le solicitará que active la política.  La regla creada automáticamente sigue las mejores prácticas recomendadas: utiliza codificación de borrado 2+1 en un solo sitio.
+
+Si está configurando StorageGRID manualmente en lugar de utilizar el asistente de configuración de FabricPool , revise estas pautas para asegurarse de que sus reglas y políticas de ILM sean adecuadas para los datos de FabricPool y los requisitos de su negocio.  Es posible que necesite crear nuevas reglas y actualizar sus políticas ILM activas para cumplir con estas pautas.
+
+* Puede utilizar cualquier combinación de reglas de replicación y codificación de borrado para proteger los datos de nivel de nube.
++
+La mejor práctica recomendada es utilizar codificación de borrado 2+1 dentro de un sitio para lograr una protección de datos rentable.  La codificación de borrado utiliza más CPU, pero ofrece significativamente menos capacidad de almacenamiento que la replicación.  Los esquemas 4+1 y 6+1 utilizan menos capacidad que el esquema 2+1.  Sin embargo, los esquemas 4+1 y 6+1 son menos flexibles si necesita agregar nodos de almacenamiento durante la expansión de la red. Para obtener más información, consulte link:../expand/adding-storage-capacity-for-erasure-coded-objects.html["Añadir capacidad de almacenamiento para objetos con código de borrado"] .
+
+* Cada regla aplicada a los datos de FabricPool debe utilizar codificación de borrado o debe crear al menos dos copias replicadas.
++
+
+CAUTION: Una regla ILM que crea solo una copia replicada por cada período de tiempo pone los datos en riesgo de pérdida permanente.  Si solo existe una copia replicada de un objeto, ese objeto se pierde si un nodo de almacenamiento falla o tiene un error significativo.  También perderá temporalmente el acceso al objeto durante procedimientos de mantenimiento, como actualizaciones.
+
+* Si es necesariolink:remove-fabricpool-data.html["eliminar datos de FabricPool de StorageGRID"] , use ONTAP para recuperar todos los datos del volumen FabricPool y promoverlo al nivel de rendimiento.
++
+
+CAUTION: Para evitar la pérdida de datos, no utilice una regla ILM que caduque o elimine los datos del nivel de nube de FabricPool .  Establezca el período de retención en cada regla ILM en *para siempre* para garantizar que StorageGRID ILM no elimine los objetos de FabricPool .
+
+* No cree reglas que muevan los datos del nivel de nube de FabricPool fuera del depósito a otra ubicación.  No se puede utilizar un grupo de almacenamiento en la nube para mover datos de FabricPool a otro almacén de objetos.
++
+
+NOTE: No se admite el uso de grupos de almacenamiento en la nube con FabricPool debido a la latencia adicional para recuperar un objeto del destino del grupo de almacenamiento en la nube.
+
+* A partir de ONTAP 9.8, puede crear opcionalmente etiquetas de objetos para ayudar a clasificar y ordenar datos escalonados para una gestión más sencilla.  Por ejemplo, puede establecer etiquetas solo en los volúmenes de FabricPool adjuntos a StorageGRID.  Luego, cuando crea reglas ILM en StorageGRID, puede usar el filtro avanzado Etiqueta de objeto para seleccionar y colocar estos datos.
+

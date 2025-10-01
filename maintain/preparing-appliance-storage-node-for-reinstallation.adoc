@@ -1,0 +1,43 @@
+---
+permalink: maintain/preparing-appliance-storage-node-for-reinstallation.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, appliance, reinstallation appliance, reinstall appliance 
+summary: Al recuperar un nodo de almacenamiento de un dispositivo, primero debe preparar el dispositivo para la reinstalación del software StorageGRID . 
+---
+= Preparar el nodo de almacenamiento del dispositivo para la reinstalación
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Al recuperar un nodo de almacenamiento de un dispositivo, primero debe preparar el dispositivo para la reinstalación del software StorageGRID .
+
+.Pasos
+. Inicie sesión en el nodo de almacenamiento fallido:
++
+.. Introduzca el siguiente comando: `ssh admin@_grid_node_IP_`
+.. Introduzca la contraseña que aparece en el `Passwords.txt` archivo.
+.. Introduzca el siguiente comando para cambiar a root: `su -`
+.. Introduzca la contraseña que aparece en el `Passwords.txt` archivo.
+
+
++
+Cuando inicia sesión como root, el mensaje cambia de `$` a `#` .
+
+. Prepare el nodo de almacenamiento del dispositivo para la instalación del software StorageGRID . `sgareinstall`
+. Cuando se le solicite continuar, ingrese: `y`
++
+El dispositivo se reinicia y su sesión SSH finaliza.  Por lo general, el instalador del dispositivo StorageGRID tarda unos 5 minutos en estar disponible, aunque en algunos casos es posible que tengas que esperar hasta 30 minutos.
+
++
+
+CAUTION: No intente acelerar el reinicio apagando y encendiendo el dispositivo ni reiniciándolo de ninguna otra manera.  Podría interrumpir las actualizaciones automáticas del BIOS, BMC u otro firmware.
+
++
+El nodo de almacenamiento del dispositivo StorageGRID se restablece y los datos en el nodo de almacenamiento ya no son accesibles.  Las direcciones IP configuradas durante el proceso de instalación original deben permanecer intactas; sin embargo, se recomienda que lo confirme una vez completado el procedimiento.
+
++
+Después de ejecutar el `sgareinstall` comando, se eliminan todas las cuentas, contraseñas y claves SSH proporcionadas por StorageGRID y se generan nuevas claves de host.
+
+

@@ -1,0 +1,166 @@
+---
+permalink: tenant/specifying-urn-for-platform-services-endpoint.html 
+sidebar: sidebar 
+keywords: how to specify platform services urn 
+summary: 'Cuando crea un punto final de servicios de plataforma, debe especificar un nombre de recurso único (URN).  Utilizará la URN para hacer referencia al punto final cuando cree un XML de configuración para el servicio de la plataforma.  La URN de cada punto final debe ser única.' 
+---
+= Especificar URN para el punto final de los servicios de la plataforma
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando crea un punto final de servicios de plataforma, debe especificar un nombre de recurso único (URN).  Utilizará la URN para hacer referencia al punto final cuando cree un XML de configuración para el servicio de la plataforma.  La URN de cada punto final debe ser única.
+
+StorageGRID valida los puntos finales de los servicios de la plataforma a medida que los crea.  Antes de crear un punto final de servicios de plataforma, confirme que el recurso especificado en el punto final exista y que se pueda acceder a él.
+
+
+
+== Elementos URN
+
+El URN para un punto final de servicios de plataforma debe comenzar con `arn:aws` o `urn:mysite` , de la siguiente manera:
+
+* Si el servicio está alojado en Amazon Web Services (AWS), utilice `arn:aws`
+* Si el servicio está alojado en Google Cloud Platform (GCP), utilice `arn:aws`
+* Si el servicio está alojado localmente, utilice `urn:mysite`
+
+
+Por ejemplo, si está especificando el URN para un punto final de CloudMirror alojado en StorageGRID, el URN podría comenzar con `urn:sgws` .
+
+El siguiente elemento de la URN especifica el tipo de servicio de plataforma, de la siguiente manera:
+
+[cols="2a,1a"]
+|===
+| Servicio | Tipo 
+
+
+ a| 
+Replicación de CloudMirror
+ a| 
+`s3`
+
+
+
+ a| 
+Notificaciones
+ a| 
+`sns`o `kafka`
+
+
+
+ a| 
+Integración de búsqueda
+ a| 
+`es`
+
+|===
+Por ejemplo, para continuar especificando el URN para un punto final de CloudMirror alojado en StorageGRID, agregaría `s3` Llegar `urn:sgws:s3` .
+
+El elemento final de la URN identifica el recurso de destino específico en la URI de destino.
+
+[cols="1a,2a"]
+|===
+| Servicio | Recurso específico 
+
+
+ a| 
+Replicación de CloudMirror
+ a| 
+`bucket-name`
+
+
+
+ a| 
+Notificaciones
+ a| 
+`sns-topic-name`o `kafka-topic-name`
+
+
+
+ a| 
+Integración de búsqueda
+ a| 
+`domain-name/index-name/type-name`
+
+*Nota:* Si el clúster Elasticsearch *no* está configurado para crear índices automáticamente, debe crear el índice manualmente antes de crear el punto final.
+
+|===
+
+
+== URN para servicios alojados en AWS y GCP
+
+Para las entidades de AWS y GCP, el URN completo es un ARN de AWS válido. Por ejemplo:
+
+* Replicación de CloudMirror:
++
+[listing]
+----
+arn:aws:s3:::bucket-name
+----
+* Notificaciones:
++
+[listing]
+----
+arn:aws:sns:region:account-id:topic-name
+----
+* Integración de búsqueda:
++
+[listing]
+----
+arn:aws:es:region:account-id:domain/domain-name/index-name/type-name
+----
++
+
+NOTE: Para un punto final de integración de búsqueda de AWS, el `domain-name` debe incluir la cadena literal `domain/` , como se muestra aquí.
+
+
+
+
+
+== URN para servicios alojados localmente
+
+Al utilizar servicios alojados localmente en lugar de servicios en la nube, puede especificar el URN de cualquier forma que cree un URN válido y único, siempre que el URN incluya los elementos requeridos en la tercera y última posición.  Puede dejar los elementos indicados por opcional en blanco, o puede especificarlos de cualquier forma que le ayude a identificar el recurso y hacer que la URN sea única. Por ejemplo:
+
+* Replicación de CloudMirror:
++
+[listing]
+----
+urn:mysite:s3:optional:optional:bucket-name
+----
++
+Para un punto final de CloudMirror alojado en StorageGRID, puede especificar un URN válido que comience con `urn:sgws` :
+
++
+[listing]
+----
+urn:sgws:s3:optional:optional:bucket-name
+----
+* Notificaciones:
++
+Especifique un punto final de Amazon Simple Notification Service:
+
++
+[listing]
+----
+urn:mysite:sns:optional:optional:sns-topic-name
+----
++
+Especifique un punto final de Kafka:
+
++
+[listing]
+----
+urn:mysite:kafka:optional:optional:kafka-topic-name
+----
+* Integración de búsqueda:
++
+[listing]
+----
+urn:mysite:es:optional:optional:domain-name/index-name/type-name
+----
++
+
+NOTE: Para los puntos finales de integración de búsqueda alojados localmente, el `domain-name` El elemento puede ser cualquier cadena siempre que la URN del punto final sea única.
+
+

@@ -1,0 +1,142 @@
+---
+permalink: admin/troubleshooting-platform-services.html 
+sidebar: sidebar 
+keywords: troubleshoot platform services, platform services endpoint error 
+summary: Los puntos finales utilizados en los servicios de plataforma son creados y mantenidos por usuarios inquilinos en el Administrador de inquilinos; sin embargo, si un inquilino tiene problemas al configurar o usar los servicios de plataforma, es posible que pueda usar el Administrador de cuadrícula para ayudar a resolver el problema. 
+---
+= Solucionar problemas de servicios de la plataforma
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los puntos finales utilizados en los servicios de plataforma son creados y mantenidos por usuarios inquilinos en el Administrador de inquilinos; sin embargo, si un inquilino tiene problemas al configurar o usar los servicios de plataforma, es posible que pueda usar el Administrador de cuadrícula para ayudar a resolver el problema.
+
+
+
+== Problemas con los nuevos puntos finales
+
+Antes de que un inquilino pueda utilizar los servicios de la plataforma, debe crear uno o más puntos finales mediante el Administrador de inquilinos.  Cada punto final representa un destino externo para un servicio de plataforma, como un bucket S3 de StorageGRID , un bucket de Amazon Web Services, un tema de Amazon Simple Notification Service, un tema de Kafka o un clúster de Elasticsearch alojado localmente o en AWS.  Cada punto final incluye tanto la ubicación del recurso externo como las credenciales necesarias para acceder a ese recurso.
+
+Cuando un inquilino crea un punto final, el sistema StorageGRID valida que el punto final exista y que se pueda acceder a él utilizando las credenciales especificadas.  La conexión al punto final se valida desde un nodo en cada sitio.
+
+Si falla la validación del punto final, aparecerá un mensaje de error que explica por qué.  El usuario inquilino debe resolver el problema y luego intentar crear el punto final nuevamente.
+
+
+NOTE: La creación del punto final fallará si los servicios de la plataforma no están habilitados para la cuenta del inquilino.
+
+
+
+== Problemas con los puntos finales existentes
+
+Si se produce un error cuando StorageGRID intenta acceder a un punto final existente, se muestra un mensaje en el panel del Administrador de inquilinos.
+
+image::../media/tenant_dashboard_endpoint_error.png[Mensaje de error de punto final en el panel]
+
+Los usuarios inquilinos pueden ir a la página Puntos finales para revisar el mensaje de error más reciente de cada punto final y determinar cuánto tiempo hace que ocurrió el error.  La columna *Último error* muestra el mensaje de error más reciente para cada punto final e indica cuánto tiempo hace que ocurrió el error.  Errores que incluyen elimage:../media/icon_alert_red_critical.png["Icono de X roja"] El icono apareció en los últimos 7 días.
+
+image::../media/endpoints_last_error.png[Captura de pantalla de la página de puntos finales que muestra la columna Último error]
+
+
+NOTE: Algunos mensajes de error en la columna *Último error* pueden incluir un ID de registro entre paréntesis.  Un administrador de red o soporte técnico puede usar esta ID para localizar información más detallada sobre el error en bycast.log.
+
+
+
+== Problemas relacionados con los servidores proxy
+
+Si ha configurado unlink:configuring-storage-proxy-settings.html["proxy de almacenamiento"] Entre los nodos de almacenamiento y los puntos finales del servicio de la plataforma, pueden ocurrir errores si su servicio proxy no permite mensajes de StorageGRID. Para resolver estos problemas, verifique la configuración de su servidor proxy para asegurarse de que los mensajes relacionados con el servicio de la plataforma no estén bloqueados.
+
+
+
+== Determinar si se ha producido un error
+
+Si se produjo algún error en los puntos finales durante los últimos 7 días, el panel del Administrador de inquilinos mostrará un mensaje de alerta.  Puede ir a la página de Puntos finales para ver más detalles sobre el error.
+
+
+
+== Las operaciones del cliente fallan
+
+Algunos problemas con los servicios de la plataforma podrían provocar que las operaciones del cliente en el bucket S3 fallen.  Por ejemplo, las operaciones del cliente S3 fallarán si el servicio de máquina de estado replicada (RSM) interno se detiene o si hay demasiados mensajes de servicios de plataforma en cola para su entrega.
+
+Para comprobar el estado de los servicios:
+
+. Seleccione *SOPORTE* > *Herramientas* > *Topología de cuadrícula*.
+. Seleccione *_sitio_* > *_Nodo de almacenamiento_* > *SSM* > *Servicios*.
+
+
+
+
+== Errores de punto final recuperables e irrecuperables
+
+Una vez creados los puntos finales, pueden producirse errores en las solicitudes de servicio de la plataforma por diversos motivos.  Algunos errores se pueden recuperar con la intervención del usuario.  Por ejemplo, podrían producirse errores recuperables por las siguientes razones:
+
+* Las credenciales del usuario han sido eliminadas o han expirado.
+* El depósito de destino no existe.
+* No se puede entregar la notificación.
+
+
+Si StorageGRID encuentra un error recuperable, se volverá a intentar la solicitud del servicio de la plataforma hasta que tenga éxito.
+
+Otros errores son irrecuperables. Por ejemplo, se produce un error irrecuperable si se elimina el punto final.
+
+Si StorageGRID encuentra un error de punto final irrecuperable:
+
+* En el Administrador de cuadrícula, vaya a *Soporte* > *Herramientas* > *Métricas* > *Grafana* > *Descripción general de los servicios de plataforma* para ver los detalles del error.
+* En el Administrador de inquilinos, vaya a *ALMACENAMIENTO (S3)* > *Puntos finales de servicios de plataforma* para ver los detalles del error.
+* Comprueba el `/var/local/log/bycast-err.log` para errores relacionados.  Los nodos de almacenamiento que tienen el servicio ADC contienen este archivo de registro.
+
+
+
+
+== No se pueden entregar los mensajes de servicios de la plataforma
+
+Si el destino encuentra un problema que le impide aceptar mensajes de servicios de plataforma, la operación del cliente en el depósito se realiza correctamente, pero el mensaje de servicios de plataforma no se entrega. Por ejemplo, este error podría ocurrir si las credenciales se actualizan en el destino de tal manera que StorageGRID ya no puede autenticarse en el servicio de destino.
+
+Compruebe si hay alertas relacionadas.
+
+
+
+== Rendimiento más lento para solicitudes de servicio de la plataforma
+
+El software StorageGRID puede limitar las solicitudes S3 entrantes para un bucket si la velocidad a la que se envían las solicitudes excede la velocidad a la que el punto final de destino puede recibirlas.  La limitación solo se produce cuando hay una acumulación de solicitudes en espera de ser enviadas al punto final de destino.
+
+El único efecto visible es que las solicitudes S3 entrantes tardarán más en ejecutarse.  Si comienza a detectar un rendimiento significativamente más lento, debe reducir la tasa de ingesta o utilizar un punto final con mayor capacidad.  Si la acumulación de solicitudes continúa creciendo, las operaciones S3 del cliente (como las solicitudes PUT) eventualmente fallarán.
+
+Es más probable que las solicitudes de CloudMirror se vean afectadas por el rendimiento del punto final de destino porque estas solicitudes generalmente implican más transferencia de datos que las solicitudes de integración de búsqueda o notificación de eventos.
+
+
+
+== Las solicitudes de servicio de la plataforma fallan
+
+Para ver la tasa de fallas de solicitudes para los servicios de la plataforma:
+
+. Seleccione *NODOS*.
+. Seleccione *_site_* > *Servicios de plataforma*.
+. Vea el gráfico de tasa de error de solicitud.
++
+image::../media/nodes_page_site_level_platform_services.gif[Servicios de plataforma a nivel de sitio de la página de nodos]
+
+
+
+
+
+== Alerta de servicios de plataforma no disponibles
+
+La alerta *Servicios de plataforma no disponibles* indica que no se pueden realizar operaciones de servicio de plataforma en un sitio porque hay muy pocos nodos de almacenamiento con el servicio RSM en ejecución o disponibles.
+
+El servicio RSM garantiza que las solicitudes de servicio de la plataforma se envíen a sus respectivos puntos finales.
+
+Para resolver esta alerta, determine qué nodos de almacenamiento en el sitio incluyen el servicio RSM.  (El servicio RSM está presente en los nodos de almacenamiento que también incluyen el servicio ADC).  Luego, asegúrese de que una mayoría simple de esos nodos de almacenamiento estén en ejecución y disponibles.
+
+
+NOTE: Si más de un nodo de almacenamiento que contiene el servicio RSM falla en un sitio, perderá todas las solicitudes de servicio de plataforma pendientes para ese sitio.
+
+
+
+== Guía adicional para la resolución de problemas de los puntos finales de los servicios de la plataforma
+
+Para obtener información adicional, consultelink:../tenant/troubleshooting-platform-services-endpoint-errors.html["Usar una cuenta de inquilino > Solucionar problemas de puntos finales de servicios de la plataforma"] .
+
+.Información relacionada
+link:../troubleshoot/index.html["Solucionar problemas del sistema StorageGRID"]

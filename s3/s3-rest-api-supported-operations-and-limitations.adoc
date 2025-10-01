@@ -1,0 +1,71 @@
+---
+permalink: s3/s3-rest-api-supported-operations-and-limitations.html 
+sidebar: sidebar 
+keywords: s3 rest api supported operations, s3 rest api limitations 
+summary: 'El sistema StorageGRID implementa la API de servicio de almacenamiento simple (versión de API 2006-03-01) con soporte para la mayoría de las operaciones y con algunas limitaciones.  Debe comprender los detalles de implementación cuando integra aplicaciones cliente de API REST S3.' 
+---
+= Detalles de implementación de la API REST de S3
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El sistema StorageGRID implementa la API de servicio de almacenamiento simple (versión de API 2006-03-01) con soporte para la mayoría de las operaciones y con algunas limitaciones.  Debe comprender los detalles de implementación cuando integra aplicaciones cliente de API REST S3.
+
+El sistema StorageGRID admite solicitudes de estilo alojado virtual y solicitudes de estilo de ruta.
+
+
+
+== Manejo de fechas
+
+La implementación de StorageGRID de la API REST S3 solo admite formatos de fecha HTTP válidos.
+
+El sistema StorageGRID solo admite formatos de fecha HTTP válidos para cualquier encabezado que acepte valores de fecha.  La parte horaria de la fecha se puede especificar en formato de Hora Media de Greenwich (GMT) o en formato de Hora Universal Coordinada (UTC) sin diferencia de zona horaria (se debe especificar +0000).  Si incluye el `x-amz-date` encabezado en su solicitud, anula cualquier valor especificado en el encabezado de solicitud de Fecha.  Al utilizar AWS Signature Version 4, el `x-amz-date` El encabezado debe estar presente en la solicitud firmada porque el encabezado de fecha no es compatible.
+
+
+
+== Encabezados de solicitud comunes
+
+El sistema StorageGRID admite los encabezados de solicitud comunes definidos por https://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonRequestHeaders.html["Referencia de la API de Amazon Simple Storage Service: encabezados de solicitud comunes"^] , con una excepción.
+
+[cols="1a,2a"]
+|===
+| Encabezado de solicitud | Implementación 
+
+
+ a| 
+Autorización
+ a| 
+Soporte completo para AWS Signature Version 2
+
+Compatibilidad con AWS Signature versión 4, con las siguientes excepciones:
+
+* Cuando proporciona el valor de suma de comprobación de carga útil real en `x-amz-content-sha256` , el valor se acepta sin validación, como si el valor `UNSIGNED-PAYLOAD` se había previsto para el encabezado.  Cuando usted proporciona un `x-amz-content-sha256` valor de encabezado que implica `aws-chunked` transmisión (por ejemplo, STREAMING-AWS4-HMAC-SHA256-PAYLOAD), las firmas del fragmento no se verifican con los datos del fragmento.
+
+
+
+
+ a| 
+token de seguridad x-amz
+ a| 
+No implementado.  Devoluciones `XNotImplemented` .
+
+|===
+
+
+== Encabezados de respuesta comunes
+
+El sistema StorageGRID admite todos los encabezados de respuesta comunes definidos por la _Referencia de API del servicio de almacenamiento simple_, con una excepción.
+
+[cols="1a,2a"]
+|===
+| Encabezado de respuesta | Implementación 
+
+
+ a| 
+x-amz-id-2
+ a| 
+No utilizado
+
+|===

@@ -1,0 +1,206 @@
+---
+permalink: s3/index.html 
+sidebar: sidebar 
+keywords: about s3, s3 rest api, s3 overview 
+summary: 'StorageGRID admite la API del Servicio de almacenamiento simple (S3), que se implementa como un conjunto de servicios web de transferencia de estado representacional (REST).' 
+---
+= Versiones y actualizaciones compatibles con la API REST de S3
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRID admite la API del Servicio de almacenamiento simple (S3), que se implementa como un conjunto de servicios web de transferencia de estado representacional (REST).
+
+La compatibilidad con la API REST de S3 le permite conectar aplicaciones orientadas a servicios desarrolladas para servicios web de S3 con almacenamiento de objetos local que utiliza el sistema StorageGRID .  Se requieren cambios mínimos en el uso actual de las llamadas API REST de S3 de una aplicación cliente.
+
+
+
+== Versiones compatibles
+
+StorageGRID admite las siguientes versiones específicas de S3 y HTTP.
+
+[cols="1a,1a"]
+|===
+| Artículo | Versión 
+
+
+ a| 
+Especificación de la API de S3
+ a| 
+http://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html["Documentación de Amazon Web Services (AWS): Referencia de la API de Amazon Simple Storage Service"^]
+
+
+
+ a| 
+HTTP
+ a| 
+1,1
+
+Para obtener más información sobre HTTP, consulte HTTP/1.1 (RFC 7230-35).
+
+https://datatracker.ietf.org/doc/html/rfc2616["IETF RFC 2616: Protocolo de transferencia de hipertexto (HTTP/1.1)"^]
+
+*Nota*: StorageGRID no admite la canalización HTTP/1.1.
+
+|===
+
+
+== Actualizaciones de la compatibilidad con la API REST de S3
+
+[cols="1a,4a"]
+|===
+| Liberar | Comentarios 
+
+
+ a| 
+11,9
+ a| 
+* Se agregó soporte para valores de suma de comprobación SHA-256 precalculados para las siguientes solicitudes y encabezados admitidos.  Puede utilizar esta función para verificar la integridad de los objetos cargados:
++
+** Carga completa de varias partes: `x-amz-checksum-sha256`
+** Crear carga múltiple: `x-amz-checksum-algorithm`
+** Obtener objeto: `x-amz-checksum-mode`
+** Objeto principal: `x-amz-checksum-mode`
+** Lista de partes
+** PonerObjeto: `x-amz-checksum-sha256`
+** Subir parte: `x-amz-checksum-sha256`
+
+
+* Se agregó la capacidad para que el administrador de la red controle la retención a nivel de inquilino y las configuraciones de cumplimiento.  Estas configuraciones afectan la configuración de bloqueo de objetos S3.
++
+** Modo de retención predeterminado del depósito y modo de retención de objetos: Gobernanza o Cumplimiento, si lo permite el administrador de la red.
+** Período de retención predeterminado del depósito y objeto Conservar hasta fecha: debe ser menor o igual a lo permitido por el período de retención máximo establecido por el administrador de la red.
+
+
+* Soporte mejorado para `aws-chunked` codificación y transmisión de contenido `x-amz-content-sha256` valores. Limitaciones:
++
+** Si está presente, `chunk-signature` es opcional y no validado
+** Si está presente, `x-amz-trailer` el contenido se ignora
+
+
+
+
+
+
+ a| 
+11,8
+ a| 
+Se actualizaron los nombres de las operaciones de S3 para que coincidan con los nombres utilizados en el http://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html["Documentación de Amazon Web Services (AWS): Referencia de la API de Amazon Simple Storage Service"^] .
+
+
+
+ a| 
+11,7
+ a| 
+* Agregadolink:quick-reference-support-for-aws-apis.html["Referencia rápida: solicitudes de API de S3 compatibles"] .
+* Se agregó soporte para usar el modo GOBERNANCIA con S3 Object Lock.
+* Se agregó soporte para StorageGRID específico `x-ntap-sg-cgr-replication-status` encabezado de respuesta para solicitudes de objeto GET y objeto HEAD.  Este encabezado proporciona el estado de replicación de un objeto para la replicación entre redes.
+* Las solicitudes SelectObjectContent ahora admiten objetos Parquet.
+
+
+
+
+ a| 
+11,6
+ a| 
+* Se agregó soporte para el uso de `partNumber` parámetro de solicitud en solicitudes de objeto GET y objeto HEAD.
+* Se agregó soporte para un modo de retención predeterminado y un período de retención predeterminado a nivel de depósito para S3 Object Lock.
+* Se agregó soporte para el `s3:object-lock-remaining-retention-days` Clave de condición de política para establecer el rango de períodos de retención permitidos para sus objetos.
+* Se cambió el tamaño máximo _recomendado_ para una sola operación de objeto PUT a 5 GiB (5.368.709.120 bytes).  Si tiene objetos de más de 5 GiB, utilice la carga multiparte en su lugar.
+
+
+
+
+ a| 
+11,5
+ a| 
+* Se agregó soporte para administrar el cifrado de bucket.
+* Se agregó soporte para S3 Object Lock y solicitudes de cumplimiento heredadas obsoletas.
+* Se agregó soporte para usar DELETE Multiple Objects en depósitos versionados.
+* El `Content-MD5` El encabezado de solicitud ahora se admite correctamente.
+
+
+
+
+ a| 
+11,4
+ a| 
+* Se agregó soporte para etiquetado de depósito DELETE, etiquetado de depósito GET y etiquetado de depósito PUT.  No se admiten etiquetas de asignación de costos.
+* Para los depósitos creados en StorageGRID 11.4, ya no es necesario restringir los nombres de claves de objeto para cumplir con las mejores prácticas de rendimiento.
+* Se agregó soporte para notificaciones de depósito en el `s3:ObjectRestore:Post` tipo de evento.
+* Ahora se aplican los límites de tamaño de AWS para partes multiparte.  Cada parte de una carga multiparte debe tener entre 5 MiB y 5 GiB.  La última parte puede ser menor a 5 MiB.
+* Se agregó soporte para TLS 1.3
+
+
+
+
+ a| 
+11,3
+ a| 
+* Se agregó soporte para el cifrado del lado del servidor de datos de objetos con claves proporcionadas por el cliente (SSE-C).
+* Se agregó soporte para operaciones de ciclo de vida de bucket DELETE, GET y PUT (solo acción de vencimiento) y para `x-amz-expiration` encabezado de respuesta.
+* Se actualizaron Objeto PUT, Objeto PUT - Copiar y Carga multiparte para describir el impacto de las reglas ILM que utilizan la ubicación sincrónica en la ingesta.
+* Los cifrados TLS 1.1 ya no son compatibles.
+
+
+
+
+ a| 
+11,2
+ a| 
+Se agregó soporte para la restauración de objetos POST para su uso con grupos de almacenamiento en la nube.  Se agregó soporte para usar la sintaxis de AWS para ARN, claves de condición de política y variables de política en políticas de grupo y de depósito.  Las políticas de grupo y de depósito existentes que utilizan la sintaxis StorageGRID seguirán siendo compatibles.
+
+*Nota:* Los usos de ARN/URN en otras configuraciones JSON/XML, incluidas aquellas utilizadas en funciones personalizadas de StorageGRID , no han cambiado.
+
+
+
+ a| 
+11,1
+ a| 
+Se agregó soporte para compartir recursos de origen cruzado (CORS), HTTP para conexiones de cliente S3 a nodos de la red y configuraciones de cumplimiento en los buckets.
+
+
+
+ a| 
+11,0
+ a| 
+Se agregó soporte para configurar servicios de plataforma (replicación de CloudMirror, notificaciones e integración de búsqueda de Elasticsearch) para depósitos.  También se agregó soporte para restricciones de ubicación de etiquetado de objetos para depósitos y la consistencia disponible.
+
+
+
+ a| 
+10,4
+ a| 
+Se agregó soporte para cambios de escaneo ILM en versiones, actualizaciones de la página Nombres de dominio de puntos finales, condiciones y variables en políticas, ejemplos de políticas y el permiso PutOverwriteObject.
+
+
+
+ a| 
+10,3
+ a| 
+Se agregó soporte para control de versiones.
+
+
+
+ a| 
+10,2
+ a| 
+Se agregó soporte para políticas de acceso a grupos y buckets, y para copia multiparte (Cargar parte - Copiar).
+
+
+
+ a| 
+10,1
+ a| 
+Se agregó soporte para carga de varias partes, solicitudes de estilo alojado virtual y autenticación v4.
+
+
+
+ a| 
+10,0
+ a| 
+Soporte inicial de la API REST S3 por parte del sistema StorageGRID . La versión actualmente compatible de la _Referencia de API de servicio de almacenamiento simple_ es 2006-03-01.
+
+|===

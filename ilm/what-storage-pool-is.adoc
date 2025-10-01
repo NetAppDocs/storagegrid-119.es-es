@@ -1,0 +1,27 @@
+---
+permalink: ilm/what-storage-pool-is.html 
+sidebar: sidebar 
+keywords: what is a storage pool 
+summary: Un grupo de almacenamiento es una agrupación lógica de nodos de almacenamiento. 
+---
+= ¿Qué es un pool de almacenamiento?
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Un grupo de almacenamiento es una agrupación lógica de nodos de almacenamiento.
+
+Cuando instala StorageGRID, se crea automáticamente un grupo de almacenamiento por sitio.  Puede configurar grupos de almacenamiento adicionales según sea necesario para sus requisitos de almacenamiento.
+
+
+NOTE: Los nodos de almacenamiento se pueden configurar durante la instalación para contener datos de objetos y metadatos de objetos, o solo metadatos de objetos. Los nodos de almacenamiento de solo metadatos no se pueden usar en grupos de almacenamiento. Para obtener más información, consulte link:../primer/what-storage-node-is.html#types-of-storage-nodes["Tipos de nodos de almacenamiento"] .
+
+Los grupos de almacenamiento tienen dos atributos:
+
+* *Grado de almacenamiento*: para los nodos de almacenamiento, el rendimiento relativo del almacenamiento de respaldo.
+* *Sitio*: El centro de datos donde se almacenarán los objetos.
+
+
+Los grupos de almacenamiento se utilizan en las reglas ILM para determinar dónde se almacenan los datos de los objetos y el tipo de almacenamiento utilizado.  Cuando configura las reglas de ILM para la replicación, selecciona uno o más grupos de almacenamiento.

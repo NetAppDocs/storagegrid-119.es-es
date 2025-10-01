@@ -1,0 +1,80 @@
+---
+permalink: s3/put-bucket-consistency-request.html 
+sidebar: sidebar 
+keywords: S3 REST API, S3 operations, PUT bucket consistency request 
+summary: La solicitud de consistencia de PUT Bucket le permite especificar la consistencia que se aplicará a las operaciones realizadas en un bucket. 
+---
+= Consistencia del depósito PUT
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La solicitud de consistencia de PUT Bucket le permite especificar la consistencia que se aplicará a las operaciones realizadas en un bucket.
+
+La consistencia predeterminada está configurada para garantizar la lectura después de la escritura para los objetos recién creados.
+
+.Antes de empezar
+Debe tener el permiso s3:PutBucketConsistency o ser la cuenta root para completar esta operación.
+
+
+
+== Pedido
+
+El `x-ntap-sg-consistency` El parámetro debe contener uno de los siguientes valores:
+
+[cols="1a,2a"]
+|===
+| Consistencia | Descripción 
+
+
+ a| 
+todo
+ a| 
+Todos los nodos reciben los datos inmediatamente o la solicitud fallará.
+
+
+
+ a| 
+fuerte-global
+ a| 
+Garantiza la consistencia de lectura tras escritura para todas las solicitudes de clientes en todos los sitios.
+
+
+
+ a| 
+sitio fuerte
+ a| 
+Garantiza la consistencia de lectura tras escritura para todas las solicitudes de clientes dentro de un sitio.
+
+
+
+ a| 
+lectura después de nueva escritura
+ a| 
+(Predeterminado) Proporciona consistencia de lectura después de escritura para objetos nuevos y consistencia eventual para actualizaciones de objetos.  Ofrece alta disponibilidad y garantías de protección de datos.  Recomendado para la mayoría de los casos.
+
+
+
+ a| 
+disponible
+ a| 
+Proporciona consistencia eventual tanto para objetos nuevos como para actualizaciones de objetos.  Para los depósitos S3, úselo solo cuando sea necesario (por ejemplo, para un depósito que contiene valores de registro que rara vez se leen, o para operaciones HEAD o GET en claves que no existen).  No compatible con depósitos S3 FabricPool .
+
+|===
+*Nota:* En general, debe utilizar la consistencia "Lectura después de nueva escritura".  Si las solicitudes no funcionan correctamente, cambie el comportamiento del cliente de la aplicación si es posible.  O bien, configure el cliente para especificar la consistencia para cada solicitud de API.  Establezca la consistencia a nivel de depósito sólo como último recurso.
+
+
+
+== Ejemplo de solicitud
+
+[listing, subs="specialcharacters,quotes"]
+----
+PUT /bucket?x-ntap-sg-consistency=strong-global HTTP/1.1
+Date: _date_
+Authorization: _authorization string_
+Host: _host_
+----
+.Información relacionada
+link:consistency-controls.html["Valores de consistencia"]

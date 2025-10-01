@@ -1,0 +1,31 @@
+---
+permalink: expand/adding-grid-nodes-to-add-capabilities.html 
+sidebar: sidebar 
+keywords: grid nodes, expand, expansion, site, add 
+summary: Puede agregar redundancia o capacidades adicionales a un sistema StorageGRID agregando nuevos nodos de red a sitios existentes. 
+---
+= Agregue nodos de red para agregar capacidades a su sistema
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede agregar redundancia o capacidades adicionales a un sistema StorageGRID agregando nuevos nodos de red a sitios existentes.
+
+Por ejemplo, puede optar por agregar nodos de puerta de enlace para usar en un grupo de alta disponibilidad (HA), o puede agregar un nodo de administración en un sitio remoto para permitir el monitoreo mediante un nodo local.
+
+Puede agregar uno o más de los siguientes tipos de nodos a uno o más sitios existentes en una sola operación de expansión:
+
+* Nodos de administración no principales
+* Nodos de almacenamiento
+* Nodos de puerta de enlace
+
+
+Al prepararse para agregar nodos de cuadrícula, tenga en cuenta las siguientes limitaciones:
+
+* El nodo de administración principal se implementa durante la instalación inicial.  No se puede agregar un nodo de administración principal durante una expansión.
+* Puede agregar nodos de almacenamiento y otros tipos de nodos en la misma expansión.
+* Al agregar nodos de almacenamiento, debe planificar cuidadosamente la cantidad y la ubicación de los nuevos nodos. Ver link:../expand/guidelines-for-adding-object-capacity.html["Pautas para agregar capacidad de objetos"] .
+* Si la opción *Establecer nuevo nodo predeterminado* es *No confiable* en la pestaña Redes de cliente no confiables en la página Control de firewall, las aplicaciones cliente que se conectan a nodos de expansión mediante la Red de cliente deben conectarse mediante un puerto de punto final del balanceador de carga (*CONFIGURACIÓN* > *Seguridad* > *Control de firewall*). Vea las instrucciones paralink:../admin/configure-firewall-controls.html["cambiar la configuración de seguridad para el nuevo nodo"] y alink:../admin/configuring-load-balancer-endpoints.html["Configurar los puntos finales del balanceador de carga"] .
+

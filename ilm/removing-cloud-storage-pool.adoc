@@ -1,0 +1,71 @@
+---
+permalink: ilm/removing-cloud-storage-pool.html 
+sidebar: sidebar 
+keywords: remove cloud storage pool 
+summary: Puede eliminar un grupo de almacenamiento en la nube si no se utiliza en una regla ILM y no contiene datos de objetos. 
+---
+= Eliminar un grupo de almacenamiento en la nube
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede eliminar un grupo de almacenamiento en la nube si no se utiliza en una regla ILM y no contiene datos de objetos.
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tú tienes ellink:../admin/admin-group-permissions.html["permisos de acceso necesarios"] .
+
+
+
+
+== Si es necesario, utilice ILM para mover datos de objetos
+
+Si el grupo de almacenamiento en la nube que desea eliminar contiene datos de objetos, debe usar ILM para mover los datos a una ubicación diferente.  Por ejemplo, puede mover los datos a nodos de almacenamiento en su red o a un grupo de almacenamiento en la nube diferente.
+
+.Pasos
+. Seleccione *ILM* > *Grupos de almacenamiento* > *Grupos de almacenamiento en la nube*.
+. Mire la columna de uso de ILM en la tabla para determinar si puede eliminar el grupo de almacenamiento en la nube.
++
+No se puede eliminar un grupo de almacenamiento en la nube si se está utilizando en una regla ILM o en un perfil de codificación de borrado.
+
+. Si se está utilizando el grupo de almacenamiento en la nube, seleccione *_nombre del grupo de almacenamiento en la nube_* > *uso de ILM*.
+. link:working-with-ilm-rules-and-ilm-policies.html["Clonar cada regla ILM"]que actualmente coloca objetos en el grupo de almacenamiento en la nube que desea eliminar.
+. Determina dónde quieres mover los objetos existentes administrados por cada regla que clonaste.
++
+Puede utilizar uno o más grupos de almacenamiento o un grupo de almacenamiento en la nube diferente.
+
+. Edite cada una de las reglas que clonó.
++
+Para el paso 2 del asistente para crear reglas de ILM, seleccione la nueva ubicación en el campo *copias en*.
+
+. link:creating-ilm-policy.html["Crear una nueva política de ILM"]y reemplazar cada una de las reglas antiguas con una regla clonada.
+. Activar la nueva política.
+. Espere a que ILM elimine objetos del grupo de almacenamiento en la nube y los coloque en la nueva ubicación.
+
+
+
+
+== Eliminar grupo de almacenamiento en la nube
+
+Cuando el grupo de almacenamiento en la nube esté vacío y no se utilice en ninguna regla de ILM, puedes eliminarlo.
+
+.Antes de empezar
+* Ha eliminado todas las reglas ILM que podrían haber utilizado el grupo.
+* Ha confirmado que el bucket S3 o el contenedor de Azure no contiene ningún objeto.
++
+Se produce un error si intenta eliminar un grupo de almacenamiento en la nube si contiene objetos. Ver link:troubleshooting-cloud-storage-pools.html["Solucionar problemas de grupos de almacenamiento en la nube"] .
+
++
+
+NOTE: Cuando se crea un grupo de almacenamiento en la nube, StorageGRID escribe un archivo marcador en el depósito o contenedor para identificarlo como un grupo de almacenamiento en la nube.  No elimine este archivo, que se llama `x-ntap-sgws-cloud-pool-uuid` .
+
+
+
+.Pasos
+. Seleccione *ILM* > *Grupos de almacenamiento* > *Grupos de almacenamiento en la nube*.
+. Si la columna de uso de ILM indica que no se está utilizando el grupo de almacenamiento en la nube, seleccione la casilla de verificación.
+. Seleccione *Acciones* > *Eliminar*.
+. Seleccione *Aceptar*.
+

@@ -1,0 +1,237 @@
+---
+permalink: admin/creating-relying-party-trusts-in-ad-fs.html 
+sidebar: sidebar 
+keywords: relying party trust, active directory, ad fs, single sign on, sso 
+summary: 'Debe utilizar los Servicios de federación de Active Directory (AD FS) para crear una relación de confianza de usuario autenticado para cada nodo de administración en su sistema.  Puede crear relaciones de confianza de usuario autenticado mediante comandos de PowerShell, importando metadatos SAML desde StorageGRID o ingresando los datos manualmente.' 
+---
+= Crear relaciones de confianza entre usuarios autenticados en AD FS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe utilizar los Servicios de federación de Active Directory (AD FS) para crear una relación de confianza de usuario autenticado para cada nodo de administración en su sistema.  Puede crear relaciones de confianza de usuario autenticado mediante comandos de PowerShell, importando metadatos SAML desde StorageGRID o ingresando los datos manualmente.
+
+.Antes de empezar
+* Ha configurado el inicio de sesión único para StorageGRID y seleccionó *AD FS* como tipo de SSO.
+* El *modo Sandbox* está seleccionado en la página de inicio de sesión único en Grid Manager. Ver link:../admin/using-sandbox-mode.html["Utilizar el modo sandbox"] .
+* Conoce el nombre de dominio completo (o la dirección IP) y el identificador de la parte confiable para cada nodo de administración en su sistema. Puede encontrar estos valores en la tabla de detalles de Nodos de administración en la página de inicio de sesión único de StorageGRID .
++
+
+NOTE: Debe crear una relación de confianza de usuario autenticado para cada nodo de administración en su sistema StorageGRID .  Tener una relación de confianza de parte confiable para cada nodo de administración garantiza que los usuarios puedan iniciar y cerrar sesión de forma segura en cualquier nodo de administración.
+
+* Tiene experiencia en la creación de relaciones de confianza de usuario autenticado en AD FS o tiene acceso a la documentación de Microsoft AD FS.
+* Está utilizando el complemento Administración de AD FS y pertenece al grupo Administradores.
+* Si está creando la confianza de usuario confiable manualmente, tiene el certificado personalizado que se cargó para la interfaz de administración de StorageGRID o sabe cómo iniciar sesión en un nodo de administración desde el shell de comandos.
+
+
+.Acerca de esta tarea
+Estas instrucciones se aplican a Windows Server 2016 AD FS.  Si está utilizando una versión diferente de AD FS, notará ligeras diferencias en el procedimiento.  Si tiene preguntas, consulte la documentación de Microsoft AD FS.
+
+
+
+== Crear una relación de confianza de usuario autenticado mediante Windows PowerShell
+
+Puede utilizar Windows PowerShell para crear rápidamente una o más relaciones de confianza de usuario autenticado.
+
+.Pasos
+. Desde el menú de inicio de Windows, seleccione con el botón derecho el ícono de PowerShell y seleccione *Ejecutar como administrador*.
+. En el símbolo del sistema de PowerShell, ingrese el siguiente comando:
++
+`Add-AdfsRelyingPartyTrust -Name "_Admin_Node_Identifer_" -MetadataURL "https://_Admin_Node_FQDN_/api/saml-metadata"`
+
++
+** Para `_Admin_Node_Identifier_` , ingrese el Identificador de parte confiable para el Nodo de administración, exactamente como aparece en la página de Inicio de sesión único. Por ejemplo,  `SG-DC1-ADM1` .
+** Para `_Admin_Node_FQDN_` , ingrese el nombre de dominio completo para el mismo nodo de administración.  (Si es necesario, puede utilizar la dirección IP del nodo en su lugar.  Sin embargo, si ingresa una dirección IP aquí, tenga en cuenta que debe actualizar o volver a crear esta confianza de parte confiable si esa dirección IP alguna vez cambia).
+
+
+. Desde el Administrador de servidor de Windows, seleccione *Herramientas* > *Administración de AD FS*.
++
+Aparece la herramienta de administración de AD FS.
+
+. Seleccione *AD FS* > *Confianzas de usuario autenticado*.
++
+Aparece la lista de fideicomisos de partes confiantes.
+
+. Agregue una Política de control de acceso a la confianza de usuario autenticado recién creada:
++
+.. Localice el fideicomiso de parte confiante que acaba de crear.
+.. Haga clic derecho en la confianza y seleccione *Editar política de control de acceso*.
+.. Seleccione una política de control de acceso.
+.. Seleccione *Aplicar* y seleccione *Aceptar*
+
+
+. Agregue una Política de emisión de reclamaciones al fideicomiso de parte confiada recién creado:
++
+.. Localice el fideicomiso de parte confiante que acaba de crear.
+.. Haga clic derecho en el fideicomiso y seleccione *Editar política de emisión de reclamaciones*.
+.. Seleccione *Agregar regla*.
+.. En la página Seleccionar plantilla de regla, seleccione *Enviar atributos LDAP como reclamaciones* de la lista y seleccione *Siguiente*.
+.. En la página Configurar regla, ingrese un nombre para mostrar para esta regla.
++
+Por ejemplo, *ObjectGUID a ID de nombre* o *UPN a ID de nombre*.
+
+.. Para el almacén de atributos, seleccione *Active Directory*.
+.. En la columna Atributo LDAP de la tabla Mapeo, escriba *objectGUID* o seleccione *User-Principal-Name*.
+.. En la columna Tipo de reclamo saliente de la tabla de mapeo, seleccione *ID de nombre* de la lista desplegable.
+.. Seleccione *Finalizar* y seleccione *Aceptar*.
+
+
+. Confirme que los metadatos se importaron correctamente.
++
+.. Haga clic con el botón derecho en la confianza del usuario confiado para abrir sus propiedades.
+.. Confirme que los campos en las pestañas *Puntos finales*, *Identificadores* y *Firma* estén completos.
++
+Si faltan los metadatos, confirme que la dirección de metadatos de la Federación sea correcta o ingrese los valores manualmente.
+
+
+
+. Repita estos pasos para configurar una relación de confianza de usuario confiable para todos los nodos de administración en su sistema StorageGRID .
+. Cuando haya terminado, regrese a StorageGRID y pruebe todas las relaciones de confianza de usuarios autenticados para confirmar que estén configuradas correctamente. Verlink:using-sandbox-mode.html["Utilizar el modo Sandbox"] para obtener instrucciones.
+
+
+
+
+== Cree una relación de confianza entre usuarios autenticados mediante la importación de metadatos de la federación
+
+Puede importar los valores para cada entidad de confianza accediendo a los metadatos SAML de cada nodo de administración.
+
+.Pasos
+. En el Administrador de servidor de Windows, seleccione *Herramientas* y, a continuación, seleccione *Administración de AD FS*.
+. En Acciones, seleccione *Agregar confianza de usuario autenticado*.
+. En la página de bienvenida, seleccione *Reclamos conscientes* y seleccione *Iniciar*.
+. Seleccione *Importar datos sobre la parte confiante publicados en línea o en una red local*.
+. En *Dirección de metadatos de la federación (nombre de host o URL)*, escriba la ubicación de los metadatos SAML para este nodo de administración:
++
+`https://_Admin_Node_FQDN_/api/saml-metadata`
+
++
+Para `_Admin_Node_FQDN_` , ingrese el nombre de dominio completo para el mismo nodo de administración.  (Si es necesario, puede utilizar la dirección IP del nodo en su lugar.  Sin embargo, si ingresa una dirección IP aquí, tenga en cuenta que debe actualizar o volver a crear esta confianza de parte confiable si esa dirección IP alguna vez cambia).
+
+. Complete el asistente de confianza de usuario autenticado, guarde la confianza de usuario autenticado y cierre el asistente.
++
+
+NOTE: Al ingresar el nombre para mostrar, utilice el Identificador de usuario confiado para el Nodo de administración, exactamente como aparece en la página de Inicio de sesión único en el Administrador de Grid. Por ejemplo,  `SG-DC1-ADM1` .
+
+. Agregar una regla de reclamación:
++
+.. Haga clic derecho en el fideicomiso y seleccione *Editar política de emisión de reclamaciones*.
+.. Seleccione *Agregar regla*:
+.. En la página Seleccionar plantilla de regla, seleccione *Enviar atributos LDAP como reclamaciones* de la lista y seleccione *Siguiente*.
+.. En la página Configurar regla, ingrese un nombre para mostrar para esta regla.
++
+Por ejemplo, *ObjectGUID a ID de nombre* o *UPN a ID de nombre*.
+
+.. Para el almacén de atributos, seleccione *Active Directory*.
+.. En la columna Atributo LDAP de la tabla Mapeo, escriba *objectGUID* o seleccione *User-Principal-Name*.
+.. En la columna Tipo de reclamo saliente de la tabla de mapeo, seleccione *ID de nombre* de la lista desplegable.
+.. Seleccione *Finalizar* y seleccione *Aceptar*.
+
+
+. Confirme que los metadatos se importaron correctamente.
++
+.. Haga clic con el botón derecho en la confianza del usuario confiado para abrir sus propiedades.
+.. Confirme que los campos en las pestañas *Puntos finales*, *Identificadores* y *Firma* estén completos.
++
+Si faltan los metadatos, confirme que la dirección de metadatos de la Federación sea correcta o ingrese los valores manualmente.
+
+
+
+. Repita estos pasos para configurar una relación de confianza de usuario confiable para todos los nodos de administración en su sistema StorageGRID .
+. Cuando haya terminado, regrese a StorageGRID y pruebe todas las relaciones de confianza de usuarios autenticados para confirmar que estén configuradas correctamente. Verlink:using-sandbox-mode.html["Utilizar el modo Sandbox"] para obtener instrucciones.
+
+
+
+
+== Crear una relación de confianza de usuario confiado manualmente
+
+Si decide no importar los datos de las confianzas de las partes confiables, puede ingresar los valores manualmente.
+
+.Pasos
+. En el Administrador de servidor de Windows, seleccione *Herramientas* y, a continuación, seleccione *Administración de AD FS*.
+. En Acciones, seleccione *Agregar confianza de usuario autenticado*.
+. En la página de bienvenida, seleccione *Reclamos conscientes* y seleccione *Iniciar*.
+. Seleccione *Ingresar datos sobre la parte confiada manualmente* y seleccione *Siguiente*.
+. Complete el Asistente de confianza de usuario autenticado:
++
+.. Introduzca un nombre para mostrar para este nodo de administración.
++
+Para mantener la coherencia, utilice el Identificador de usuario autenticado para el Nodo de administración, exactamente como aparece en la página de Inicio de sesión único en el Administrador de Grid. Por ejemplo,  `SG-DC1-ADM1` .
+
+.. Omita el paso para configurar un certificado de cifrado de token opcional.
+.. En la página Configurar URL, seleccione la casilla de verificación *Habilitar soporte para el protocolo SAML 2.0 WebSSO*.
+.. Escriba la URL del punto final del servicio SAML para el nodo de administración:
++
+`https://_Admin_Node_FQDN_/api/saml-response`
+
++
+Para `_Admin_Node_FQDN_` , ingrese el nombre de dominio completo para el nodo de administración.  (Si es necesario, puede utilizar la dirección IP del nodo en su lugar.  Sin embargo, si ingresa una dirección IP aquí, tenga en cuenta que debe actualizar o volver a crear esta confianza de parte confiable si esa dirección IP alguna vez cambia).
+
+.. En la página Configurar identificadores, especifique el identificador de usuario de confianza para el mismo nodo de administración:
++
+`_Admin_Node_Identifier_`
+
++
+Para `_Admin_Node_Identifier_` , ingrese el Identificador de parte confiable para el Nodo de administración, exactamente como aparece en la página de Inicio de sesión único. Por ejemplo,  `SG-DC1-ADM1` .
+
+.. Revise la configuración, guarde la confianza del usuario autenticado y cierre el asistente.
++
+Aparece el cuadro de diálogo Editar política de emisión de reclamaciones.
+
++
+
+NOTE: Si el cuadro de diálogo no aparece, haga clic con el botón derecho en el fideicomiso y seleccione *Editar política de emisión de reclamaciones*.
+
+
+
+. Para iniciar el asistente de reglas de reclamación, seleccione *Agregar regla*:
++
+.. En la página Seleccionar plantilla de regla, seleccione *Enviar atributos LDAP como reclamaciones* de la lista y seleccione *Siguiente*.
+.. En la página Configurar regla, ingrese un nombre para mostrar para esta regla.
++
+Por ejemplo, *ObjectGUID a ID de nombre* o *UPN a ID de nombre*.
+
+.. Para el almacén de atributos, seleccione *Active Directory*.
+.. En la columna Atributo LDAP de la tabla Mapeo, escriba *objectGUID* o seleccione *User-Principal-Name*.
+.. En la columna Tipo de reclamo saliente de la tabla de mapeo, seleccione *ID de nombre* de la lista desplegable.
+.. Seleccione *Finalizar* y seleccione *Aceptar*.
+
+
+. Haga clic con el botón derecho en la confianza del usuario confiado para abrir sus propiedades.
+. En la pestaña *Puntos finales*, configure el punto final para el cierre de sesión único (SLO):
++
+.. Seleccione *Agregar SAML*.
+.. Seleccione *Tipo de punto final* > *Cerrar sesión SAML*.
+.. Seleccione *Enlace* > *Redireccionar*.
+.. En el campo *URL de confianza*, ingrese la URL utilizada para el cierre de sesión único (SLO) desde este nodo de administración:
++
+`https://_Admin_Node_FQDN_/api/saml-logout`
+
++
+Para `_Admin_Node_FQDN_` , ingrese el nombre de dominio completo del nodo de administración.  (Si es necesario, puede utilizar la dirección IP del nodo en su lugar.  Sin embargo, si ingresa una dirección IP aquí, tenga en cuenta que debe actualizar o volver a crear esta confianza de parte confiable si esa dirección IP alguna vez cambia).
+
+.. Seleccione *Aceptar*.
+
+
+. En la pestaña *Firma*, especifique el certificado de firma para esta relación de confianza de usuario autenticado:
++
+.. Agregue el certificado personalizado:
++
+*** Si tiene el certificado de administración personalizado que cargó en StorageGRID, seleccione ese certificado.
+*** Si no tiene el certificado personalizado, inicie sesión en el Nodo de administración, vaya a `/var/local/mgmt-api` directorio del nodo de administración y agregue el `custom-server.crt` archivo de certificado.
++
+
+NOTE: Uso del certificado predeterminado del nodo de administración(`server.crt` ) no se recomienda.  Si el nodo de administración falla, se regenerará el certificado predeterminado cuando recupere el nodo y deberá actualizar la confianza de la parte confiable.
+
+
+
+.. Seleccione *Aplicar* y seleccione *Aceptar*.
++
+Las propiedades de la parte confiada se guardan y cierran.
+
+
+
+. Repita estos pasos para configurar una relación de confianza de usuario confiable para todos los nodos de administración en su sistema StorageGRID .
+. Cuando haya terminado, regrese a StorageGRID y pruebe todas las relaciones de confianza de usuarios autenticados para confirmar que estén configuradas correctamente. Verlink:using-sandbox-mode.html["Utilizar el modo sandbox"] para obtener instrucciones.
+

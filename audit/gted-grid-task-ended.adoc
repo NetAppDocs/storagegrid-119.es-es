@@ -1,0 +1,49 @@
+---
+permalink: audit/gted-grid-task-ended.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, GTED, Grid Task Ended 
+summary: Este mensaje de auditoría indica que el servicio CMN ha terminado de procesar la tarea de cuadrícula especificada y ha movido la tarea a la tabla Histórica.  Si el resultado es SUCS, ABRT o ROLF, habrá un mensaje de auditoría de tarea de cuadrícula iniciada correspondiente.  Los demás resultados indican que el procesamiento de esta tarea de cuadrícula nunca comenzó. 
+---
+= GTED: Tarea de cuadrícula finalizada
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este mensaje de auditoría indica que el servicio CMN ha terminado de procesar la tarea de cuadrícula especificada y ha movido la tarea a la tabla Histórica.  Si el resultado es SUCS, ABRT o ROLF, habrá un mensaje de auditoría de tarea de cuadrícula iniciada correspondiente.  Los demás resultados indican que el procesamiento de esta tarea de cuadrícula nunca comenzó.
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+TSID
+ a| 
+ID de tarea
+ a| 
+Este campo identifica de forma única una tarea de cuadrícula generada y permite administrarla durante su ciclo de vida.
+
+*Nota:* El ID de tarea se asigna en el momento en que se genera una tarea de cuadrícula, no en el momento en que se envía.  Es posible que una tarea de cuadrícula determinada se envíe varias veces y, en este caso, el campo ID de tarea no es suficiente para vincular de forma única los mensajes de auditoría Enviado, Iniciado y Finalizado.
+
+
+
+ a| 
+RSLT
+ a| 
+Resultado
+ a| 
+El resultado del estado final de la tarea de cuadrícula:
+
+* SUCS: La tarea de cuadrícula se completó exitosamente.
+* ABRT: La tarea de cuadrícula se finalizó sin un error de reversión.
+* ROLF: La tarea de la red se finalizó y no se pudo completar el proceso de reversión.
+* CANC: La tarea de cuadrícula fue cancelada por el usuario antes de iniciarse.
+* EXPR: La tarea de la cuadrícula expiró antes de iniciarse.
+* IVLD: La tarea de cuadrícula no era válida.
+* AUTORIZACIÓN: La tarea de cuadrícula no fue autorizada.
+* DUPL: La tarea de cuadrícula fue rechazada por ser duplicada.
+
+
+|===

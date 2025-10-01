@@ -1,0 +1,46 @@
+---
+permalink: audit/ecmc-missing-erasure-coded-data-fragment.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, ECMC, Missing Erasure-Coded Data Fragment 
+summary: Este mensaje de auditoría indica que el sistema ha detectado un fragmento de datos con código de borrado faltante. 
+---
+= ECMC: Fragmento de datos con código de borrado faltante
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este mensaje de auditoría indica que el sistema ha detectado un fragmento de datos con código de borrado faltante.
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+VCMC
+ a| 
+Identificación de VCS
+ a| 
+El nombre del VCS que contiene el fragmento faltante.
+
+
+
+ a| 
+MCID
+ a| 
+Identificación del fragmento
+ a| 
+El identificador del fragmento codificado por borrado que falta.
+
+
+
+ a| 
+RSLT
+ a| 
+Resultado
+ a| 
+Este campo tiene el valor 'NINGUNO'.  RSLT es un campo de mensaje obligatorio, pero no es relevante para este mensaje en particular.  Se utiliza 'NONE' en lugar de 'SUCS' para que este mensaje no se filtre.
+
+|===

@@ -1,0 +1,78 @@
+---
+permalink: maintain/considerations-for-decommissioning-storage-nodes.html 
+sidebar: sidebar 
+keywords: storage node decommission, considerations, appliance node clone 
+summary: Antes de desmantelar un nodo de almacenamiento, considere si puede clonar el nodo.  Luego, si decide desmantelar el nodo, revise cómo StorageGRID administra los objetos y metadatos durante el procedimiento de desmantelamiento. 
+---
+= Consideraciones para el desmantelamiento de nodos de almacenamiento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de desmantelar un nodo de almacenamiento, considere si puede clonar el nodo.  Luego, si decide desmantelar el nodo, revise cómo StorageGRID administra los objetos y metadatos durante el procedimiento de desmantelamiento.
+
+
+
+== Cuándo clonar un nodo en lugar de desmantelarlo
+
+Si desea reemplazar un nodo de almacenamiento de un dispositivo antiguo por un dispositivo más nuevo o más grande, considere clonar el nodo del dispositivo en lugar de agregar un nuevo dispositivo en una expansión y luego desmantelar el dispositivo antiguo.
+
+La clonación de nodos de dispositivos le permite reemplazar fácilmente un nodo de dispositivo existente con un dispositivo compatible en el mismo sitio de StorageGRID .  El proceso de clonación transfiere todos los datos al nuevo dispositivo, lo pone en servicio y deja el antiguo en un estado previo a la instalación.
+
+Puede clonar un nodo de dispositivo si necesita:
+
+* Reemplazar un aparato que esté llegando al final de su vida útil.
+* Actualice un nodo existente para aprovechar la tecnología mejorada del dispositivo.
+* Aumente la capacidad de almacenamiento de la red sin cambiar la cantidad de nodos de almacenamiento en su sistema StorageGRID .
+* Mejore la eficiencia del almacenamiento, por ejemplo, cambiando el modo RAID.
+
+
+Ver https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/how-appliance-node-cloning-works.html["Clonación de nodos de dispositivos"^] Para más detalles.
+
+
+
+== Consideraciones para los nodos de almacenamiento conectados
+
+Revise las consideraciones para el desmantelamiento de un nodo de almacenamiento conectado.
+
+* No debe desmantelar más de 10 nodos de almacenamiento en un solo procedimiento de desmantelamiento de nodo.
+* El sistema debe incluir en todo momento suficientes nodos de almacenamiento para satisfacer los requisitos operativos, incluidos loslink:understanding-adc-service-quorum.html["Cuórum de la ADC"] y el activolink:reviewing-ilm-policy-and-storage-configuration.html["Política de ILM"] .  Para satisfacer esta restricción, es posible que necesite agregar un nuevo nodo de almacenamiento en una operación de expansión antes de poder desmantelar un nodo de almacenamiento existente.
++
+Tenga cuidado al desmantelar nodos de almacenamiento en una red que contenga nodos solo de metadatos basados en software.  Si desmantela todos los nodos configurados para almacenar _tanto_ objetos como metadatos, se elimina la capacidad de almacenar objetos de la red.  Verlink:../primer/what-storage-node-is.html#types-of-storage-nodes["Tipos de nodos de almacenamiento"] para obtener más información sobre los nodos de almacenamiento de solo metadatos.
+
+* Cuando se elimina un nodo de almacenamiento, se transfieren grandes volúmenes de datos de objetos a través de la red.  Aunque estas transferencias no deberían afectar las operaciones normales del sistema, pueden afectar la cantidad total de ancho de banda de red consumido por el sistema StorageGRID .
+* Las tareas asociadas con el desmantelamiento del nodo de almacenamiento reciben una prioridad menor que las tareas asociadas con las operaciones normales del sistema.  Esto significa que el desmantelamiento no interfiere con las operaciones normales del sistema StorageGRID y no necesita programarse para un período de inactividad del sistema.  Dado que el desmantelamiento se realiza en segundo plano, es difícil estimar cuánto tiempo tardará en completarse el proceso.  En general, el desmantelamiento finaliza más rápidamente cuando el sistema está en silencio o si solo se elimina un nodo de almacenamiento a la vez.
+* Podrían necesitarse días o semanas para desmantelar un nodo de almacenamiento.  Planifique este procedimiento en consecuencia.  Si bien el proceso de desmantelamiento está diseñado para no afectar las operaciones del sistema, puede limitar otros procedimientos.  En general, debe realizar cualquier actualización o expansión planificada del sistema antes de eliminar los nodos de la red.
+* Si necesita realizar otro procedimiento de mantenimiento mientras se eliminan los nodos de almacenamiento, puedelink:pausing-and-resuming-decommission-process-for-storage-nodes.html["pausar el procedimiento de desmantelamiento"] y reanudarlo después de que se complete el otro procedimiento.
++
+
+NOTE: El botón *Pausa* se habilita solo cuando se alcanzan las etapas de evaluación de ILM o de desmantelamiento de datos codificados por borrado; sin embargo, la evaluación de ILM (migración de datos) continuará ejecutándose en segundo plano.
+
+* No se pueden ejecutar operaciones de reparación de datos en ningún nodo de la red cuando se está ejecutando una tarea de desmantelamiento.
+* No debe realizar ningún cambio en una política ILM mientras se desmantela un nodo de almacenamiento.
+* Para eliminar datos de forma permanente y segura, debe borrar las unidades del nodo de almacenamiento una vez completado el procedimiento de desmantelamiento.
+
+
+
+
+== Consideraciones para nodos de almacenamiento desconectados
+
+Revise las consideraciones para dar de baja un nodo de almacenamiento desconectado.
+
+* Nunca desactive un nodo desconectado a menos que esté seguro de que no se puede volver a poner en línea ni recuperar.
++
+
+CAUTION: No realice este procedimiento si cree que es posible recuperar datos del objeto del nodo.  En su lugar, comuníquese con el soporte técnico para determinar si es posible recuperar el nodo.
+
+* Cuando se desmantela un nodo de almacenamiento desconectado, StorageGRID utiliza datos de otros nodos de almacenamiento para reconstruir los datos de objetos y metadatos que estaban en el nodo desconectado.
+* Podría producirse una pérdida de datos si desconecta más de un nodo de almacenamiento desconectado.  Es posible que el sistema no pueda reconstruir datos si no quedan suficientes copias de objetos, fragmentos codificados por borrado o metadatos de objetos disponibles.  Al desmantelar nodos de almacenamiento en una red con nodos solo de metadatos basados en software, al desmantelar todos los nodos configurados para almacenar objetos y metadatos se elimina todo el almacenamiento de objetos de la red.  Verlink:../primer/what-storage-node-is.html#types-of-storage-nodes["Tipos de nodos de almacenamiento"] para obtener más información sobre los nodos de almacenamiento de solo metadatos.
++
+
+CAUTION: Si tiene más de un nodo de almacenamiento desconectado que no puede recuperar, comuníquese con el soporte técnico para determinar el mejor curso de acción.
+
+* Cuando se desmantela un nodo de almacenamiento desconectado, StorageGRID inicia trabajos de reparación de datos al final del proceso de desmantelamiento.  Estos trabajos intentan reconstruir los datos y metadatos del objeto que se almacenaron en el nodo desconectado.
+* Cuando se desmantela un nodo de almacenamiento desconectado, el procedimiento de desmantelamiento se completa relativamente rápido.  Sin embargo, los trabajos de reparación de datos pueden tardar días o semanas en ejecutarse y no son monitoreados por el procedimiento de desmantelamiento.  Debe supervisar manualmente estos trabajos y reiniciarlos según sea necesario. Ver link:checking-data-repair-jobs.html["Comprobar trabajos de reparación de datos"] .
+* Si desmantela un nodo de almacenamiento desconectado que contiene la única copia de un objeto, dicho objeto se perderá.  Los trabajos de reparación de datos solo pueden reconstruir y recuperar objetos si existe al menos una copia replicada o suficientes fragmentos codificados de borrado en los nodos de almacenamiento que están conectados actualmente.
+

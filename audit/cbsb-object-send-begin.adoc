@@ -1,0 +1,98 @@
+---
+permalink: audit/cbsb-object-send-begin.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, CBSB, Object Send Begin 
+summary: Durante las operaciones normales del sistema, los bloques de contenido se transfieren continuamente entre diferentes nodos a medida que se accede a los datos, se replican y se conservan.  Cuando se inicia la transferencia de un bloque de contenido de un nodo a otro, la entidad de origen emite este mensaje. 
+---
+= CBSB: Inicio de envío de objetos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Durante las operaciones normales del sistema, los bloques de contenido se transfieren continuamente entre diferentes nodos a medida que se accede a los datos, se replican y se conservan.  Cuando se inicia la transferencia de un bloque de contenido de un nodo a otro, la entidad de origen emite este mensaje.
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+CNID
+ a| 
+Identificador de conexión
+ a| 
+El identificador único de la sesión/conexión de nodo a nodo.
+
+
+
+ a| 
+CBD
+ a| 
+Identificador de bloque de contenido
+ a| 
+El identificador único del bloque de contenido que se está transfiriendo.
+
+
+
+ a| 
+CTDR
+ a| 
+Dirección de transferencia
+ a| 
+Indica si la transferencia de CBID se inició mediante inserción o extracción:
+
+PUSH: La operación de transferencia fue solicitada por la entidad remitente.
+
+PULL: La operación de transferencia fue solicitada por la entidad receptora.
+
+
+
+ a| 
+CTSR
+ a| 
+Entidad de origen
+ a| 
+El ID del nodo de la fuente (remitente) de la transferencia CBID.
+
+
+
+ a| 
+CTDS
+ a| 
+Entidad de destino
+ a| 
+El ID del nodo del destino (receptor) de la transferencia CBID.
+
+
+
+ a| 
+CTSS
+ a| 
+Iniciar recuento de secuencias
+ a| 
+Indica el primer recuento de secuencia solicitado.  Si tiene éxito, la transferencia comienza a partir de este recuento de secuencia.
+
+
+
+ a| 
+CTES
+ a| 
+Recuento esperado de secuencia final
+ a| 
+Indica el último recuento de secuencia solicitado.  Si es exitosa, la transferencia se considera completa cuando se haya recibido este recuento de secuencia.
+
+
+
+ a| 
+RSLT
+ a| 
+Estado de inicio de la transferencia
+ a| 
+Estado en el momento en que se inició la transferencia:
+
+SUCS: transferencia iniciada exitosamente.
+
+|===
+Este mensaje de auditoría significa que se inició una operación de transferencia de datos de nodo a nodo en una sola pieza de contenido, según lo identificado por su Identificador de bloque de contenido.  La operación solicita datos desde "Recuento de secuencia inicial" hasta "Recuento de secuencia final esperado".  Los nodos de envío y recepción se identifican mediante sus ID de nodo.  Esta información se puede utilizar para rastrear el flujo de datos del sistema y, cuando se combina con mensajes de auditoría de almacenamiento, para verificar los recuentos de réplicas.

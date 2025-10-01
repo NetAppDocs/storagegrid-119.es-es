@@ -1,0 +1,80 @@
+---
+permalink: maintain/restoring-network-connectivity-for-isolated-nodes.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, network connection, restore network connection, isolated node, restore isolated node connection 
+summary: En determinadas circunstancias, es posible que uno o más grupos de nodos no puedan comunicarse con el resto de la red.  Por ejemplo, los cambios de dirección IP a nivel de sitio o de red pueden generar nodos aislados. 
+---
+= Restaurar la conectividad de red para nodos aislados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+En determinadas circunstancias, es posible que uno o más grupos de nodos no puedan comunicarse con el resto de la red.  Por ejemplo, los cambios de dirección IP a nivel de sitio o de red pueden generar nodos aislados.
+
+.Acerca de esta tarea
+El aislamiento del nodo se indica mediante:
+
+* Alertas, como *No se puede comunicar con el nodo* (*Alertas* > *Actual*)
+* Diagnósticos relacionados con la conectividad (*SOPORTE* > *Herramientas* > *Diagnóstico*)
+
+
+Algunas de las consecuencias de tener nodos aislados incluyen las siguientes:
+
+* Si hay varios nodos aislados, es posible que no pueda iniciar sesión ni acceder al Administrador de red.
+* Si se aíslan varios nodos, los valores de cuota y uso de almacenamiento que se muestran en el panel del Administrador de inquilinos podrían estar desactualizados.  Los totales se actualizarán cuando se restablezca la conectividad de la red.
+
+
+Para resolver el problema de aislamiento, ejecute una utilidad de línea de comandos en cada nodo aislado o en un nodo de un grupo (todos los nodos de una subred que no contiene el nodo de administración principal) que esté aislado de la red.  La utilidad proporciona a los nodos la dirección IP de un nodo no aislado en la red, lo que permite que el nodo o grupo de nodos aislado vuelva a contactar a toda la red.
+
+
+NOTE: Si el sistema de nombres de dominio de multidifusión (mDNS) está deshabilitado en las redes, es posible que deba ejecutar la utilidad de línea de comandos en cada nodo aislado.
+
+.Pasos
+Este procedimiento no aplica cuando solo algunos servicios están fuera de línea o reportan errores de comunicación.
+
+. Acceda al nodo y verifique `/var/local/log/dynip.log` para mensajes de aislamiento.
++
+Por ejemplo:
+
++
+[listing]
+----
+[2018-01-09T19:11:00.545] UpdateQueue - WARNING -- Possible isolation, no contact with other nodes.
+If this warning persists, manual action might be required.
+----
++
+Si está utilizando la consola VMware, contendrá un mensaje que indica que el nodo podría estar aislado.
+
++
+En las implementaciones de Linux, los mensajes de aislamiento aparecerían en `/var/log/storagegrid/node/<nodename>.log` archivos.
+
+. Si los mensajes de aislamiento son recurrentes y persistentes, ejecute el siguiente comando:
++
+`add_node_ip.py <address>`
+
++
+dónde `<address>` es la dirección IP de un nodo remoto que está conectado a la red.
+
++
+[listing]
+----
+# /usr/sbin/add_node_ip.py  10.224.4.210
+
+Retrieving local host information
+Validating remote node at address 10.224.4.210
+Sending node IP hint for 10.224.4.210 to local node
+Local node found on remote node. Update complete.
+----
+. Verifique lo siguiente para cada nodo que haya sido aislado previamente:
++
+** Los servicios del nodo se han iniciado.
+** El estado del servicio de IP dinámica es "En ejecución" después de ejecutar el `storagegrid-status` dominio.
+** En la página Nodos, el nodo ya no aparece desconectado del resto de la cuadrícula.
+
+
+
+
+
+NOTE: Si se ejecuta el `add_node_ip.py` El comando no resuelve el problema, podría haber otros problemas de red que deban resolverse.

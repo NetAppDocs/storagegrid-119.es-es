@@ -1,0 +1,36 @@
+---
+permalink: maintain/starting-server-manager-and-all-services.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, server manager, start server manager, start services, start all services 
+summary: Es posible que necesite iniciar el Administrador de servidor, que también inicia todos los servicios en el nodo de la red. 
+---
+= Iniciar el Administrador del servidor y todos los servicios
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible que necesite iniciar el Administrador de servidor, que también inicia todos los servicios en el nodo de la red.
+
+.Antes de empezar
+Tú tienes el `Passwords.txt` archivo.
+
+.Acerca de esta tarea
+Al iniciar el Administrador de servidor en un nodo de la red donde ya se está ejecutando, se reinicia el Administrador de servidor y todos los servicios en el nodo de la red.
+
+.Pasos
+. Inicie sesión en el nodo de la red:
++
+.. Introduzca el siguiente comando: `ssh admin@_grid_node_IP_`
+.. Introduzca la contraseña que aparece en el `Passwords.txt` archivo.
+.. Introduzca el siguiente comando para cambiar a root: `su -`
+.. Introduzca la contraseña que aparece en el `Passwords.txt` archivo.
+
+
++
+Cuando inicia sesión como root, el mensaje cambia de `$` a `#` .
+
+. Iniciar el Administrador del servidor: `service servermanager start`
+. Cerrar sesión en el shell de comandos: `exit`
+

@@ -1,0 +1,108 @@
+---
+permalink: tenant/viewing-s3-bucket-details.html 
+sidebar: sidebar 
+keywords: how to view bucket details 
+summary: Puede ver los depósitos en su cuenta de inquilino. 
+---
+= Ver detalles del depósito
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede ver los depósitos en su cuenta de inquilino.
+
+.Antes de empezar
+* Ha iniciado sesión en el Administrador de inquilinos mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Perteneces a un grupo de usuarios que tiene lalink:tenant-management-permissions.html["Permiso para acceso root, administrar todos los depósitos o ver todos los depósitos"] .  Estos permisos anulan la configuración de permisos en las políticas de grupo o de depósito.
+
+
+.Pasos
+. Seleccione *Ver depósitos* en el panel de control o seleccione *ALMACENAMIENTO (S3)* > *Depósitos*.
++
+Aparece la página Cubos.
+
+. Revise la tabla de resumen para cada segmento.
++
+Según sea necesario, puede ordenar la información por cualquier columna o puede avanzar o retroceder en la lista.
+
++
+
+NOTE: Los valores de recuento de objetos, espacio utilizado y uso que se muestran son estimaciones. Estas estimaciones se ven afectadas por el momento de la ingesta, la conectividad de la red y el estado del nodo.  Si los depósitos tienen habilitada la gestión de versiones, las versiones de los objetos eliminados se incluyen en el recuento de objetos.
+
++
+Nombre:: El nombre único del depósito, que no se puede cambiar.
+Funciones habilitadas:: La lista de funciones que están habilitadas para el depósito.
+Bloqueo de objetos S3:: Si el bloqueo de objetos S3 está habilitado para el depósito.
++
+--
+Esta columna solo aparece si el bloqueo de objetos S3 está habilitado para la cuadrícula.  Esta columna también muestra información sobre cualquier depósito compatible heredado.
+
+--
+Región:: La región del cubo, que no se puede cambiar.  Esta columna está oculta de forma predeterminada.
+Recuento de objetos:: La cantidad de objetos en este depósito.  Si los depósitos tienen habilitada la gestión de versiones, las versiones de objetos no actuales se incluyen en este valor.
++
+--
+Cuando se agregan o eliminan objetos, es posible que este valor no se actualice inmediatamente.
+
+--
+Espacio utilizado:: El tamaño lógico de todos los objetos en el depósito.  El tamaño lógico no incluye el espacio real requerido para copias replicadas o codificadas por borrado o para metadatos de objetos.
++
+--
+Este valor puede tardar hasta 10 minutos en actualizarse.
+
+--
+Uso:: El porcentaje utilizado del límite de capacidad del depósito, si se ha establecido uno.
++
+--
+El valor de uso se basa en estimaciones internas y podría superarse en algunos casos.  Por ejemplo, StorageGRID verifica el límite de capacidad (si está configurado) cuando un inquilino comienza a cargar objetos y rechaza nuevas ingestas en este depósito si el inquilino ha excedido el límite de capacidad.  Sin embargo, StorageGRID no tiene en cuenta el tamaño de la carga actual al determinar si se ha excedido el límite de capacidad.  Si se eliminan objetos, es posible que se le impida temporalmente a un inquilino cargar nuevos objetos en este depósito hasta que se vuelva a calcular el uso del límite de capacidad.  Los cálculos pueden tardar 10 minutos o más.
+
+Este valor indica el tamaño lógico, no el tamaño físico necesario para almacenar los objetos y sus metadatos.
+
+--
+Capacidad:: Si se establece, el límite de capacidad del depósito.
+Fecha de creación:: La fecha y hora en que se creó el depósito.  Esta columna está oculta de forma predeterminada.
+
+
+. Para ver los detalles de un depósito específico, seleccione el nombre del depósito en la tabla.
++
+.. Vea la información resumida en la parte superior de la página web para confirmar los detalles del depósito, como la región y la cantidad de objetos.
+.. Ver la barra de uso del límite de capacidad.  Si el uso es del 100% o cercano al 100%, considere aumentar el límite o eliminar algunos objetos.
+.. Según sea necesario, seleccione *Eliminar objetos en el depósito* y *Eliminar depósito*.
++
+[CAUTION]
+====
+Preste mucha atención a las precauciones que aparecen al seleccionar cada una de estas opciones. Para obtener más información, consulte:
+
+*** link:deleting-s3-bucket-objects.html["Eliminar todos los objetos en un depósito"]
+*** link:deleting-s3-bucket.html["Eliminar un depósito"](el cubo debe estar vacío)
+
+
+====
+.. Vea o cambie la configuración del depósito en cada una de las pestañas según sea necesario.
++
+*** *Consola S3*: Ver los objetos del depósito. Para obtener más información, consulte link:use-s3-console.html["Usar la consola S3"] .
+*** *Opciones de depósito*: Ver o cambiar la configuración de las opciones.  Algunas configuraciones, como el bloqueo de objetos S3, no se pueden cambiar una vez creado el depósito.
++
+**** link:manage-bucket-consistency.html["Gestionar la consistencia del depósito"]
+**** link:enabling-or-disabling-last-access-time-updates.html["Actualizaciones de la última hora de acceso"]
+**** link:../tenant/creating-s3-bucket.html#capacity-limit["Límite de capacidad"]
+**** link:changing-bucket-versioning.html["Control de versiones de objetos"]
+**** link:using-s3-object-lock.html["Bloqueo de objetos S3"]
+**** link:update-default-retention-settings.html["Retención de depósito predeterminada"]
+**** link:grid-federation-manage-cross-grid-replication.html["Administrar la replicación entre redes"](si está permitido para el inquilino)
+
+
+*** *Servicios de plataforma*:link:considerations-for-platform-services.html["Administrar los servicios de la plataforma"] (si está permitido para el inquilino)
+*** *Acceso al bucket*: Ver o cambiar la configuración de las opciones.  Debe tener permisos de acceso específicos.
++
+**** Configurarlink:configuring-cross-origin-resource-sharing-cors.html["Intercambio de recursos entre orígenes (CORS)"] De esta forma, el depósito y los objetos dentro del depósito serán accesibles para las aplicaciones web en otros dominios.
+**** link:../tenant/manage-bucket-policy.html["Controlar el acceso de los usuarios"]para un bucket S3 y los objetos dentro de ese bucket.
+
+
+
+
+
+
+

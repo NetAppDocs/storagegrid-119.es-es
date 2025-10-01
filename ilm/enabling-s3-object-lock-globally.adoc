@@ -1,0 +1,50 @@
+---
+permalink: ilm/enabling-s3-object-lock-globally.html 
+sidebar: sidebar 
+keywords: enable s3 object lock, object lock 
+summary: Si una cuenta de inquilino S3 necesita cumplir con requisitos reglamentarios al guardar datos de objetos, debe habilitar S3 Object Lock para todo su sistema StorageGRID .  Al habilitar la configuración global de Bloqueo de objetos S3, cualquier usuario inquilino de S3 puede crear y administrar depósitos y objetos con Bloqueo de objetos S3. 
+---
+= Habilitar el bloqueo de objetos S3 globalmente
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si una cuenta de inquilino S3 necesita cumplir con requisitos reglamentarios al guardar datos de objetos, debe habilitar S3 Object Lock para todo su sistema StorageGRID .  Al habilitar la configuración global de Bloqueo de objetos S3, cualquier usuario inquilino de S3 puede crear y administrar depósitos y objetos con Bloqueo de objetos S3.
+
+.Antes de empezar
+* Tú tienes ellink:../admin/admin-group-permissions.html["Permiso de acceso root"] .
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Ha revisado el flujo de trabajo de bloqueo de objetos S3 y comprende las consideraciones.
+* Ha confirmado que la regla predeterminada en la política ILM activa es compatible. Verlink:creating-default-ilm-rule.html["Crear una regla ILM predeterminada"] Para más detalles.
+
+
+.Acerca de esta tarea
+Un administrador de red debe habilitar la configuración global de Bloqueo de objetos S3 para permitir que los usuarios inquilinos creen nuevos depósitos que tengan habilitado el Bloqueo de objetos S3.  Una vez habilitada esta configuración, no se podrá deshabilitar.
+
+Revise la configuración de cumplimiento de los inquilinos existentes después de habilitar la configuración global de Bloqueo de objetos S3.  Cuando habilita esta configuración, las configuraciones de bloqueo de objetos S3 por inquilino dependen de la versión de StorageGRID en el momento en que se creó el inquilino.
+
+
+NOTE: La configuración de Cumplimiento global está obsoleta.  Si habilitó esta configuración utilizando una versión anterior de StorageGRID, la configuración de Bloqueo de objetos S3 se habilita automáticamente.  Puede seguir usando StorageGRID para administrar las configuraciones de los depósitos compatibles existentes; sin embargo, no puede crear depósitos compatibles nuevos.  Para más detalles, consulte https://kb.netapp.com/Advice_and_Troubleshooting/Hybrid_Cloud_Infrastructure/StorageGRID/How_to_manage_legacy_Compliant_buckets_in_StorageGRID_11.5["Base de conocimientos de NetApp : Cómo administrar los buckets compatibles heredados en StorageGRID 11.5"^] .
+
+.Pasos
+. Seleccione *CONFIGURACIÓN* > *Sistema* > *Bloqueo de objetos S3*.
++
+Aparece la página Configuración de bloqueo de objetos S3.
+
+. Seleccione *Habilitar bloqueo de objetos S3*.
+. Seleccione *Aplicar*.
++
+Aparece un cuadro de diálogo de confirmación que le recuerda que no puede deshabilitar S3 Object Lock una vez habilitado.
+
+. Si está seguro de que desea habilitar permanentemente S3 Object Lock para todo el sistema, seleccione *Aceptar*.
++
+Al seleccionar *Aceptar*:
+
++
+** Si la regla predeterminada en la política ILM activa es compatible, el bloqueo de objetos S3 ahora está habilitado para toda la cuadrícula y no se puede deshabilitar.
+** Si la regla predeterminada no se cumple, aparece un error.  Debe crear y activar una nueva política ILM que incluya una regla compatible como regla predeterminada. Seleccione *Aceptar*.  Luego, crea una nueva política, simulénala y actívala. Verlink:creating-ilm-policy.html["Crear una política ILM"] para obtener instrucciones.
+
+
+

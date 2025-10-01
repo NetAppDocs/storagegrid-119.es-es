@@ -1,0 +1,144 @@
+---
+permalink: upgrade/estimating-time-to-complete-upgrade.html 
+sidebar: sidebar 
+keywords: upgrade, time estimate, duration, cassandra upgrade 
+summary: Considere cuándo actualizar, en función de cuánto tiempo podría llevar la actualización.  Tenga en cuenta qué operaciones puede y no puede realizar durante cada etapa de la actualización. 
+---
+= Calcule el tiempo necesario para completar una actualización
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Considere cuándo actualizar, en función de cuánto tiempo podría llevar la actualización.  Tenga en cuenta qué operaciones puede y no puede realizar durante cada etapa de la actualización.
+
+.Acerca de esta tarea
+El tiempo necesario para completar una actualización de StorageGRID depende de una variedad de factores, como la carga del cliente y el rendimiento del hardware.
+
+La tabla resume las principales tareas de actualización y enumera el tiempo aproximado necesario para cada tarea.  Los pasos después de la tabla proporcionan instrucciones que puede utilizar para estimar el tiempo de actualización de su sistema.
+
+[cols="1a,2a,2a,4a"]
+|===
+| Tarea de actualización | Descripción | Tiempo aproximado requerido | Durante esta tarea 
+
+
+ a| 
+Ejecutar comprobaciones previas y actualizar el nodo de administración principal
+ a| 
+Se ejecutan las comprobaciones previas de actualización y se detiene, se actualiza y se reinicia el nodo de administración principal.
+ a| 
+De 30 minutos a 1 hora, siendo los nodos de dispositivos de servicios los que requieren la mayor parte del tiempo.
+
+Esta vez aumentarán los errores de comprobación previa no resueltos.
+ a| 
+No puede acceder al nodo de administración principal.  Es posible que se informen errores de conexión que puedes ignorar.
+
+Ejecutar las comprobaciones previas de actualización antes de iniciar la actualización le permite resolver cualquier error antes de la ventana de mantenimiento de actualización programada.
+
+
+
+ a| 
+Iniciar el servicio de actualización
+ a| 
+Se distribuye el archivo de software y se inicia el servicio de actualización.
+ a| 
+3 minutos por nodo de la red
+ a| 
+
+
+
+ a| 
+Actualizar otros nodos de la red
+ a| 
+El software de todos los demás nodos de la red se actualiza en el orden en el que usted aprueba los nodos.  Cada nodo de su sistema se desactivará uno a la vez.
+ a| 
+De 15 minutos a 1 hora por nodo, y los nodos de dispositivos son los que requieren más tiempo.
+
+*Nota*: Para los nodos del dispositivo, el instalador del dispositivo StorageGRID se actualiza automáticamente a la última versión.
+ a| 
+* No cambie la configuración de la cuadrícula.
+* No cambie la configuración del nivel de auditoría.
+* No actualice la configuración de ILM.
+* No puede realizar otros procedimientos de mantenimiento, como revisiones, desmantelamiento o expansión.
+
+
+*Nota*: Si necesita realizar una recuperación, comuníquese con el soporte técnico.
+
+
+
+ a| 
+Habilitar funciones
+ a| 
+Las nuevas funciones de la nueva versión están habilitadas.
+ a| 
+Menos de 5 minutos
+ a| 
+* No cambie la configuración de la cuadrícula.
+* No cambie la configuración del nivel de auditoría.
+* No actualice la configuración de ILM.
+* No puede realizar otro procedimiento de mantenimiento.
+
+
+
+
+ a| 
+Actualizar la base de datos
+ a| 
+El proceso de actualización verifica cada nodo para verificar que no sea necesario actualizar la base de datos de Cassandra.
+ a| 
+10 segundos por nodo o unos minutos para toda la red
+ a| 
+La actualización de StorageGRID 11.8 a 11.9 no requiere una actualización de la base de datos Cassandra; sin embargo, el servicio Cassandra se detendrá y se reiniciará en cada nodo de almacenamiento.
+
+Para futuras versiones de funciones de StorageGRID , el paso de actualización de la base de datos de Cassandra podría demorar varios días en completarse.
+
+
+
+ a| 
+Pasos finales de la actualización
+ a| 
+Se eliminan los archivos temporales y se completa la actualización a la nueva versión.
+ a| 
+5 minutos
+ a| 
+Cuando se complete la tarea *Pasos finales de actualización*, podrá realizar todos los procedimientos de mantenimiento.
+
+|===
+.Pasos
+. Calcule el tiempo necesario para actualizar todos los nodos de la red.
++
+.. Multiplique la cantidad de nodos en su sistema StorageGRID por 1 hora/nodo.
++
+Como regla general, los nodos de dispositivos tardan más en actualizarse que los nodos basados en software.
+
+.. Agregue 1 hora a este tiempo para tener en cuenta el tiempo necesario para descargar el `.upgrade` archivo, ejecutar validaciones de verificación previa y completar los pasos finales de actualización.
+
+
+. Si tiene nodos Linux, agregue 15 minutos para cada nodo para tener en cuenta el tiempo necesario para descargar e instalar el paquete RPM o DEB.
+. Calcule el tiempo total estimado para la actualización sumando los resultados de los pasos 1 y 2.
+
+
+
+
+== Ejemplo: Tiempo estimado para actualizar a StorageGRID 11.9
+
+Supongamos que su sistema tiene 14 nodos de red, de los cuales 8 son nodos Linux.
+
+. Multiplica 14 por 1 hora/nodo.
+. Agregue 1 hora para tener en cuenta la descarga, la verificación previa y los pasos finales.
++
+El tiempo estimado para actualizar todos los nodos es de 15 horas.
+
+. Multiplique 8 por 15 minutos/nodo para tener en cuenta el tiempo necesario para instalar el paquete RPM o DEB en los nodos Linux.
++
+El tiempo estimado para este paso es de 2 horas.
+
+. Suma los valores juntos.
++
+Debe esperar hasta 17 horas para completar la actualización de su sistema a StorageGRID 11.9.0.
+
+
+
+
+NOTE: Según sea necesario, puede dividir la ventana de mantenimiento en ventanas más pequeñas aprobando subconjuntos de nodos de la red para actualizar en múltiples sesiones.  Por ejemplo, es posible que prefiera actualizar los nodos del sitio A en una sesión y luego actualizar los nodos del sitio B en una sesión posterior.  Si decide realizar la actualización en más de una sesión, tenga en cuenta que no podrá comenzar a usar las nuevas funciones hasta que se hayan actualizado todos los nodos.

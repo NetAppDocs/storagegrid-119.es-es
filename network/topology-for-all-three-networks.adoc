@@ -1,0 +1,25 @@
+---
+permalink: network/topology-for-all-three-networks.html 
+sidebar: sidebar 
+keywords: network topology for storagegrid 
+summary: Puede configurar las tres redes en una topología de red que consta de una red de cuadrícula privada, redes de administración específicas del sitio limitadas y redes de cliente abiertas.  El uso de puntos finales de balanceador de carga y redes de clientes no confiables puede brindar seguridad adicional si es necesario. 
+---
+= Topología para las tres redes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede configurar las tres redes en una topología de red que consta de una red de cuadrícula privada, redes de administración específicas del sitio limitadas y redes de cliente abiertas.  El uso de puntos finales de balanceador de carga y redes de clientes no confiables puede brindar seguridad adicional si es necesario.
+
+En este ejemplo:
+
+* La red Grid se utiliza para el tráfico de red relacionado con las operaciones de gestión de objetos internos.
+* La red de administración se utiliza para el tráfico relacionado con las funciones administrativas.
+* La red de cliente se utiliza para el tráfico relacionado con las solicitudes de cliente S3.
+
+
+*Ejemplo de topología: Red, administración y redes de clientes*
+
+image::../media/grid_admin_client_networks.png[Redes de clientes de administración de cuadrícula]

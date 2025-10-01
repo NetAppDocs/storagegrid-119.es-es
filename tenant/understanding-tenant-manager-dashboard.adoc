@@ -1,0 +1,94 @@
+---
+permalink: tenant/understanding-tenant-manager-dashboard.html 
+sidebar: sidebar 
+keywords: how to understand tenant manager dashboard 
+summary: 'El panel de Tenant Manager proporciona una descripción general de la configuración de una cuenta de inquilino y la cantidad de espacio utilizado por los objetos en los depósitos del inquilino (S3) o contenedores (Swift). Si el inquilino tiene una cuota, el panel muestra cuánto de la cuota se utiliza y cuánto queda. Si hay algún error relacionado con la cuenta del inquilino, los errores se muestran en el panel de control.' 
+---
+= Comprender el panel de control de Tenant Manager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El panel de Tenant Manager proporciona una descripción general de la configuración de una cuenta de inquilino y la cantidad de espacio utilizado por los objetos en los depósitos (S3) o contenedores (Swift) del inquilino. Si el inquilino tiene una cuota, el panel muestra cuánto de la cuota se utiliza y cuánto queda. Si hay algún error relacionado con la cuenta del inquilino, los errores se muestran en el panel de control.
+
+
+NOTE: Los valores de espacio utilizado son estimaciones. Estas estimaciones se ven afectadas por el momento de la ingesta, la conectividad de la red y el estado del nodo.
+
+Una vez cargados los objetos, el panel de control se verá como el siguiente ejemplo:
+
+image::../media/tenant_dashboard_with_buckets.png[Panel de control - Lista de deseos]
+
+
+
+== Información de la cuenta del inquilino
+
+En la parte superior del panel se muestra la cantidad de depósitos o contenedores, grupos y usuarios configurados.  También muestra el número de puntos finales de servicios de la plataforma, si se ha configurado alguno.  Seleccione los enlaces para ver los detalles.
+
+Dependiendo de lalink:tenant-management-permissions.html["permisos de gestión de inquilinos"] Tiene las opciones que ha configurado y el resto del panel muestra varias combinaciones de pautas, uso de almacenamiento, información de objetos y detalles del inquilino.
+
+
+
+== Uso de almacenamiento y cuotas
+
+El panel de uso de almacenamiento contiene la siguiente información:
+
+* La cantidad de datos de objetos para el inquilino.
++
+Este valor indica la cantidad total de datos de objetos cargados y no representa el espacio utilizado para almacenar copias de esos objetos y sus metadatos.
+
+* Si se establece una cuota, la cantidad total de espacio disponible para los datos del objeto y la cantidad y el porcentaje de espacio restante.  La cuota limita la cantidad de datos de objetos que se pueden ingerir.
++
+
+CAUTION: El uso de la cuota se basa en estimaciones internas y podría superarse en algunos casos.  Por ejemplo, StorageGRID verifica la cuota cuando un inquilino comienza a cargar objetos y rechaza nuevas ingestas si el inquilino ha excedido la cuota.  Sin embargo, StorageGRID no tiene en cuenta el tamaño de la carga actual al determinar si se ha excedido la cuota.  Si se eliminan objetos, es posible que a un inquilino se le impida temporalmente cargar nuevos objetos hasta que se vuelva a calcular el uso de la cuota.  Los cálculos de uso de cuota pueden tardar 10 minutos o más.
+
+* Un gráfico de barras que representa los tamaños relativos de los cubos o contenedores más grandes.
++
+Puede colocar el cursor sobre cualquiera de los segmentos del gráfico para ver el espacio total consumido por ese contenedor o depósito.
+
++
+image::../media/tenant_dashboard_storage_usage_segment.png[Segmento de gráfico de barras]
+
+* Para corresponder con el gráfico de barras, una lista de los depósitos o contenedores más grandes, incluida la cantidad total de datos de objetos y la cantidad de objetos para cada depósito o contenedor.
++
+image::../media/tenant_dashboard_buckets.png[Paneles de control de inquilinos]
+
++
+Si el inquilino tiene más de nueve contenedores o cubos, todos los demás contenedores o cubos se combinan en una sola entrada en la parte inferior de la lista.
+
+
+
+
+NOTE: Para cambiar las unidades de los valores de almacenamiento que se muestran en el Administrador de inquilinos, seleccione el menú desplegable de usuario en la parte superior derecha del Administrador de inquilinos y luego seleccione *Preferencias de usuario*.
+
+
+
+== Alertas de uso de cuota
+
+Si se han habilitado las alertas de uso de cuota en el Administrador de red, estas alertas aparecerán en el Administrador de inquilinos cuando la cuota sea baja o se exceda, de la siguiente manera:
+
+* Si se ha utilizado el 90 % o más de la cuota de un inquilino, se activa la alerta *Uso de cuota de inquilino alto*.
++
+Considere pedirle a su administrador de red que aumente la cuota.
+
+* Si excede su cuota, una notificación le indicará que no puede cargar nuevos objetos.
+
+
+
+
+== [[bucket-capacity-usage]]Uso del límite de capacidad
+
+Si ha establecido un límite de capacidad para sus grupos, el panel del Administrador de inquilinos muestra una lista de los grupos principales según el uso del límite de capacidad.
+
+Si no se establece ningún límite para un depósito, su capacidad es ilimitada.  Sin embargo, si su cuenta de inquilino tiene una cuota de almacenamiento total y dicha cuota se alcanza, no podrá ingerir más objetos independientemente del límite de capacidad restante en un depósito.
+
+
+
+== Errores de punto final
+
+Si ha utilizado Grid Manager para configurar uno o más puntos finales para su uso con servicios de plataforma, el panel de Tenant Manager muestra una alerta si se ha producido algún error en los puntos finales en los últimos siete días.
+
+image::../media/tenant_dashboard_endpoint_error.png[Panel de control que muestra el mensaje del punto final]
+
+Para ver detalles sobrelink:troubleshooting-platform-services-endpoint-errors.html["errores de punto final de servicios de plataforma"] , seleccione *Puntos finales* para mostrar la página Puntos finales.

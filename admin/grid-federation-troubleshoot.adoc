@@ -1,0 +1,224 @@
+---
+permalink: admin/grid-federation-troubleshoot.html 
+sidebar: sidebar 
+keywords: troubleshoot, grid federation connection, account clone, cross-grid replication, alerts, errors 
+summary: Es posible que necesite solucionar alertas y errores relacionados con las conexiones de federación de red, la clonación de cuentas y la replicación entre redes. 
+---
+= Solucionar errores de federación de red
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible que necesite solucionar alertas y errores relacionados con las conexiones de federación de red, la clonación de cuentas y la replicación entre redes.
+
+
+
+== [[grid-federation-errors]]Alertas y errores de conexión de la federación de red
+
+Es posible que reciba alertas o experimente errores con sus conexiones de federación de red.
+
+Después de realizar cualquier cambio para resolver un problema de conexión, pruebe la conexión para asegurarse de que el estado de la conexión vuelva a *Conectado*. Para obtener instrucciones, consultelink:grid-federation-manage-connection.html["Administrar conexiones de federación de red"] .
+
+
+
+=== Alerta de fallo de conexión de la federación de red
+
+.Asunto
+Se activó la alerta *Error de conexión de federación de red*.
+
+.Detalles
+Esta alerta indica que la conexión de federación de red entre las redes no está funcionando.
+
+.Acciones recomendadas
+. Revise la configuración en la página Federación de cuadrícula para ambas cuadrículas.  Confirme que todos los valores sean correctos. Ver link:grid-federation-manage-connection.html["Administrar conexiones de federación de red"] .
+. Revise los certificados utilizados para la conexión.  Asegúrese de que no haya alertas de certificados de federación de red vencidos y que los detalles de cada certificado sean válidos.  Consulte las instrucciones para rotar los certificados de conexión enlink:grid-federation-manage-connection.html["Administrar conexiones de federación de red"] .
+. Confirme que todos los nodos de administración y de puerta de enlace en ambas redes estén en línea y disponibles.  Resuelva cualquier alerta que pueda estar afectando a estos nodos y vuelva a intentarlo.
+. Si proporcionó un nombre de dominio completo (FQDN) para la red local o remota, confirme que el servidor DNS esté en línea y disponible.  Verlink:grid-federation-overview.html["¿Qué es la federación de red?"] para requisitos de redes, direcciones IP y DNS.
+
+
+
+
+=== Alerta de vencimiento del certificado de federación de red
+
+.Asunto
+Se activó la alerta *Expiración del certificado de federación de red*.
+
+.Detalles
+Esta alerta indica que uno o más certificados de federación de red están a punto de vencer.
+
+.Acciones recomendadas
+Consulte las instrucciones para rotar los certificados de conexión enlink:grid-federation-manage-connection.html["Administrar conexiones de federación de red"] .
+
+
+
+=== Error al editar una conexión de federación de red
+
+.Asunto
+Al editar una conexión de federación de red, verá el siguiente mensaje de advertencia cuando seleccione *Guardar y probar*: "Error al crear un archivo de configuración candidato en uno o más nodos".
+
+.Detalles
+Cuando edita una conexión de federación de red, StorageGRID intenta guardar un archivo de "configuración candidata" en todos los nodos de administración de la primera red.  Aparece un mensaje de advertencia si este archivo no se puede guardar en todos los nodos de administración, por ejemplo, porque un nodo de administración está desconectado.
+
+.Acciones recomendadas
+. Desde la cuadrícula que está utilizando para editar la conexión, seleccione *NODOS*.
+. Confirme que todos los nodos de administración de esa red estén en línea.
+. Si algún nodo está fuera de línea, vuelva a conectarlo e intente editar la conexión nuevamente.
+
+
+
+
+== Errores de clonación de cuenta
+
+
+
+=== No puedo iniciar sesión en una cuenta de inquilino clonada
+
+.Asunto
+No puedes iniciar sesión en una cuenta de inquilino clonada.  El mensaje de error en la página de inicio de sesión del Administrador de inquilinos es "Sus credenciales para esta cuenta no son válidas".  Por favor, inténtelo de nuevo."
+
+.Detalles
+Por razones de seguridad, cuando se clona una cuenta de inquilino desde la red de origen del inquilino a la red de destino del inquilino, la contraseña establecida para el usuario raíz local del inquilino no se clona.  De manera similar, cuando un inquilino crea usuarios locales en su red de origen, las contraseñas de los usuarios locales no se clonan en la red de destino.
+
+.Acciones recomendadas
+Antes de que el usuario raíz pueda iniciar sesión en la red de destino del inquilino, un administrador de la red debe primerolink:changing-password-for-tenant-local-root-user.html["cambiar la contraseña del usuario root local"] en la cuadrícula de destino.
+
+Antes de que un usuario local clonado pueda iniciar sesión en la red de destino del inquilino, el usuario raíz del inquilino clonado debe agregar una contraseña para el usuario en la red de destino. Para obtener instrucciones, consultelink:../tenant/managing-local-users.html["Administrar usuarios locales"] en las instrucciones para utilizar el Administrador de inquilinos.
+
+
+
+=== Inquilino creado sin un clon
+
+.Asunto
+Verá el mensaje "Inquilino creado sin un clon" después de crear un nuevo inquilino con el permiso *Usar conexión de federación de red*.
+
+.Detalles
+Este problema puede ocurrir si las actualizaciones del estado de la conexión se retrasan, lo que podría provocar que una conexión no saludable aparezca como *Conectada*.
+
+.Acciones recomendadas
+. Revise el motivo que aparece en el mensaje de error y resuelva cualquier problema de red o de otro tipo que pueda impedir que la conexión funcione. Ver <<grid-federation-errors,Alertas y errores de conexión de la federación de red>> .
+. Siga las instrucciones para probar una conexión de federación de red enlink:grid-federation-manage-connection.html["Administrar conexiones de federación de red"] para confirmar que el problema se ha solucionado.
+. Desde la cuadrícula de origen del inquilino, seleccione *INQUILINOS*.
+. Localice la cuenta de inquilino que no se pudo clonar.
+. Seleccione el nombre del inquilino para mostrar la página de detalles.
+. Seleccione *Reintentar clonar cuenta*.
++
+image::../media/grid-federation-retry-account-clone.png[Captura de pantalla que muestra un mensaje de error y el botón Reintentar clonar cuenta]
+
++
+Si se ha resuelto el error, la cuenta del inquilino ahora se clonará a la otra red.
+
+
+
+
+
+== Alertas y errores de replicación entre redes
+
+
+
+=== Último error mostrado para la conexión o el inquilino
+
+.Asunto
+Cuandolink:../monitor/grid-federation-monitor-connections.html["Visualización de una conexión de federación de red"] (o cuandolink:grid-federation-manage-tenants.html["gestión de los inquilinos permitidos"] para una conexión), observa un error en la columna *Último error* en la página de detalles de la conexión. Por ejemplo:
+
+image::../media/grid-federation-last-error.png[Captura de pantalla que muestra un mensaje en la columna Último error de una conexión de federación de red]
+
+.Detalles
+Para cada conexión de federación de red, la columna *Último error* muestra el error más reciente que ocurrió, si lo hubo, cuando los datos de un inquilino se estaban replicando a la otra red. Esta columna solo muestra el último error de replicación entre redes que ocurrió; no se mostrarán los errores anteriores que pudieran haber ocurrido. Un error en esta columna podría ocurrir por una de estas razones:
+
+* No se encontró la versión del objeto de origen.
+* No se encontró el depósito de origen.
+* Se eliminó el depósito de destino.
+* El depósito de destino fue recreado por una cuenta diferente.
+* El bucket de destino tiene la versión suspendida.
+* El depósito de destino fue recreado por la misma cuenta pero ahora no tiene versión.
+
+
+.Acciones recomendadas
+Si aparece un mensaje de error en la columna *Último error*, siga estos pasos:
+
+. Revise el texto del mensaje.
+. Realice cualquier acción recomendada.  Por ejemplo, si se suspendió el control de versiones en el depósito de destino para la replicación entre redes, vuelva a habilitar el control de versiones para ese depósito.
+. Seleccione la conexión o la cuenta de inquilino de la tabla.
+. Seleccione *Borrar error*.
+. Seleccione *Sí* para borrar el mensaje y actualizar el estado del sistema.
+. Espere 5-6 minutos y luego ingiera un nuevo objeto en el balde.  Confirme que el mensaje de error no vuelva a aparecer.
++
+
+NOTE: Para garantizar que se borre el mensaje de error, espere al menos 5 minutos después de la marca de tiempo en el mensaje antes de ingerir un nuevo objeto.
+
++
+
+TIP: Después de eliminar el error, es posible que aparezca un nuevo *Último error* si los objetos se ingieren en un depósito diferente que también tiene un error.
+
+. Para determinar si algún objeto no se pudo replicar debido al error del depósito, consultelink:../admin/grid-federation-retry-failed-replication.html["Identificar y reintentar operaciones de replicación fallidas"] .
+
+
+
+
+=== Alerta de fallo permanente de replicación entre redes
+
+.Asunto
+Se activó la alerta *Error permanente de replicación entre redes*.
+
+.Detalles
+Esta alerta indica que los objetos de inquilino no se pueden replicar entre los depósitos en dos cuadrículas por un motivo que requiere la intervención del usuario para resolverlo.  Esta alerta generalmente es causada por un cambio en el depósito de origen o de destino.
+
+.Acciones recomendadas
+. Sign in en la red donde se activó la alerta.
+. Vaya a *CONFIGURACIÓN* > *Sistema* > *Federación de red* y localice el nombre de la conexión que aparece en la alerta.
+. En la pestaña Inquilinos permitidos, mire la columna *Último error* para determinar qué cuentas de inquilino tienen errores.
+. Para obtener más información sobre la falla, consulte las instrucciones enlink:../monitor/grid-federation-monitor-connections.html["Supervisar las conexiones de la federación de red"] para revisar las métricas de replicación entre redes.
+. Para cada cuenta de inquilino afectada:
++
+.. Vea las instrucciones enlink:../monitor/monitoring-tenant-activity.html["Supervisar la actividad de los inquilinos"] para confirmar que el inquilino no ha excedido su cuota en la red de destino para la replicación entre redes.
+.. Según sea necesario, aumente la cuota del inquilino en la red de destino para permitir que se guarden nuevos objetos.
+
+
+. Para cada inquilino afectado, inicie sesión en Tenant Manager en ambas cuadrículas, para que pueda comparar la lista de grupos.
+. Para cada bucket que tenga habilitada la replicación entre redes, confirme lo siguiente:
++
+** Hay un depósito correspondiente para el mismo inquilino en la otra cuadrícula (debe usar el nombre exacto).
+** Ambos depósitos tienen habilitada la versión de objetos (la versión no se puede suspender en ninguna de las cuadrículas).
+** Ambos depósitos tienen el bloqueo de objetos S3 deshabilitado.
+** Ninguno de los depósitos está en estado *Eliminando objetos: solo lectura*.
+
+
+. Para confirmar que el problema se resolvió, consulte las instrucciones enlink:../monitor/grid-federation-monitor-connections.html["Supervisar las conexiones de la federación de red"] para revisar las métricas de replicación entre redes o realizar estos pasos:
++
+.. Regresar a la página de federación de Grid.
+.. Seleccione el inquilino afectado y seleccione *Borrar error* en la columna *Último error*.
+.. Seleccione *Sí* para borrar el mensaje y actualizar el estado del sistema.
+.. Espere 5-6 minutos y luego ingiera un nuevo objeto en el balde.  Confirme que el mensaje de error no vuelva a aparecer.
++
+
+NOTE: Para garantizar que se borre el mensaje de error, espere al menos 5 minutos después de la marca de tiempo en el mensaje antes de ingerir un nuevo objeto.
+
++
+
+NOTE: La alerta podría tardar hasta un día en desaparecer después de resolverse.
+
+.. Ir alink:grid-federation-retry-failed-replication.html["Identificar y reintentar operaciones de replicación fallidas"] para identificar cualquier objeto o eliminar marcadores que no se pudieron replicar en la otra cuadrícula y volver a intentar la replicación según sea necesario.
+
+
+
+
+
+
+=== Alerta de recurso de replicación entre redes no disponible
+
+.Asunto
+Se activó la alerta *Recurso de replicación entre redes no disponible*.
+
+.Detalles
+Esta alerta indica que hay solicitudes de replicación entre redes pendientes porque un recurso no está disponible.  Por ejemplo, podría haber un error de red.
+
+.Acciones recomendadas
+. Monitoree la alerta para ver si el problema se resuelve por sí solo.
+. Si el problema persiste, determine si alguna de las redes tiene una alerta de *Fallo de conexión de federación de red* para la misma conexión o una alerta de *No se puede comunicar con el nodo* para un nodo.  Esta alerta podría resolverse cuando resuelvas esas alertas.
+. Para obtener más información sobre la falla, consulte las instrucciones enlink:../monitor/grid-federation-monitor-connections.html["Supervisar las conexiones de la federación de red"] para revisar las métricas de replicación entre redes.
+. Si no puede resolver la alerta, comuníquese con el soporte técnico.
+
+
+La replicación entre redes continuará de manera normal luego de que se resuelva el problema.

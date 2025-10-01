@@ -1,0 +1,70 @@
+---
+permalink: monitor/monitoring-object-verification-operations.html 
+sidebar: sidebar 
+keywords: object, verification 
+summary: El sistema StorageGRID puede verificar la integridad de los datos de los objetos en los nodos de almacenamiento, comprobando si hay objetos dañados o faltantes. 
+---
+= Supervisar las operaciones de verificación de objetos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El sistema StorageGRID puede verificar la integridad de los datos de los objetos en los nodos de almacenamiento, comprobando si hay objetos dañados o faltantes.
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tú tienes ellink:../admin/admin-group-permissions.html["Permiso de mantenimiento o acceso root"] .
+
+
+.Acerca de esta tarea
+Doslink:../troubleshoot/verifying-object-integrity.html["procesos de verificación"] Trabajar juntos para garantizar la integridad de los datos:
+
+* La *verificación de antecedentes* se ejecuta automáticamente y verifica continuamente la exactitud de los datos del objeto.
++
+La verificación de antecedentes verifica de forma automática y continua todos los nodos de almacenamiento para determinar si hay copias corruptas de datos de objetos replicados y codificados para borrado.  Si se encuentran problemas, el sistema StorageGRID intenta automáticamente reemplazar los datos de los objetos dañados desde copias almacenadas en otras partes del sistema.  La verificación en segundo plano no se ejecuta en objetos de un grupo de almacenamiento en la nube.
+
++
+
+NOTE: La alerta *Objeto corrupto no identificado detectado* se activa si el sistema detecta un objeto corrupto que no se puede corregir automáticamente.
+
+* Un usuario puede activar la *verificación de existencia de objeto* para verificar más rápidamente la existencia (aunque no la exactitud) de los datos del objeto.
++
+La verificación de existencia de objetos verifica si todas las copias replicadas esperadas de objetos y fragmentos codificados de borrado existen en un nodo de almacenamiento.  La verificación de existencia de objetos proporciona una manera de verificar la integridad de los dispositivos de almacenamiento, especialmente si un problema de hardware reciente pudo haber afectado la integridad de los datos.
+
+
+
+Debe revisar periódicamente los resultados de las verificaciones de antecedentes y las comprobaciones de existencia de objetos.  Investigue inmediatamente cualquier instancia de datos de objetos corruptos o faltantes para determinar la causa raíz.
+
+.Pasos
+. Revise los resultados de las verificaciones de antecedentes:
++
+.. Seleccione *NODOS* > *_Nodo de almacenamiento_* > *Objetos*.
+.. Compruebe los resultados de la verificación:
++
+*** Para comprobar la verificación de datos de objetos replicados, mire los atributos en la sección Verificación.
++
+image::../media/nodes_storage_node_object_verification.png[Nodos > Nodo de almacenamiento > Objeto > Verificación]
+
+*** Para comprobar la verificación del fragmento codificado de borrado, seleccione *_Storage Node_* > *ILM* y observe los atributos en la sección Verificación de codificación de borrado.
++
+image::../media/nodes_storage_node_ilm_ec_verification.png[Nodos > Nodo de almacenamiento > ILM > Verificación EC]
+
++
+Seleccione el signo de interrogaciónimage:../media/icon_nms_question.png["signo de interrogación"] junto al nombre de un atributo para mostrar el texto de ayuda.
+
+
+
+
+
+. Revise los resultados de los trabajos de verificación de existencia de objetos:
++
+.. Seleccione *MANTENIMIENTO* > *Verificación de existencia de objetos* > *Historial de trabajos*.
+.. Escanee la columna Copias de objetos faltantes detectadas. Si alguno de los trabajos generó 100 o más copias de objetos faltantes y se activó la alerta *Objetos perdidos*, comuníquese con el soporte técnico.
++
+image::../media/oec_job_history.png[Historial de trabajos de verificación de existencia de objetos]
+
+
+
+

@@ -1,0 +1,106 @@
+---
+permalink: tenant/tenant-management-permissions.html 
+sidebar: sidebar 
+keywords: tenant management permissions 
+summary: Antes de crear un grupo de inquilinos, considere qué permisos desea asignar a ese grupo.  Los permisos de administración de inquilinos determinan qué tareas pueden realizar los usuarios mediante el Administrador de inquilinos o la API de administración de inquilinos.  Un usuario puede pertenecer a uno o más grupos.  Los permisos son acumulativos si un usuario pertenece a varios grupos. 
+---
+= Permisos de gestión de inquilinos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de crear un grupo de inquilinos, considere qué permisos desea asignar a ese grupo.  Los permisos de administración de inquilinos determinan qué tareas pueden realizar los usuarios mediante el Administrador de inquilinos o la API de administración de inquilinos.  Un usuario puede pertenecer a uno o más grupos.  Los permisos son acumulativos si un usuario pertenece a varios grupos.
+
+Para iniciar sesión en el Administrador de inquilinos o utilizar la API de administración de inquilinos, los usuarios deben pertenecer a un grupo que tenga al menos un permiso.  Todos los usuarios que puedan iniciar sesión podrán realizar las siguientes tareas:
+
+* Ver el panel de control
+* Cambiar su propia contraseña (para usuarios locales)
+
+
+Para todos los permisos, la configuración del modo de acceso del grupo determina si los usuarios pueden cambiar configuraciones y realizar operaciones o si solo pueden ver las configuraciones y funciones relacionadas.
+
+
+NOTE: Si un usuario pertenece a varios grupos y alguno de ellos está configurado como de solo lectura, el usuario tendrá acceso de solo lectura a todas las configuraciones y funciones seleccionadas.
+
+Puede asignar los siguientes permisos a un grupo. Tenga en cuenta que los inquilinos de S3 y los inquilinos de Swift tienen diferentes permisos de grupo.
+
+[cols="1a,3a,3a"]
+|===
+| Permiso | Descripción | Detalles 
+
+
+ a| 
+Acceso root
+ a| 
+Proporciona acceso completo al Administrador de inquilinos y a la API de administración de inquilinos.
+ a| 
+Los usuarios de Swift deben tener permiso de acceso de root para iniciar sesión en la cuenta del inquilino.
+
+
+
+ a| 
+Administrador
+ a| 
+Solo inquilinos rápidos.  Proporciona acceso completo a los contenedores y objetos Swift para esta cuenta de inquilino
+ a| 
+Los usuarios de Swift deben tener permiso de administrador de Swift para realizar cualquier operación con la API REST de Swift.
+
+
+
+ a| 
+Administre sus propias credenciales S3
+ a| 
+Permite a los usuarios crear y eliminar sus propias claves de acceso S3.
+ a| 
+Los usuarios que no tienen este permiso no ven la opción de menú *ALMACENAMIENTO (S3)* > *Mis claves de acceso S3*.
+
+
+
+ a| 
+Ver todos los buckets
+ a| 
+*Inquilinos de S3*: permite a los usuarios ver todos los depósitos y sus configuraciones.
+
+*Inquilinos de Swift*: permite a los usuarios de Swift ver todos los contenedores y configuraciones de contenedores mediante la API de administración de inquilinos.
+ a| 
+Los usuarios que no tienen el permiso Ver todos los depósitos o Administrar todos los depósitos no ven la opción de menú *Cubos*.
+
+Este permiso es reemplazado por el permiso Administrar todos los depósitos. No afecta las políticas de grupo o bucket S3 utilizadas por los clientes S3 o la consola S3.
+
+Solo puede asignar este permiso a grupos Swift desde la API de administración de inquilinos.  No puedes asignar este permiso a grupos Swift mediante el Administrador de inquilinos.
+
+
+
+ a| 
+Administrar todos los depósitos
+ a| 
+*Inquilinos de S3*: permite a los usuarios usar el Administrador de inquilinos y la API de administración de inquilinos para crear y eliminar depósitos S3 y administrar las configuraciones de todos los depósitos S3 en la cuenta del inquilino, independientemente de las políticas de grupo o depósito S3.
+
+*Inquilinos de Swift*: permite a los usuarios de Swift controlar la consistencia de los contenedores de Swift mediante la API de administración de inquilinos.
+ a| 
+Los usuarios que no tienen el permiso Ver todos los depósitos o Administrar todos los depósitos no ven la opción de menú *Cubos*.
+
+Este permiso reemplaza al permiso Ver todos los depósitos. No afecta las políticas de grupo o bucket S3 utilizadas por los clientes S3 o la consola S3.
+
+Solo puede asignar este permiso a grupos Swift desde la API de administración de inquilinos.  No puedes asignar este permiso a grupos Swift mediante el Administrador de inquilinos.
+
+
+
+ a| 
+Administrar puntos finales
+ a| 
+Permite a los usuarios utilizar el Administrador de inquilinos o la API de administración de inquilinos para crear o editar puntos finales de servicio de la plataforma, que se utilizan como destino para los servicios de la plataforma StorageGRID .
+ a| 
+Los usuarios que no tienen este permiso no ven la opción de menú *Puntos finales de servicios de la plataforma*.
+
+
+
+ a| 
+Usar la pestaña Consola S3
+ a| 
+Cuando se combina con el permiso Ver todos los depósitos o Administrar todos los depósitos, permite a los usuarios ver y administrar objetos desde la pestaña de la Consola S3 en la página de detalles de un depósito.
+ a| 
+
+|===

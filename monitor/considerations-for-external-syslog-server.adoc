@@ -1,0 +1,270 @@
+---
+permalink: monitor/considerations-for-external-syslog-server.html 
+sidebar: sidebar 
+keywords: syslog server, external syslog server, sizing, sizing syslog server, audit messages 
+summary: Un servidor syslog externo es un servidor fuera de StorageGRID que puede utilizar para recopilar información de auditoría del sistema en una única ubicación.  El uso de un servidor syslog externo le permite reducir el tráfico de red en sus nodos de administración y administrar la información de auditoría de manera más eficiente. 
+---
+= Consideraciones para el uso de un servidor syslog externo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Un servidor syslog externo es un servidor fuera de StorageGRID que puede utilizar para recopilar información de auditoría del sistema en una única ubicación.  El uso de un servidor syslog externo le permite reducir el tráfico de red en sus nodos de administración y administrar la información de manera más eficiente.  Para StorageGRID, el formato del paquete de mensajes de syslog salientes cumple con RFC 3164.
+
+Los tipos de información de auditoría que puede enviar al servidor syslog externo incluyen:
+
+* Registros de auditoría que contienen los mensajes de auditoría generados durante el funcionamiento normal del sistema
+* Eventos relacionados con la seguridad, como inicios de sesión y escaladas a la raíz
+* Registros de aplicaciones que podrían solicitarse si es necesario abrir un caso de soporte para solucionar un problema que haya encontrado
+
+
+
+
+== Cuándo utilizar un servidor syslog externo
+
+Un servidor syslog externo es especialmente útil si tiene una red grande, utiliza múltiples tipos de aplicaciones S3 o desea conservar todos los datos de auditoría. El envío de información de auditoría a un servidor syslog externo le permite:
+
+* Recopile y administre información de auditoría, como mensajes de auditoría, registros de aplicaciones y eventos de seguridad, de manera más eficiente.
+* Reduzca el tráfico de red en sus nodos de administración porque la información de auditoría se transfiere directamente desde los distintos nodos de almacenamiento al servidor syslog externo, sin tener que pasar por un nodo de administración.
++
+
+CAUTION: Cuando se envían registros a un servidor syslog externo, los registros individuales de más de 8192 bytes se truncan al final del mensaje para cumplir con las limitaciones comunes en las implementaciones de servidores syslog externos.
+
++
+
+NOTE: Para maximizar las opciones de recuperación completa de datos en caso de una falla del servidor syslog externo, se pueden almacenar hasta 20 GB de registros locales de registros de auditoría.(`localaudit.log` ) se mantienen en cada nodo.
+
+
+
+
+
+== Cómo configurar un servidor syslog externo
+
+Para aprender a configurar un servidor syslog externo, consultelink:../monitor/configure-audit-messages.html["Configurar mensajes de auditoría y servidor syslog externo"] .
+
+Si planea configurar el uso del protocolo TLS o RELP/TLS, debe tener los siguientes certificados:
+
+* *Certificados de CA de servidor*: Uno o más certificados de CA confiables para verificar el servidor syslog externo en codificación PEM.  Si se omite, se utilizará el certificado CA de Grid predeterminado.
+* *Certificado de cliente*: El certificado de cliente para la autenticación en el servidor syslog externo en codificación PEM.
+* *Clave privada del cliente*: Clave privada para el certificado del cliente en codificación PEM.
++
+
+NOTE: Si utiliza un certificado de cliente, también debe utilizar una clave privada de cliente.  Si proporciona una clave privada cifrada, también deberá proporcionar la frase de contraseña.  No existe ningún beneficio de seguridad significativo al utilizar una clave privada cifrada porque la clave y la frase de contraseña deben almacenarse; se recomienda utilizar una clave privada no cifrada, si está disponible, para mayor simplicidad.
+
+
+
+
+
+== Cómo estimar el tamaño del servidor syslog externo
+
+Normalmente, su red está dimensionada para lograr un rendimiento requerido, definido en términos de operaciones S3 por segundo o bytes por segundo.  Por ejemplo, es posible que tenga un requisito de que su red gestione 1000 operaciones S3 por segundo, o 2000 MB por segundo, de ingestas y recuperaciones de objetos.  Debe dimensionar su servidor syslog externo de acuerdo con los requisitos de datos de su red.
+
+Esta sección proporciona algunas fórmulas heurísticas que le ayudan a estimar la velocidad y el tamaño promedio de los mensajes de registro de varios tipos que su servidor syslog externo debe ser capaz de manejar, expresados en términos de las características de rendimiento conocidas o deseadas de la red (operaciones S3 por segundo).
+
+
+
+=== Utilice operaciones S3 por segundo en fórmulas de estimación
+
+Si su red fue dimensionada para un rendimiento expresado en bytes por segundo, debe convertir este tamaño en operaciones S3 por segundo para usar las fórmulas de estimación.  Para convertir el rendimiento de la red, primero debe determinar el tamaño promedio de su objeto, lo que puede hacer utilizando la información de los registros de auditoría y las métricas existentes (si las hay), o utilizando su conocimiento de las aplicaciones que usarán StorageGRID.  Por ejemplo, si su cuadrícula fue dimensionada para lograr un rendimiento de 2000 MB/segundo y el tamaño promedio de su objeto es de 2 MB, entonces su cuadrícula fue dimensionada para poder manejar 1000 operaciones S3 por segundo (2000 MB/2 MB).
+
+
+NOTE: Las fórmulas para dimensionar el servidor syslog externo en las siguientes secciones proporcionan estimaciones de casos comunes (en lugar de estimaciones del peor de los casos).  Dependiendo de su configuración y carga de trabajo, es posible que observe una tasa mayor o menor de mensajes de syslog o un volumen de datos de syslog de lo que predicen las fórmulas.  Las fórmulas están pensadas únicamente para servir de guía.
+
+
+
+=== Fórmulas de estimación para registros de auditoría
+
+Si no tiene información sobre su carga de trabajo S3 aparte de la cantidad de operaciones S3 por segundo que se espera que admita su red, puede estimar el volumen de registros de auditoría que su servidor syslog externo necesitará manejar utilizando las siguientes fórmulas, suponiendo que deje los Niveles de auditoría configurados en los valores predeterminados (todas las categorías configuradas en Normal, excepto Almacenamiento, que está configurado en Error):
+
+[listing]
+----
+Audit Log Rate = 2 x S3 Operations Rate
+Audit Log Average Size = 800 bytes
+----
+Por ejemplo, si su red está dimensionada para 1000 operaciones S3 por segundo, su servidor syslog externo debe tener un tamaño que admita 2000 mensajes syslog por segundo y debe poder recibir (y normalmente almacenar) datos de registro de auditoría a una velocidad de 1,6 MB por segundo.
+
+Si conoce más sobre su carga de trabajo, será posible realizar estimaciones más precisas.  Para los registros de auditoría, las variables adicionales más importantes son el porcentaje de operaciones S3 que son PUT (frente a GETS) y el tamaño promedio, en bytes, de los siguientes campos S3 (las abreviaturas de 4 caracteres utilizadas en la tabla son nombres de campos del registro de auditoría):
+
+[cols="1a,1a,1a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+SACC
+ a| 
+Nombre de la cuenta del inquilino de S3 (remitente de la solicitud)
+ a| 
+El nombre de la cuenta de inquilino del usuario que envió la solicitud.  Vacío para solicitudes anónimas.
+
+
+
+ a| 
+SBAC
+ a| 
+Nombre de la cuenta del inquilino de S3 (propietario del depósito)
+ a| 
+El nombre de la cuenta del inquilino del propietario del depósito.  Se utiliza para identificar acceso entre cuentas o anónimo.
+
+
+
+ a| 
+S3BK
+ a| 
+Cubo S3
+ a| 
+El nombre del depósito S3.
+
+
+
+ a| 
+S3KY
+ a| 
+Clave S3
+ a| 
+El nombre de la clave S3, sin incluir el nombre del depósito.  Las operaciones en depósitos no incluyen este campo.
+
+|===
+Utilicemos P para representar el porcentaje de operaciones S3 que son PUT, donde 0 ≤ P ≤ 1 (por lo tanto, para una carga de trabajo PUT del 100 %, P = 1, y para una carga de trabajo GET del 100 %, P = 0).
+
+Utilicemos K para representar el tamaño promedio de la suma de los nombres de cuenta S3, el depósito S3 y la clave S3.  Supongamos que el nombre de la cuenta S3 siempre es my-s3-account (13 bytes), los buckets tienen nombres de longitud fija como /my/application/bucket-12345 (28 bytes) y los objetos tienen claves de longitud fija como 5733a5d7-f069-41ef-8fbd-13247494c69c (36 bytes).  Entonces el valor de K es 90 (13+13+28+36).
+
+Si puede determinar valores para P y K, puede estimar el volumen de registros de auditoría que su servidor syslog externo necesitará manejar utilizando las siguientes fórmulas, bajo el supuesto de que deja los Niveles de auditoría establecidos en los valores predeterminados (todas las categorías establecidas en Normal, excepto Almacenamiento, que está establecido en Error):
+
+[listing]
+----
+Audit Log Rate = ((2 x P) + (1 - P)) x S3 Operations Rate
+Audit Log Average Size = (570 + K) bytes
+----
+Por ejemplo, si su red está dimensionada para 1000 operaciones S3 por segundo, su carga de trabajo es 50% PUT y sus nombres de cuenta S3, nombres de depósito y nombres de objeto tienen un promedio de 90 bytes, su servidor syslog externo debe tener un tamaño que admita 1500 mensajes syslog por segundo y debe poder recibir (y normalmente almacenar) datos de registro de auditoría a una velocidad de aproximadamente 1 MB por segundo.
+
+
+
+=== Fórmulas de estimación para niveles de auditoría no predeterminados
+
+Las fórmulas proporcionadas para los registros de auditoría suponen el uso de configuraciones de nivel de auditoría predeterminadas (todas las categorías configuradas en Normal, excepto Almacenamiento, que está configurada en Error).  No están disponibles fórmulas detalladas para estimar la tasa y el tamaño promedio de los mensajes de auditoría para configuraciones de nivel de auditoría no predeterminado.  Sin embargo, la siguiente tabla se puede utilizar para hacer una estimación aproximada de la tasa; puede utilizar la fórmula de tamaño promedio proporcionada para los registros de auditoría, pero tenga en cuenta que es probable que resulte en una sobreestimación porque los mensajes de auditoría "adicionales" son, en promedio, más pequeños que los mensajes de auditoría predeterminados.
+
+[cols="1a,1a"]
+|===
+| Condición | Fórmula 
+
+
+ a| 
+Replicación: niveles de auditoría configurados en Depuración o Normal
+ a| 
+Tasa de registro de auditoría = 8 x Tasa de operaciones de S3
+
+
+
+ a| 
+Codificación de borrado: niveles de auditoría configurados en Depuración o Normal
+ a| 
+Utilice la misma fórmula que para la configuración predeterminada
+
+|===
+
+
+=== Fórmulas de estimación para eventos de seguridad
+
+Los eventos de seguridad no están correlacionados con las operaciones de S3 y normalmente producen un volumen insignificante de registros y datos.  Por estas razones, no se proporcionan fórmulas de estimación.
+
+
+
+=== Fórmulas de estimación para registros de aplicaciones
+
+Si no tiene información sobre su carga de trabajo S3 excepto la cantidad de operaciones S3 por segundo que se espera que admita su red, puede estimar el volumen de registros de aplicaciones que su servidor syslog externo necesitará manejar utilizando las siguientes fórmulas:
+
+[listing]
+----
+Application Log Rate = 3.3 x S3 Operations Rate
+Application Log Average Size = 350 bytes
+----
+Entonces, por ejemplo, si su red está dimensionada para 1000 operaciones S3 por segundo, su servidor syslog externo debe tener un tamaño que admita 3300 registros de aplicaciones por segundo y pueda recibir (y almacenar) datos de registros de aplicaciones a una velocidad de aproximadamente 1,2 MB por segundo.
+
+Si conoce más sobre su carga de trabajo, será posible realizar estimaciones más precisas.  Para los registros de aplicaciones, las variables adicionales más importantes son la estrategia de protección de datos (replicación vs. codificación de borrado), el porcentaje de operaciones S3 que son PUT (vs. GET/otras) y el tamaño promedio, en bytes, de los siguientes campos S3 (las abreviaturas de 4 caracteres utilizadas en la tabla son nombres de campos del registro de auditoría):
+
+[cols="1a,1a,1a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+SACC
+ a| 
+Nombre de la cuenta del inquilino de S3 (remitente de la solicitud)
+ a| 
+El nombre de la cuenta de inquilino del usuario que envió la solicitud.  Vacío para solicitudes anónimas.
+
+
+
+ a| 
+SBAC
+ a| 
+Nombre de la cuenta del inquilino de S3 (propietario del depósito)
+ a| 
+El nombre de la cuenta del inquilino del propietario del depósito.  Se utiliza para identificar acceso entre cuentas o anónimo.
+
+
+
+ a| 
+S3BK
+ a| 
+Cubo S3
+ a| 
+El nombre del depósito S3.
+
+
+
+ a| 
+S3KY
+ a| 
+Clave S3
+ a| 
+El nombre de la clave S3, sin incluir el nombre del depósito.  Las operaciones en depósitos no incluyen este campo.
+
+|===
+
+
+== Estimaciones de tamaño de ejemplo
+
+En esta sección se explican casos de ejemplo de cómo utilizar las fórmulas de estimación para cuadrículas con los siguientes métodos de protección de datos:
+
+* Replicación
+* Codificación de borrado
+
+
+
+
+=== Si utiliza la replicación para la protección de datos
+
+Sea P el porcentaje de operaciones S3 que son PUT, donde 0 ≤ P ≤ 1 (por lo tanto, para una carga de trabajo PUT del 100 %, P = 1, y para una carga de trabajo GET del 100 %, P = 0).
+
+Sea K el tamaño promedio de la suma de los nombres de cuenta S3, el depósito S3 y la clave S3.  Supongamos que el nombre de la cuenta S3 siempre es my-s3-account (13 bytes), los buckets tienen nombres de longitud fija como /my/application/bucket-12345 (28 bytes) y los objetos tienen claves de longitud fija como 5733a5d7-f069-41ef-8fbd-13247494c69c (36 bytes).  Entonces K tiene un valor de 90 (13+13+28+36).
+
+Si puede determinar valores para P y K, puede estimar el volumen de registros de aplicaciones que su servidor syslog externo deberá poder manejar utilizando las siguientes fórmulas.
+
+[listing]
+----
+Application Log Rate = ((1.1 x P) + (2.5 x (1 - P))) x S3 Operations Rate
+Application Log Average Size = (P x (220 + K)) + ((1 - P) x (240 + (0.2 x K))) Bytes
+----
+Entonces, por ejemplo, si su red tiene un tamaño adecuado para 1000 operaciones S3 por segundo, su carga de trabajo es 50 % PUT y sus nombres de cuenta S3, nombres de depósito y nombres de objeto tienen un promedio de 90 bytes, su servidor syslog externo debe tener un tamaño adecuado para admitir 1800 registros de aplicaciones por segundo y recibirá (y generalmente almacenará) datos de aplicaciones a una velocidad de 0,5 MB por segundo.
+
+
+
+=== Si utiliza codificación de borrado para la protección de datos
+
+Sea P el porcentaje de operaciones S3 que son PUT, donde 0 ≤ P ≤ 1 (por lo tanto, para una carga de trabajo PUT del 100 %, P = 1, y para una carga de trabajo GET del 100 %, P = 0).
+
+Sea K el tamaño promedio de la suma de los nombres de cuenta S3, el depósito S3 y la clave S3.  Supongamos que el nombre de la cuenta S3 siempre es my-s3-account (13 bytes), los buckets tienen nombres de longitud fija como /my/application/bucket-12345 (28 bytes) y los objetos tienen claves de longitud fija como 5733a5d7-f069-41ef-8fbd-13247494c69c (36 bytes).  Entonces K tiene un valor de 90 (13+13+28+36).
+
+Si puede determinar valores para P y K, puede estimar el volumen de registros de aplicaciones que su servidor syslog externo deberá poder manejar utilizando las siguientes fórmulas.
+
+[listing]
+----
+Application Log Rate = ((3.2 x P) + (1.3 x (1 - P))) x S3 Operations Rate
+Application Log Average Size = (P x (240 + (0.4 x K))) + ((1 - P) x (185 + (0.9 x K))) Bytes
+----
+Entonces, por ejemplo, si su red tiene un tamaño adecuado para 1000 operaciones S3 por segundo, su carga de trabajo es 50 % PUT y los nombres de sus cuentas S3, nombres de bucket y nombres de objeto tienen un promedio de 90 bytes, su servidor syslog externo debe tener un tamaño adecuado para admitir 2250 registros de aplicaciones por segundo y debe poder recibir (y normalmente almacenar) datos de aplicaciones a una velocidad de 0,6 MB por segundo.

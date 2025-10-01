@@ -1,0 +1,161 @@
+---
+permalink: audit/idel-ilm-initiated-delete.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, IDEL, ILM Initiated Delete 
+summary: Este mensaje se genera cuando ILM inicia el proceso de eliminación de un objeto. 
+---
+= IDEL: Eliminación iniciada por ILM
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este mensaje se genera cuando ILM inicia el proceso de eliminación de un objeto.
+
+El mensaje IDEL se genera en cualquiera de estas situaciones:
+
+* *Para objetos en depósitos S3 compatibles*: este mensaje se genera cuando ILM inicia el proceso de eliminación automática de un objeto porque su período de retención ha expirado (suponiendo que la configuración de eliminación automática está habilitada y la retención legal está desactivada).
+* *Para objetos en depósitos S3 no compatibles*.  Este mensaje se genera cuando ILM inicia el proceso de eliminación de un objeto porque no hay instrucciones de ubicación en las políticas ILM activas que se apliquen actualmente al objeto.
+
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+CBD
+ a| 
+Identificador de bloque de contenido
+ a| 
+El CBID del objeto.
+
+
+
+ a| 
+CMPA
+ a| 
+Cumplimiento: Eliminación automática
+ a| 
+Solo para objetos en depósitos S3 compatibles.  0 (falso) o 1 (verdadero), indica si un objeto compatible debe eliminarse automáticamente cuando finaliza su período de retención, a menos que el depósito esté bajo una retención legal.
+
+
+
+ a| 
+CMPL
+ a| 
+Cumplimiento: Retención legal
+ a| 
+Solo para objetos en depósitos S3 compatibles.  0 (falso) o 1 (verdadero), indica si el depósito se encuentra actualmente bajo retención legal.
+
+
+
+ a| 
+CMPR
+ a| 
+Cumplimiento: Periodo de conservación
+ a| 
+Solo para objetos en depósitos S3 compatibles.  La duración del período de retención del objeto en minutos.
+
+
+
+ a| 
+CTME
+ a| 
+Cumplimiento: Tiempo de ingesta
+ a| 
+Solo para objetos en depósitos S3 compatibles.  El tiempo de ingesta del objeto.  Puede agregar el período de retención en minutos a este valor para determinar cuándo se puede eliminar el objeto del depósito.
+
+
+
+ a| 
+DMRK
+ a| 
+Eliminar ID de versión del marcador
+ a| 
+El ID de la versión del marcador de eliminación creado al eliminar un objeto de un depósito versionado.  Las operaciones en depósitos no incluyen este campo.
+
+
+
+ a| 
+CSIZ
+ a| 
+Tamaño del contenido
+ a| 
+El tamaño del objeto en bytes.
+
+
+
+ a| 
+LOCS
+ a| 
+Ubicaciones
+ a| 
+La ubicación de almacenamiento de los datos de objetos dentro del sistema StorageGRID .  El valor de LOCS es "" si el objeto no tiene ubicaciones (por ejemplo, ha sido eliminado).
+
+CLEC: para objetos con código de borrado, el ID del perfil de codificación de borrado y el ID del grupo de codificación de borrado que se aplica a los datos del objeto.
+
+CLDI: para objetos replicados, el ID del nodo LDR y el ID del volumen de la ubicación del objeto.
+
+CLNL: ID del nodo ARC de la ubicación del objeto si los datos del objeto están archivados.
+
+
+
+ a| 
+CAMINO
+ a| 
+Cubo/clave S3
+ a| 
+El nombre del depósito S3 y el nombre de la clave S3.
+
+
+
+ a| 
+RSLT
+ a| 
+Resultado
+ a| 
+El resultado de la operación ILM.
+
+SUCS: La operación ILM fue exitosa.
+
+
+
+ a| 
+REGLA
+ a| 
+Etiqueta de reglas
+ a| 
+* Si un objeto en un bucket S3 compatible se elimina automáticamente porque su período de retención ha expirado, este campo estará en blanco.
+* Si se elimina el objeto porque no hay más instrucciones de ubicación que se apliquen actualmente al objeto, este campo muestra la etiqueta legible por humanos de la última regla ILM que se aplicó al objeto.
+
+
+
+
+ a| 
+SGRP
+ a| 
+Sitio (Grupo)
+ a| 
+Si está presente, el objeto se eliminó en el sitio especificado, que no es el sitio donde se ingirió el objeto.
+
+
+
+ a| 
+UUID
+ a| 
+Identificador único universal
+ a| 
+El identificador del objeto dentro del sistema StorageGRID .
+
+
+
+ a| 
+VSID
+ a| 
+ID de versión
+ a| 
+El ID de la versión de la versión específica de un objeto que se eliminó.  Las operaciones en depósitos y objetos en depósitos no versionados no incluyen este campo.
+
+|===

@@ -1,0 +1,62 @@
+---
+permalink: maintain/grid-node-decommissioning.html 
+sidebar: sidebar 
+keywords: storagegrid, decommission, remove grid node 
+summary: Puede utilizar el procedimiento de desmantelamiento de nodos para eliminar uno o más nodos de la red en uno o más sitios.  No es posible desmantelar el nodo de administración principal. 
+---
+= Desmantelamiento de nodos de red
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede utilizar el procedimiento de desmantelamiento de nodos para eliminar uno o más nodos de la red en uno o más sitios.  No puedes desmantelar el nodo de administración principal.
+
+
+
+== Cuándo desmantelar un nodo
+
+Utilice el procedimiento de desmantelamiento de nodo cuando se cumpla alguna de las siguientes condiciones:
+
+* Agregó un nodo de almacenamiento más grande en una expansión y desea eliminar uno o más nodos de almacenamiento más pequeños, al mismo tiempo que conserva los objetos.
++
+
+TIP: Si desea reemplazar un electrodoméstico antiguo por uno más nuevo, considere https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/how-appliance-node-cloning-works.html["clonar el nodo del dispositivo"^] en lugar de agregar un nuevo electrodoméstico en una expansión y luego desmantelar el electrodoméstico antiguo.
+
+* Necesita menos almacenamiento total.
+* Ya no necesitas un nodo de enlace.
+* Ya no necesitas un nodo de administración no principal.
+* Su red incluye un nodo desconectado que no puede recuperar ni volver a poner en funcionamiento.
+* Su cuadrícula incluye un nodo de archivo.
+
+
+
+
+== Cómo desmantelar un nodo
+
+Puede desmantelar nodos de red conectados o desconectados.
+
+Desmantelar nodos conectados:: En general, debe desmantelar los nodos de la red solo cuando estén conectados al sistema StorageGRID y solo cuando todos los nodos tengan un estado normal (tengan íconos verdes en las páginas *NODOS* y en la página *Desmantelar nodos*).
++
+--
+Para obtener instrucciones, consultelink:decommissioning-connected-grid-nodes.html["Desmantelar nodos de red conectados"] .
+
+--
+Desmantelar nodos desconectados:: En algunos casos, es posible que necesites desmantelar un nodo de la red que no esté conectado actualmente a la red (uno cuyo estado de salud sea desconocido o esté administrativamente inactivo).
++
+--
+Para obtener instrucciones, consultelink:decommissioning-disconnected-grid-nodes.html["Desmantelar nodos de red desconectados"] .
+
+--
+
+
+
+
+== Qué tener en cuenta antes de desmantelar un nodo
+
+Antes de realizar cualquiera de los procedimientos, revise las consideraciones para cada tipo de nodo:
+
+* link:considerations-for-decommissioning-admin-or-gateway-nodes.html["Consideraciones para el desmantelamiento del nodo de administración o de puerta de enlace"]
+* link:considerations-for-decommissioning-storage-nodes.html["Consideraciones para el desmantelamiento del nodo de almacenamiento"]
+

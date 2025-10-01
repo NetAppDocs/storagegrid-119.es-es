@@ -1,0 +1,101 @@
+---
+permalink: admin/kms-considerations-and-requirements.html 
+sidebar: sidebar 
+keywords: Key Management Interoperability Protocol, kmip version, kms requirements, use key management server 
+summary: 'Antes de configurar un servidor de administración de claves externo (KMS), debe comprender las consideraciones y los requisitos.' 
+---
+= Consideraciones y requisitos para utilizar un servidor de administración de claves
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de configurar un servidor de administración de claves externo (KMS), debe comprender las consideraciones y los requisitos.
+
+
+
+== ¿Qué versión de KMIP es compatible?
+
+StorageGRID es compatible con KMIP versión 1.4.
+
+http://docs.oasis-open.org/kmip/spec/v1.4/os/kmip-spec-v1.4-os.html["Especificación del protocolo de interoperabilidad de gestión de claves versión 1.4"^]
+
+
+
+== ¿Cuáles son las consideraciones de la red?
+
+La configuración del firewall de red debe permitir que cada nodo del dispositivo se comunique a través del puerto utilizado para las comunicaciones del Protocolo de interoperabilidad de administración de claves (KMIP).  El puerto KMIP predeterminado es 5696.
+
+Debe asegurarse de que cada nodo del dispositivo que utiliza cifrado de nodo tenga acceso a la red del KMS o del clúster KMS que configuró para el sitio.
+
+
+
+== ¿Qué versiones de TLS son compatibles?
+
+Las comunicaciones entre los nodos del dispositivo y el KMS configurado utilizan conexiones TLS seguras.  StorageGRID puede admitir el protocolo TLS 1.2 o TLS 1.3 cuando realiza conexiones KMIP a un KMS o un clúster KMS, según lo que admita el KMS y quélink:manage-tls-ssh-policy.html["Política de TLS y SSH"] estás usando
+
+StorageGRID negocia el protocolo y el cifrado (TLS 1.2) o el conjunto de cifrados (TLS 1.3) con el KMS cuando realiza la conexión. Para ver qué versiones de protocolo y cifrados/conjuntos de cifrados están disponibles, revise la `tlsOutbound` sección de la política TLS y SSH activa de la red (*CONFIGURACIÓN* > *Seguridad* *Configuración de seguridad*).
+
+
+
+== ¿Qué dispositivos son compatibles?
+
+Puede utilizar un servidor de administración de claves (KMS) para administrar las claves de cifrado para cualquier dispositivo StorageGRID en su red que tenga habilitada la configuración *Cifrado de nodo*.  Esta configuración solo se puede habilitar durante la etapa de configuración de hardware de la instalación del dispositivo mediante el instalador de dispositivos StorageGRID .
+
+
+NOTE: No se puede habilitar el cifrado de nodos después de agregar un dispositivo a la red, y no se puede usar la administración de claves externa para dispositivos que no tengan habilitado el cifrado de nodos.
+
+Puede utilizar el KMS configurado para dispositivos StorageGRID y nodos de dispositivos.
+
+No se puede utilizar el KMS configurado para nodos basados en software (que no sean dispositivos), incluidos los siguientes:
+
+* Nodos implementados como máquinas virtuales (VM)
+* Nodos implementados dentro de motores de contenedores en hosts Linux
+
+
+Los nodos implementados en estas otras plataformas pueden usar cifrado fuera de StorageGRID en el nivel de disco o de almacén de datos.
+
+
+
+== ¿Cuándo debo configurar los servidores de administración de claves?
+
+Para una nueva instalación, normalmente debe configurar uno o más servidores de administración de claves en Grid Manager antes de crear inquilinos.  Esta orden garantiza que los nodos estén protegidos antes de que se almacenen datos de objetos en ellos.
+
+Puede configurar los servidores de administración de claves en Grid Manager antes o después de instalar los nodos del dispositivo.
+
+
+
+== ¿Cuántos servidores de gestión de claves necesito?
+
+Puede configurar uno o más servidores de administración de claves externos para proporcionar claves de cifrado a los nodos del dispositivo en su sistema StorageGRID .  Cada KMS proporciona una única clave de cifrado a los nodos del dispositivo StorageGRID en un solo sitio o en un grupo de sitios.
+
+StorageGRID admite el uso de clústeres KMS.  Cada clúster KMS contiene varios servidores de administración de claves replicados que comparten configuraciones y claves de cifrado.  Se recomienda el uso de clústeres KMS para la administración de claves porque mejora las capacidades de conmutación por error de una configuración de alta disponibilidad.
+
+Por ejemplo, supongamos que su sistema StorageGRID tiene tres sitios de centros de datos.  Puede configurar un clúster KMS para proporcionar una clave a todos los nodos del dispositivo en el centro de datos 1 y un segundo clúster KMS para proporcionar una clave a todos los nodos del dispositivo en todos los demás sitios.  Cuando agrega el segundo clúster KMS, puede configurar un KMS predeterminado para el Centro de datos 2 y el Centro de datos 3.
+
+Tenga en cuenta que no puede usar un KMS para nodos que no sean dispositivos o para ningún nodo de dispositivo que no tuviera habilitada la configuración *Cifrado de nodo* durante la instalación.
+
+image::../media/kms_per_site.png[KMS por sitio]
+
+
+
+== ¿Qué sucede cuando se gira una llave?
+
+Como práctica recomendada de seguridad, debe realizar periódicamentelink:kms-managing.html#rotate-key["rotar la clave de cifrado"] utilizado por cada KMS configurado.
+
+Cuando la nueva versión de la clave esté disponible:
+
+* Se distribuye automáticamente a los nodos del dispositivo cifrado en el sitio o sitios asociados con el KMS.  La distribución debe ocurrir dentro de una hora después de que se gira la clave.
+* Si el nodo del dispositivo cifrado está fuera de línea cuando se distribuye la nueva versión de la clave, el nodo recibirá la nueva clave tan pronto como se reinicie.
+* Si por algún motivo no se puede usar la nueva versión de la clave para cifrar los volúmenes del dispositivo, se activa la alerta *Error en la rotación de la clave de cifrado KMS* para el nodo del dispositivo.  Es posible que necesite ponerse en contacto con el soporte técnico para obtener ayuda para resolver esta alerta.
+
+
+
+
+== ¿Puedo reutilizar un nodo de dispositivo después de haberlo cifrado?
+
+Si necesita instalar un dispositivo cifrado en otro sistema StorageGRID , primero debe desmantelar el nodo de la red para mover los datos del objeto a otro nodo.  Luego, puede utilizar el instalador del dispositivo StorageGRID para https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/monitoring-node-encryption-in-maintenance-mode.html["borrar la configuración de KMS"^] .  Al borrar la configuración de KMS se deshabilita la configuración de *Cifrado de nodo* y se elimina la asociación entre el nodo del dispositivo y la configuración de KMS para el sitio StorageGRID .
+
+
+NOTE: Sin acceso a la clave de cifrado KMS, ya no se puede acceder a los datos que permanecen en el dispositivo y quedan bloqueados de forma permanente.

@@ -1,0 +1,51 @@
+---
+permalink: maintain/replacing-non-primary-admin-node.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, replace non-primary admin node, replacing non-primary admin node, non-primary admin node 
+summary: Para recuperar un nodo de administración no principal, primero debe reemplazar el hardware físico o virtual. 
+---
+= Reemplazar el nodo de administración no principal
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para recuperar un nodo de administración no principal, primero debe reemplazar el hardware físico o virtual.
+
+Puede reemplazar un nodo de administración no principal fallido con un nodo de administración no principal que se ejecute en la misma plataforma, o puede reemplazar un nodo de administración no principal que se ejecute en VMware o un host Linux con un nodo de administración no principal alojado en un dispositivo de servicios.
+
+Utilice el procedimiento que coincida con la plataforma de reemplazo que seleccione para el nodo.  Después de completar el procedimiento de reemplazo de nodo (que es adecuado para todos los tipos de nodos), ese procedimiento lo dirigirá al siguiente paso para la recuperación del nodo de administración no principal.
+
+[cols="1a,2a"]
+|===
+| Plataforma de reemplazo | Procedimiento 
+
+
+ a| 
+VMware
+ a| 
+link:all-node-types-replacing-vmware-node.html["Reemplazar un nodo de VMware"]
+
+
+
+ a| 
+Linux
+ a| 
+link:all-node-types-replacing-linux-node.html["Reemplazar un nodo Linux"]
+
+
+
+ a| 
+Servicios de electrodomésticos
+ a| 
+link:replacing-failed-node-with-services-appliance.html["Reemplazar un dispositivo de servicios"]
+
+
+
+ a| 
+OpenStack
+ a| 
+Los archivos de disco de máquina virtual y los scripts proporcionados por NetApp para OpenStack ya no son compatibles con las operaciones de recuperación.  Si necesita recuperar un nodo que se ejecuta en una implementación de OpenStack, descargue los archivos para su sistema operativo Linux.  A continuación, siga el procedimiento paralink:all-node-types-replacing-linux-node.html["Reemplazar un nodo Linux"] .
+
+|===

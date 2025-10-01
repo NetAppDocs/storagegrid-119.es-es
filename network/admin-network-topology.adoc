@@ -1,0 +1,24 @@
+---
+permalink: network/admin-network-topology.html 
+sidebar: sidebar 
+keywords: admin network topology, using admin network 
+summary: Tener una red de administración es opcional.  Una forma de utilizar una red de administración y una red de cuadrícula es configurar una red de cuadrícula enrutable y una red de administración limitada para cada nodo. 
+---
+= Topología de la red de administración
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Tener una red de administración es opcional.  Una forma de utilizar una red de administración y una red de cuadrícula es configurar una red de cuadrícula enrutable y una red de administración limitada para cada nodo.
+
+Cuando configura la red de administración, establece la dirección IP del host, la máscara de subred y la dirección IP de puerta de enlace para la interfaz eth1 para cada nodo de la red.
+
+La red de administración puede ser única para cada nodo y puede constar de varias subredes.  Cada nodo se puede configurar con una Lista de subredes externas de administrador (AESL).  La AESL enumera las subredes accesibles a través de la red de administración para cada nodo.  El AESL también debe incluir las subredes de cualquier servicio al que la red accederá a través de la red de administración, como NTP, DNS, KMS y LDAP.  Se aplican rutas estáticas para cada subred en el AESL.
+
+En este ejemplo, la red de cuadrícula se utiliza para el tráfico relacionado con las solicitudes de clientes S3 y la gestión de objetos, mientras que la red de administración se utiliza para funciones administrativas.
+
+image::../media/grid_admin_networks.png[Redes de administración de cuadrícula]
+
+image::../media/grid_admin_networks_ips.png[IP de redes de administración de cuadrícula]

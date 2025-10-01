@@ -1,0 +1,35 @@
+---
+permalink: maintain/replacing-failed-node-with-services-appliance.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, replace failed node, services appliance 
+summary: Puede usar un dispositivo de servicios para recuperar un nodo de puerta de enlace fallido, un nodo de administración no principal fallido o un nodo de administración principal fallido que estaba alojado en VMware, un host Linux o un dispositivo de servicios.  Este procedimiento es un paso del procedimiento de recuperación del nodo de la red. 
+---
+= Reemplazar el nodo fallido con un dispositivo de servicios
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede usar un dispositivo de servicios para recuperar un nodo de puerta de enlace fallido, un nodo de administración no principal fallido o un nodo de administración principal fallido que estaba alojado en VMware, un host Linux o un dispositivo de servicios.  Este procedimiento es un paso del procedimiento de recuperación del nodo de la red.
+
+.Antes de empezar
+* Ha determinado que una de las siguientes situaciones es verdadera:
++
+** No se puede restaurar la máquina virtual que aloja el nodo.
+** El host Linux físico o virtual del nodo de la red ha fallado y debe reemplazarse.
+** Se debe reemplazar el dispositivo de servicios que aloja el nodo de la red.
+
+
+* Ha confirmado que la versión del instalador del dispositivo StorageGRID en el dispositivo de servicios coincide con la versión del software de su sistema StorageGRID . Ver https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/verifying-and-upgrading-storagegrid-appliance-installer-version.html["Verificar y actualizar la versión del instalador del dispositivo StorageGRID"^] .
+
+
+
+NOTE: No implemente un dispositivo de servicios SG110 y uno SG1100, ni un dispositivo de servicios SG100 y uno SG1000 en el mismo sitio.  Podría producirse un rendimiento impredecible.
+
+.Acerca de esta tarea
+Puede utilizar un dispositivo de servicios para recuperar un nodo de red fallido en los siguientes casos:
+
+* El nodo fallido estaba alojado en VMware o Linux (link:installing-services-appliance-platform-change-only.html["cambio de plataforma"] )
+* El nodo fallido estaba alojado en un dispositivo de servicios (link:preparing-appliance-for-reinstallation-platform-replacement-only.html["reemplazo de plataforma"] )
+

@@ -1,0 +1,246 @@
+---
+permalink: maintain/step-6-monitor-decommission.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, monitor decommission, decommission 
+summary: 'Desde el paso 6 (Monitorear Desmantelamiento) del asistente de página de Desmantelamiento del Sitio, puede monitorear el progreso a medida que se elimina el sitio.' 
+---
+= Paso 6: Supervisar el desmantelamiento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Desde el Paso 6 (Monitorear Desmantelamiento) del asistente de página de Desmantelamiento del Sitio, puede monitorear el progreso a medida que se elimina el sitio.
+
+.Acerca de esta tarea
+Cuando StorageGRID elimina un sitio conectado, elimina los nodos en este orden:
+
+. Nodos de puerta de enlace
+. Nodos de administración
+. Nodos de almacenamiento
+
+
+Cuando StorageGRID elimina un sitio desconectado, elimina los nodos en este orden:
+
+. Nodos de puerta de enlace
+. Nodos de almacenamiento
+. Nodos de administración
+
+
+Es posible que cada nodo de puerta de enlace o nodo de administración solo requiera unos minutos o una hora para eliminarse; sin embargo, los nodos de almacenamiento pueden demorar días o semanas.
+
+.Pasos
+. Tan pronto como se haya generado un nuevo paquete de recuperación, descargue el archivo.
++
+image::../media/decommission_site_step_6_recovery_package.png[Paquete de recuperación del paso 6 del desmantelamiento del sitio]
+
++
+
+NOTE: Descargue el paquete de recuperación lo antes posible para asegurarse de poder recuperar su red si algo sale mal durante el procedimiento de desmantelamiento.
+
++
+.. Seleccione el enlace en el mensaje o seleccione *MANTENIMIENTO* > *Sistema* > *Paquete de recuperación*.
+.. Descargar el `.zip` archivo.
++
+Vea las instrucciones paralink:downloading-recovery-package.html["descargando el paquete de recuperación"] .
+
+
+
++
+
+NOTE: El archivo del paquete de recuperación debe estar protegido porque contiene claves de cifrado y contraseñas que se pueden utilizar para obtener datos del sistema StorageGRID .
+
+. Utilizando el gráfico de movimiento de datos, monitoree el movimiento de datos de objetos desde este sitio a otros sitios.
++
+El movimiento de datos comenzó cuando activó la nueva política ILM en el Paso 3 (Revisar la política ILM).  El movimiento de datos se producirá durante todo el procedimiento de desmantelamiento.
+
++
+image::../media/decommission_site_step_6_data_movement.png[Movimiento de datos del paso 6 del sitio de desmantelamiento]
+
+. En la sección Progreso del nodo de la página, supervise el progreso del procedimiento de desmantelamiento a medida que se eliminan los nodos.
++
+Cuando se elimina un nodo de almacenamiento, cada nodo pasa por una serie de etapas.  Aunque la mayoría de estas etapas ocurren rápidamente o incluso de manera imperceptible, es posible que tengas que esperar días o incluso semanas para que se completen otras etapas, según la cantidad de datos que deban trasladarse.  Se requiere tiempo adicional para gestionar los datos codificados por borrado y reevaluar ILM.
+
++
+image::../media/decommission_site_step_6_storage_node.png[Nodo de almacenamiento del paso 6 del sitio de desmantelamiento]
+
++
+Si está supervisando el progreso de la desactivación de un sitio conectado, consulte esta tabla para comprender las etapas de desactivación de un nodo de almacenamiento:
+
++
+[cols="1a,2a"]
+|===
+| Escenario | Duración estimada 
+
+
+ a| 
+Pending
+ a| 
+Minuto o menos
+
+
+
+ a| 
+Esperar a que se bloqueen
+ a| 
+Minutos
+
+
+
+ a| 
+Preparar tarea
+ a| 
+Minuto o menos
+
+
+
+ a| 
+Marcando LDR Desmantelado
+ a| 
+Minutos
+
+
+
+ a| 
+Desmantelamiento de datos replicados y codificados por borrado
+ a| 
+Horas, días o semanas según la cantidad de datos
+
+*Nota*: Si necesita realizar otras actividades de mantenimiento, puede pausar el desmantelamiento del sitio durante esta etapa.
+
+
+
+ a| 
+Estado del conjunto LDR
+ a| 
+Minutos
+
+
+
+ a| 
+Vaciar colas de auditoría
+ a| 
+Minutos a horas, según la cantidad de mensajes y la latencia de la red.
+
+
+
+ a| 
+Completo
+ a| 
+Minutos
+
+|===
++
+Si está supervisando el progreso de la desconexión de un sitio desconectado, consulte esta tabla para comprender las etapas de desconexión de un nodo de almacenamiento:
+
++
+[cols="1a,1a"]
+|===
+| Escenario | Duración estimada 
+
+
+ a| 
+Pending
+ a| 
+Minuto o menos
+
+
+
+ a| 
+Esperar a que se bloqueen
+ a| 
+Minutos
+
+
+
+ a| 
+Preparar tarea
+ a| 
+Minuto o menos
+
+
+
+ a| 
+Deshabilitar servicios externos
+ a| 
+Minutos
+
+
+
+ a| 
+Revocación de certificado
+ a| 
+Minutos
+
+
+
+ a| 
+Anular registro de nodo
+ a| 
+Minutos
+
+
+
+ a| 
+Cancelar registro de grado de almacenamiento
+ a| 
+Minutos
+
+
+
+ a| 
+Eliminación del grupo de almacenamiento
+ a| 
+Minutos
+
+
+
+ a| 
+Eliminación de entidades
+ a| 
+Minutos
+
+
+
+ a| 
+Completo
+ a| 
+Minutos
+
+|===
+. Una vez que todos los nodos hayan alcanzado la etapa Completado, espere a que se completen las operaciones de desmantelamiento del sitio restantes.
++
+** Durante el paso *Reparar Cassandra*, StorageGRID realiza todas las reparaciones necesarias en los clústeres de Cassandra que permanecen en su red.  Estas reparaciones pueden tardar varios días o más, dependiendo de cuántos nodos de almacenamiento queden en su red.
++
+image::../media/decommission_site_step_6_repair_cassandra.png[Sitio de desmantelamiento Paso 6 Reparación Cassandra]
+
+** Durante el paso *Desactivar perfiles EC y eliminar grupos de almacenamiento*, se realizan los siguientes cambios en ILM:
++
+*** Se desactivan todos los perfiles con codificación de borrado que remiten al sitio.
+*** Se eliminan todos los grupos de almacenamiento que hacen referencia al sitio.
++
+
+NOTE: El grupo de almacenamiento Todos los nodos de almacenamiento (StorageGRID 11.6 y anteriores) también se elimina porque utiliza el sitio Todos los sitios.
+
+
+
+** Finalmente, durante el paso *Eliminar configuración*, cualquier referencia restante al sitio y sus nodos se eliminan del resto de la cuadrícula.
++
+image::../media/decommission_site_step_6_remove_configuration.png[Sitio de desmantelamiento Paso 6 Eliminar configuración]
+
+
+
+. Una vez completado el procedimiento de desmantelamiento, la página del sitio de desmantelamiento muestra un mensaje de éxito y el sitio eliminado ya no se muestra.
++
+image::../media/decommission_site_success_message.png[Mensaje de éxito del sitio de desmantelamiento]
+
+
+
+.Después de terminar
+Complete estas tareas después de completar el procedimiento de desmantelamiento del sitio:
+
+* Asegúrese de que las unidades de todos los nodos de almacenamiento en el sitio fuera de servicio estén limpias.  Utilice una herramienta o servicio de borrado de datos disponible comercialmente para eliminar datos de las unidades de forma permanente y segura.
+* Si el sitio incluía uno o más nodos de administración y el inicio de sesión único (SSO) está habilitado para su sistema StorageGRID , elimine todas las relaciones de confianza de usuario autenticado para el sitio de los Servicios de federación de Active Directory (AD FS).
+* Una vez que los nodos se hayan apagado automáticamente como parte del procedimiento de desmantelamiento del sitio conectado, elimine las máquinas virtuales asociadas.
+

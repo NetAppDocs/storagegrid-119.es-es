@@ -1,0 +1,69 @@
+---
+permalink: admin/viewing-network-traffic-metrics.html 
+sidebar: sidebar 
+keywords: network traffic, traffic classification policy, monitor traffic 
+summary: Puede supervisar el tráfico de la red viendo los gráficos disponibles en la página Políticas de clasificación de tráfico. 
+---
+= Ver métricas de tráfico de red
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede supervisar el tráfico de la red viendo los gráficos disponibles en la página Políticas de clasificación de tráfico.
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tú tienes ellink:admin-group-permissions.html["Permiso de acceso de root o de cuentas de inquilino"] .
+
+
+.Acerca de esta tarea
+Para cualquier política de clasificación de tráfico existente, puede ver las métricas del servicio de balanceador de carga para determinar si la política está limitando exitosamente el tráfico en la red.  Los datos en los gráficos pueden ayudarle a determinar si necesita ajustar la política.
+
+Incluso si no se establecen límites para una política de clasificación de tráfico, se recopilan métricas y los gráficos proporcionan información útil para comprender las tendencias del tráfico.
+
+.Pasos
+. Seleccione *CONFIGURACIÓN* > *Red* > *Clasificación de tráfico*.
++
+Aparece la página de Políticas de clasificación de tráfico y las políticas existentes se enumeran en la tabla.
+
+. Seleccione el nombre de la política de clasificación de tráfico cuyas métricas desea ver.
+. Seleccione la pestaña *Métricas*.
++
+Aparecen los gráficos de la política de clasificación de tráfico.  Los gráficos muestran métricas solo para el tráfico que coincide con la política seleccionada.
+
++
+Los siguientes gráficos se incluyen en la página.
+
++
+** Tasa de solicitud: este gráfico proporciona la cantidad de ancho de banda que coincide con esta política manejada por todos los balanceadores de carga.  Los datos recibidos incluyen los encabezados de solicitud para todas las solicitudes y el tamaño de los datos del cuerpo para las respuestas que tienen datos del cuerpo.  Enviado incluye encabezados de respuesta para todas las solicitudes y el tamaño de los datos del cuerpo de respuesta para las solicitudes que incluyen datos del cuerpo en la respuesta.
++
+
+NOTE: Cuando se completan las solicitudes, este gráfico solo muestra el uso del ancho de banda.  Para solicitudes de objetos grandes o lentos, el ancho de banda instantáneo real puede diferir de los valores informados en este gráfico.
+
+** Tasa de respuesta de error: este gráfico proporciona una tasa aproximada a la que las solicitudes que coinciden con esta política devuelven errores (código de estado HTTP >= 400) a los clientes.
+** Duración promedio de la solicitud (sin errores): este gráfico proporciona una duración promedio de las solicitudes exitosas que coinciden con esta política.
+** Uso del ancho de banda de la política: este gráfico proporciona la cantidad de ancho de banda que coincide con esta política manejada por todos los balanceadores de carga.  Los datos recibidos incluyen los encabezados de solicitud para todas las solicitudes y el tamaño de los datos del cuerpo para las respuestas que tienen datos del cuerpo.  Enviado incluye encabezados de respuesta para todas las solicitudes y el tamaño de los datos del cuerpo de respuesta para las solicitudes que incluyen datos del cuerpo en la respuesta.
+
+
+. Coloque el cursor sobre un gráfico de líneas para ver una ventana emergente de valores en una parte específica del gráfico.
+. Seleccione *Panel de Grafana* justo debajo del título Métricas para ver todos los gráficos de una política.  Además de los cuatro gráficos de la pestaña *Métricas*, puedes ver dos gráficos más:
++
+** Tasa de solicitud de escritura por tamaño de objeto: la tasa de solicitudes PUT/POST/DELETE que coinciden con esta política.  El posicionamiento en una celda individual muestra las velocidades por segundo.  Las tarifas que se muestran en la vista flotante se truncan a recuentos de números enteros y pueden informar 0 cuando hay solicitudes distintas de cero en el depósito.
+** Tasa de solicitud de lectura por tamaño de objeto: la tasa de solicitudes GET/HEAD que coinciden con esta política.  El posicionamiento en una celda individual muestra las velocidades por segundo.  Las tarifas que se muestran en la vista flotante se truncan a recuentos de números enteros y pueden informar 0 cuando hay solicitudes distintas de cero en el depósito.
+
+
+. Alternativamente, acceda a los gráficos desde el menú *SOPORTE*.
++
+.. Seleccione *SOPORTE* > *Herramientas* > *Métricas*.
+.. Seleccione *Política de clasificación de tráfico* en la sección *Grafana*.
+.. Seleccione la política del menú en la parte superior izquierda de la página.
+.. Coloque el cursor sobre un gráfico para ver una ventana emergente que muestra la fecha y la hora de la muestra, los tamaños de los objetos que se agregan en el recuento y la cantidad de solicitudes por segundo durante ese período de tiempo.
++
+Las políticas de clasificación de tráfico se identifican por su ID.  Los ID de políticas se enumeran en la página de políticas de clasificación de tráfico.
+
+
+
+. Analice los gráficos para determinar con qué frecuencia la política limita el tráfico y si necesita ajustarla.
+

@@ -1,0 +1,229 @@
+---
+permalink: ilm/creating-cloud-storage-pool.html 
+sidebar: sidebar 
+keywords: how to create cloud storage pool 
+summary: Un grupo de almacenamiento en la nube especifica un único depósito externo de Amazon S3 u otro proveedor compatible con S3 o un contenedor de almacenamiento de blobs de Azure. 
+---
+= Crear un grupo de almacenamiento en la nube
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Un grupo de almacenamiento en la nube especifica un único depósito externo de Amazon S3 u otro proveedor compatible con S3 o un contenedor de almacenamiento de blobs de Azure.
+
+Cuando se crea un grupo de almacenamiento en la nube, se especifica el nombre y la ubicación del contenedor o depósito externo que StorageGRID usará para almacenar objetos, el tipo de proveedor de nube (Amazon S3/GCP o Azure Blob Storage) y la información que StorageGRID necesita para acceder al contenedor o depósito externo.
+
+StorageGRID valida el grupo de almacenamiento en la nube tan pronto como lo guarda, por lo que debe asegurarse de que el depósito o contenedor especificado en el grupo de almacenamiento en la nube exista y sea accesible.
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tú tienes ellink:../admin/admin-group-permissions.html["permisos de acceso necesarios"] .
+* Usted ha revisado ellink:considerations-for-cloud-storage-pools.html["Consideraciones para los grupos de almacenamiento en la nube"] .
+* El contenedor o depósito externo al que hace referencia el grupo de almacenamiento en la nube ya existe y usted tiene la<<service-endpoint-info,información del punto final del servicio>> .
+* Para acceder al cubo o contenedor, tienes el<<authentication-account-info,Información de la cuenta para el tipo de autenticación>> Tú elegirás.
+
+
+.Pasos
+. Seleccione *ILM* > *Grupos de almacenamiento* > *Grupos de almacenamiento en la nube*.
+. Seleccione *Crear*, luego ingrese la siguiente información:
++
+[cols="1a,3a"]
+|===
+| Campo | Descripción 
+
+
+ a| 
+Nombre del grupo de almacenamiento en la nube
+ a| 
+Un nombre que describe brevemente el grupo de almacenamiento en la nube y su propósito.  Utilice un nombre que sea fácil de identificar cuando configure las reglas de ILM.
+
+
+
+ a| 
+Tipo de proveedor
+ a| 
+¿Qué proveedor de nube utilizará para este grupo de almacenamiento en la nube?
+
+** *Amazon S3/GCP*: seleccione esta opción para un proveedor de Amazon S3, Commercial Cloud Services (C2S) S3, Google Cloud Platform (GCP) u otro proveedor compatible con S3.
+** *Almacenamiento de blobs de Azure*
+
+
+
+
+ a| 
+Cubo o contenedor
+ a| 
+El nombre del depósito S3 externo o del contenedor de Azure.  No es posible cambiar este valor una vez guardado el grupo de almacenamiento en la nube.
+
+|===
+. [[service-endpoint-info]]Según su selección del tipo de proveedor, ingrese la información del punto final del servicio.
++
+[role="tabbed-block"]
+====
+.Amazon S3/GCP
+--
+.. Para el protocolo, seleccione HTTPS o HTTP.
++
+
+NOTE: No utilice conexiones HTTP para datos confidenciales.
+
+.. Introduzca el nombre del host. Ejemplo:
++
+`s3-_aws-region_.amazonaws.com`
+
+.. Seleccione el estilo de URL:
++
+[cols="1a,3a"]
+|===
+| Opción | Descripción 
+
+
+ a| 
+Detección automática
+ a| 
+Intente detectar automáticamente qué estilo de URL utilizar, según la información proporcionada.  Por ejemplo, si especifica una dirección IP, StorageGRID utilizará una URL de estilo ruta.  Seleccione esta opción solo si no sabe qué estilo específico usar.
+
+
+
+ a| 
+Estilo alojado virtualmente
+ a| 
+Utilice una URL de estilo alojado virtualmente para acceder al depósito.  Las URL de estilo alojado virtualmente incluyen el nombre del depósito como parte del nombre de dominio.  Ejemplo: `+https://bucket-name.s3.company.com/key-name+`
+
+
+
+ a| 
+Estilo de ruta
+ a| 
+Utilice una URL de estilo de ruta para acceder al depósito.  Las URL de estilo de ruta incluyen el nombre del depósito al final.  Ejemplo: `+https://s3.company.com/bucket-name/key-name+`
+
+*Nota:* La opción de URL de estilo de ruta no se recomienda y quedará obsoleta en una versión futura de StorageGRID.
+
+|===
+.. Opcionalmente, ingrese el número de puerto o utilice el puerto predeterminado: 443 para HTTPS o 80 para HTTP.
+
+
+--
+.Almacenamiento de blobs de Azure
+--
+.. Utilice uno de los siguientes formatos para ingresar el URI del punto final del servicio.
++
+*** `+https://host:port+`
+*** `+http://host:port+`
+
+
+
+
+Ejemplo: `https://_myaccount_.blob.core.windows.net:443`
+
+Si no especifica un puerto, de manera predeterminada se utiliza el puerto 443 para HTTPS y el puerto 80 para HTTP.
+
+--
+====
+
+
+. [[authentication-account-info]]Seleccione *Continuar*.  Luego, seleccione el tipo de autenticación e ingrese la información requerida para el punto final del grupo de almacenamiento en la nube:
++
+[role="tabbed-block"]
+====
+.Tecla de acceso
+--
+_Para Amazon S3/GCP u otro proveedor compatible con S3_
+
+.. *ID de clave de acceso*: Ingrese el ID de clave de acceso para la cuenta que posee el depósito externo.
+.. *Clave de acceso secreta*: Ingrese la clave de acceso secreta.
+
+
+--
+.Roles de IAM en cualquier lugar
+--
+_Para el servicio AWS IAM Roles Anywhere_
+
+StorageGRID utiliza el Servicio de token de seguridad de AWS (STS) para generar dinámicamente un token de corta duración para acceder a los recursos de AWS.
+
+.. *Región de AWS IAM Roles Anywhere*: seleccione la región para el grupo de almacenamiento en la nube. Por ejemplo,  `us-east-1` .
+.. *URN de ancla de confianza*: ingrese la URN del ancla de confianza que valida las solicitudes de credenciales STS de corta duración.  Puede ser una CA raíz o intermedia.
+.. *URN de perfil*: ingrese la URN del perfil de IAM Roles Anywhere que enumera los roles que pueden asumirse para cualquier persona de confianza.
+.. *URN de rol*: Ingrese el URN del rol de IAM que puede asumir cualquier persona de confianza.
+.. *Duración de la sesión*: Ingrese la duración de las credenciales de seguridad temporales y la sesión del rol.  Ingrese al menos 15 minutos y no más de 12 horas.
+.. *Certificado de CA del servidor* (opcional): Uno o más certificados de CA confiables, en formato PEM, para verificar el servidor de IAM Roles Anywhere.  Si se omite, el servidor no se verificará.
+.. *Certificado de entidad final*: La clave pública, en formato PEM, del certificado X509 firmado por el ancla de confianza.  AWS IAM Roles Anywhere utiliza esta clave para emitir un token STS.
+.. *Clave privada de entidad final*: la clave privada para el certificado de entidad final.
+
+
+--
+.CAP (portal de acceso C2S)
+--
+_Para el servicio S3 de Servicios de Nube Comercial (C2S)_
+
+.. *URL de credenciales temporales*: ingrese la URL completa que StorageGRID utilizará para obtener las credenciales temporales del servidor CAP, incluidos todos los parámetros de API obligatorios y opcionales asignados a su cuenta C2S.
+.. *Certificado CA del servidor*: seleccione *Explorar* y cargue el certificado CA que StorageGRID utilizará para verificar el servidor CAP.  El certificado debe estar codificado en PEM y ser emitido por una autoridad de certificación gubernamental (CA) apropiada.
+.. *Certificado de cliente*: seleccione *Explorar* y cargue el certificado que StorageGRID utilizará para identificarse en el servidor CAP.  El certificado del cliente debe estar codificado en PEM, emitido por una autoridad de certificación gubernamental (CA) apropiada y tener acceso a su cuenta C2S.
+.. *Clave privada del cliente*: seleccione *Explorar* y cargue la clave privada codificada en PEM para el certificado del cliente.
+.. Si la clave privada del cliente está cifrada, ingrese la contraseña para descifrarla.  De lo contrario, deje el campo *Frase de contraseña de clave privada del cliente* en blanco.
+
+
+
+NOTE: Si se va a cifrar el certificado del cliente, utilice el formato tradicional para el cifrado.  El formato cifrado PKCS #8 no es compatible.
+
+--
+.Almacenamiento de blobs de Azure
+--
+_Para Azure Blob Storage, solo clave compartida_
+
+.. *Nombre de la cuenta*: Ingrese el nombre de la cuenta de almacenamiento que posee el contenedor externo
+.. *Clave de cuenta*: Ingrese la clave secreta para la cuenta de almacenamiento
+
+
+Puede utilizar el portal de Azure para encontrar estos valores.
+
+--
+.Anónimo
+--
+No se requiere información adicional
+
+--
+====
+. Seleccione *Continuar*. A continuación, elija el tipo de verificación de servidor que desea utilizar:
++
+[cols="1a,2a"]
+|===
+| Opción | Descripción 
+
+
+ a| 
+Usar certificados de CA raíz en el sistema operativo del nodo de almacenamiento
+ a| 
+Utilice los certificados CA de Grid instalados en el sistema operativo para proteger las conexiones.
+
+
+
+ a| 
+Utilice un certificado CA personalizado
+ a| 
+Utilice un certificado CA personalizado.  Seleccione *Explorar* y cargue el certificado codificado en PEM.
+
+
+
+ a| 
+No verificar el certificado
+ a| 
+Seleccionar esta opción significa que las conexiones TLS al grupo de almacenamiento en la nube no son seguras.
+
+|===
+. Seleccione *Guardar*.
++
+Cuando guarda un grupo de almacenamiento en la nube, StorageGRID hace lo siguiente:
+
++
+** Valida que el depósito o contenedor y el punto final del servicio existan y que se pueda acceder a ellos utilizando las credenciales que usted especificó.
+** Escribe un archivo de marcador en el depósito o contenedor para identificarlo como un grupo de almacenamiento en la nube.  Nunca elimine este archivo, que se llama `x-ntap-sgws-cloud-pool-uuid` .
++
+Si falla la validación del grupo de almacenamiento en la nube, recibirá un mensaje de error que explica por qué falló la validación.  Por ejemplo, se podría informar un error si hay un error de certificado o si el depósito o contenedor especificado aún no existe.
+
+
+
+. Si se produce un error, consulte lalink:troubleshooting-cloud-storage-pools.html["Instrucciones para solucionar problemas de grupos de almacenamiento en la nube"] , resuelva cualquier problema y luego intente guardar el grupo de almacenamiento en la nube nuevamente.
+

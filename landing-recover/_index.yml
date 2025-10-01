@@ -1,0 +1,43 @@
+---
+indexpage:
+  title: Recuperar o reemplazar nodos
+  summary: Si falla un nodo de la red, puede recuperarlo reemplazando el servidor
+    físico o virtual fallado, reinstalando el software StorageGRID y restaurando los
+    datos recuperables.
+  keywords: recover node, replace node
+  lead: Si falla un nodo de la red, puede recuperarlo reemplazando el servidor físico
+    o virtual fallado, reinstalando el software StorageGRID y restaurando los datos
+    recuperables.
+  tiles:
+  - title: Empezar
+    links:
+    - title: Advertencias y consideraciones
+      url: "../maintain/warnings-and-considerations-for-grid-node-recovery.html"
+    - title: Reúna los materiales necesarios
+      url: "../maintain/gathering-required-materials-for-grid-node-recovery.html"
+  - title: Recuperar nodos fallidos
+    links:
+    - title: Advertencias y consideraciones
+      url: "../maintain/warnings-and-considerations-for-grid-node-recovery.html"
+    - title: Nodos de almacenamiento
+      url: "../maintain/recovering-from-storage-node-failures.html"
+    - title: Nodos de administración
+      url: "../maintain/recovering-from-admin-node-failures.html"
+    - title: Nodos de puerta de enlace
+      url: "../maintain/replacing-gateway-node.html"
+    - title: Nodos de archivo
+      url: "../maintain/recovering-from-archive-node-failures.html"
+  - title: Reemplazar nodo
+    links:
+    - title: Reemplazar el nodo Linux
+      url: "../maintain/all-node-types-replacing-linux-node.html"
+    - title: Reemplazar el nodo VMware
+      url: "../maintain/all-node-types-replacing-vmware-node.html"
+    - title: Reemplace el nodo Linux o VMware con un dispositivo de servicios
+      url: "../maintain/installing-services-appliance-platform-change-only.html"
+    - title: Nodo de dispositivo de clonación
+      url: https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/how-appliance-node-cloning-works.html
+  - title: Recuperar un sitio
+    links:
+    - title: Cómo el soporte técnico recupera un sitio
+      url: "../maintain/how-site-recovery-is-performed-by-technical-support.html"

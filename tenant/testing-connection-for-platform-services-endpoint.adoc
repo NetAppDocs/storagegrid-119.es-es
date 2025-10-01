@@ -1,0 +1,39 @@
+---
+permalink: tenant/testing-connection-for-platform-services-endpoint.html 
+sidebar: sidebar 
+keywords: how to test platform services endpoint connection 
+summary: Si la conexión a un servicio de la plataforma ha cambiado, puede probar la conexión del punto final para validar que el recurso de destino existe y que se puede acceder a él utilizando las credenciales que especificó. 
+---
+= Conexión de prueba para el punto final de servicios de la plataforma
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si la conexión a un servicio de la plataforma ha cambiado, puede probar la conexión del punto final para validar que el recurso de destino existe y que se puede acceder a él utilizando las credenciales que especificó.
+
+.Antes de empezar
+* Ha iniciado sesión en el Administrador de inquilinos mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Perteneces a un grupo de usuarios que tiene lalink:tenant-management-permissions.html["Administrar puntos finales o permisos de acceso raíz"] .
+
+
+.Acerca de esta tarea
+StorageGRID no valida que las credenciales tengan los permisos correctos.
+
+.Pasos
+. Seleccione *ALMACENAMIENTO (S3)* > *Puntos finales de servicios de plataforma*.
++
+Aparece la página Puntos finales de servicios de la plataforma y muestra la lista de puntos finales de servicios de la plataforma que ya se han configurado.
+
+. Seleccione el punto final cuya conexión desea probar.
++
+Aparece la página de detalles del punto final.
+
+. Seleccione *Probar conexión*.
++
+** Aparece un mensaje de éxito si se puede acceder al punto final utilizando las credenciales especificadas.  La conexión al punto final se valida desde un nodo en cada sitio.
+** Aparece un mensaje de error si falla la validación del punto final.  Si necesita modificar el punto final para corregir el error, seleccione *Configuración* y actualice la información.  Luego, seleccione *Probar y guardar cambios*.
+
+
+

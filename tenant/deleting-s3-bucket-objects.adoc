@@ -1,0 +1,109 @@
+---
+permalink: tenant/deleting-s3-bucket-objects.html 
+sidebar: sidebar 
+keywords: how to delete bucket objects, empty bucket 
+summary: Puede utilizar el Administrador de inquilinos para eliminar los objetos en uno o más depósitos. 
+---
+= Eliminar objetos en el depósito
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede utilizar el Administrador de inquilinos para eliminar los objetos en uno o más depósitos.
+
+.Consideraciones y requisitos
+Antes de realizar estos pasos, tenga en cuenta lo siguiente:
+
+* Cuando elimina los objetos de un depósito, StorageGRID elimina de forma permanente todos los objetos y todas las versiones de objetos en cada depósito seleccionado de todos los nodos y sitios de su sistema StorageGRID .  StorageGRID también elimina cualquier metadato de objeto relacionado.  No podrás recuperar esta información.
+* Eliminar todos los objetos de un depósito puede llevar minutos, días o incluso semanas, según la cantidad de objetos, copias de objetos y operaciones simultáneas.
+* Si un cubo tienelink:using-s3-object-lock.html["Bloqueo de objetos S3 habilitado"] , podría permanecer en el estado *Eliminando objetos: solo lectura* durante _años_.
++
+
+TIP: Un depósito que utiliza S3 Object Lock permanecerá en el estado *Eliminando objetos: solo lectura* hasta que se alcance la fecha de retención para todos los objetos y se eliminen todas las retenciones legales.
+
+* Mientras se eliminan objetos, el estado del depósito es *Eliminando objetos: solo lectura*.  En este estado no se pueden agregar nuevos objetos al depósito.
+* Cuando se hayan eliminado todos los objetos, el depósito permanecerá en estado de solo lectura.  Puede realizar una de las siguientes acciones:
++
+** Devuelva el depósito al modo de escritura y reutilícelo para nuevos objetos
+** Eliminar el depósito
+** Mantenga el depósito en modo de solo lectura para reservar su nombre para uso futuro
+
+
+* Si un bucket tiene habilitada la versión de objetos, los marcadores de eliminación que se crearon en StorageGRID 11.8 o posterior se pueden quitar mediante las operaciones Eliminar objetos en el bucket.
+* Si un bucket tiene habilitada la versión de objetos, la operación de eliminación de objetos no eliminará los marcadores de eliminación creados en StorageGRID 11.7 o anterior.  Consulte información sobre cómo eliminar objetos en un depósito enlink:../ilm/how-objects-are-deleted.html#delete-s3-versioned-objects["Cómo se eliminan los objetos versionados de S3"] .
+* Si utilizaslink:grid-federation-manage-cross-grid-replication.html["replicación entre redes"] , tenga en cuenta lo siguiente:
++
+** Al utilizar esta opción no se elimina ningún objeto del depósito en la otra cuadrícula.
+** Si selecciona esta opción para el depósito de origen, se activará la alerta *Error de replicación entre cuadrículas* si agrega objetos al depósito de destino en la otra cuadrícula.  Si no puede garantizar que nadie agregará objetos al contenedor en la otra cuadrícula,link:../tenant/grid-federation-manage-cross-grid-replication.html["Deshabilitar la replicación entre redes"] para ese depósito antes de eliminar todos los objetos del depósito.
+
+
+
+
+.Antes de empezar
+* Ha iniciado sesión en el Administrador de inquilinos mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Perteneces a un grupo de usuarios que tiene lalink:tenant-management-permissions.html["Permiso de acceso root"] .  Este permiso anula la configuración de permisos en las políticas de grupo o de depósito.
+
+
+.Pasos
+. Seleccione *Ver depósitos* en el panel de control o seleccione *ALMACENAMIENTO (S3)* > *Depósitos*.
++
+Aparece la página Buckets y muestra todos los buckets S3 existentes.
+
+. Utilice el menú *Acciones* o la página de detalles para un bucket específico.
++
+[role="tabbed-block"]
+====
+.Menú de acciones
+--
+.. Seleccione la casilla de verificación para cada depósito del que desee eliminar objetos.
+.. Seleccione *Acciones* > *Eliminar objetos en el depósito*.
+
+
+--
+.Página de detalles
+--
+.. Seleccione un nombre de depósito para mostrar sus detalles.
+.. Seleccione *Eliminar objetos del depósito*.
+
+
+--
+====
+. Cuando aparezca el cuadro de diálogo de confirmación, revise los detalles, ingrese *Sí* y seleccione *Aceptar*.
+. Espere a que comience la operación de eliminación.
++
+Después de unos minutos:
+
++
+** Aparece un banner de estado amarillo en la página de detalles del depósito.  La barra de progreso representa qué porcentaje de objetos se han eliminado.
+** *(solo lectura)* aparece después del nombre del depósito en la página de detalles del depósito.
+** *(Eliminar objetos: solo lectura)* aparece junto al nombre del depósito en la página Depósitos.
+
+
++
+image::../media/delete-bucket-objects-in-progress.png[Captura de pantalla que muestra los objetos del depósito que se están eliminando]
+
+. Según sea necesario mientras la operación se esté ejecutando, seleccione *Detener la eliminación de objetos* para detener el proceso.  Luego, opcionalmente, seleccione *Eliminar objetos en el depósito* para reanudar el proceso.
++
+Cuando selecciona *Detener eliminación de objetos*, el depósito vuelve al modo de escritura; sin embargo, no puede acceder ni restaurar ningún objeto que se haya eliminado.
+
+. Espere a que se complete la operación.
++
+Cuando el depósito está vacío, el banner de estado se actualiza, pero el depósito permanece como de solo lectura.
+
++
+image::../media/delete-bucket-objects-complete.png[Captura de pantalla que muestra todos los objetos del bucket eliminados]
+
+. Debe realizar una de las siguientes acciones:
++
+** Salga de la página para mantener el depósito en modo de solo lectura.  Por ejemplo, puede mantener un depósito vacío en modo de solo lectura para reservar el nombre del depósito para uso futuro.
+** Eliminar el depósito.  Puede seleccionar *Eliminar depósito* para eliminar un solo depósito o regresar a la página Depósitos y seleccionar *Acciones* > *Eliminar* depósitos para eliminar más de un depósito.
++
+
+NOTE: Si no puede eliminar un depósito versionado después de eliminar todos los objetos, es posible que queden marcadores de eliminación.  Para eliminar el depósito, debes quitar todos los marcadores de eliminación restantes.
+
+** Devuelve el depósito al modo de escritura y, opcionalmente, reutilízalo para nuevos objetos.  Puede seleccionar *Detener la eliminación de objetos* para un solo depósito o regresar a la página Depósitos y seleccionar *Acción* > *Detener la eliminación de objetos* para más de un depósito.
+
+
+

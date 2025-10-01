@@ -1,0 +1,87 @@
+---
+permalink: admin/manage-link-costs.html 
+sidebar: sidebar 
+keywords: link cost, site latency, manage link costs, prioritize sites 
+summary: Los costos de enlace le permiten priorizar qué sitio del centro de datos proporciona un servicio solicitado cuando existen dos o más sitios de centros de datos.  Puede ajustar los costos de los enlaces para reflejar la latencia entre sitios. 
+---
+= Administrar los costos de los enlaces
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los costos de enlace le permiten priorizar qué sitio del centro de datos proporciona un servicio solicitado cuando existen dos o más sitios de centros de datos.  Puede ajustar los costos de los enlaces para reflejar la latencia entre sitios.
+
+
+
+== ¿Qué son los costos de enlace?
+
+* Los costos de enlace se utilizan para priorizar qué copia de objeto se utiliza para completar las recuperaciones de objetos.
+* La API de administración de red y la API de administración de inquilinos utilizan los costos de enlace para determinar qué servicios internos de StorageGRID utilizar.
+* El servicio Load Balancer utiliza los costos de enlace en los nodos de administración y los nodos de puerta de enlace para dirigir las conexiones de los clientes. Ver link:../admin/managing-load-balancing.html["Consideraciones para el equilibrio de carga"] .
+
+
+El diagrama muestra una cuadrícula de tres sitios que tiene costos de enlace configurados entre sitios:
+
+image::../media/link_costs.gif[Diagrama conceptual de los costos de enlace entre centros de datos]
+
+* El servicio Load Balancer en los nodos de administración y los nodos de puerta de enlace distribuye equitativamente las conexiones de los clientes a todos los nodos de almacenamiento en el mismo sitio del centro de datos y a cualquier sitio del centro de datos con un costo de enlace de 0.
++
+En el ejemplo, un nodo de puerta de enlace en el sitio del centro de datos 1 (DC1) distribuye equitativamente las conexiones de cliente a los nodos de almacenamiento en DC1 y a los nodos de almacenamiento en DC2.  Un nodo de puerta de enlace en DC3 envía conexiones de cliente únicamente a nodos de almacenamiento en DC3.
+
+* Al recuperar un objeto que existe como múltiples copias replicadas, StorageGRID recupera la copia en el centro de datos que tiene el costo de enlace más bajo.
++
+En el ejemplo, si una aplicación cliente en DC2 recupera un objeto que está almacenado tanto en DC1 como en DC3, el objeto se recupera de DC1, porque el costo del enlace de DC1 a DC2 es 0, que es menor que el costo del enlace de DC3 a DC2 (25).
+
+
+
+Los costos de enlace son números relativos arbitrarios sin una unidad de medida específica.  Por ejemplo, un coste de enlace de 50 se utiliza con menos preferencia que un coste de enlace de 25.  La tabla muestra los costos de enlaces más utilizados.
+
+[cols="1a,1a,2a"]
+|===
+| Enlace | Costo del enlace | Notas 
+
+
+ a| 
+Entre sitios de centros de datos físicos
+ a| 
+25 (predeterminado)
+ a| 
+Centros de datos conectados mediante un enlace WAN.
+
+
+
+ a| 
+Entre sitios de centros de datos lógicos en la misma ubicación física
+ a| 
+0
+ a| 
+Centros de datos lógicos en el mismo edificio físico o campus conectados por una LAN.
+
+|===
+
+
+== Costos de actualización de enlaces
+
+Puede actualizar los costos de enlace entre los sitios de los centros de datos para reflejar la latencia entre sitios.
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tú tienes ellink:admin-group-permissions.html["Permiso de configuración de la página de topología de cuadrícula"] .
+
+
+.Pasos
+. Seleccione *SOPORTE* > *Otro* > *Costo del enlace*.
++
+image::../media/configuring_link_costs.png[Costo del enlace]
+
+. Seleccione un sitio en *Fuente del enlace* e ingrese un valor de costo entre 0 y 100 en *Destino del enlace*.
++
+No puedes cambiar el costo del enlace si el origen es el mismo que el destino.
+
++
+Para cancelar los cambios, seleccioneimage:../media/nms_revert.gif["icono de deshacer"] *Revertir*.
+
+. Seleccione *Aplicar cambios*.
+

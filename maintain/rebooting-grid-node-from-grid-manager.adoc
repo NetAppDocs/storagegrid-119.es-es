@@ -1,0 +1,56 @@
+---
+permalink: maintain/rebooting-grid-node-from-grid-manager.html 
+sidebar: sidebar 
+keywords: reboot grid node, tasks tab 
+summary: Puede reiniciar un nodo de red individual desde la pestaña Tareas en la página Nodos. 
+---
+= Reiniciar el nodo de la red desde la pestaña Tareas
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede reiniciar un nodo de red individual desde la pestaña Tareas en la página Nodos.
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tú tienes ellink:../admin/admin-group-permissions.html["Permiso de mantenimiento o acceso root"] .
+* Tienes la contraseña de aprovisionamiento.
+* Si está reiniciando el nodo de administración principal o cualquier nodo de almacenamiento, debe revisar las siguientes consideraciones:
++
+** Cuando reinicia el nodo de administración principal, su navegador pierde temporalmente el acceso al Administrador de cuadrícula.
+** Si reinicia dos o más nodos de almacenamiento en un sitio determinado, es posible que no pueda acceder a ciertos objetos mientras dure el reinicio.  Este problema puede ocurrir si alguna regla ILM utiliza la opción de ingesta *Dual commit* (o una regla especifica *Balanced* y no es posible crear inmediatamente todas las copias requeridas).  En este caso, StorageGRID confirmará los objetos recién ingeridos en dos nodos de almacenamiento en el mismo sitio y evaluará ILM más tarde.
+** Para garantizar que pueda acceder a todos los objetos mientras un nodo de almacenamiento se está reiniciando, deje de ingerir objetos en un sitio durante aproximadamente una hora antes de reiniciar el nodo.
+
+
+
+
+.Acerca de esta tarea
+Cuando StorageGRID reinicia un nodo de la red, emite el `reboot` comando en el nodo, que hace que el nodo se apague y reinicie.  Todos los servicios se reinician automáticamente.
+
+* Reiniciar un nodo VMware reinicia la máquina virtual.
+* Reiniciar un nodo Linux reinicia el contenedor.
+* Al reiniciar un nodo del dispositivo StorageGRID se reinicia el controlador de cómputo.
+
+
+
+TIP: Si necesita reiniciar más de un nodo, puede utilizar ellink:../maintain/rolling-reboot-procedure.html["procedimiento de reinicio continuo"] .
+
+.Pasos
+. Seleccione *NODOS*.
+. Seleccione el nodo de la red que desea reiniciar.
+. Seleccione la pestaña *Tareas*.
+. Seleccione *Reiniciar*.
++
+Aparece un cuadro de diálogo de confirmación.  Si está reiniciando el nodo de administración principal, el cuadro de diálogo de confirmación le recordará que la conexión de su navegador al Administrador de Grid se perderá temporalmente cuando se detengan los servicios.
+
+. Introduzca la contraseña de aprovisionamiento y seleccione *Aceptar*.
+. Espere a que el nodo se reinicie.
++
+Podría tomar algún tiempo para que los servicios se cierren.
+
++
+Cuando el nodo se reinicia, aparece el ícono gris (Administrativamente inactivo) para el nodo en la página Nodos.  Cuando todos los servicios se hayan iniciado nuevamente y el nodo esté conectado exitosamente a la red, la página Nodos debe mostrar un estado normal (sin íconos a la izquierda del nombre del nodo), lo que indica que no hay alertas activas y que el nodo está conectado a la red.
+
+

@@ -1,0 +1,160 @@
+---
+permalink: maintain/adding-to-or-changing-subnet-lists-on-admin-network.html 
+sidebar: sidebar 
+keywords: storagegrid, subnet list, admin network 
+summary: Puede agregar, eliminar o cambiar las subredes en la Lista de subredes de la red de administración de uno o más nodos. 
+---
+= Agregar o cambiar listas de subredes en la red de administración
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede agregar, eliminar o cambiar las subredes en la Lista de subredes de la red de administración de uno o más nodos.
+
+.Antes de empezar
+* Tú tienes el `Passwords.txt` archivo.
+
+
+Puede agregar, eliminar o cambiar subredes a todos los nodos en la Lista de subredes de la red de administración.
+
+[NOTE]
+====
+No utilice subredes que contengan las siguientes direcciones IPv4 para la red de cuadrícula, la red de administración o la red de cliente de ningún nodo:
+
+* 192.168.130.101
+* 192.168.131.101
+* 192.168.130.102
+* 192.168.131.102
+* 198.51.100.2
+* 198.51.100.4
+
+
+Por ejemplo, no utilice los siguientes rangos de subred para la red de cuadrícula, la red de administración o la red de cliente de ningún nodo:
+
+* 192.168.130.0/24 porque este rango de subred contiene las direcciones IP 192.168.130.101 y 192.168.130.102
+* 192.168.131.0/24 porque este rango de subred contiene las direcciones IP 192.168.131.101 y 192.168.131.102
+* 198.51.100.0/24 porque este rango de subred contiene las direcciones IP 198.51.100.2 y 198.51.100.4
+
+
+====
+.Pasos
+. Inicie sesión en el nodo de administración principal:
++
+.. Introduzca el siguiente comando: `ssh admin@_primary_Admin_Node_IP_`
+.. Introduzca la contraseña que aparece en el `Passwords.txt` archivo.
+.. Introduzca el siguiente comando para cambiar a root: `su -`
+.. Introduzca la contraseña que aparece en el `Passwords.txt` archivo.
+
+
++
+Cuando inicia sesión como root, el mensaje cambia de `$` a `#` .
+
+. Inicie la herramienta Cambiar IP ingresando el siguiente comando: `change-ip`
+. Introduzca la contraseña de aprovisionamiento cuando se le solicite.
++
+Aparece el menú principal.
+
++
+image::../media/change_ip_tool_main_menu.png[Captura de pantalla que muestra la pantalla de bienvenida de la herramienta de cambio de IP]
+
+. Opcionalmente, limite las redes/nodos en los que se realizan operaciones.  Elija una de las siguientes opciones:
++
+** Seleccione los nodos que desea editar eligiendo *1*, si desea filtrar por nodos específicos en los que realizar la operación.  Seleccione una de las siguientes opciones:
++
+*** *1*: Nodo único (seleccionar por nombre)
+*** *2*: Nodo único (seleccionar por sitio, luego por nombre)
+*** *3*: Nodo único (seleccionar por IP actual)
+*** *4*: Todos los nodos en un sitio
+*** *5*: Todos los nodos de la cuadrícula
+*** *0*: Regresar
+
+
+** Permitir que "todos" permanezcan seleccionados.  Después de realizar la selección, aparece la pantalla del menú principal.  El campo Nodos seleccionados refleja su nueva selección y ahora todas las operaciones seleccionadas solo se realizarán en este elemento.
+
+
+. En el menú principal, seleccione la opción para editar subredes para la red de administración (opción *3*).
+. Elija una de las siguientes opciones:
++
+--
+** Agregue una subred ingresando este comando: `add CIDR`
+** Eliminar una subred ingresando este comando: `del CIDR`
+** Establezca la lista de subredes ingresando este comando: `set CIDR`
+
+
+--
++
+--
+
+NOTE: Para todos los comandos, puede ingresar varias direcciones utilizando este formato: `add CIDR, CIDR`
+
+Ejemplo: `add 172.14.0.0/16, 172.15.0.0/16, 172.16.0.0/16`
+
+
+TIP: Puede reducir la cantidad de escritura necesaria utilizando la "flecha hacia arriba" para recuperar valores escritos previamente en el mensaje de entrada actual y luego editarlos si es necesario.
+
+El siguiente ejemplo de entrada muestra cómo agregar subredes a la Lista de subredes de la red de administración:
+
+image::../media/change_ip_tool_aesl_sample_input.gif[Ejemplo de AESL para la herramienta de cambio de IP]
+
+--
+. Cuando esté listo, ingrese *q* para regresar a la pantalla del menú principal.  Sus cambios se conservan hasta que se borren o apliquen.
++
+
+NOTE: Si seleccionó cualquiera de los modos de selección de nodos "todos" en el paso 2, presione *Enter* (sin *q*) para pasar al siguiente nodo de la lista.
+
+. Elija una de las siguientes opciones:
++
+** Seleccione la opción *5* para mostrar las ediciones en una salida aislada para mostrar solo el elemento modificado.  Los cambios se resaltan en verde (adiciones) o rojo (eliminaciones), como se muestra en el siguiente ejemplo:
++
+image::../media/change_ip_tool_aesl_sample_output.png[captura de pantalla descrita por el texto circundante]
+
+** Seleccione la opción *6* para mostrar las ediciones en la salida que muestra la configuración completa.  Los cambios se resaltan en verde (adiciones) o rojo (eliminaciones).  *Nota:* Algunos emuladores de terminal pueden mostrar adiciones y eliminaciones usando el formato tachado.
++
+Cuando intenta cambiar la lista de subredes, se muestra el siguiente mensaje:
+
++
+[listing]
+----
+CAUTION: The Admin Network subnet list on the node might contain /32 subnets derived from automatically applied routes that aren't persistent. Host routes (/32 subnets) are applied automatically if the IP addresses provided for external services such as NTP or DNS aren't reachable using default StorageGRID routing, but are reachable using a different interface and gateway. Making and applying changes to the subnet list will make all automatically applied subnets persistent. If you don't want that to happen, delete the unwanted subnets before applying changes. If you know that all /32 subnets in the list were added intentionally, you can ignore this caution.
+----
++
+Si no asignó específicamente las subredes del servidor NTP y DNS a una red, StorageGRID crea automáticamente una ruta de host (/32) para la conexión.  Si, por ejemplo, prefiere tener una ruta /16 o /24 para la conexión saliente a un servidor DNS o NTP, debe eliminar la ruta /32 creada automáticamente y agregar las rutas que desee.  Si no elimina la ruta de host creada automáticamente, se conservará después de aplicar cualquier cambio a la lista de subredes.
+
+
+
++
+
+NOTE: Si bien puede utilizar estas rutas de host descubiertas automáticamente, en general debe configurar manualmente las rutas DNS y NTP para garantizar la conectividad.
+
+. Seleccione la opción *7* para validar todos los cambios programados.
++
+Esta validación garantiza que se cumplan las reglas para las redes Grid, Admin y Client, como el uso de subredes superpuestas.
+
+. Opcionalmente, seleccione la opción *8* para guardar todos los cambios realizados y regresar más tarde para continuar realizando cambios.
++
+Esta opción le permite salir de la herramienta Cambiar IP y volver a iniciarla más tarde, sin perder ningún cambio no aplicado.
+
+. Debe realizar una de las siguientes acciones:
++
+** Seleccione la opción *9* si desea borrar todos los cambios sin guardar ni aplicar la nueva configuración de red.
+** Seleccione la opción *10* si está listo para aplicar los cambios y aprovisionar la nueva configuración de red.  Durante el aprovisionamiento, la salida muestra el estado a medida que se aplican las actualizaciones, como se muestra en el siguiente ejemplo de salida:
++
+[listing]
+----
+Generating new grid networking description file...
+
+Running provisioning...
+
+Updating grid network configuration on Name
+----
+
+
+. Descargue un nuevo paquete de recuperación desde el Administrador de Grid.
++
+.. Seleccione *MANTENIMIENTO* > *Sistema* > *Paquete de recuperación*.
+.. Introduzca la contraseña de aprovisionamiento.
+
+
+

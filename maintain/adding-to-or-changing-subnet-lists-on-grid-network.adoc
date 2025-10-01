@@ -1,0 +1,175 @@
+---
+permalink: maintain/adding-to-or-changing-subnet-lists-on-grid-network.html 
+sidebar: sidebar 
+keywords: storagegrid, subnet list, grid network 
+summary: Puede utilizar la herramienta Cambiar IP para agregar o cambiar subredes en la red Grid. 
+---
+= Agregar o cambiar listas de subredes en Grid Network
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede utilizar la herramienta Cambiar IP para agregar o cambiar subredes en la red Grid.
+
+.Antes de empezar
+* Tú tienes el `Passwords.txt` archivo.
+
+
+Puede agregar, eliminar o cambiar subredes en la Lista de subredes de la red Grid.  Los cambios afectarán el enrutamiento en todos los nodos de la red.
+
+
+NOTE: Si solo está realizando cambios en la lista de subredes de la red Grid, utilice el Administrador de Grid para agregar o cambiar la configuración de la red.  De lo contrario, utilice la herramienta Cambiar IP si el Administrador de red no es accesible debido a un problema de configuración de red, o si está realizando un cambio de enrutamiento de red de red y otros cambios de red al mismo tiempo.
+
+[NOTE]
+====
+No utilice subredes que contengan las siguientes direcciones IPv4 para la red de cuadrícula, la red de administración o la red de cliente de ningún nodo:
+
+* 192.168.130.101
+* 192.168.131.101
+* 192.168.130.102
+* 192.168.131.102
+* 198.51.100.2
+* 198.51.100.4
+
+
+Por ejemplo, no utilice los siguientes rangos de subred para la red de cuadrícula, la red de administración o la red de cliente de ningún nodo:
+
+* 192.168.130.0/24 porque este rango de subred contiene las direcciones IP 192.168.130.101 y 192.168.130.102
+* 192.168.131.0/24 porque este rango de subred contiene las direcciones IP 192.168.131.101 y 192.168.131.102
+* 198.51.100.0/24 porque este rango de subred contiene las direcciones IP 198.51.100.2 y 198.51.100.4
+
+
+====
+.Pasos
+. Inicie sesión en el nodo de administración principal:
++
+.. Introduzca el siguiente comando: `ssh admin@_primary_Admin_Node_IP_`
+.. Introduzca la contraseña que aparece en el `Passwords.txt` archivo.
+.. Introduzca el siguiente comando para cambiar a root: `su -`
+.. Introduzca la contraseña que aparece en el `Passwords.txt` archivo.
+
+
++
+Cuando inicia sesión como root, el mensaje cambia de `$` a `#` .
+
+. Inicie la herramienta Cambiar IP ingresando el siguiente comando: `change-ip`
+. Introduzca la contraseña de aprovisionamiento cuando se le solicite.
++
+Aparece el menú principal.
+
++
+image::../media/change_ip_tool_main_menu.png[Captura de pantalla que muestra la pantalla de bienvenida de la herramienta de cambio de IP]
+
+. En el menú principal, seleccione la opción para editar subredes para la red Grid (opción *4*).
++
+
+NOTE: Los cambios en la lista de subredes de la red Grid se aplican a toda la red.
+
+. Elija una de las siguientes opciones:
++
+--
+** Agregue una subred ingresando este comando: `add CIDR`
+** Eliminar una subred ingresando este comando: `del CIDR`
+** Establezca la lista de subredes ingresando este comando: `set CIDR`
+
+
+--
++
+--
+
+NOTE: Para todos los comandos, puede ingresar varias direcciones utilizando este formato: `add CIDR, CIDR`
+
+Ejemplo: `add 172.14.0.0/16, 172.15.0.0/16, 172.16.0.0/16`
+
+
+TIP: Puede reducir la cantidad de escritura necesaria utilizando la "flecha hacia arriba" para recuperar valores escritos previamente en el mensaje de entrada actual y luego editarlos si es necesario.
+
+El siguiente ejemplo de entrada muestra la configuración de subredes para la lista de subredes de la red Grid:
+
+image::../media/change_ip_tool_gnsl_sample_input.gif[captura de pantalla descrita por el texto circundante]
+
+--
+. Cuando esté listo, ingrese *q* para regresar a la pantalla del menú principal.  Sus cambios se conservan hasta que se borren o apliquen.
+. Elija una de las siguientes opciones:
++
+** Seleccione la opción *5* para mostrar las ediciones en una salida aislada para mostrar solo el elemento modificado.  Los cambios se resaltan en verde (adiciones) o rojo (eliminaciones), como se muestra en el siguiente ejemplo:
++
+image::../media/change_ip_tool_gnsl_sample_output.gif[captura de pantalla descrita por el texto circundante]
+
+** Seleccione la opción *6* para mostrar las ediciones en la salida que muestra la configuración completa.  Los cambios se resaltan en verde (adiciones) o rojo (eliminaciones).
++
+
+NOTE: Algunas interfaces de línea de comandos pueden mostrar adiciones y eliminaciones utilizando el formato tachado.
+
+
+
+. Seleccione la opción *7* para validar todos los cambios programados.
++
+Esta validación garantiza que se cumplan las reglas para las redes Grid, Admin y Client, como el uso de subredes superpuestas.
+
+. Opcionalmente, seleccione la opción *8* para guardar todos los cambios realizados y regresar más tarde para continuar realizando cambios.
++
+Esta opción le permite salir de la herramienta Cambiar IP y volver a iniciarla más tarde, sin perder ningún cambio no aplicado.
+
+. Debe realizar una de las siguientes acciones:
++
+** Seleccione la opción *9* si desea borrar todos los cambios sin guardar ni aplicar la nueva configuración de red.
+** Seleccione la opción *10* si está listo para aplicar los cambios y aprovisionar la nueva configuración de red.  Durante el aprovisionamiento, la salida muestra el estado a medida que se aplican las actualizaciones, como se muestra en el siguiente ejemplo de salida:
++
+[listing]
+----
+Generating new grid networking description file...
+
+Running provisioning...
+
+Updating grid network configuration on Name
+----
+
+
+. Si seleccionó la opción *10* al realizar cambios en la red de cuadrícula, seleccione una de las siguientes opciones:
++
+** *Aplicar*: Aplicar los cambios inmediatamente y reiniciar automáticamente cada nodo si es necesario.
++
+Si la nueva configuración de red funcionará simultáneamente con la configuración de red anterior sin ningún cambio externo, puede utilizar la opción *aplicar* para un cambio de configuración totalmente automatizado.
+
+** *etapa*: Aplicar los cambios la próxima vez que se reinicien los nodos.
++
+Si necesita realizar cambios en la configuración de red física o virtual para que la nueva configuración de red funcione, debe usar la opción *stage*, apagar los nodos afectados, realizar los cambios de red física necesarios y reiniciar los nodos afectados.
+
++
+
+NOTE: Si utiliza la opción *stage*, reinicie el nodo lo antes posible después de la puesta en escena para minimizar las interrupciones.
+
+** *Cancelar*: No realice ningún cambio de red en este momento.
++
+Si no sabía que los cambios propuestos requieren que se reinicien los nodos, puede posponer los cambios para minimizar el impacto en el usuario.  Al seleccionar *cancelar* regresará al menú principal y conservará los cambios para que pueda aplicarlos más tarde.
+
+
+
++
+Después de aplicar o preparar cambios, se genera un nuevo paquete de recuperación como resultado del cambio de configuración de la red.
+
+. Si la configuración se detiene debido a errores, están disponibles las siguientes opciones:
++
+** Para finalizar el procedimiento de cambio de IP y regresar al menú principal, ingrese *a*.
+** Para volver a intentar la operación que falló, ingrese *r*.
+** Para continuar con la siguiente operación, ingrese *c*.
++
+La operación fallida se puede volver a intentar más tarde seleccionando la opción *10* (Aplicar cambios) en el menú principal.  El procedimiento de cambio de IP no estará completo hasta que todas las operaciones se hayan completado con éxito.
+
+** Si tuvo que intervenir manualmente (para reiniciar un nodo, por ejemplo) y está seguro de que la acción que la herramienta cree que falló en realidad se completó con éxito, ingrese *f* para marcarla como exitosa y pasar a la siguiente operación.
+
+
+. Descargue un nuevo paquete de recuperación desde el Administrador de Grid.
++
+.. Seleccione *MANTENIMIENTO* > *Sistema* > *Paquete de recuperación*.
+.. Introduzca la contraseña de aprovisionamiento.
+
+
++
+
+CAUTION: El archivo del paquete de recuperación debe estar protegido porque contiene claves de cifrado y contraseñas que se pueden utilizar para obtener datos del sistema StorageGRID .
+
+

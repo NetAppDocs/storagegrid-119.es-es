@@ -1,0 +1,28 @@
+---
+permalink: monitor/snmp-alert-notifications.html 
+sidebar: sidebar 
+keywords: how to use snmp notifications for alerts 
+summary: Si desea que StorageGRID envíe notificaciones SNMP cuando se producen alertas, debe habilitar el agente SNMP de StorageGRID y configurar uno o más destinos de captura. 
+---
+= Configurar notificaciones SNMP para alertas
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si desea que StorageGRID envíe notificaciones SNMP cuando se producen alertas, debe habilitar el agente SNMP de StorageGRID y configurar uno o más destinos de captura.
+
+Puede utilizar la opción *CONFIGURACIÓN* > *Monitoreo* > *Agente SNMP* en el Administrador de Grid o los puntos finales SNMP de la API de administración de Grid para habilitar y configurar el agente SNMP de StorageGRID . El agente SNMP admite las tres versiones del protocolo SNMP.
+
+Para aprender a configurar el agente SNMP, consultelink:using-snmp-monitoring.html["Utilice la monitorización SNMP"] .
+
+Después de configurar el agente SNMP de StorageGRID , se pueden enviar dos tipos de notificaciones impulsadas por eventos:
+
+* Las trampas son notificaciones enviadas por el agente SNMP que no requieren reconocimiento por parte del sistema de administración.  Las trampas sirven para notificar al sistema de administración que algo ha sucedido dentro de StorageGRID, como por ejemplo la activación de una alerta.  Las trampas son compatibles con las tres versiones de SNMP.
+* Los informes son similares a las trampas, pero requieren el reconocimiento del sistema de gestión.  Si el agente SNMP no recibe un acuse de recibo dentro de un período de tiempo determinado, vuelve a enviar el informe hasta que recibe un acuse de recibo o se alcanza el valor máximo de reintentos.  Los informes son compatibles con SNMPv2c y SNMPv3.
+
+
+Las notificaciones de trampa e información se envían cuando se activa una alerta predeterminada o personalizada en cualquier nivel de gravedad.  Para suprimir las notificaciones SNMP de una alerta, debe configurar un silencio para la alerta. Ver link:silencing-alert-notifications.html["Silenciar notificaciones de alerta"] .
+
+Si su implementación de StorageGRID incluye varios nodos de administración, el nodo de administración principal es el remitente preferido para notificaciones de alerta, paquetes de AutoSupport y trampas e informes SNMP.  Si el nodo de administración principal deja de estar disponible, otros nodos de administración envían notificaciones temporalmente. Ver link:../primer/what-admin-node-is.html["¿Qué es un nodo de administración?"] .

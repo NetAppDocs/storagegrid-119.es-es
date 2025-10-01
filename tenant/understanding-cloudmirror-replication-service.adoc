@@ -1,0 +1,63 @@
+---
+permalink: tenant/understanding-cloudmirror-replication-service.html 
+sidebar: sidebar 
+keywords: cloudmirror replication 
+summary: Puede habilitar la replicación de CloudMirror para un bucket S3 si desea que StorageGRID replique objetos específicos agregados al bucket en uno o más buckets de destino. 
+---
+= Comprender el servicio de replicación CloudMirror
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede habilitar la replicación de CloudMirror para un bucket S3 si desea que StorageGRID replique objetos específicos agregados al bucket en uno o más buckets de destino externos.
+
+Por ejemplo, puede utilizar la replicación de CloudMirror para reflejar registros de clientes específicos en Amazon S3 y luego aprovechar los servicios de AWS para realizar análisis de sus datos.
+
+
+NOTE: La replicación de CloudMirror no es compatible si el depósito de origen tiene habilitado el bloqueo de objetos S3.
+
+
+
+== CloudMirror e ILM
+
+La replicación de CloudMirror funciona independientemente de las políticas ILM activas de la red.  El servicio CloudMirror replica los objetos a medida que se almacenan en el depósito de origen y los envía al depósito de destino lo antes posible.  La entrega de objetos replicados se activa cuando la ingesta del objeto se realiza correctamente.
+
+
+
+== CloudMirror y replicación entre redes
+
+La replicación de CloudMirror tiene similitudes y diferencias importantes con la función de replicación entre redes. Consulte link:../admin/grid-federation-compare-cgr-to-cloudmirror.html["Comparar la replicación entre redes y la replicación de CloudMirror"] .
+
+
+
+== Cubos de CloudMirror y S3
+
+La replicación de CloudMirror normalmente está configurada para utilizar un depósito S3 externo como destino.  Sin embargo, también puede configurar la replicación para utilizar otra implementación de StorageGRID o cualquier servicio compatible con S3.
+
+Cubos existentes:: Cuando habilita la replicación de CloudMirror para un depósito existente, solo se replican los nuevos objetos agregados a ese depósito.  Cualquier objeto existente en el depósito no se replica.  Para forzar la replicación de objetos existentes, puede actualizar los metadatos del objeto existente realizando una copia del objeto.
++
+--
+
+NOTE: Si utiliza la replicación de CloudMirror para copiar objetos a un destino de Amazon S3, tenga en cuenta que Amazon S3 limita el tamaño de los metadatos definidos por el usuario dentro de cada encabezado de solicitud PUT a 2 KB.  Si un objeto tiene metadatos definidos por el usuario mayores a 2 KB, ese objeto no se replicará.
+
+--
+Cubos de destino múltiples:: Para replicar objetos de un solo depósito en varios depósitos de destino, especifique el destino de cada regla en el XML de configuración de replicación.  No es posible replicar un objeto en más de un bucket al mismo tiempo.
+Cubos versionados o no versionados:: Puede configurar la replicación de CloudMirror en depósitos versionados o no versionados.  Los depósitos de destino pueden tener versiones o no.  Puede utilizar cualquier combinación de depósitos versionados y no versionados.  Por ejemplo, puede especificar un depósito versionado como destino para un depósito de origen no versionado, o viceversa.  También puedes replicar entre depósitos sin versiones.
+
+
+
+
+== Eliminación, bucles de replicación y eventos
+
+Comportamiento de eliminación:: Es lo mismo que el comportamiento de eliminación del servicio Amazon S3, Replicación entre regiones (CRR).  Eliminar un objeto en un depósito de origen nunca elimina un objeto replicado en el destino.  Si tanto el depósito de origen como el de destino tienen versiones, se replica el marcador de eliminación.  Si el depósito de destino no tiene versión, eliminar un objeto en el depósito de origen no replica el marcador de eliminación en el depósito de destino ni elimina el objeto de destino.
+Protección contra bucles de replicación:: A medida que los objetos se replican en el depósito de destino, StorageGRID los marca como "réplicas".  Un depósito StorageGRID de destino no volverá a replicar objetos marcados como réplicas, lo que lo protege de bucles de replicación accidentales.  Esta marca de réplica es interna a StorageGRID y no le impide aprovechar AWS CRR cuando usa un bucket de Amazon S3 como destino.
++
+--
+
+NOTE: El encabezado personalizado utilizado para marcar una réplica es `x-ntap-sg-replica` .  Esta marca evita que se forme un espejo en cascada.  StorageGRID admite un CloudMirror bidireccional entre dos redes.
+
+--
+Eventos en el bucket de destino:: No se garantiza la singularidad ni el orden de los eventos en el depósito de destino.  Es posible que se entregue más de una copia idéntica de un objeto de origen al destino como resultado de las operaciones realizadas para garantizar el éxito de la entrega.  En casos excepcionales, cuando el mismo objeto se actualiza simultáneamente desde dos o más sitios StorageGRID diferentes, el orden de las operaciones en el depósito de destino podría no coincidir con el orden de los eventos en el depósito de origen.
+

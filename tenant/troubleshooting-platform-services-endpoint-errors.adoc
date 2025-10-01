@@ -1,0 +1,73 @@
+---
+permalink: tenant/troubleshooting-platform-services-endpoint-errors.html 
+sidebar: sidebar 
+keywords: how to troubleshoot platform services endpoint 
+summary: Si se produce un error cuando StorageGRID intenta comunicarse con un punto final de servicios de la plataforma, se muestra un mensaje en el panel.  En la página de puntos finales de servicios de la plataforma, la columna Último error indica cuánto tiempo hace que ocurrió el error.  No se muestra ningún error si los permisos asociados con las credenciales de un punto final son incorrectos. 
+---
+= Solucionar errores de puntos finales de servicios de la plataforma
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si se produce un error cuando StorageGRID intenta comunicarse con un punto final de servicios de la plataforma, se muestra un mensaje en el panel.  En la página de puntos finales de servicios de la plataforma, la columna Último error indica cuánto tiempo hace que ocurrió el error.  No se muestra ningún error si los permisos asociados con las credenciales de un punto final son incorrectos.
+
+
+
+== Determinar si se ha producido un error
+
+Si se produjo algún error en los puntos finales de los servicios de la plataforma en los últimos 7 días, el panel del Administrador de inquilinos muestra un mensaje de alerta.  Puede ir a la página de puntos finales de servicios de la plataforma para ver más detalles sobre el error.
+
+image::../media/tenant_dashboard_endpoint_error.png[Mensaje de error de punto final en el panel]
+
+El mismo error que aparece en el panel también aparece en la parte superior de la página de puntos finales de los servicios de la plataforma.  Para ver un mensaje de error más detallado:
+
+.Pasos
+. De la lista de puntos finales, seleccione el punto final que tiene el error.
+. En la página de detalles del punto final, seleccione *Conexión*.  Esta pestaña muestra solo el error más reciente de un punto final e indica cuánto tiempo hace que ocurrió el error.  Errores que incluyen el icono X rojoimage:../media/icon_alert_red_critical.png["Icono de X roja"] ocurrió dentro de los últimos 7 días.
+
+
+
+
+== Comprobar si el error sigue vigente
+
+Es posible que algunos errores sigan apareciendo en la columna *Último error* incluso después de que se hayan resuelto.  Para ver si hay un error actual o para forzar la eliminación de un error resuelto de la tabla:
+
+.Pasos
+. Seleccione el punto final.
++
+Aparece la página de detalles del punto final.
+
+. Seleccione *Conexión* > *Probar conexión*.
+
+
+Al seleccionar *Probar conexión*, StorageGRID valida que el punto final de servicios de la plataforma existe y que se puede acceder a él con las credenciales actuales.  La conexión al punto final se valida desde un nodo en cada sitio.
+
+
+
+== Resolver errores de puntos finales
+
+Puede utilizar el mensaje *Último error* en la página de detalles del punto final para ayudar a determinar qué está causando el error.  Algunos errores podrían requerir que edites el punto final para resolver el problema.  Por ejemplo, puede ocurrir un error de CloudMirroring si StorageGRID no puede acceder al bucket S3 de destino porque no tiene los permisos de acceso correctos o la clave de acceso ha expirado.  El mensaje es "Es necesario actualizar las credenciales del punto final o el acceso al destino" y los detalles son "Acceso denegado" o "InvalidAccessKeyId".
+
+Si necesita editar el punto final para resolver un error, seleccionar *Probar y guardar cambios* hace que StorageGRID valide el punto final actualizado y confirme que se puede acceder a él con las credenciales actuales.  La conexión al punto final se valida desde un nodo en cada sitio.
+
+.Pasos
+. Seleccione el punto final.
+. En la página de detalles del punto final, seleccione *Configuración*.
+. Edite la configuración del punto final según sea necesario.
+. Seleccione *Conexión* > *Probar conexión*.
+
+
+
+
+== Credenciales de punto final con permisos insuficientes
+
+Cuando StorageGRID valida un punto final de servicios de plataforma, confirma que las credenciales del punto final se pueden usar para contactar al recurso de destino y realiza una verificación de permisos básica.  Sin embargo, StorageGRID no valida todos los permisos necesarios para ciertas operaciones de servicios de la plataforma.  Por este motivo, si recibe un error al intentar utilizar un servicio de la plataforma (como "403 Prohibido"), verifique los permisos asociados con las credenciales del punto final.
+
+.Información relacionada
+* link:../admin/troubleshooting-platform-services.html["Administrar StorageGRID > Solucionar problemas de servicios de la plataforma"]
+* link:creating-platform-services-endpoint.html["Crear punto final de servicios de plataforma"]
+* link:testing-connection-for-platform-services-endpoint.html["Conexión de prueba para el punto final de servicios de la plataforma"]
+* link:editing-platform-services-endpoint.html["Editar el punto final de los servicios de la plataforma"]
+

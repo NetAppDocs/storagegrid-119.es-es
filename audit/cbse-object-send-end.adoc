@@ -1,0 +1,106 @@
+---
+permalink: audit/cbse-object-send-end.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, CBSE, Object Send End 
+summary: Cuando se completa la transferencia de un bloque de contenido de un nodo a otro, la entidad de origen emite este mensaje. 
+---
+= CBSE: Fin de envío de objetos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando se completa la transferencia de un bloque de contenido de un nodo a otro, la entidad de origen emite este mensaje.
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+CNID
+ a| 
+Identificador de conexión
+ a| 
+El identificador único de la sesión/conexión de nodo a nodo.
+
+
+
+ a| 
+CBD
+ a| 
+Identificador de bloque de contenido
+ a| 
+El identificador único del bloque de contenido que se está transfiriendo.
+
+
+
+ a| 
+CTDR
+ a| 
+Dirección de transferencia
+ a| 
+Indica si la transferencia de CBID se inició mediante inserción o extracción:
+
+PUSH: La operación de transferencia fue solicitada por la entidad remitente.
+
+PULL: La operación de transferencia fue solicitada por la entidad receptora.
+
+
+
+ a| 
+CTSR
+ a| 
+Entidad de origen
+ a| 
+El ID del nodo de la fuente (remitente) de la transferencia CBID.
+
+
+
+ a| 
+CTDS
+ a| 
+Entidad de destino
+ a| 
+El ID del nodo del destino (receptor) de la transferencia CBID.
+
+
+
+ a| 
+CTSS
+ a| 
+Iniciar recuento de secuencias
+ a| 
+Indica el recuento de secuencia en el que se inició la transferencia.
+
+
+
+ a| 
+CTAS
+ a| 
+Recuento de secuencia final real
+ a| 
+Indica el último recuento de secuencia transferido exitosamente.  Si el recuento de secuencia final real es el mismo que el recuento de secuencia inicial y el resultado de la transferencia no fue exitoso, no se intercambiaron datos.
+
+
+
+ a| 
+RSLT
+ a| 
+Resultado de la transferencia
+ a| 
+El resultado de la operación de transferencia (desde la perspectiva de la entidad remitente):
+
+SUCS: Transferencia completada exitosamente; se enviaron todos los recuentos de secuencia solicitados.
+
+CONL: conexión perdida durante la transferencia
+
+CTMO: tiempo de conexión agotado durante el establecimiento o la transferencia
+
+UNRE: ID de nodo de destino inalcanzable
+
+CRPT: transferencia finalizada debido a la recepción de datos corruptos o inválidos
+
+|===
+Este mensaje de auditoría significa que se completó una operación de transferencia de datos de nodo a nodo.  Si el resultado de la transferencia fue exitoso, la operación transfirió datos de "Recuento de secuencia inicial" a "Recuento de secuencia final real".  Los nodos de envío y recepción se identifican mediante sus ID de nodo.  Esta información se puede utilizar para rastrear el flujo de datos del sistema y para localizar, tabular y analizar errores.  Cuando se combina con mensajes de auditoría de almacenamiento, también se puede utilizar para verificar los recuentos de réplicas.

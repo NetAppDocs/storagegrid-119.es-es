@@ -1,0 +1,97 @@
+---
+permalink: rhel/installing-linux.html 
+sidebar: sidebar 
+keywords: how to install on red hat linux 
+summary: Debe instalar StorageGRID en todos los hosts de red de Red Hat Enterprise Linux. Para obtener una lista de las versiones compatibles, utilice la herramienta Matriz de interoperabilidad de NetApp . 
+---
+= Instalar Linux
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe instalar StorageGRID en todos los hosts de red de Red Hat Enterprise Linux. Para obtener una lista de las versiones compatibles, utilice la herramienta Matriz de interoperabilidad de NetApp .
+
+.Antes de empezar
+Asegúrese de que su sistema operativo cumpla con los requisitos mínimos de versión de kernel de StorageGRID, como se detalla a continuación.  Utilice el comando `uname -r` para obtener la versión del kernel de su sistema operativo o consulte con el proveedor de su sistema operativo.
+
+[cols="1a,2a,2a"]
+|===
+| Versión de Red Hat Enterprise Linux | Versión mínima del kernel | Nombre del paquete del kernel 
+
+
+ a| 
+8.8 (obsoleto)
+ a| 
+4.18.0-477.10.1.el8_8.x86_64
+ a| 
+kernel-4.18.0-477.10.1.el8_8.x86_64
+
+
+
+ a| 
+8,10
+ a| 
+4.18.0-553.el8_10.x86_64
+ a| 
+núcleo-4.18.0-553.el8_10.x86_64
+
+
+
+ a| 
+9.0 (obsoleto)
+ a| 
+5.14.0-70.22.1.el9_0.x86_64
+ a| 
+kernel-5.14.0-70.22.1.el9_0.x86_64
+
+
+
+ a| 
+9.2 (obsoleto)
+ a| 
+5.14.0-284.11.1.el9_2.x86_64
+ a| 
+kernel-5.14.0-284.11.1.el9_2.x86_64
+
+
+
+ a| 
+9,4
+ a| 
+5.14.0-427.18.1.el9_4.x86_64
+ a| 
+kernel-5.14.0-427.18.1.el9_4.x86_64
+
+
+
+ a| 
+9,6
+ a| 
+5.14.0-570.18.1.el9_6.x86_64
+ a| 
+kernel-5.14.0-570.18.1.el9_6.x86_64
+
+|===
+.Pasos
+. Instale Linux en todos los hosts de la red física o virtual de acuerdo con las instrucciones del distribuidor o su procedimiento estándar.
++
+
+NOTE: Si está utilizando el instalador estándar de Linux, seleccione la configuración de software "nodo de cómputo", si está disponible, o el entorno base "instalación mínima". No instale ningún entorno de escritorio gráfico.
+
+. Asegúrese de que todos los hosts tengan acceso a los repositorios de paquetes, incluido el canal Extras.
++
+Es posible que necesite estos paquetes adicionales más adelante en este procedimiento de instalación.
+
+. Si el intercambio está habilitado:
++
+.. Ejecute el siguiente comando: `$ sudo swapoff --all`
+.. Eliminar todas las entradas de intercambio de `/etc/fstab` para conservar la configuración.
+
+
++
+
+NOTE: No deshabilitar el intercambio por completo puede reducir gravemente el rendimiento.
+
+

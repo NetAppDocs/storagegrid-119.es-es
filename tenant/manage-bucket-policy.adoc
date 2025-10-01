@@ -1,0 +1,37 @@
+---
+permalink: tenant/manage-bucket-policy.html 
+sidebar: sidebar 
+keywords: how to create S3 tenant groups, federated group, local group 
+summary: Puede controlar el acceso de los usuarios a un bucket S3 y a los objetos que contiene. 
+---
+= Administrar la política de depósitos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede controlar el acceso de los usuarios a un bucket S3 y a los objetos que contiene.
+
+.Antes de empezar
+* Ha iniciado sesión en el Administrador de inquilinos mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Perteneces a un grupo de usuarios que tiene lalink:tenant-management-permissions.html["Permiso de acceso root"] .  Los permisos Ver todos los depósitos y Administrar todos los depósitos solo permiten la visualización.
+* Ha verificado que la cantidad requerida de nodos de almacenamiento y sitios están disponibles.  Si dos o más nodos de almacenamiento no están disponibles dentro de algún sitio, o si un sitio no está disponible, es posible que los cambios en estas configuraciones no estén disponibles.
+
+
+.Pasos
+. Seleccione *Cubos* y luego seleccione el cubo que desea administrar.
+. En la página de detalles del depósito, seleccione *Acceso al depósito* > *Política del depósito*.
+. Debe realizar una de las siguientes acciones:
++
+** Introduzca una política de depósito seleccionando la casilla de verificación *Habilitar política*.  Luego ingrese una cadena con formato JSON válida.
++
+Cada política de bucket tiene un límite de tamaño de 20 480 bytes.
+
+** Modifique una política existente editando la cadena.
+** Deshabilite una política desmarcando la opción *Habilitar política*.
+
+
+
+
+Para obtener información detallada sobre las políticas de bucket, incluida la sintaxis del lenguaje y ejemplos, consultelink:../s3/example-bucket-policies.html["Ejemplos de políticas de depósito"] .

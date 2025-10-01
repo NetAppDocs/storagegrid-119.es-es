@@ -1,0 +1,29 @@
+---
+permalink: maintain/understanding-adc-service-quorum.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, adc, adc quorum 
+summary: 'Es posible que no pueda desmantelar ciertos nodos de almacenamiento en un sitio si quedan muy pocos servicios de controlador de dominio administrativo (ADC) después del desmantelamiento.' 
+---
+= ¿Qué es el quórum de la ADC?
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible que no pueda desmantelar ciertos nodos de almacenamiento en un sitio si quedan muy pocos servicios de controlador de dominio administrativo (ADC) después del desmantelamiento.
+
+El servicio ADC, que se encuentra en algunos nodos de almacenamiento, mantiene la información de topología de la red y proporciona servicios de configuración a la red.  El sistema StorageGRID requiere que haya un quórum de servicios ADC disponibles en cada sitio y en todo momento.
+
+No se puede desmantelar un nodo de almacenamiento si al eliminarlo se produce que ya no se cumpla el quórum del ADC.  Para satisfacer el quórum de ADC durante un desmantelamiento, un mínimo de tres nodos de almacenamiento en cada sitio deben tener el servicio ADC.  Si un sitio tiene más de tres nodos de almacenamiento con el servicio ADC, una mayoría simple de esos nodos debe permanecer disponible después del desmantelamiento: `((0.5 * _Storage Nodes with ADC_) + 1)`
+
+
+CAUTION: Tenga cuidado al desmantelar nodos de almacenamiento en una red que contenga nodos solo de metadatos basados en software.  Si desmantela todos los nodos configurados para almacenar _tanto_ objetos como metadatos, se elimina la capacidad de almacenar objetos de la red.  Verlink:../primer/what-storage-node-is.html#types-of-storage-nodes["Tipos de nodos de almacenamiento"] para obtener más información sobre los nodos de almacenamiento de solo metadatos.
+
+Por ejemplo, supongamos que un sitio actualmente incluye seis nodos de almacenamiento con servicios de ADC y desea desmantelar tres nodos de almacenamiento.  Debido al requisito de quórum de ADC, debe completar dos procedimientos de desmantelamiento, como se indica a continuación:
+
+* En el primer procedimiento de desmantelamiento, debe asegurarse de que cuatro nodos de almacenamiento con servicios ADC permanezcan disponibles: `((0.5 * 6) + 1)` .  Esto significa que inicialmente solo puedes desmantelar dos nodos de almacenamiento.
+* En el segundo procedimiento de desmantelamiento, puede eliminar el tercer nodo de almacenamiento porque el quórum de ADC ahora solo requiere que tres servicios de ADC permanezcan disponibles: `((0.5 * 4) + 1)` .
+
+
+Si necesita desmantelar un nodo de almacenamiento pero no puede hacerlo debido al requisito de quórum de ADC, agregue un nuevo nodo de almacenamiento en unlink:../expand/index.html["expansión"] y especificar que debe tener un servicio ADC.  A continuación, desmantele el nodo de almacenamiento existente.

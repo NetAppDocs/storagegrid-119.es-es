@@ -1,0 +1,36 @@
+---
+permalink: tenant/deleting-platform-services-endpoint.html 
+sidebar: sidebar 
+keywords: how to delete tenant platform services endpoint 
+summary: Puede eliminar un punto final si ya no desea utilizar el servicio de plataforma asociado. 
+---
+= Eliminar el punto final de los servicios de la plataforma
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede eliminar un punto final si ya no desea utilizar el servicio de plataforma asociado.
+
+.Antes de empezar
+* Ha iniciado sesión en el Administrador de inquilinos mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Perteneces a un grupo de usuarios que tiene lalink:tenant-management-permissions.html["Administrar puntos finales o permisos de acceso raíz"] .
+
+
+.Pasos
+. Seleccione *ALMACENAMIENTO (S3)* > *Puntos finales de servicios de plataforma*.
++
+Aparece la página Puntos finales de servicios de la plataforma y muestra la lista de puntos finales de servicios de la plataforma que ya se han configurado.
+
+. Seleccione la casilla de verificación para cada punto final que desee eliminar.
++
+
+NOTE: Si elimina un punto final de servicios de plataforma que está en uso, el servicio de plataforma asociado se deshabilitará para cualquier depósito que use el punto final.  Cualquier solicitud que aún no se haya completado será descartada.  Se seguirán generando nuevas solicitudes hasta que usted cambie la configuración de su depósito para que ya no haga referencia al URN eliminado.  StorageGRID informará estas solicitudes como errores irrecuperables.
+
+. Seleccione *Acciones* > *Eliminar punto final*.
++
+Aparece un mensaje de confirmación.
+
+. Seleccione *Eliminar punto final*.
+

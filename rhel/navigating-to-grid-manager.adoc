@@ -1,0 +1,51 @@
+---
+permalink: rhel/navigating-to-grid-manager.html 
+sidebar: sidebar 
+keywords: how to navigate to grid manager 
+summary: Utilice el Administrador de cuadrícula para definir toda la información necesaria para configurar su sistema StorageGRID . 
+---
+= Vaya al Administrador de cuadrícula
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Utilice el Administrador de cuadrícula para definir toda la información necesaria para configurar su sistema StorageGRID .
+
+.Antes de empezar
+El nodo de administración principal debe estar implementado y haber completado la secuencia de inicio inicial.
+
+.Pasos
+. Abra su navegador web y navegue a:
++
+`https://_primary_admin_node_ip_`
+
++
+Alternativamente, puede acceder al Administrador de cuadrícula en el puerto 8443:
+
++
+`https://_primary_admin_node_ip_:8443`
+
++
+Puede utilizar la dirección IP para la IP del nodo de administración principal en la red de cuadrícula o en la red de administración, según corresponda a su configuración de red.
+
+. Administre una contraseña de instalador temporal según sea necesario:
++
+** Si ya se ha establecido una contraseña utilizando uno de estos métodos, introdúzcala para continuar.
++
+*** Un usuario estableció la contraseña al acceder al instalador previamente
+*** La contraseña se importó automáticamente desde el archivo de configuración del nodo en `/etc/storagegrid/nodes/_<node_name>_.conf`
+
+
+** Si no se ha establecido una contraseña, opcionalmente establezca una contraseña para proteger el instalador de StorageGRID .
+
+
+. Seleccione *Instalar un sistema StorageGRID *.
++
+Aparece la página utilizada para configurar un sistema StorageGRID .
+
++
+image::../media/gmi_installer_first_screen.gif[Primera pantalla del instalador de StorageGRID]
+
+

@@ -1,0 +1,64 @@
+---
+permalink: tenant/creating-another-users-s3-access-keys.html 
+sidebar: sidebar 
+keywords: how to create other user S3 access key 
+summary: Si utiliza un inquilino S3 y tiene el permiso adecuado, puede crear claves de acceso S3 para otros usuarios, como aplicaciones que necesitan acceso a depósitos y objetos. 
+---
+= Crear las claves de acceso S3 de otro usuario
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si utiliza un inquilino S3 y tiene el permiso adecuado, puede crear claves de acceso S3 para otros usuarios, como aplicaciones que necesitan acceso a depósitos y objetos.
+
+.Antes de empezar
+* Ha iniciado sesión en el Administrador de inquilinos mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Perteneces a un grupo de usuarios que tiene lalink:tenant-management-permissions.html["Permiso de acceso root"] .
+
+
+.Acerca de esta tarea
+Puede crear una o más claves de acceso S3 para otros usuarios para que puedan crear y administrar depósitos para su cuenta de inquilino.  Después de crear una nueva clave de acceso, actualice la aplicación con la nueva ID de clave de acceso y la clave de acceso secreta.  Por seguridad, no cree más claves de las que necesita el usuario y elimine las claves que no se estén utilizando.  Si solo tiene una clave y está a punto de caducar, cree una nueva clave antes de que caduque la anterior y luego elimínela.
+
+Cada clave puede tener un tiempo de expiración específico o no tener expiración.  Siga estas pautas para el tiempo de vencimiento:
+
+* Establezca un tiempo de expiración para las claves para limitar el acceso del usuario a un período de tiempo determinado.  Establecer un tiempo de vencimiento corto puede ayudar a reducir el riesgo si el ID de la clave de acceso y la clave de acceso secreta se exponen accidentalmente.  Las claves caducadas se eliminan automáticamente.
+* Si el riesgo de seguridad en su entorno es bajo y no necesita crear nuevas claves periódicamente, no es necesario establecer un tiempo de vencimiento para las claves.  Si más adelante decide crear nuevas claves, elimine las claves antiguas manualmente.
+
+
+
+CAUTION: Se puede acceder a los depósitos y objetos S3 que pertenecen a un usuario mediante el ID de clave de acceso y la clave de acceso secreta que se muestran para ese usuario en el Administrador de inquilinos.  Por este motivo, proteja las claves de acceso como lo haría con una contraseña.  Rote las claves de acceso periódicamente, elimine las claves no utilizadas de la cuenta y nunca las comparta con otros usuarios.
+
+.Pasos
+. Seleccione *GESTIÓN DE ACCESO* > *Usuarios*.
+. Seleccione el usuario cuyas claves de acceso S3 desea administrar.
++
+Aparece la página de detalles del usuario.
+
+. Seleccione *Teclas de acceso* y luego seleccione *Crear clave*.
+. Debe realizar una de las siguientes acciones:
++
+** Seleccione *No establecer un tiempo de expiración* para crear una clave que no expire.  (Por defecto)
+** Seleccione *Establecer una hora de vencimiento* y configure la fecha y hora de vencimiento.
++
+
+NOTE: La fecha de vencimiento puede ser de un máximo de cinco años a partir de la fecha actual.  El tiempo de expiración puede ser de un mínimo de un minuto a partir de la hora actual.
+
+
+
+. Seleccione *Crear clave de acceso*.
++
+Aparece el cuadro de diálogo Descargar clave de acceso, que enumera el ID de la clave de acceso y la clave de acceso secreta.
+
+. Copie el ID de la clave de acceso y la clave de acceso secreta a una ubicación segura, o seleccione *Descargar .csv* para guardar un archivo de hoja de cálculo que contenga el ID de la clave de acceso y la clave de acceso secreta.
++
+
+CAUTION: No cierre este cuadro de diálogo hasta que haya copiado o descargado esta información.  No es posible copiar ni descargar claves una vez cerrado el cuadro de diálogo.
+
+. Seleccione *Finalizar*.
++
+La nueva clave aparece en la pestaña Teclas de acceso de la página de detalles del usuario.
+
+. Si su cuenta de inquilino tiene el permiso *Usar conexión de federación de red*, utilice opcionalmente la API de administración de inquilinos para clonar manualmente las claves de acceso S3 del inquilino en la red de origen al inquilino en la red de destino. Ver link:grid-federation-clone-keys-with-api.html["Clonar claves de acceso S3 usando la API"] .
+

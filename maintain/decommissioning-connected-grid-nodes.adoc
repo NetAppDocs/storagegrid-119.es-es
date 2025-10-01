@@ -1,0 +1,132 @@
+---
+permalink: maintain/decommissioning-connected-grid-nodes.html 
+sidebar: sidebar 
+keywords: storagegrid, decommission, connected nodes, decommission node 
+summary: Puede desmantelar y eliminar de forma permanente los nodos que estén conectados a la red. 
+---
+= Desmantelar nodos de red conectados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede desmantelar y eliminar de forma permanente los nodos que estén conectados a la red.
+
+.Antes de empezar
+* Entiendes las consideraciones para el desmantelamientolink:considerations-for-decommissioning-admin-or-gateway-nodes.html["Nodos de administración y de puerta de enlace"] y las consideraciones para el desmantelamientolink:considerations-for-decommissioning-storage-nodes.html["Nodos de almacenamiento"] .
+* Has reunido todos los materiales necesarios.
+* Se ha asegurado de que no haya trabajos de reparación de datos activos.
+* Ha confirmado que la recuperación del nodo de almacenamiento no está en progreso en ningún lugar de la red.  Si es así, espere hasta que se complete la reconstrucción de Cassandra realizada como parte de la recuperación.  Luego puedes proceder al desmantelamiento.
+* Se ha asegurado de que no se ejecutarán otros procedimientos de mantenimiento mientras se ejecuta el procedimiento de desmantelamiento del nodo, a menos que dicho procedimiento esté en pausa.
+* Tienes la contraseña de aprovisionamiento.
+* Los nodos de la red están conectados.
+* La columna *Posible desmantelamiento* para el nodo o los nodos que desea desmantelar incluye una marca de verificación verde.
++
+
+NOTE: La desactivación no se iniciará si uno o más volúmenes están fuera de línea (desmontados) o si están en línea (montados) pero en un estado de error.
+
++
+
+NOTE: Si uno o más volúmenes se desconectan mientras se lleva a cabo un desmantelamiento, el proceso de desmantelamiento se completa después de que estos volúmenes vuelvan a estar en línea.
+
+* Todos los nodos de la red tienen una salud normal (verde)image:../media/icon_alert_green_checkmark.png["icono de marca de verificación verde"] .  Si ve uno de estos íconos en la columna *Salud*, debe intentar resolver el problema:
++
+[cols="1a,1a,3a"]
+|===
+| Icono | Color | Gravedad 
+
+
+ a| 
+image:../media/icon_alarm_yellow_notice.gif["icono cuadrado amarillo"]
+ a| 
+Amarillo
+ a| 
+Aviso
+
+
+
+ a| 
+image:../media/icon_alert_yellow_minor.png["icono de diamante naranja claro"]
+ a| 
+Naranja claro
+ a| 
+Menor
+
+
+
+ a| 
+image:../media/icon_alert_orange_major.png["icono de diamante naranja oscuro"]
+ a| 
+naranja oscuro
+ a| 
+Importante
+
+
+
+ a| 
+image:../media/icon_alert_red_critical.png["icono de x roja"]
+ a| 
+Rojo
+ a| 
+Crítico
+
+|===
+* Si anteriormente desactivó un nodo de almacenamiento desconectado, todos los trabajos de reparación de datos se completaron correctamente. Ver link:checking-data-repair-jobs.html["Comprobar trabajos de reparación de datos"] .
+
+
+
+CAUTION: No elimine la máquina virtual ni otros recursos de un nodo de la red hasta que se le indique hacerlo en este procedimiento.
+
+
+CAUTION: Tenga cuidado al desmantelar nodos de almacenamiento en una red que contenga nodos solo de metadatos basados en software.  Si desmantela todos los nodos configurados para almacenar _tanto_ objetos como metadatos, se elimina la capacidad de almacenar objetos de la red.  Verlink:../primer/what-storage-node-is.html#types-of-storage-nodes["Tipos de nodos de almacenamiento"] para obtener más información sobre los nodos de almacenamiento de solo metadatos.
+
+.Acerca de esta tarea
+Cuando se da de baja un nodo, sus servicios se desactivan y el nodo se apaga automáticamente.
+
+.Pasos
+. Desde la página Nodos de desmantelamiento, seleccione la casilla de verificación para cada nodo de la red que desee desmantelar.
+. Introduzca la contraseña de aprovisionamiento.
++
+El botón *Iniciar desmantelamiento* está habilitado.
+
+. Seleccione *Iniciar desmantelamiento*.
+. Revise la lista de nodos en el cuadro de diálogo de confirmación y seleccione *Aceptar*.
++
+Se inicia el procedimiento de desmantelamiento del nodo y se muestra el progreso para cada nodo.
+
++
+
+CAUTION: No desconecte un nodo de almacenamiento una vez iniciado el procedimiento de desmantelamiento.  Cambiar el estado podría provocar que parte del contenido no se copie a otras ubicaciones.
+
+. Tan pronto como el nuevo paquete de recuperación esté disponible, seleccione el enlace Paquete de recuperación en el banner o seleccione *MANTENIMIENTO* > *Sistema* > *Paquete de recuperación* para acceder a la página Paquete de recuperación. Luego, descargue el `.zip` archivo.
++
+Ver link:downloading-recovery-package.html["descargando el paquete de recuperación"] .
+
++
+
+NOTE: Descargue el paquete de recuperación lo antes posible para asegurarse de poder recuperar su red si algo sale mal durante el procedimiento de desmantelamiento.
+
+. Supervise periódicamente la página Nodos de desmantelamiento para asegurarse de que todos los nodos seleccionados se desmantelen correctamente.
++
+
+TIP: Los nodos de almacenamiento pueden tardar días o semanas en desmantelarse.
+
++
+Cuando se completan todas las tareas, la lista de selección de nodos se vuelve a mostrar con un mensaje de éxito.
+
+
+
+.Después de terminar
+Complete estos pasos después de completar el procedimiento de desmantelamiento del nodo:
+
+. Siga el paso apropiado para su plataforma. Por ejemplo:
++
+** *Linux*: Es posible que desees separar los volúmenes y eliminar los archivos de configuración de nodo que creaste durante la instalación. Verlink:../rhel/index.html["Instalar StorageGRID en Red Hat Enterprise Linux"] ylink:../ubuntu/index.html["Instalar StorageGRID en Ubuntu o Debian"] .
+** *VMware*: Es posible que desees utilizar la opción "Eliminar del disco" de vCenter para eliminar la máquina virtual.  Es posible que también sea necesario eliminar cualquier disco de datos que sea independiente de la máquina virtual.
+** *Dispositivo StorageGRID *: el nodo del dispositivo vuelve automáticamente a un estado no implementado donde puede acceder al instalador del dispositivo StorageGRID .  Puede apagar el dispositivo o agregarlo a otro sistema StorageGRID .
+
+
+. Asegúrese de que las unidades del nodo de red fuera de servicio estén limpias.  Utilice una herramienta o servicio de borrado de datos disponible comercialmente para eliminar datos de las unidades de forma permanente y segura.
+. Si desactivó un nodo del dispositivo y los datos del dispositivo estaban protegidos mediante el cifrado del nodo, utilice el instalador del dispositivo StorageGRID para borrar la configuración del servidor de administración de claves (Borrar KMS).  Debe borrar la configuración de KMS si desea agregar el dispositivo a otra red. Para obtener instrucciones, consulte https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/monitoring-node-encryption-in-maintenance-mode.html["Monitorizar el cifrado del nodo en modo de mantenimiento"^] .
+

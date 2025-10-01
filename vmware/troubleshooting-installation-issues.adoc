@@ -1,0 +1,81 @@
+---
+permalink: vmware/troubleshooting-installation-issues.html 
+sidebar: sidebar 
+keywords: how to troubleshoot installation issues 
+summary: Si ocurre algún problema durante la instalación del sistema StorageGRID , puede acceder a los archivos de registro de instalación. 
+---
+= Solucionar problemas de instalación
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si ocurre algún problema durante la instalación del sistema StorageGRID , puede acceder a los archivos de registro de instalación.
+
+Los siguientes son los principales archivos de registro de instalación que el soporte técnico podría necesitar para resolver problemas.
+
+* `/var/local/log/install.log`(se encuentra en todos los nodos de la red)
+* `/var/local/log/gdu-server.log`(se encuentra en el nodo de administración principal)
+
+
+.Información relacionada
+Para saber cómo acceder a los archivos de registro, consultelink:../monitor/logs-files-reference.html["Referencia de archivos de registro"] .
+
+Si necesita ayuda adicional, póngase en contacto con https://mysupport.netapp.com/site/global/dashboard["Soporte de NetApp"^] .
+
+
+
+== La reserva de recursos de la máquina virtual requiere un ajuste
+
+Los archivos OVF incluyen una reserva de recursos diseñada para garantizar que cada nodo de la red tenga suficiente RAM y CPU para funcionar de manera eficiente.  Si crea máquinas virtuales implementando estos archivos OVF en VMware y la cantidad predefinida de recursos no está disponible, las máquinas virtuales no se iniciarán.
+
+.Acerca de esta tarea
+Si está seguro de que el host de la máquina virtual tiene recursos suficientes para cada nodo de la red, ajuste manualmente los recursos asignados para cada máquina virtual y luego intente iniciar las máquinas virtuales.
+
+.Pasos
+. En el árbol de clientes de VMware vSphere Hypervisor, seleccione la máquina virtual que no está iniciada.
+. Haga clic derecho en la máquina virtual y seleccione *Editar configuración*.
+. Desde la ventana Propiedades de máquinas virtuales, seleccione la pestaña *Recursos*.
+. Ajustar los recursos asignados a la máquina virtual:
++
+.. Seleccione *CPU* y luego utilice el control deslizante Reserva para ajustar los MHz reservados para esta máquina virtual.
+.. Seleccione *Memoria* y luego utilice el control deslizante Reserva para ajustar los MB reservados para esta máquina virtual.
+
+
+. Haga clic en *Aceptar*.
+. Repita según sea necesario para otras máquinas virtuales alojadas en el mismo host de VM.
+
+
+
+
+== La contraseña de instalación temporal fue deshabilitada
+
+Al implementar un nodo VMware, puede especificar opcionalmente una contraseña de instalación temporal.  Debe tener esta contraseña para acceder a la consola de la VM o usar SSH antes de que el nuevo nodo se una a la red.
+
+Si optó por deshabilitar la contraseña de instalación temporal, deberá realizar pasos adicionales para depurar problemas de instalación.
+
+Puede realizar cualquiera de las siguientes acciones:
+
+* Vuelva a implementar la máquina virtual, pero especifique una contraseña de instalación temporal para poder acceder a la consola o usar SSH para depurar problemas de instalación.
+* Utilice vCenter para establecer la contraseña:
++
+.. Apague la máquina virtual.
+.. Vaya a *VM*, seleccione la pestaña *Configurar* y seleccione *Opciones de vApp*.
+.. Especifique el tipo de contraseña de instalación temporal que desea establecer:
++
+*** Seleccione *CUSTOM_TEMPORARY_PASSWORD* para establecer una contraseña temporal personalizada.
+*** Seleccione *TEMPORARY_PASSWORD_TYPE* para utilizar el nombre del nodo como contraseña temporal.
+
+
+.. Seleccione *Establecer valor*.
+.. Establecer la contraseña temporal:
++
+*** Cambie *CUSTOM_TEMPORARY_PASSWORD* por un valor de contraseña personalizado.
+*** Actualice *TEMPORARY_PASSWORD_TYPE* con el valor *Use node name*.
+
+
+.. Reinicie la máquina virtual para aplicar la nueva contraseña.
+
+
+

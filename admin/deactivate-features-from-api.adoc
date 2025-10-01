@@ -1,0 +1,60 @@
+---
+permalink: admin/deactivate-features-from-api.html 
+sidebar: sidebar 
+keywords: deactivate features from api 
+summary: Puede utilizar la API de administración de red para desactivar por completo ciertas funciones en el sistema StorageGRID .  Cuando una función está desactivada, no se pueden asignar permisos a nadie para realizar las tareas relacionadas con esa función. 
+---
+= Desactivar funciones con la API
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede utilizar la API de administración de red para desactivar por completo ciertas funciones en el sistema StorageGRID .  Cuando una función está desactivada, no se pueden asignar permisos a nadie para realizar las tareas relacionadas con esa función.
+
+.Acerca de esta tarea
+El sistema de funciones desactivadas le permite evitar el acceso a ciertas funciones en el sistema StorageGRID .  Desactivar una función es la única forma de evitar que el usuario root o los usuarios que pertenecen a grupos de administradores con permiso de *acceso root* puedan usar esa función.
+
+Para comprender cómo esta funcionalidad podría ser útil, considere el siguiente escenario:
+
+_La empresa A es un proveedor de servicios que alquila la capacidad de almacenamiento de su sistema StorageGRID mediante la creación de cuentas de inquilino.  Para proteger la seguridad de los objetos de sus arrendatarios, la Compañía A quiere asegurarse de que sus propios empleados nunca puedan acceder a ninguna cuenta de inquilino después de que la cuenta se haya implementado.
+
+La empresa A puede lograr este objetivo mediante el sistema de desactivación de funciones en la API de administración de la red.  Al desactivar por completo la función *Cambiar contraseña de root del inquilino* en el Administrador de Grid (tanto la UI como la API), la Compañía A garantiza que los usuarios administradores, incluido el usuario root y los usuarios que pertenecen a grupos con permiso de *Acceso root*, no puedan cambiar la contraseña de ningún usuario root de la cuenta de inquilino.
+
+.Pasos
+. Acceda a la documentación de Swagger para la API de administración de cuadrícula. Ver link:using-grid-management-api.html["Utilice la API de gestión de red"] .
+. Localice el punto final Desactivar funciones.
+. Para desactivar una función, como Cambiar la contraseña raíz del inquilino, envíe un cuerpo a la API como este:
++
+`{ "grid": {"changeTenantRootPassword": true} }`
+
++
+Cuando se completa la solicitud, la función Cambiar la contraseña raíz del inquilino se deshabilita.  El permiso de administración *Cambiar contraseña de root del inquilino* ya no aparece en la interfaz de usuario, y cualquier solicitud de API que intente cambiar la contraseña de root de un inquilino fallará con "403 Prohibido".
+
+
+
+
+
+== Reactivar funciones desactivadas
+
+De forma predeterminada, puede utilizar la API de administración de cuadrícula para reactivar una función que se ha desactivado.  Sin embargo, si desea evitar que las funciones desactivadas se vuelvan a activar, puede desactivar la función *activateFeatures*.
+
+
+CAUTION: La función *activateFeatures* no se puede reactivar.  Si decide desactivar esta función, tenga en cuenta que perderá permanentemente la capacidad de reactivar cualquier otra función desactivada.  Debe ponerse en contacto con el soporte técnico para restaurar cualquier funcionalidad perdida.
+
+.Pasos
+. Acceda a la documentación de Swagger para la API de administración de cuadrícula.
+. Localice el punto final Desactivar funciones.
+. Para reactivar todas las funciones, envíe un cuerpo a la API como este:
++
+`{ "grid": null }`
+
++
+Cuando se completa esta solicitud, se reactivan todas las funciones, incluida la función Cambiar la contraseña raíz del inquilino.  El permiso de administración *Cambiar contraseña de root del inquilino* ahora aparece en la interfaz de usuario, y cualquier solicitud de API que intente cambiar la contraseña de root de un inquilino tendrá éxito, asumiendo que el usuario tiene el permiso de administración *Acceso de root* o *Cambiar contraseña de root del inquilino*.
+
+
+
+
+TIP: El ejemplo anterior hace que _todas_ las funciones desactivadas se reactiven.  Si se han desactivado otras funciones que deben permanecer desactivadas, deberá especificarlas explícitamente en la solicitud PUT.  Por ejemplo, para reactivar la función Cambiar contraseña de root del inquilino y continuar desactivando el permiso de administración de storageAdmin, envíe esta solicitud PUT: +
+`{ "grid": {"storageAdmin": true} }`

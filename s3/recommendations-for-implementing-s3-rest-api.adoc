@@ -1,0 +1,61 @@
+---
+permalink: s3/recommendations-for-implementing-s3-rest-api.html 
+sidebar: sidebar 
+keywords: implement s3 rest api 
+summary: Debe seguir estas recomendaciones al implementar la API REST S3 para su uso con StorageGRID. 
+---
+= Recomendaciones para implementar la API REST de S3
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe seguir estas recomendaciones al implementar la API REST S3 para su uso con StorageGRID.
+
+
+
+== Recomendaciones para HEADs a objetos inexistentes
+
+Si su aplicación verifica rutinariamente si existe un objeto en una ruta en la que no espera que el objeto exista realmente, debe usar la opción "Disponible".link:consistency-controls.html["consistencia"] . Por ejemplo, debe utilizar la consistencia "Disponible" si su aplicación encabeza una ubicación antes de PUT en ella.
+
+De lo contrario, si la operación HEAD no encuentra el objeto, es posible que reciba una gran cantidad de errores internos del servidor 500 si dos o más nodos de almacenamiento en el mismo sitio no están disponibles o si no se puede acceder a un sitio remoto.
+
+Puede establecer la consistencia "Disponible" para cada depósito utilizando ellink:put-bucket-consistency-request.html["Consistencia del depósito PUT"] solicitud, o puede especificar la consistencia en el encabezado de la solicitud para una operación de API individual.
+
+
+
+== Recomendaciones para claves de objeto
+
+Siga estas recomendaciones para los nombres de claves de objeto, según el momento en que se creó el depósito por primera vez.
+
+.Cubos creados en StorageGRID 11.4 o anterior
+* No utilice valores aleatorios como los primeros cuatro caracteres de las claves de objeto.  Esto contrasta con la recomendación anterior de AWS para prefijos clave.  En su lugar, utilice prefijos no aleatorios ni únicos, como `image` .
+* Si sigue la recomendación anterior de AWS de utilizar caracteres aleatorios y únicos en los prefijos de clave, anteponga a las claves de objeto un nombre de directorio.  Es decir, utiliza este formato:
++
+`mybucket/mydir/f8e3-image3132.jpg`
+
++
+En lugar de este formato:
+
++
+`mybucket/f8e3-image3132.jpg`
+
+
+
+.Cubos creados en StorageGRID 11.4 o posterior
+No es necesario restringir los nombres de claves de objeto para cumplir con las mejores prácticas de rendimiento.  En la mayoría de los casos, puede utilizar valores aleatorios para los primeros cuatro caracteres de los nombres de claves de objeto.
+
+
+TIP: Una excepción a esto es una carga de trabajo S3 que elimina continuamente todos los objetos después de un corto período de tiempo.  Para minimizar el impacto en el rendimiento de este caso de uso, varíe una parte inicial del nombre de la clave cada varios miles de objetos con algo como la fecha.  Por ejemplo, supongamos que un cliente S3 normalmente escribe 2000 objetos por segundo y la política de ciclo de vida del ILM o del bucket elimina todos los objetos después de tres días.  Para minimizar el impacto en el rendimiento, puedes nombrar las claves utilizando un patrón como este: `/mybucket/mydir/_yyyymmddhhmmss_-_random_UUID_.jpg`
+
+
+
+== Recomendaciones para "lecturas de rango"
+
+Si ellink:../admin/configuring-stored-object-compression.html["Opción global para comprimir objetos almacenados"] Si está habilitado, las aplicaciones cliente S3 deben evitar realizar operaciones GetObject que especifiquen un rango de bytes que se devolverán.  Estas operaciones de "lectura de rango" son ineficientes porque StorageGRID debe descomprimir efectivamente los objetos para acceder a los bytes solicitados.  Las operaciones GetObject que solicitan un rango pequeño de bytes de un objeto muy grande son especialmente ineficientes; por ejemplo, es ineficiente leer un rango de 10 MB de un objeto comprimido de 50 GB.
+
+Si se leen rangos de objetos comprimidos, las solicitudes del cliente pueden expirar.
+
+
+NOTE: Si necesita comprimir objetos y su aplicación cliente debe utilizar lecturas de rango, aumente el tiempo de espera de lectura de la aplicación.

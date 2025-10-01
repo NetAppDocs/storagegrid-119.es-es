@@ -1,0 +1,25 @@
+---
+permalink: monitor/viewing-ilm-tab.html 
+sidebar: sidebar 
+keywords: ilm tab 
+summary: 'La pestaña ILM proporciona información sobre las operaciones de gestión del ciclo de vida de la información (ILM).' 
+---
+= Ver la pestaña ILM
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La pestaña ILM proporciona información sobre las operaciones de gestión del ciclo de vida de la información (ILM).
+
+La pestaña ILM se muestra para cada nodo de almacenamiento, cada sitio y toda la red.  Para cada sitio y la cuadrícula, la pestaña ILM muestra un gráfico de la cola de ILM a lo largo del tiempo.  Para la cuadrícula, esta pestaña también proporciona el tiempo estimado para completar un escaneo ILM completo de todos los objetos.
+
+Para los nodos de almacenamiento, la pestaña ILM proporciona detalles sobre la evaluación de ILM y la verificación en segundo plano para objetos con código de borrado.
+
+image::../media/nodes_page_ilm_tab.png[Pestaña ILM de la página Nodos]
+
+.Información relacionada
+* link:monitoring-information-lifecycle-management.html["Supervisar la gestión del ciclo de vida de la información"]
+* link:../admin/index.html["Administrar StorageGRID"]
+

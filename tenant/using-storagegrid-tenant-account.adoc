@@ -1,0 +1,66 @@
+---
+permalink: tenant/using-storagegrid-tenant-account.html 
+sidebar: sidebar 
+keywords: how to use tenant account 
+summary: 'Una cuenta de inquilino le permite utilizar la API REST de Simple Storage Service (S3) para almacenar y recuperar objetos en un sistema StorageGRID .' 
+---
+= Usar la cuenta de inquilino de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Una cuenta de inquilino le permite utilizar la API REST de Simple Storage Service (S3) para almacenar y recuperar objetos en un sistema StorageGRID .
+
+Cada cuenta de inquilino tiene sus propios grupos federados o locales, usuarios, depósitos S3 y objetos.
+
+
+TIP: Se han eliminado los detalles rápidos de esta versión del sitio de documentación. Ver https://docs.netapp.com/us-en/storagegrid-118/tenant/using-storagegrid-tenant-account.html["StorageGRID 11.8: Usar la cuenta de inquilino de StorageGRID"^] .
+
+Opcionalmente, se pueden usar cuentas de inquilino para segregar objetos almacenados por diferentes entidades.  Por ejemplo, se pueden utilizar varias cuentas de inquilino para cualquiera de estos casos de uso:
+
+* *Caso de uso empresarial:* si el sistema StorageGRID se utiliza dentro de una empresa, el almacenamiento de objetos de la red podría estar segregado por los diferentes departamentos de la organización.  Por ejemplo, podría haber cuentas de inquilinos para el departamento de Marketing, el departamento de Atención al Cliente, el departamento de Recursos Humanos, etc.
++
+
+NOTE: Si utiliza el protocolo de cliente S3, también puede usar depósitos S3 y políticas de depósitos para segregar objetos entre los departamentos de una empresa. No es necesario crear cuentas de inquilino separadas. Consulte las instrucciones para la implementaciónlink:../s3/bucket-and-group-access-policies.html["Cubos S3 y políticas de cubos"] Para más información.
+
+* *Caso de uso de proveedor de servicios:* si un proveedor de servicios utiliza el sistema StorageGRID , el almacenamiento de objetos de la red puede estar segregado por las diferentes entidades que alquilan el almacenamiento.  Por ejemplo, podría haber cuentas de inquilinos para la Empresa A, la Empresa B, la Empresa C, etc.
+
+
+
+
+== Crear cuentas de inquilinos
+
+Las cuentas de inquilino son creadas por un administrador de red StorageGRID mediante el Administrador de red.  Al crear una cuenta de inquilino, el administrador de la red especifica la siguiente información:
+
+* Nombre para mostrar del inquilino (el ID de la cuenta del inquilino se asigna automáticamente y no se puede cambiar).
+* Si la cuenta del inquilino utilizará el protocolo S3 o Swift.
+* Para cuentas de inquilino S3: si la cuenta de inquilino tiene permiso para utilizar los servicios de la plataforma.  Si se permite el uso de servicios de plataforma, la red debe configurarse para admitir su uso.
+* Opcionalmente, una cuota de almacenamiento para la cuenta del inquilino: la cantidad máxima de gigabytes, terabytes o petabytes disponibles para los objetos del inquilino.  La cuota de almacenamiento de un inquilino representa una cantidad lógica (tamaño del objeto), no una cantidad física (tamaño en disco).
+* Si la federación de identidad está habilitada para el sistema StorageGRID , ¿qué grupo federado tiene permiso de acceso raíz para configurar la cuenta de inquilino?
+* Si no se utiliza el inicio de sesión único (SSO) para el sistema StorageGRID , si la cuenta del inquilino utilizará su propia fuente de identidad o compartirá la fuente de identidad de la red y la contraseña inicial para el usuario raíz local del inquilino.
+
+
+Además, los administradores de la red pueden habilitar la configuración de Bloqueo de objetos S3 para el sistema StorageGRID si las cuentas de inquilinos S3 necesitan cumplir con los requisitos reglamentarios.  Cuando el bloqueo de objetos S3 está habilitado, todas las cuentas de inquilinos de S3 pueden crear y administrar depósitos compatibles.
+
+
+
+== Configurar inquilinos de S3
+
+Después de crear una cuenta de inquilino S3, puede acceder al Administrador de inquilinos para realizar tareas como las siguientes:
+
+* Configurar una federación de identidad (a menos que la fuente de identidad se comparta con la red) o crear grupos y usuarios locales
+* Administrar claves de acceso de S3
+* Creación y gestión de depósitos S3, incluidos los depósitos compatibles
+* Uso de los servicios de la plataforma (si están habilitados)
+* Monitoreo del uso del almacenamiento
+
+
+
+TIP: Si bien puede crear y administrar depósitos S3 con Tenant Manager, debe tener claves de acceso S3 y usar la API REST S3 para ingerir y administrar objetos.
+
+.Información relacionada
+* link:../admin/index.html["Administrar StorageGRID"]
+* link:../s3/index.html["Utilice la API REST de S3"]
+

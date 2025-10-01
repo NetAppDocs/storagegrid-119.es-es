@@ -1,0 +1,86 @@
+---
+permalink: admin/temporarily-disabling-and-reenabling-sso-for-admin-node.html 
+sidebar: sidebar 
+keywords: signing in when sso is down, single sign on failure 
+summary: 'Es posible que no pueda iniciar sesión en Grid Manager si el sistema de inicio de sesión único (SSO) deja de funcionar.  En este caso, puede deshabilitar y volver a habilitar temporalmente el SSO para un nodo de administración.  Para deshabilitar y luego volver a habilitar SSO, debe acceder al shell de comandos del nodo.' 
+---
+= Deshabilitar temporalmente y volver a habilitar el inicio de sesión único para un nodo de administración
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible que no pueda iniciar sesión en Grid Manager si el sistema de inicio de sesión único (SSO) deja de funcionar.  En este caso, puede deshabilitar y volver a habilitar temporalmente el SSO para un nodo de administración.  Para deshabilitar y luego volver a habilitar SSO, debe acceder al shell de comandos del nodo.
+
+.Antes de empezar
+* Tieneslink:admin-group-permissions.html["permisos de acceso específicos"] .
+* Tú tienes el `Passwords.txt` archivo.
+* Conoces la contraseña del usuario root local.
+
+
+.Acerca de esta tarea
+Después de deshabilitar SSO para un nodo de administración, puede iniciar sesión en Grid Manager como usuario raíz local.  Para proteger su sistema StorageGRID , debe usar el shell de comandos del nodo para volver a habilitar SSO en el nodo de administración tan pronto como cierre la sesión.
+
+
+TIP: Deshabilitar SSO para un nodo de administración no afecta la configuración de SSO de ningún otro nodo de administración en la red.  La casilla de verificación *Habilitar SSO* en la página de Inicio de sesión único en el Administrador de Grid permanece seleccionada y todas las configuraciones de SSO existentes se mantienen a menos que las actualice.
+
+.Pasos
+. Inicie sesión en un nodo de administración:
++
+.. Introduzca el siguiente comando: `ssh admin@Admin_Node_IP`
+.. Introduzca la contraseña que aparece en el `Passwords.txt` archivo.
+.. Introduzca el siguiente comando para cambiar a root: `su -`
+.. Introduzca la contraseña que aparece en el `Passwords.txt` archivo.
++
+Cuando inicia sesión como root, el mensaje cambia de `$` a `#` .
+
+
+
+. Ejecute el siguiente comando:``disable-saml``
++
+Un mensaje indica que el comando se aplica únicamente a este nodo de administración.
+
+. Confirme que desea deshabilitar SSO.
++
+Un mensaje indica que el inicio de sesión único está deshabilitado en el nodo.
+
+. Desde un navegador web, acceda al Administrador de cuadrícula en el mismo nodo de administración.
++
+Ahora se muestra la página de inicio de sesión de Grid Manager porque se ha deshabilitado el SSO.
+
+. Sign in con el nombre de usuario root y la contraseña del usuario root local.
+. Si deshabilitó SSO temporalmente porque necesitaba corregir la configuración de SSO:
++
+.. Seleccione *CONFIGURACIÓN* > *Control de acceso* > *Inicio de sesión único*.
+.. Cambie la configuración de SSO incorrecta o desactualizada.
+.. Seleccione *Guardar*.
++
+Al seleccionar *Guardar* en la página de inicio de sesión único, se vuelve a habilitar automáticamente el SSO para toda la red.
+
+
+
+. Si deshabilitó el SSO temporalmente porque necesitaba acceder al Administrador de Grid por algún otro motivo:
++
+.. Realice cualquier tarea o tareas que necesite realizar.
+.. Seleccione *Cerrar sesión* y cierre el Administrador de cuadrícula.
+.. Vuelva a habilitar SSO en el nodo de administración.  Puede realizar cualquiera de los siguientes pasos:
++
+*** Ejecute el siguiente comando: `enable-saml`
++
+Un mensaje indica que el comando se aplica únicamente a este nodo de administración.
+
++
+Confirme que desea habilitar SSO.
+
++
+Un mensaje indica que el inicio de sesión único está habilitado en el nodo.
+
+*** Reiniciar el nodo de la red: `reboot`
+
+
+
+
+. Desde un navegador web, acceda al Administrador de cuadrícula desde el mismo nodo de administración.
+. Confirme que aparezca la página de Sign in de StorageGRID y que debe ingresar sus credenciales de SSO para acceder al Administrador de Grid.
+

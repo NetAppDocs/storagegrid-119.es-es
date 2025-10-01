@@ -1,0 +1,20 @@
+---
+permalink: maintain/all-node-types-replacing-linux-node.html 
+sidebar: sidebar 
+keywords: replace linux node 
+summary: Si una falla requiere que implemente uno o más hosts físicos o virtuales nuevos o que reinstale Linux en un host existente, implemente y configure el host de reemplazo antes de poder recuperar el nodo de la red.  Este procedimiento es un paso del proceso de recuperación del nodo de la red para todos los tipos de nodos de la red. 
+---
+= Reemplazar el nodo Linux
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si una falla requiere que implemente uno o más hosts físicos o virtuales nuevos o que reinstale Linux en un host existente, implemente y configure el host de reemplazo antes de poder recuperar el nodo de la red.  Este procedimiento es un paso del proceso de recuperación del nodo de la red para todos los tipos de nodos de la red.
+
+"Linux" se refiere a una implementación de Red Hat® Enterprise Linux®, Ubuntu® o Debian®. Para obtener una lista de las versiones compatibles, consulte la https://imt.netapp.com/matrix/#welcome["Herramienta de matriz de interoperabilidad de NetApp (IMT)"^] .
+
+Este procedimiento solo se realiza como un paso en el proceso de recuperación de nodos de almacenamiento basados en software, nodos de administración primarios o no primarios o nodos de puerta de enlace.  Los pasos son idénticos independientemente del tipo de nodo de red que esté recuperando.
+
+Si hay más de un nodo de red alojado en un host Linux físico o virtual, puede recuperar los nodos de red en cualquier orden.  Sin embargo, recuperar primero un nodo de administración principal, si está presente, evita que la recuperación de otros nodos de la red se detenga mientras intentan comunicarse con el nodo de administración principal para registrarse para la recuperación.

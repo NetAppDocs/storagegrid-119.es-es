@@ -1,0 +1,85 @@
+---
+permalink: maintain/step-2-view-details.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, view details 
+summary: 'Desde el Paso 2 \(Ver detalles\) del asistente de desmantelamiento del sitio, puede revisar qué nodos están incluidos en el sitio, ver cuánto espacio se ha utilizado en cada nodo de almacenamiento y evaluar cuánto espacio libre está disponible en los otros sitios de su red.' 
+---
+= Paso 2: Ver detalles
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Desde el Paso 2 (Ver detalles) del asistente de desmantelamiento del sitio, puede revisar qué nodos están incluidos en el sitio, ver cuánto espacio se ha utilizado en cada nodo de almacenamiento y evaluar cuánto espacio libre está disponible en los otros sitios de su red.
+
+.Antes de empezar
+Antes de desmantelar un sitio, debe revisar cuántos datos de objetos existen en el sitio.
+
+* Si está realizando una desactivación de un sitio conectado, debe comprender cuántos datos de objetos existen actualmente en el sitio antes de actualizar ILM.  Según las capacidades del sitio y sus necesidades de protección de datos, puede crear nuevas reglas ILM para mover datos a otros sitios o eliminar datos de objetos del sitio.
+* Realice cualquier expansión de nodo de almacenamiento necesaria antes de iniciar el procedimiento de desmantelamiento, si es posible.
+* Si está realizando una desactivación de un sitio desconectado, debe comprender cuántos datos de objetos quedarán permanentemente inaccesibles cuando elimine el sitio.
+
+
+
+CAUTION: Si está realizando una desactivación de un sitio desconectado, ILM no puede mover ni eliminar datos de objetos.  Cualquier dato que permanezca en el sitio se perderá.  Sin embargo, si su política ILM fue diseñada para proteger contra la pérdida de un solo sitio, aún existen copias de los datos de sus objetos en los sitios restantes. Ver link:../ilm/using-multiple-storage-pools-for-cross-site-replication.html["Habilitar la protección contra pérdida de sitios"] .
+
+.Pasos
+. Desde el Paso 2 (Ver detalles), revise todas las advertencias relacionadas con el sitio que seleccionó eliminar.
++
+image::../media/decommission_site_step_2_site_warnings.png[Advertencias del sitio del paso 2 del sitio de desmantelamiento]
+
++
+En estos casos aparece una advertencia:
+
++
+** El sitio incluye un nodo de enlace.  Si los clientes S3 se están conectando actualmente a este nodo, debe configurar un nodo equivalente en otro sitio.  Asegúrese de que los clientes puedan conectarse al nodo de reemplazo antes de continuar con el procedimiento de desmantelamiento.
+** El sitio contiene una mezcla de (image:../media/icon_alert_green_checkmark.png["Icono de alerta Marca de verificación verde"] ) y nodos desconectados (image:../media/icon_alarm_gray_administratively_down.png["Icono de alarma gris administrativamente inactivo"] oimage:../media/icon_alarm_blue_unknown.png["Icono Alarma Azul Desconocido"] ).  Antes de poder eliminar este sitio, debes volver a poner en línea todos los nodos fuera de línea.
+
+
+. Revise los detalles sobre el sitio que seleccionó eliminar.
++
+image::../media/decommission_site_step_2_view_details.png[Sitio de desmantelamiento Paso 2 Ver detalles]
+
++
+La siguiente información se incluye para el sitio seleccionado:
+
++
+** Número de nodos
+** El espacio total utilizado, el espacio libre y la capacidad de todos los nodos de almacenamiento en el sitio.
++
+*** Para el desmantelamiento de un sitio conectado, el valor *Espacio utilizado* representa la cantidad de datos de objetos que se deben mover a otros sitios o eliminar con ILM.
+*** En el caso de la desactivación de un sitio desconectado, el valor *Espacio utilizado* indica la cantidad de datos de objetos que se volverán inaccesibles cuando se elimine el sitio.
+
+
+** Nombres de nodos, tipos y estados de conexión:
++
+*** image:../media/icon_alert_green_checkmark.png["Icono de alerta Marca de verificación verde"](Conectado)
+*** image:../media/icon_alarm_gray_administratively_down.png["Icono de alarma gris administrativamente inactivo"](Administrativamente caído)
+*** image:../media/icon_alarm_blue_unknown.png["Icono Alarma Azul Desconocido"](Desconocido)
+
+
+** Detalles sobre cada nodo:
++
+*** Para cada nodo de almacenamiento, la cantidad de espacio que se ha utilizado para los datos del objeto.
+*** Para los nodos de administración y los nodos de puerta de enlace, si el nodo se utiliza actualmente en un grupo de alta disponibilidad (HA).  No se puede desmantelar un nodo de administración o un nodo de puerta de enlace que se utilice en un grupo de alta disponibilidad.  Antes de comenzar el desmantelamiento, edite los grupos de HA para eliminar todos los nodos del sitio o elimine el grupo de HA si solo incluye nodos de este sitio. Para obtener instrucciones, consultelink:../admin/managing-high-availability-groups.html["Administrar grupos de alta disponibilidad (HA)"] .
+
+
+
+
+. En la sección Detalles de otros sitios de la página, evalúe cuánto espacio está disponible en los otros sitios de su cuadrícula.
++
+image::../media/decommission_site_step_2_view_details_for_other_sites.png[Sitio de desmantelamiento Paso 2 Ver detalles de otros sitios]
+
++
+Si está realizando una desactivación de un sitio conectado y planea usar ILM para mover datos de objetos del sitio seleccionado (en lugar de simplemente eliminarlos), debe asegurarse de que los otros sitios tengan suficiente capacidad para acomodar los datos movidos y que quede capacidad adecuada para el crecimiento futuro.
+
++
+
+NOTE: Aparece una advertencia si el *Espacio utilizado* del sitio que desea eliminar es mayor que el *Espacio libre total para otros sitios*.  Para garantizar que haya capacidad de almacenamiento adecuada disponible después de eliminar el sitio, es posible que deba realizar una expansión antes de realizar este procedimiento.
+
+. Seleccione *Siguiente*.
++
+Aparece el paso 3 (Revisar la política de ILM).
+
+

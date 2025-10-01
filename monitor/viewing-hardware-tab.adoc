@@ -1,0 +1,725 @@
+---
+permalink: monitor/viewing-hardware-tab.html 
+sidebar: sidebar 
+keywords: hardware tab 
+summary: La pestaña Hardware muestra la utilización de la CPU y la utilización de la memoria para cada nodo, e información de hardware adicional sobre los dispositivos. 
+---
+= Ver la pestaña Hardware
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La pestaña Hardware muestra la utilización de la CPU y la utilización de la memoria para cada nodo, e información de hardware adicional sobre los dispositivos.
+
+
+NOTE: El Grid Manager se actualiza con cada versión y es posible que no coincida con las capturas de pantalla de ejemplo en esta página.
+
+La pestaña Hardware se muestra para todos los nodos.
+
+image::../media/nodes_page_hardware_tab_graphs.png[Página Nodos Pestaña Hardware]
+
+Para mostrar un intervalo de tiempo diferente, seleccione uno de los controles sobre el gráfico.  Puede mostrar la información disponible para intervalos de 1 hora, 1 día, 1 semana o 1 mes.  También puede establecer un intervalo personalizado, que le permite especificar rangos de fecha y hora.
+
+Para ver detalles sobre la utilización de la CPU y la memoria, coloque el cursor sobre cada gráfico.
+
+image::../media/nodes_page_memory_usage_details.png[Página de nodos > Hardware > Detalles de uso de memoria]
+
+Si el nodo es un nodo de dispositivo, esta pestaña también incluye una sección con más información sobre el hardware del dispositivo.
+
+
+
+== Ver información sobre los nodos de almacenamiento del dispositivo
+
+La página Nodos enumera información sobre el estado del servicio y todos los recursos computacionales, de dispositivos de disco y de red para cada nodo de almacenamiento del dispositivo.  También puede ver la memoria, el hardware de almacenamiento, la versión del firmware del controlador, los recursos de red, las interfaces de red, las direcciones de red y recibir y transmitir datos.
+
+.Pasos
+. Desde la página Nodos, seleccione un nodo de almacenamiento del dispositivo.
+. Seleccione *Descripción general*.
++
+La sección Información del nodo de la pestaña Descripción general muestra información resumida del nodo, como el nombre, el tipo, el ID y el estado de la conexión del nodo.  La lista de direcciones IP incluye el nombre de la interfaz para cada dirección, de la siguiente manera:
+
++
+** *eth*: La red de cuadrícula, la red de administración o la red de clientes.
+** *hic*: Uno de los puertos físicos de 10, 25 o 100 GbE en el dispositivo.  Estos puertos se pueden unir y conectar a la red de cuadrícula StorageGRID (eth0) y a la red de cliente (eth2).
+** *mtc*: Uno de los puertos físicos de 1 GbE en el dispositivo.  Una o más interfaces mtc están vinculadas para formar la interfaz de red de administración de StorageGRID (eth1).  Puede dejar otras interfaces mtc disponibles para conectividad local temporal para un técnico en el centro de datos.
++
+image::../media/nodes_page_overview_tab_extended.png[Descripción general de la página de nodos ampliada]
+
++
+La sección Alertas de la pestaña Descripción general muestra todas las alertas activas para el nodo.
+
+
+
+. Seleccione *Hardware* para ver más información sobre el dispositivo.
++
+.. Vea los gráficos de utilización de CPU y memoria para determinar los porcentajes de uso de CPU y memoria a lo largo del tiempo.  Para mostrar un intervalo de tiempo diferente, seleccione uno de los controles sobre el gráfico.  Puede mostrar la información disponible para intervalos de 1 hora, 1 día, 1 semana o 1 mes.  También puede establecer un intervalo personalizado, que le permite especificar rangos de fecha y hora.
++
+image::../media/nodes_page_hardware_tab_graphs.png[Gráficos de hardware]
+
+.. Desplácese hacia abajo para ver la tabla de componentes del dispositivo.  Esta tabla contiene información como el nombre del modelo del dispositivo, los nombres de los controladores, los números de serie y las direcciones IP, y el estado de cada componente.
++
+
+NOTE: Algunos campos, como la dirección IP del controlador de cómputo BMC y el hardware de cómputo, aparecen solo para dispositivos con esa función.
+
++
+Los componentes de los estantes de almacenamiento y los estantes de expansión, si son parte de la instalación, aparecen en una tabla separada debajo de la tabla de electrodomésticos.
+
++
+image::../media/nodes_page_hardware_tab_for_appliance.png[Pestaña de hardware de la página Nodos para el dispositivo]
+
++
+[cols="1a,2a"]
+|===
+| Campo en la tabla de dispositivos | Descripción 
+
+
+ a| 
+Modelo de electrodoméstico
+ a| 
+El número de modelo de este dispositivo StorageGRID que se muestra en SANtricity OS.
+
+
+
+ a| 
+Nombre del controlador de almacenamiento
+ a| 
+El nombre de este dispositivo StorageGRID que se muestra en SANtricity OS.
+
+
+
+ a| 
+Controlador de almacenamiento Una IP de gestión
+ a| 
+Dirección IP para el puerto de administración 1 en el controlador de almacenamiento A. Utilice esta IP para acceder a SANtricity OS para solucionar problemas de almacenamiento.
+
+
+
+ a| 
+IP de gestión del controlador de almacenamiento B
+ a| 
+Dirección IP para el puerto de administración 1 en el controlador de almacenamiento B. Utilice esta IP para acceder a SANtricity OS para solucionar problemas de almacenamiento.
+
+Algunos modelos de electrodomésticos no tienen un controlador de almacenamiento B.
+
+
+
+ a| 
+WWID del controlador de almacenamiento
+ a| 
+El identificador mundial del controlador de almacenamiento que se muestra en SANtricity OS.
+
+
+
+ a| 
+Número de serie del chasis del dispositivo de almacenamiento
+ a| 
+El número de serie del chasis del aparato.
+
+
+
+ a| 
+Versión del firmware del controlador de almacenamiento
+ a| 
+La versión del firmware del controlador de almacenamiento para este dispositivo.
+
+
+
+ a| 
+Controlador de almacenamiento SANtricity Versión del sistema operativo
+ a| 
+La versión del sistema operativo SANtricity del controlador de almacenamiento A.
+
+
+
+ a| 
+Versión NVSRAM del controlador de almacenamiento
+ a| 
+Versión NVSRAM del controlador de almacenamiento según lo informado por SANtricity System Manager.
+
+Para SG6060 y SG6160, si hay una discrepancia en la versión de NVSRAM entre los dos controladores, se muestra la versión del controlador A.  Si el controlador A no está instalado o no está operativo, se muestra la versión del controlador B.
+
+
+
+ a| 
+Hardware de almacenamiento
+ a| 
+El estado general del hardware del controlador de almacenamiento.  Si SANtricity System Manager informa un estado de Necesita atención para el hardware de almacenamiento, el sistema StorageGRID también informa este valor.
+
+Si el estado es "requiere atención", primero verifique el controlador de almacenamiento usando SANtricity OS.  Luego, asegúrese de que no existan otras alertas que se apliquen al controlador de cómputo.
+
+
+
+ a| 
+Recuento de unidades fallidas del controlador de almacenamiento
+ a| 
+La cantidad de unidades que no son óptimas.
+
+
+
+ a| 
+Controlador de almacenamiento A
+ a| 
+El estado del controlador de almacenamiento A.
+
+
+
+ a| 
+Controlador de almacenamiento B
+ a| 
+El estado del controlador de almacenamiento B. Algunos modelos de dispositivos no tienen un controlador de almacenamiento B.
+
+
+
+ a| 
+Fuente de alimentación del controlador de almacenamiento A
+ a| 
+El estado de la fuente de alimentación A para el controlador de almacenamiento.
+
+
+
+ a| 
+Fuente de alimentación del controlador de almacenamiento B
+ a| 
+El estado de la fuente de alimentación B para el controlador de almacenamiento.
+
+
+
+ a| 
+Tipo de unidad de datos de almacenamiento
+ a| 
+El tipo de unidades en el dispositivo, como HDD (disco duro) o SSD (unidad de estado sólido).
+
+
+
+ a| 
+Tamaño de la unidad de datos de almacenamiento
+ a| 
+El tamaño efectivo de una unidad de datos.
+
+En el caso del SG6160, también se muestra el tamaño de la unidad de caché.
+
+*Nota*: Para nodos con estantes de expansión, utilice el<<shelf_data_drive_size,Tamaño de la unidad de datos para cada estante>> en cambio.  El tamaño efectivo de la unidad puede variar según el estante.
+
+
+
+ a| 
+Modo RAID de almacenamiento
+ a| 
+El modo RAID configurado para el dispositivo.
+
+
+
+ a| 
+Conectividad de almacenamiento
+ a| 
+El estado de conectividad de almacenamiento.
+
+
+
+ a| 
+Fuente de alimentación general
+ a| 
+El estado de todas las fuentes de alimentación del aparato.
+
+
+
+ a| 
+Controlador de cómputo BMC IP
+ a| 
+La dirección IP del puerto del controlador de administración de placa base (BMC) en el controlador de cómputo.  Utilice esta IP para conectarse a la interfaz BMC para supervisar y diagnosticar el hardware del dispositivo.
+
+Este campo no se muestra para los modelos de dispositivos que no contienen un BMC.
+
+
+
+ a| 
+Número de serie del controlador de cómputo
+ a| 
+El número de serie del controlador de cálculo.
+
+
+
+ a| 
+hardware de cómputo
+ a| 
+El estado del hardware del controlador de cómputo.  Este campo no se muestra para los modelos de dispositivos que no tienen hardware de procesamiento y hardware de almacenamiento separados.
+
+
+
+ a| 
+Temperatura de la CPU del controlador de cómputo
+ a| 
+El estado de temperatura de la CPU del controlador de cómputo.
+
+
+
+ a| 
+Temperatura del chasis del controlador de cómputo
+ a| 
+El estado de temperatura del controlador de cálculo.
+
+|===
++
+[cols="1a,2a"]
+|===
+| Columna en la tabla Estantes de almacenamiento | Descripción 
+
+
+ a| 
+Número de serie del chasis del estante
+ a| 
+El número de serie del chasis del estante de almacenamiento.
+
+
+
+ a| 
+Identificación del estante
+ a| 
+El identificador numérico del estante de almacenamiento.
+
+*** 99: Estante del controlador de almacenamiento
+*** 0: Primer estante de expansión
+*** 1: Segundo estante de expansión
+
+
+*Nota:* Los estantes de expansión se aplican únicamente a los modelos SG6060 y SG6160.
+
+
+
+ a| 
+Estado del estante
+ a| 
+El estado general del estante de almacenamiento.
+
+
+
+ a| 
+Estado de la OIM
+ a| 
+El estado de los módulos de entrada/salida (IOM) en cualquier estante de expansión.  N/A si no se trata de un estante de expansión.
+
+
+
+ a| 
+Estado de la fuente de alimentación
+ a| 
+El estado general de las fuentes de alimentación del estante de almacenamiento.
+
+
+
+ a| 
+Estado del cajón
+ a| 
+El estado de los cajones en el estante de almacenamiento.  N/A si el estante no contiene cajones.
+
+
+
+ a| 
+Estado del ventilador
+ a| 
+El estado general de los ventiladores de refrigeración en el estante de almacenamiento.
+
+
+
+ a| 
+Ranuras de unidad
+ a| 
+El número total de ranuras de unidad en el estante de almacenamiento.
+
+
+
+ a| 
+Unidades de datos
+ a| 
+La cantidad de unidades en el estante de almacenamiento que se utilizan para el almacenamiento de datos.
+
+
+
+ a| 
+[[shelf_data_drive_size]]Tamaño de la unidad de datos
+ a| 
+El tamaño efectivo de una unidad de datos en el estante de almacenamiento.
+
+
+
+ a| 
+Unidades de caché
+ a| 
+La cantidad de unidades en el estante de almacenamiento que se utilizan como caché.
+
+
+
+ a| 
+Tamaño de la unidad de caché
+ a| 
+El tamaño de la unidad de caché más pequeña en el estante de almacenamiento.  Normalmente, las unidades de caché tienen todas el mismo tamaño.
+
+
+
+ a| 
+Estado de configuración
+ a| 
+El estado de configuración del estante de almacenamiento.
+
+|===
+.. Confirme que todos los estados sean "Nominal".
++
+Si un estado no es "Nominal", revise las alertas actuales.  También puede utilizar SANtricity System Manager para obtener más información sobre algunos de estos valores de hardware.  Consulte las instrucciones de instalación y mantenimiento de su aparato.
+
+
+
+. Seleccione *Red* para ver información de cada red.
++
+El gráfico de tráfico de red proporciona un resumen del tráfico general de la red.
+
++
+image::../media/nodes_page_network_traffic_graph.png[Gráfico de tráfico de red de la página de nodos]
+
++
+.. Revise la sección Interfaces de red.
++
+image::../media/nodes_page_network_interfaces.png[Interfaces de red de la página de nodos]
+
++
+Utilice la siguiente tabla con los valores de la columna *Velocidad* en la tabla Interfaces de red para determinar si los puertos de red 10/25-GbE en el dispositivo se configuraron para usar el modo activo/de respaldo o el modo LACP.
+
++
+
+NOTE: Los valores que se muestran en la tabla suponen que se utilizan los cuatro enlaces.
+
++
+[cols="1a,1a,1a,1a"]
+|===
+| Modo de enlace | Modo de enlace | Velocidad de enlace HIC individual (hic1, hic2, hic3, hic4) | Velocidad esperada de la red de cuadrícula/cliente (eth0,eth2) 
+
+
+ a| 
+Agregar
+ a| 
+LACP
+ a| 
+25
+ a| 
+100
+
+
+
+ a| 
+Fijado
+ a| 
+LACP
+ a| 
+25
+ a| 
+50
+
+
+
+ a| 
+Fijado
+ a| 
+Activo/Copia de seguridad
+ a| 
+25
+ a| 
+25
+
+
+
+ a| 
+Agregar
+ a| 
+LACP
+ a| 
+10
+ a| 
+40
+
+
+
+ a| 
+Fijado
+ a| 
+LACP
+ a| 
+10
+ a| 
+20
+
+
+
+ a| 
+Fijado
+ a| 
+Activo/Copia de seguridad
+ a| 
+10
+ a| 
+10
+
+|===
++
+Ver https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/configuring-network-links.html["Configurar enlaces de red"^] para obtener más información sobre la configuración de los puertos 10/25-GbE.
+
+.. Revise la sección Comunicación en red.
++
+Las tablas de recepción y transmisión muestran cuántos bytes y paquetes se han recibido y enviado a través de cada red, así como otras métricas de recepción y transmisión.
+
++
+image::../media/nodes_page_network_communication.png[Página de nodos Red Comm]
+
+
+
+. Seleccione *Almacenamiento* para ver gráficos que muestran los porcentajes de almacenamiento utilizados a lo largo del tiempo para datos de objetos y metadatos de objetos, así como información sobre dispositivos de disco, volúmenes y almacenes de objetos.
++
+image::../media/nodes_page_storage_used_object_data.png[Almacenamiento utilizado: datos de objetos]
+
++
+image::../media/storage_used_object_metadata.png[Almacenamiento utilizado: metadatos de objetos]
+
++
+.. Desplácese hacia abajo para ver las cantidades de almacenamiento disponible para cada volumen y almacén de objetos.
++
+El nombre mundial de cada disco coincide con el identificador mundial de volumen (WWID) que aparece cuando se ven las propiedades de volumen estándar en SANtricity OS (el software de administración conectado al controlador de almacenamiento del dispositivo).
+
++
+Para ayudarlo a interpretar las estadísticas de lectura y escritura del disco relacionadas con los puntos de montaje del volumen, la primera parte del nombre que se muestra en la columna *Nombre* de la tabla Dispositivos de disco (es decir, _sdc_, _sdd_, _sde_, etc.) coincide con el valor que se muestra en la columna *Dispositivo* de la tabla Volúmenes.
+
++
+image::../media/nodes_page_storage_tables.png[Tablas de almacenamiento de páginas de nodos]
+
+
+
+
+
+
+
+== Ver información sobre los nodos de administración y los nodos de puerta de enlace del dispositivo
+
+La página Nodos enumera información sobre el estado del servicio y todos los recursos computacionales, de dispositivos de disco y de red para cada dispositivo de servicios que se utiliza como nodo de administración o nodo de puerta de enlace.  También puede ver la memoria, el hardware de almacenamiento, los recursos de red, las interfaces de red, las direcciones de red y recibir y transmitir datos.
+
+.Pasos
+. Desde la página Nodos, seleccione un nodo de administración del dispositivo o un nodo de puerta de enlace del dispositivo.
+. Seleccione *Descripción general*.
++
+La sección Información del nodo de la pestaña Descripción general muestra información resumida del nodo, como el nombre, el tipo, el ID y el estado de la conexión del nodo.  La lista de direcciones IP incluye el nombre de la interfaz para cada dirección, de la siguiente manera:
+
++
+** *adllb* y *adlli*: se muestran si se utiliza el enlace activo/de respaldo para la interfaz de red de administración
+** *eth*: La red de cuadrícula, la red de administración o la red de clientes.
+** *hic*: Uno de los puertos físicos de 10, 25 o 100 GbE en el dispositivo.  Estos puertos se pueden unir y conectar a la red de cuadrícula StorageGRID (eth0) y a la red de cliente (eth2).
+** *mtc*: Uno de los puertos físicos de 1 GbE en el dispositivo.  Una o más interfaces mtc están vinculadas para formar la interfaz de red de administración (eth1).  Puede dejar otras interfaces mtc disponibles para conectividad local temporal para un técnico en el centro de datos.
++
+image::../media/nodes_page_overview_tab_services_appliance.png[Página de nodos Pestaña de descripción general para el dispositivo de servicios]
+
+
+
++
+La sección Alertas de la pestaña Descripción general muestra todas las alertas activas para el nodo.
+
+. Seleccione *Hardware* para ver más información sobre el dispositivo.
++
+.. Vea los gráficos de utilización de CPU y memoria para determinar los porcentajes de uso de CPU y memoria a lo largo del tiempo.  Para mostrar un intervalo de tiempo diferente, seleccione uno de los controles sobre el gráfico.  Puede mostrar la información disponible para intervalos de 1 hora, 1 día, 1 semana o 1 mes.  También puede establecer un intervalo personalizado, que le permite especificar rangos de fecha y hora.
++
+image::../media/nodes_page_hardware_tab_graphs_services_appliance.png[Gráficos de la pestaña Hardware de la página Nodos para el dispositivo de servicios]
+
+.. Desplácese hacia abajo para ver la tabla de componentes del dispositivo.  Esta tabla contiene información como el nombre del modelo, el número de serie, la versión del firmware del controlador y el estado de cada componente.
++
+image::../media/nodes_page_hardware_tab_services_appliance.png[Página de nodos Pestaña de hardware para el dispositivo de servicios]
+
++
+[cols="1a,2a"]
+|===
+| Campo en la tabla de dispositivos | Descripción 
+
+
+ a| 
+Modelo de electrodoméstico
+ a| 
+El número de modelo de este dispositivo StorageGRID .
+
+
+
+ a| 
+Recuento de unidades fallidas del controlador de almacenamiento
+ a| 
+La cantidad de unidades que no son óptimas.
+
+
+
+ a| 
+Tipo de unidad de datos de almacenamiento
+ a| 
+El tipo de unidades en el dispositivo, como HDD (disco duro) o SSD (unidad de estado sólido).
+
+
+
+ a| 
+Tamaño de la unidad de datos de almacenamiento
+ a| 
+El tamaño efectivo de una unidad de datos.
+
+
+
+ a| 
+Modo RAID de almacenamiento
+ a| 
+El modo RAID del dispositivo.
+
+
+
+ a| 
+Fuente de alimentación general
+ a| 
+El estado de todas las fuentes de alimentación del aparato.
+
+
+
+ a| 
+Controlador de cómputo BMC IP
+ a| 
+La dirección IP del puerto del controlador de administración de placa base (BMC) en el controlador de cómputo.  Puede utilizar esta IP para conectarse a la interfaz BMC para supervisar y diagnosticar el hardware del dispositivo.
+
+Este campo no se muestra para los modelos de dispositivos que no contienen un BMC.
+
+
+
+ a| 
+Número de serie del controlador de cómputo
+ a| 
+El número de serie del controlador de cálculo.
+
+
+
+ a| 
+hardware de cómputo
+ a| 
+El estado del hardware del controlador de cómputo.
+
+
+
+ a| 
+Temperatura de la CPU del controlador de cómputo
+ a| 
+El estado de temperatura de la CPU del controlador de cómputo.
+
+
+
+ a| 
+Temperatura del chasis del controlador de cómputo
+ a| 
+El estado de temperatura del controlador de cálculo.
+
+|===
+.. Confirme que todos los estados sean "Nominal".
++
+Si un estado no es "Nominal", revise las alertas actuales.
+
+
+
+. Seleccione *Red* para ver información de cada red.
++
+El gráfico de tráfico de red proporciona un resumen del tráfico general de la red.
+
++
+image::../media/nodes_page_network_traffic_graph.png[Gráfico de tráfico de red de la página de nodos]
+
++
+.. Revise la sección Interfaces de red.
++
+image::../media/nodes_page_hardware_tab_network_services_appliance.png[Página de nodos Pestaña de hardware Servicios de red Dispositivo]
+
++
+Utilice la siguiente tabla con los valores de la columna *Velocidad* en la tabla Interfaces de red para determinar si los cuatro puertos de red 40/100-GbE en el dispositivo se configuraron para usar el modo activo/de respaldo o el modo LACP.
+
++
+
+NOTE: Los valores que se muestran en la tabla suponen que se utilizan los cuatro enlaces.
+
++
+[cols="1a,1a,1a,1a"]
+|===
+| Modo de enlace | Modo de enlace | Velocidad de enlace HIC individual (hic1, hic2, hic3, hic4) | Velocidad esperada de la red de cuadrícula/cliente (eth0, eth2) 
+
+
+ a| 
+Agregar
+ a| 
+LACP
+ a| 
+100
+ a| 
+400
+
+
+
+ a| 
+Fijado
+ a| 
+LACP
+ a| 
+100
+ a| 
+200
+
+
+
+ a| 
+Fijado
+ a| 
+Activo/Copia de seguridad
+ a| 
+100
+ a| 
+100
+
+
+
+ a| 
+Agregar
+ a| 
+LACP
+ a| 
+40
+ a| 
+160
+
+
+
+ a| 
+Fijado
+ a| 
+LACP
+ a| 
+40
+ a| 
+80
+
+
+
+ a| 
+Fijado
+ a| 
+Activo/Copia de seguridad
+ a| 
+40
+ a| 
+40
+
+|===
+.. Revise la sección Comunicación en red.
++
+Las tablas de recepción y transmisión muestran cuántos bytes y paquetes se han recibido y enviado a través de cada red, así como otras métricas de recepción y transmisión.
+
++
+image::../media/nodes_page_network_communication.png[Página de nodos Red Comm]
+
+
+
+. Seleccione *Almacenamiento* para ver información sobre los dispositivos de disco y volúmenes en el dispositivo de servicios.
++
+image::../media/nodes_page_storage_tab_services_appliance.png[Página de nodos Pestaña de almacenamiento Servicios Dispositivo]
+
+

@@ -1,0 +1,53 @@
+---
+permalink: harden/hardening-guideline-for-server-certificates.html 
+sidebar: sidebar 
+keywords: Hardening guidelines, certificates 
+summary: Debe reemplazar los certificados predeterminados creados durante la instalación y seleccionar la política de seguridad adecuada para las conexiones TLS y SSH. 
+---
+= Pautas de refuerzo para TLS y SSH
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe reemplazar los certificados predeterminados creados durante la instalación y seleccionar la política de seguridad adecuada para las conexiones TLS y SSH.
+
+
+
+== Directrices de endurecimiento de los certificados
+
+Debe reemplazar los certificados predeterminados creados durante la instalación con sus propios certificados personalizados.
+
+Para muchas organizaciones, el certificado digital autofirmado para el acceso web de StorageGRID no cumple con sus políticas de seguridad de la información.  En los sistemas de producción, debe instalar un certificado digital firmado por una CA para usarlo en la autenticación de StorageGRID.
+
+En concreto, debe utilizar certificados de servidor personalizados en lugar de estos certificados predeterminados:
+
+* *Certificado de interfaz de administración*: se utiliza para proteger el acceso al Administrador de Grid, al Administrador de inquilinos, a la API de administración de Grid y a la API de administración de inquilinos.
+* *Certificado API S3*: se utiliza para proteger el acceso a los nodos de almacenamiento y los nodos de puerta de enlace, que las aplicaciones cliente S3 utilizan para cargar y descargar datos de objetos.
+
+
+Verlink:../admin/using-storagegrid-security-certificates.html["Administrar certificados de seguridad"] para obtener más detalles e instrucciones.
+
+
+NOTE: StorageGRID administra los certificados utilizados para los puntos finales del equilibrador de carga por separado.  Para configurar los certificados del balanceador de carga, consultelink:../admin/configuring-load-balancer-endpoints.html["Configurar los puntos finales del balanceador de carga"] .
+
+Al utilizar certificados de servidor personalizados, siga estas pautas:
+
+* Los certificados deben tener una `_subjectAltName_` que coincide con las entradas DNS para StorageGRID.  Para obtener más detalles, consulte la sección 4.2.1.6, "Nombre alternativo del sujeto", en https://tools.ietf.org/html/rfc5280#section-4.2.1.6["RFC 5280: Certificado PKIX y perfil CRL"^] .
+* Siempre que sea posible, evite el uso de certificados comodín.  Una excepción a esta directriz es el certificado para un punto final de estilo alojado virtual S3, que requiere el uso de un comodín si los nombres de los depósitos no se conocen de antemano.
+* Cuando sea necesario utilizar comodines en los certificados, deberá tomar medidas adicionales para reducir los riesgos.  Utilice un patrón comodín como `*.s3.example.com` , y no utilices el `s3.example.com` sufijo para otras aplicaciones.  Este patrón también funciona con acceso S3 de estilo de ruta, como `dc1-s1.s3.example.com/mybucket` .
+* Establezca tiempos de vencimiento de certificados cortos (por ejemplo, 2 meses) y utilice la API de administración de cuadrícula para automatizar la rotación de certificados.  Esto es especialmente importante para los certificados comodín.
+
+
+Además, los clientes deben utilizar una verificación estricta del nombre de host al comunicarse con StorageGRID.
+
+
+
+== Directrices de endurecimiento de las políticas TLS y SSH
+
+Puede seleccionar una política de seguridad para determinar qué protocolos y cifrados se utilizan para establecer conexiones TLS seguras con aplicaciones cliente y conexiones SSH seguras con servicios internos de StorageGRID .
+
+La política de seguridad controla cómo TLS y SSH cifran los datos en movimiento. Como práctica recomendada, debe deshabilitar las opciones de cifrado que no sean necesarias para la compatibilidad de la aplicación. Utilice la política moderna predeterminada, a menos que su sistema necesite cumplir con los Criterios comunes o necesite utilizar otros cifrados.
+
+Verlink:../admin/manage-tls-ssh-policy.html["Administrar la política TLS y SSH"] para obtener detalles e instrucciones.

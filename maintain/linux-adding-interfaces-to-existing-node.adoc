@@ -1,0 +1,53 @@
+---
+permalink: maintain/linux-adding-interfaces-to-existing-node.html 
+sidebar: sidebar 
+keywords: add interfaces, add client network interface, add admin network interface 
+summary: Utilice estos pasos para agregar una interfaz en la red de administración o en la red de cliente a un nodo Linux después de haberlo instalado. 
+---
+= Linux: Agregar interfaces de administrador o cliente a un nodo existente
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Utilice estos pasos para agregar una interfaz en la red de administración o en la red de cliente a un nodo Linux después de haberlo instalado.
+
+Si no configuró ADMIN_NETWORK_TARGET o CLIENT_NETWORK_TARGET en el archivo de configuración del nodo en el host Linux durante la instalación, utilice este procedimiento para agregar la interfaz. Para obtener más información sobre el archivo de configuración del nodo, consulte las instrucciones para su sistema operativo Linux:
+
+* link:../rhel/index.html["Instalar StorageGRID en Red Hat Enterprise Linux"]
+* link:../ubuntu/index.html["Instalar StorageGRID en Ubuntu o Debian"]
+
+
+Realice este procedimiento en el servidor Linux que aloja el nodo que necesita la nueva asignación de red, no dentro del nodo.  Este procedimiento solo agrega la interfaz al nodo; se produce un error de validación si intenta especificar otros parámetros de red.
+
+Para proporcionar información de dirección, debe utilizar la herramienta Cambiar IP. Ver link:changing-nodes-network-configuration.html["Cambiar la configuración de la red del nodo"] .
+
+.Pasos
+. Inicie sesión en el servidor Linux que aloja el nodo.
+. Editar el archivo de configuración del nodo: `/etc/storagegrid/nodes/_node-name_.conf` .
++
+
+NOTE: No especifique ningún otro parámetro de red o se producirá un error de validación.
+
++
+.. Agregue una entrada para el nuevo objetivo de red. Por ejemplo:
++
+`CLIENT_NETWORK_TARGET = bond0.3206`
+
+.. Opcional: agregue una entrada para la dirección MAC. Por ejemplo:
++
+`CLIENT_NETWORK_MAC = aa:57:61:07:ea:5c`
+
+
+
+. Ejecute el comando de validación de nodo:
++
+`sudo storagegrid node validate _node-name_`
+
+. Resolver todos los errores de validación.
+. Ejecute el comando de recarga de nodo:
++
+`sudo storagegrid node reload _node-name_`
+
+

@@ -1,0 +1,58 @@
+---
+permalink: tenant/deleting-s3-bucket.html 
+sidebar: sidebar 
+keywords: how to delete S3 bucket 
+summary: Puede utilizar el Administrador de inquilinos para eliminar un depósito S3 que esté vacío. 
+---
+= Eliminar el depósito S3
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede utilizar el Administrador de inquilinos para eliminar uno o más depósitos S3 que estén vacíos.
+
+.Antes de empezar
+* Ha iniciado sesión en el Administrador de inquilinos mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Perteneces a un grupo de usuarios que tiene lalink:tenant-management-permissions.html["Administrar todos los depósitos o permisos de acceso raíz"] . Estos permisos anulan la configuración de permisos en las políticas de grupo o de depósito.
+* Los depósitos que deseas eliminar están vacíos.  Si los depósitos que desea eliminar no están vacíos,link:../tenant/deleting-s3-bucket-objects.html["eliminar objetos del depósito"] .
+
+
+.Acerca de esta tarea
+Estas instrucciones describen cómo eliminar un depósito S3 mediante el Administrador de inquilinos.  También puedes eliminar depósitos S3 usando ellink:understanding-tenant-management-api.html["API de gestión de inquilinos"] o ellink:../s3/operations-on-buckets.html["API REST de S3"] .
+
+No puedes eliminar un bucket S3 si contiene objetos, versiones de objetos no actuales o marcadores de eliminación.  Para obtener información sobre cómo se eliminan los objetos versionados de S3, consultelink:../ilm/how-objects-are-deleted.html["Cómo se eliminan los objetos"] .
+
+.Pasos
+. Seleccione *Ver depósitos* en el panel de control o seleccione *ALMACENAMIENTO (S3)* > *Depósitos*.
++
+Aparece la página Buckets y muestra todos los buckets S3 existentes.
+
+. Utilice el menú *Acciones* o la página de detalles para un bucket específico.
++
+[role="tabbed-block"]
+====
+.Menú de acciones
+--
+.. Seleccione la casilla de verificación para cada depósito que desee eliminar.
+.. Seleccione *Acciones* > *Eliminar depósitos*.
+
+
+--
+.Página de detalles
+--
+.. Seleccione un nombre de depósito para mostrar sus detalles.
+.. Seleccione *Eliminar depósito*.
+
+
+--
+====
+. Cuando aparezca el cuadro de diálogo de confirmación, seleccione *Sí*.
++
+StorageGRID confirma que cada depósito está vacío y luego elimina cada uno de ellos.  Esta operación puede tardar unos minutos.
+
++
+Si un depósito no está vacío, aparece un mensaje de error.  Usted debelink:../tenant/deleting-s3-bucket-objects.html["eliminar todos los objetos y cualquier marcador de eliminación en el depósito"] antes de poder eliminar el depósito.
+
+

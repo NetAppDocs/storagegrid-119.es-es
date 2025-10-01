@@ -1,0 +1,32 @@
+---
+permalink: ubuntu/how-grid-nodes-discover-primary-admin-node.html 
+sidebar: sidebar 
+keywords: How grid nodes discover primary Admin Node 
+summary: Los nodos de la red se comunican con el nodo de administración principal para su configuración y gestión.  Cada nodo de la red debe conocer la dirección IP del nodo de administración principal en la red de la red. 
+---
+= Cómo los nodos de la red descubren el nodo de administración principal
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los nodos de la red se comunican con el nodo de administración principal para su configuración y gestión.  Cada nodo de la red debe conocer la dirección IP del nodo de administración principal en la red de la red.
+
+Para garantizar que un nodo de la red pueda acceder al nodo de administración principal, puede realizar una de las siguientes acciones al implementar el nodo:
+
+* Puede utilizar el parámetro ADMIN_IP para ingresar manualmente la dirección IP del nodo de administración principal.
+* Puede omitir el parámetro ADMIN_IP para que el nodo de la red descubra el valor automáticamente.  El descubrimiento automático es especialmente útil cuando la red Grid utiliza DHCP para asignar la dirección IP al nodo de administración principal.
+
+
+El descubrimiento automático del nodo de administración principal se logra mediante un sistema de nombres de dominio de multidifusión (mDNS).  Cuando el nodo de administración principal se inicia por primera vez, publica su dirección IP mediante mDNS.  Otros nodos de la misma subred pueden entonces consultar la dirección IP y adquirirla automáticamente.  Sin embargo, debido a que el tráfico IP de multidifusión normalmente no se puede enrutar a través de subredes, los nodos en otras subredes no pueden adquirir la dirección IP del nodo de administración principal directamente.
+
+[NOTE]
+====
+Si utiliza el descubrimiento automático:
+
+* Debe incluir la configuración ADMIN_IP para al menos un nodo de la red en cualquier subred a la que el nodo de administración principal no esté conectado directamente.  Luego, este nodo de la red publicará la dirección IP del nodo de administración principal para que otros nodos de la subred la descubran con mDNS.
+* Asegúrese de que su infraestructura de red admita el paso de tráfico IP de multidifusión dentro de una subred.
+
+
+====

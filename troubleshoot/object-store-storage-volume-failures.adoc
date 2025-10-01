@@ -1,0 +1,28 @@
+---
+permalink: troubleshoot/object-store-storage-volume-failures.html 
+sidebar: sidebar 
+keywords: how to confirm object location, object metadata lookup 
+summary: El almacenamiento subyacente en un nodo de almacenamiento se divide en almacenes de objetos.  Los almacenes de objetos también se conocen como volúmenes de almacenamiento. 
+---
+= Fallos en el almacén de objetos (volumen de almacenamiento)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El almacenamiento subyacente en un nodo de almacenamiento se divide en almacenes de objetos.  Los almacenes de objetos también se conocen como volúmenes de almacenamiento.
+
+Puede ver información del almacén de objetos para cada nodo de almacenamiento. Los almacenes de objetos se muestran en la parte inferior de la página *NODES* > *_Storage Node_* > *Storage*.
+
+image::../media/nodes_page_storage_nodes_storage_tables.png[Almacenamiento de páginas de nodos Tablas de almacenamiento de nodos]
+
+Para ver máslink:../monitor/viewing-grid-topology-tree.html["detalles sobre cada nodo de almacenamiento"] , siga estos pasos:
+
+. Seleccione *SOPORTE* > *Herramientas* > *Topología de cuadrícula*.
+. Seleccione *_sitio_* > *_Nodo de almacenamiento_* > *LDR* > *Almacenamiento* > *Descripción general* > *Principal*.
+
+
+image::../media/storage_node_object_stores.png[Almacén de objetos del nodo de almacenamiento]
+
+Dependiendo de la naturaleza de la falla, las fallas en un volumen de almacenamiento podrían reflejarse enlink:../monitor/alerts-reference.html["alertas de volumen de almacenamiento"] .  Si falla un volumen de almacenamiento, debe repararlo para restaurar el nodo de almacenamiento a su funcionalidad completa lo antes posible.  Si es necesario, puede ir a la pestaña *Configuración* ylink:../maintain/checking-storage-state-after-recovering-storage-volumes.html["Coloque el nodo de almacenamiento en un estado de solo lectura"] para que el sistema StorageGRID pueda usarlo para la recuperación de datos mientras se prepara para una recuperación completa del servidor.

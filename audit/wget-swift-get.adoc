@@ -1,0 +1,131 @@
+---
+permalink: audit/wget-swift-get.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, WGET, Swift GET 
+summary: Cuando un cliente Swift emite una transacción GET, se realiza una solicitud para recuperar un objeto, enumerar los objetos en un contenedor o enumerar los contenedores en una cuenta.  El servidor emite este mensaje si la transacción es exitosa. 
+---
+= WGET: Obtención rápida
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando un cliente Swift emite una transacción GET, se realiza una solicitud para recuperar un objeto, enumerar los objetos en un contenedor o enumerar los contenedores en una cuenta.  El servidor emite este mensaje si la transacción es exitosa.
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+CBD
+ a| 
+Identificador de bloque de contenido
+ a| 
+El identificador único del bloque de contenido solicitado.  Si se desconoce el CBID, este campo se establece en 0.  Las operaciones sobre cuentas y contenedores no incluyen este campo.
+
+
+
+ a| 
+CSIZ
+ a| 
+Tamaño del contenido
+ a| 
+El tamaño del objeto recuperado en bytes.  Las operaciones sobre cuentas y contenedores no incluyen este campo.
+
+
+
+ a| 
+HTRH
+ a| 
+Encabezado de solicitud HTTP
+ a| 
+Lista de nombres y valores de encabezado de solicitud HTTP registrados según se seleccionaron durante la configuración.
+
+ `X-Forwarded-For`se incluye automáticamente si está presente en la solicitud y si el `X-Forwarded-For` El valor es diferente de la dirección IP del remitente de la solicitud (campo de auditoría SAIP).
+
+
+
+ a| 
+RSLT
+ a| 
+Código de resultado
+ a| 
+Resultado de la transacción GET.  El resultado es siempre
+
+SUCS: exitoso
+
+
+
+ a| 
+SAIP
+ a| 
+Dirección IP del cliente solicitante
+ a| 
+La dirección IP de la aplicación cliente que realizó la solicitud.
+
+
+
+ a| 
+TIEMPO
+ a| 
+Tiempo
+ a| 
+Tiempo total de procesamiento de la solicitud en microsegundos.
+
+
+
+ a| 
+TLIP
+ a| 
+Dirección IP del balanceador de carga confiable
+ a| 
+Si la solicitud fue enrutada por un balanceador de carga de capa 7 confiable, la dirección IP del balanceador de carga.
+
+
+
+ a| 
+UUID
+ a| 
+Identificador único universal
+ a| 
+El identificador del objeto dentro del sistema StorageGRID .
+
+
+
+ a| 
+WACC
+ a| 
+ID de cuenta Swift
+ a| 
+El ID de cuenta único según lo especificado por el sistema StorageGRID .
+
+
+
+ a| 
+WCON
+ a| 
+Contenedor Swift
+ a| 
+El nombre del contenedor Swift.  Las operaciones sobre cuentas no incluyen este campo.
+
+
+
+ a| 
+WOBJ
+ a| 
+Objeto Swift
+ a| 
+El identificador del objeto Swift.  Las operaciones sobre cuentas y contenedores no incluyen este campo.
+
+
+
+ a| 
+WUSR
+ a| 
+Usuario de cuenta Swift
+ a| 
+El nombre de usuario de la cuenta Swift que identifica de forma única al cliente que realiza la transacción.
+
+|===

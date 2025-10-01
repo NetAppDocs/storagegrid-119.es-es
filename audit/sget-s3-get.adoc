@@ -1,0 +1,241 @@
+---
+permalink: audit/sget-s3-get.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, SGET, S3 GET 
+summary: Cuando un cliente S3 emite una transacción GET, se realiza una solicitud para recuperar un objeto o enumerar los objetos en un depósito.  El servidor emite este mensaje si la transacción es exitosa. 
+---
+= SGET: S3 OBTENER
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando un cliente S3 emite una transacción GET, se realiza una solicitud para recuperar un objeto o enumerar los objetos en un depósito, o para eliminar un subrecurso de depósito/objeto.  El servidor emite este mensaje si la transacción es exitosa.
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+CBD
+ a| 
+Identificador de bloque de contenido
+ a| 
+El identificador único del bloque de contenido solicitado.  Si se desconoce el CBID, este campo se establece en 0.  Las operaciones en depósitos no incluyen este campo.
+
+
+
+ a| 
+CNCH
+ a| 
+Encabezado de control de consistencia
+ a| 
+El valor del encabezado de solicitud HTTP Consistency-Control, si está presente en la solicitud.
+
+
+
+ a| 
+CNID
+ a| 
+Identificador de conexión
+ a| 
+El identificador único del sistema para la conexión TCP/IP.
+
+
+
+ a| 
+CSIZ
+ a| 
+Tamaño del contenido
+ a| 
+El tamaño del objeto recuperado en bytes.  Las operaciones en depósitos no incluyen este campo.
+
+
+
+ a| 
+HTRH
+ a| 
+Encabezado de solicitud HTTP
+ a| 
+Lista de nombres y valores de encabezado de solicitud HTTP registrados según se seleccionaron durante la configuración.
+
+ `X-Forwarded-For`se incluye automáticamente si está presente en la solicitud y si el `X-Forwarded-For` El valor es diferente de la dirección IP del remitente de la solicitud (campo de auditoría SAIP).
+
+
+
+ a| 
+LIDAD
+ a| 
+ListObjectsV2
+ a| 
+Se solicitó una respuesta en formato _v2_.  Para más detalles, consulte https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjectsV2.html["AWS ListObjectsV2"^] .  Solo para operaciones de depósito GET.
+
+
+
+ a| 
+NCHD
+ a| 
+Número de niños
+ a| 
+Incluye claves y prefijos comunes.  Solo para operaciones de depósito GET.
+
+
+
+ a| 
+RANG
+ a| 
+Rango de lectura
+ a| 
+Solo para operaciones de lectura de rango.  Indica el rango de bytes que se leyeron en esta solicitud.  El valor después de la barra (/) muestra el tamaño del objeto completo.
+
+
+
+ a| 
+RSLT
+ a| 
+Código de resultado
+ a| 
+Resultado de la transacción GET.  El resultado siempre es:
+
+SUCS: Exitoso
+
+
+
+ a| 
+S3AI
+ a| 
+ID de cuenta de inquilino de S3 (remitente de la solicitud)
+ a| 
+El ID de la cuenta de inquilino del usuario que envió la solicitud.  Un valor vacío indica acceso anónimo.
+
+
+
+ a| 
+S3AK
+ a| 
+ID de clave de acceso S3 (remitente de la solicitud)
+ a| 
+El ID de clave de acceso S3 en formato hash para el usuario que envió la solicitud.  Un valor vacío indica acceso anónimo.
+
+
+
+ a| 
+S3BK
+ a| 
+Cubo S3
+ a| 
+El nombre del depósito S3.
+
+
+
+ a| 
+S3KY
+ a| 
+Clave S3
+ a| 
+El nombre de la clave S3, sin incluir el nombre del depósito.  Las operaciones en depósitos no incluyen este campo.
+
+
+
+ a| 
+S3SR
+ a| 
+Subrecurso S3
+ a| 
+El subrecurso del objeto o depósito en el que se opera, si corresponde.
+
+
+
+ a| 
+SACC
+ a| 
+Nombre de la cuenta del inquilino de S3 (remitente de la solicitud)
+ a| 
+El nombre de la cuenta de inquilino del usuario que envió la solicitud.  Vacío para solicitudes anónimas.
+
+
+
+ a| 
+SAIP
+ a| 
+Dirección IP (remitente de la solicitud)
+ a| 
+La dirección IP de la aplicación cliente que realizó la solicitud.
+
+
+
+ a| 
+SBAC
+ a| 
+Nombre de la cuenta del inquilino de S3 (propietario del depósito)
+ a| 
+El nombre de la cuenta del inquilino del propietario del depósito.  Se utiliza para identificar acceso entre cuentas o anónimo.
+
+
+
+ a| 
+SBAI
+ a| 
+ID de cuenta de inquilino de S3 (propietario del depósito)
+ a| 
+El ID de la cuenta de inquilino del propietario del depósito de destino.  Se utiliza para identificar acceso entre cuentas o anónimo.
+
+
+
+ a| 
+SUSR
+ a| 
+URN de usuario S3 (remitente de la solicitud)
+ a| 
+El ID de la cuenta del inquilino y el nombre de usuario del usuario que realiza la solicitud.  El usuario puede ser un usuario local o un usuario LDAP. Por ejemplo:  `urn:sgws:identity::03393893651506583485:root`
+
+Vacío para solicitudes anónimas.
+
+
+
+ a| 
+TIEMPO
+ a| 
+Tiempo
+ a| 
+Tiempo total de procesamiento de la solicitud en microsegundos.
+
+
+
+ a| 
+TLIP
+ a| 
+Dirección IP del balanceador de carga confiable
+ a| 
+Si la solicitud fue enrutada por un balanceador de carga de capa 7 confiable, la dirección IP del balanceador de carga.
+
+
+
+ a| 
+República Turca del Norte de Tennessee
+ a| 
+Truncado o no truncado
+ a| 
+Establezca como falso si se devolvieron todos los resultados.  Establezca como verdadero si hay más resultados disponibles para devolver.  Solo para operaciones de depósito GET.
+
+
+
+ a| 
+UUID
+ a| 
+Identificador único universal
+ a| 
+El identificador del objeto dentro del sistema StorageGRID .
+
+
+
+ a| 
+VSID
+ a| 
+ID de versión
+ a| 
+El ID de la versión de la versión específica de un objeto que se solicitó.  Las operaciones en depósitos y objetos en depósitos no versionados no incluyen este campo.
+
+|===

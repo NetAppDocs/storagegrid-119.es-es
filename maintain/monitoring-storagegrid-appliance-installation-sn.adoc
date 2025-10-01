@@ -1,0 +1,48 @@
+---
+permalink: maintain/monitoring-storagegrid-appliance-installation-sn.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, appliance 
+summary: El instalador del dispositivo StorageGRID proporciona el estado hasta que se completa la instalación.  Una vez finalizada la instalación del software, el dispositivo se reinicia. 
+---
+= Supervisar la instalación del dispositivo StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El instalador del dispositivo StorageGRID proporciona el estado hasta que se completa la instalación.  Una vez finalizada la instalación del software, el dispositivo se reinicia.
+
+.Pasos
+. Para supervisar el progreso de la instalación, haga clic en *Supervisar instalación* en la barra de menú.
++
+La página de instalación del monitor muestra el progreso de la instalación.
+
++
+image::../media/monitor_installation_configure_storage.gif[Esta imagen está explicada por el texto que la rodea.]
+
++
+La barra de estado azul indica qué tarea está actualmente en progreso.  Las barras de estado verdes indican tareas que se han completado correctamente.
+
++
+
+NOTE: El instalador garantiza que las tareas completadas en una instalación anterior no se vuelvan a ejecutar.  Si está volviendo a ejecutar una instalación, cualquier tarea que no necesite volver a ejecutarse se mostrará con una barra de estado verde y un estado de "Omitido".
+
+. Revise el progreso de las dos primeras etapas de instalación.
++
+** *1.  Configurar almacenamiento*
++
+Durante esta etapa, el instalador se conecta al controlador de almacenamiento, borra cualquier configuración existente, se comunica con SANtricity OS para configurar volúmenes y configura los ajustes del host.
+
+** *2.  Instalar sistema operativo*
++
+Durante esta etapa, el instalador copia la imagen del sistema operativo base de StorageGRID al dispositivo.
+
+
+
+. Continúe monitoreando el progreso de la instalación hasta que la etapa *Instalar StorageGRID* se pause y aparezca un mensaje en la consola integrada que le solicite que apruebe este nodo en el Nodo de administración mediante el Administrador de Grid.
++
+image::../media/monitor_installation_install_sgws.gif[Esta imagen está explicada por el texto que la rodea.]
+
+. Vaya a link:selecting-start-recovery-to-configure-appliance-storage-node.html["Seleccione Iniciar recuperación para configurar el nodo de almacenamiento del dispositivo"].
+

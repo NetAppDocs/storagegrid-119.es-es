@@ -1,0 +1,30 @@
+---
+permalink: maintain/grid-node-procedures.html 
+sidebar: sidebar 
+keywords: storagegrid, grid node procedure 
+summary: Es posible que necesite realizar procedimientos de mantenimiento relacionados con nodos de red o servicios de nodos específicos. 
+---
+= Procedimientos de mantenimiento de nodos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible que necesite realizar procedimientos de mantenimiento relacionados con nodos de red o servicios de nodos específicos.
+
+Procedimientos del Administrador de servidores:: El Administrador de servidor se ejecuta en cada nodo de la red para supervisar el inicio y la detención de los servicios y para garantizar que se unan y salgan correctamente del sistema StorageGRID .  El Administrador de servidor también supervisa los servicios en cada nodo de la red e intentará automáticamente reiniciar cualquier servicio que informe fallas.
++
+--
+Para realizar procedimientos del Administrador de servidor, normalmente es necesario acceder a la línea de comandos del nodo.
+
+
+NOTE: Debe acceder al Administrador de servidor solo si el soporte técnico se lo indica.
+
+
+NOTE: Debe cerrar la sesión de shell de comando actual y cerrar sesión después de terminar con el Administrador de servidor.  Ingresar: `exit`
+
+--
+Procedimientos de reinicio, apagado y encendido del nodo:: Utilice estos procedimientos para reiniciar uno o más nodos, para apagar y reiniciar nodos, o para apagar y encender nodos nuevamente.
+Procedimientos de reasignación de puertos:: Puede utilizar los procedimientos de reasignación de puertos para eliminar las reasignaciones de puertos de un nodo, por ejemplo, si desea configurar un punto final del balanceador de carga utilizando un puerto que se reasignó previamente.
+

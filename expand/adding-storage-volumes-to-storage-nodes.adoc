@@ -1,0 +1,50 @@
+---
+permalink: expand/adding-storage-volumes-to-storage-nodes.html 
+sidebar: sidebar 
+keywords: storage volumes, expand, expansion, add, storage nodes, adding storage capacity 
+summary: Puede ampliar la capacidad de almacenamiento de los nodos de almacenamiento que estén por debajo de la cantidad máxima de volúmenes admitida. Es posible que necesite agregar volúmenes de almacenamiento a más de un nodo de almacenamiento para satisfacer los requisitos de ILM para copias replicadas o codificadas por borrado. 
+---
+= Agregar volúmenes de almacenamiento a los nodos de almacenamiento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede ampliar la capacidad de almacenamiento de los nodos de almacenamiento que estén por debajo de la cantidad máxima de volúmenes admitida. Es posible que necesite agregar volúmenes de almacenamiento a más de un nodo de almacenamiento para satisfacer los requisitos de ILM para copias replicadas o codificadas por borrado.
+
+.Antes de empezar
+Antes de agregar volúmenes de almacenamiento, revise lalink:guidelines-for-adding-object-capacity.html["Pautas para agregar capacidad de objetos"] para asegurarse de saber dónde agregar volúmenes para cumplir con los requisitos de su política ILM.
+
+
+NOTE: Estas instrucciones se aplican únicamente a los nodos de almacenamiento basados en software.  Ver https://docs.netapp.com/us-en/storagegrid-appliances/sg6000/adding-expansion-shelf-to-deployed-sg6060.html["Agregar estante de expansión al SG6060 implementado"^] o https://docs.netapp.com/us-en/storagegrid-appliances/sg6100/adding-expansion-shelf-to-deployed-sg6160.html["Agregar estante de expansión al SG6160 implementado"^] para aprender cómo agregar volúmenes de almacenamiento al SG6060 o SG6160 mediante la instalación de estantes de expansión.  Los nodos de almacenamiento de otros dispositivos no se pueden expandir.
+
+.Acerca de esta tarea
+El almacenamiento subyacente de un nodo de almacenamiento se divide en volúmenes de almacenamiento.  Los volúmenes de almacenamiento son dispositivos de almacenamiento basados ​​en bloques que son formateados por el sistema StorageGRID y montados para almacenar objetos.  Cada nodo de almacenamiento puede admitir hasta 48 volúmenes de almacenamiento, que se denominan _almacenes de objetos_ en el Administrador de cuadrícula.
+
+
+NOTE: Los metadatos de los objetos siempre se almacenan en el almacén de objetos 0.
+
+Cada almacén de objetos se monta en un volumen que corresponde a su ID.  Por ejemplo, el almacén de objetos con un ID de 0000 corresponde a la `/var/local/rangedb/0` punto de montaje.
+
+Antes de agregar nuevos volúmenes de almacenamiento, utilice el Administrador de cuadrícula para ver los almacenes de objetos actuales para cada nodo de almacenamiento, así como los puntos de montaje correspondientes.  Puede utilizar esta información al agregar volúmenes de almacenamiento.
+
+.Pasos
+. Seleccione *NODOS* > *_sitio_* > *_Nodo de almacenamiento_* > *Almacenamiento*.
+. Desplácese hacia abajo para ver las cantidades de almacenamiento disponible para cada volumen y almacén de objetos.
++
+Para los nodos de almacenamiento del dispositivo, el nombre mundial de cada disco coincide con el identificador mundial del volumen (WWID) que aparece cuando se visualizan las propiedades del volumen estándar en SANtricity OS (el software de administración conectado al controlador de almacenamiento del dispositivo).
+
++
+Para ayudarlo a interpretar las estadísticas de lectura y escritura del disco relacionadas con los puntos de montaje del volumen, la primera parte del nombre que se muestra en la columna *Nombre* de la tabla Dispositivos de disco (es decir, _sdc_, _sdd_, _sde_, etc.) coincide con el valor que se muestra en la columna *Dispositivo* de la tabla Volúmenes.
+
++
+image::../media/nodes_page_storage_tables_vol_expansion.png[Tablas de almacenamiento de páginas de nodos]
+
+. Siga las instrucciones de su plataforma para agregar nuevos volúmenes de almacenamiento al nodo de almacenamiento.
++
+** link:vmware-adding-storage-volumes-to-storage-node.html["VMware: Agregar volúmenes de almacenamiento al nodo de almacenamiento"]
+** link:linux-adding-direct-attached-or-san-volumes-to-storage-node.html["Linux: Agregar volúmenes SAN o de conexión directa al nodo de almacenamiento"]
+
+
+

@@ -1,0 +1,76 @@
+---
+permalink: expand/copying-admin-node-database.html 
+sidebar: sidebar 
+keywords: copy Admin Node database, alert history, Admin Node expansion 
+summary: Al agregar nodos de administración a través de un procedimiento de expansión, puede copiar opcionalmente la base de datos del nodo de administración principal al nuevo nodo de administración.  Copiar la base de datos le permite conservar información histórica sobre atributos, alertas y avisos. 
+---
+= Copiar la base de datos del nodo de administración
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Al agregar nodos de administración a través de un procedimiento de expansión, puede copiar opcionalmente la base de datos del nodo de administración principal al nuevo nodo de administración.  Copiar la base de datos le permite conservar información histórica sobre atributos, alertas y avisos.
+
+.Antes de empezar
+* Ha completado los pasos de expansión necesarios para agregar un nodo de administración.
+* Tú tienes el `Passwords.txt` archivo.
+* Tienes la contraseña de aprovisionamiento.
+
+
+.Acerca de esta tarea
+El proceso de activación del software StorageGRID crea una base de datos vacía para el servicio NMS en el nodo de administración de expansión.  Cuando el servicio NMS se inicia en el nodo de administración de expansión, registra información de los servidores y servicios que actualmente forman parte del sistema o se agregan más adelante.  Esta base de datos del nodo de administración incluye la siguiente información:
+
+* Historial de alertas
+* Datos de atributos históricos, que se utilizan en gráficos de estilo heredado en la página Nodos
+
+
+Para garantizar que la base de datos del nodo de administración sea coherente entre los nodos, puede copiar la base de datos del nodo de administración principal al nodo de administración de expansión.
+
+
+NOTE: Copiar la base de datos del nodo de administración principal (el __nodo de administración de origen__) a un nodo de administración de expansión puede tardar varias horas en completarse.  Durante este período, el Administrador de red no estará accesible.
+
+Utilice estos pasos para detener el servicio MI y el servicio API de administración tanto en el nodo de administración principal como en el nodo de administración de expansión antes de copiar la base de datos.
+
+.Pasos
+. Complete los siguientes pasos en el nodo de administración principal:
++
+.. Inicie sesión en el nodo de administración:
++
+... Introduzca el siguiente comando: `ssh admin@_grid_node_IP_`
+... Introduzca la contraseña que aparece en el `Passwords.txt` archivo.
+... Introduzca el siguiente comando para cambiar a root: `su -`
+... Introduzca la contraseña que aparece en el `Passwords.txt` archivo.
+
+
+.. Ejecute el siguiente comando: `recover-access-points`
+.. Introduzca la contraseña de aprovisionamiento.
+.. Detener el servicio MI: `service mi stop`
+.. Detener el servicio de interfaz de programación de aplicaciones de administración (mgmt-api): `service mgmt-api stop`
+
+
+. Complete los siguientes pasos en el nodo de administración de expansión:
++
+.. Inicie sesión en el nodo de administración de expansión:
++
+... Introduzca el siguiente comando: `ssh admin@_grid_node_IP_`
+... Introduzca la contraseña que aparece en el `Passwords.txt` archivo.
+... Introduzca el siguiente comando para cambiar a root: `su -`
+... Introduzca la contraseña que aparece en el `Passwords.txt` archivo.
+
+
+.. Detener el servicio MI: `service mi stop`
+.. Detener el servicio mgmt-api: `service mgmt-api stop`
+.. Agregue la clave privada SSH al agente SSH.  Ingresar:``ssh-add``
+.. Ingrese la contraseña de acceso SSH que aparece en el `Passwords.txt` archivo.
+.. Copie la base de datos del nodo de administración de origen al nodo de administración de expansión: `/usr/local/mi/bin/mi-clone-db.sh _Source_Admin_Node_IP_`
+.. Cuando se le solicite, confirme que desea sobrescribir la base de datos MI en el nodo de administración de expansión.
++
+La base de datos y sus datos históricos se copian al nodo de administración de expansión.  Una vez finalizada la operación de copia, el script inicia la expansión del nodo de administración.
+
+.. Cuando ya no necesite acceso sin contraseña a otros servidores, elimine la clave privada del agente SSH.  Ingresar:``ssh-add -D``
+
+
+. Reinicie los servicios en el nodo de administración principal: `service servermanager start`
+

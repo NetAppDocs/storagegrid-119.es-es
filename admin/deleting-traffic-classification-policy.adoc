@@ -1,0 +1,49 @@
+---
+permalink: admin/deleting-traffic-classification-policy.html 
+sidebar: sidebar 
+keywords: delete traffic classification policy 
+summary: Si ya no necesita una política de clasificación de tráfico, puede eliminarla. 
+---
+= Eliminar una política de clasificación de tráfico
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede eliminar una política de clasificación de tráfico si ya no la necesita.  Asegúrese de eliminar la política correcta porque una política no se puede recuperar una vez eliminada.
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tú tienes ellink:admin-group-permissions.html["Permiso de acceso root"] .
+
+
+.Pasos
+. Seleccione *CONFIGURACIÓN* > *Red* > *Clasificación de tráfico*.
++
+La página de Políticas de clasificación de tráfico aparece con las políticas existentes enumeradas en una tabla.
+
+. Elimine la política mediante el menú Acciones o la página de detalles.
++
+[role="tabbed-block"]
+====
+.Menú de acciones
+--
+.. Seleccione la casilla de verificación de la política.
+.. Seleccione *Acciones* > *Eliminar*.
+
+
+--
+.Página de detalles de la póliza
+--
+.. Seleccione el nombre de la política.
+.. Seleccione el botón *Eliminar* junto al nombre de la política.
+
+
+--
+====
+. Seleccione *Sí* para confirmar que desea eliminar la política.
++
+La política se elimina.
+
+

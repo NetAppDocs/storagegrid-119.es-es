@@ -1,0 +1,114 @@
+---
+permalink: audit/gtsu-grid-task-submitted.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, GTSU, Grid Task Submitted 
+summary: Este mensaje de auditoría indica que se ha enviado una tarea de red al servicio CMN. 
+---
+= GTSU: Tarea de cuadrícula enviada
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este mensaje de auditoría indica que se ha enviado una tarea de red al servicio CMN.
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+TSID
+ a| 
+ID de tarea
+ a| 
+Identifica de forma única una tarea de cuadrícula generada y permite gestionarla a lo largo de su ciclo de vida.
+
+*Nota:* El ID de tarea se asigna en el momento en que se genera una tarea de cuadrícula, no en el momento en que se envía.  Es posible que una tarea de cuadrícula determinada se envíe varias veces y, en este caso, el campo ID de tarea no es suficiente para vincular de forma única los mensajes de auditoría Enviado, Iniciado y Finalizado.
+
+
+
+ a| 
+TTYP
+ a| 
+Tipo de tarea
+ a| 
+El tipo de tarea de cuadrícula.
+
+
+
+ a| 
+TVER
+ a| 
+Versión de la tarea
+ a| 
+Un número que indica la versión de la tarea de cuadrícula.
+
+
+
+ a| 
+TDSC
+ a| 
+Descripción de la tarea
+ a| 
+Una descripción legible por humanos de la tarea de la cuadrícula.
+
+
+
+ a| 
+VATS
+ a| 
+Válido después de la marca de tiempo
+ a| 
+El momento más temprano (microsegundos UINT64 a partir del 1 de enero de 1970 - hora UNIX) en el que la tarea de cuadrícula es válida.
+
+
+
+ a| 
+VBTS
+ a| 
+Válido antes de la marca de tiempo
+ a| 
+El último momento (microsegundos UINT64 a partir del 1 de enero de 1970 - hora UNIX) en el que la tarea de cuadrícula es válida.
+
+
+
+ a| 
+TSRC
+ a| 
+Fuente
+ a| 
+La fuente de la tarea:
+
+* TXTB: La tarea de cuadrícula se envió a través del sistema StorageGRID como un bloque de texto firmado.
+* GRID: La tarea de cuadrícula se envió a través del Servicio de envío de tareas de cuadrícula interno.
+
+
+
+
+ a| 
+ACTV
+ a| 
+Tipo de activación
+ a| 
+El tipo de activación:
+
+* AUTO: La tarea de cuadrícula fue enviada para activación automática.
+* PEND: La tarea de la cuadrícula se envió a la tabla pendiente.  Esta es la única posibilidad para la fuente TXTB.
+
+
+
+
+ a| 
+RSLT
+ a| 
+Resultado
+ a| 
+El resultado de la presentación:
+
+* SUCS: La tarea de cuadrícula se envió correctamente.
+* ERROR: La tarea se ha movido directamente a la tabla histórica.
+
+
+|===

@@ -1,0 +1,223 @@
+---
+permalink: primer/what-admin-node-is.html 
+sidebar: sidebar 
+keywords: admin nodes 
+summary: Los nodos de administración brindan servicios de gestión como configuración del sistema, monitoreo y registro.  Los nodos de administración también se pueden utilizar para equilibrar la carga del tráfico del cliente S3.  Cada red debe tener un nodo de administración principal y puede tener cualquier cantidad de nodos de administración no principales para redundancia. 
+---
+= ¿Qué es un nodo de administración?
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los nodos de administración brindan servicios de gestión como configuración del sistema, monitoreo y registro.  Los nodos de administración también se pueden utilizar para equilibrar la carga del tráfico del cliente S3.  Cada red debe tener un nodo de administración principal y puede tener cualquier cantidad de nodos de administración no principales para redundancia.
+
+
+
+== Diferencias entre nodos de administración primarios y no primarios
+
+Cuando inicia sesión en Grid Manager o Tenant Manager, se conecta a un nodo de administración. Puede conectarse a cualquier nodo de administración y cada nodo de administración muestra una vista similar del sistema StorageGRID . Sin embargo, el nodo de administración principal proporciona más funciones que los nodos de administración no principales. Por ejemplo, la mayoría de los procedimientos de mantenimiento deben realizarse desde los nodos de administración principales.
+
+La tabla resume las capacidades de los nodos de administración primarios y no primarios.
+
+[cols="2a,1a,1a"]
+|===
+| Capacidades | Nodo de administración principal | Nodo de administración no principal 
+
+
+ a| 
+Incluye el<<ams,AMS>> servicio
+ a| 
+Sí
+ a| 
+Sí
+
+
+
+ a| 
+Incluye el<<cmn,CMN>> servicio
+ a| 
+Sí
+ a| 
+No
+
+
+
+ a| 
+Incluye el<<nms,Nuevos Estados Miembros>> servicio
+ a| 
+Sí
+ a| 
+Sí
+
+
+
+ a| 
+Incluye el<<prometheus,Prometeo>> servicio
+ a| 
+Sí
+ a| 
+Sí
+
+
+
+ a| 
+Incluye el<<ssm,SSM>> servicio
+ a| 
+Sí
+ a| 
+Sí
+
+
+
+ a| 
+Incluye el<<load-balancer,Balanceador de carga>> y<<high-availability,Alta disponibilidad>> servicios
+ a| 
+Sí
+ a| 
+Sí
+
+
+
+ a| 
+Apoya el<<mgmt-api,Interfaz del programa de aplicación de gestión>> (API de gestión)
+ a| 
+Sí
+ a| 
+Sí
+
+
+
+ a| 
+Se puede utilizar para todas las tareas de mantenimiento relacionadas con la red, por ejemplo, cambio de dirección IP y actualización de servidores NTP.
+ a| 
+Sí
+ a| 
+No
+
+
+
+ a| 
+Puede realizar el reequilibrio de EC después de la expansión del nodo de almacenamiento
+ a| 
+Sí
+ a| 
+No
+
+
+
+ a| 
+Se puede utilizar para el procedimiento de restauración de volumen.
+ a| 
+Sí
+ a| 
+Sí
+
+
+
+ a| 
+Puede recopilar archivos de registro y datos del sistema de uno o más nodos
+ a| 
+Sí
+ a| 
+No
+
+
+
+ a| 
+Envía notificaciones de alerta, paquetes de AutoSupport y trampas SNMP e informa
+ a| 
+Sí. Actúa como el<<preferred-sender,remitente preferido>> .
+ a| 
+Sí. Actúa como un remitente en espera.
+
+|===
+
+
+== [[preferred-sender]]Nodo de administración del remitente preferido
+
+Si su implementación de StorageGRID incluye varios nodos de administración, el nodo de administración principal es el remitente preferido para notificaciones de alerta, paquetes de AutoSupport y trampas e informes SNMP.
+
+En condiciones normales de funcionamiento del sistema, sólo el remitente preferido envía notificaciones. Sin embargo, todos los demás nodos de administración monitorean al remitente preferido. Si se detecta un problema, otros nodos de administración actúan como _remitentes en espera_.
+
+Es posible que se envíen múltiples notificaciones en estos casos:
+
+* Si los nodos de administración quedan "aislados" unos de otros, tanto el remitente preferido como los remitentes en espera intentarán enviar notificaciones y se podrían recibir múltiples copias de las notificaciones.
+* Si el remitente en espera detecta problemas con el remitente preferido y comienza a enviar notificaciones, el remitente preferido podría recuperar su capacidad de enviar notificaciones. Si esto ocurre, es posible que se envíen notificaciones duplicadas. El remitente en espera dejará de enviar notificaciones cuando ya no detecte errores en el remitente preferido.
++
+
+NOTE: Cuando prueba los paquetes de AutoSupport , todos los nodos de administración envían la prueba.  Al probar las notificaciones de alerta, debe iniciar sesión en cada nodo de administración para verificar la conectividad.
+
+
+
+
+
+== Servicios principales para nodos de administración
+
+La siguiente tabla muestra los servicios principales para los nodos de administración; sin embargo, esta tabla no enumera todos los servicios de los nodos.
+
+[cols="1a,2a"]
+|===
+| Servicio | Función de tecla 
+
+
+ a| 
+[[ams]]Sistema de Gestión de Auditorías (AMS)
+ a| 
+Realiza un seguimiento de la actividad y los eventos del sistema.
+
+
+
+ a| 
+[[cmn]]Nodo de gestión de configuración (CMN)
+ a| 
+Gestiona la configuración de todo el sistema.
+
+
+
+ a| 
+[[alta disponibilidad]]Alta disponibilidad
+ a| 
+Administra direcciones IP virtuales de alta disponibilidad para grupos de nodos de administración y nodos de puerta de enlace.
+
+*Nota:* Este servicio también se encuentra en los nodos Gateway.
+
+
+
+ a| 
+Balanceador de carga
+ a| 
+Proporciona equilibrio de carga del tráfico S3 desde los clientes a los nodos de almacenamiento.
+
+*Nota:* Este servicio también se encuentra en los nodos Gateway.
+
+
+
+ a| 
+[[mgmt-api]]Interfaz de programación de aplicaciones de gestión (mgmt-api)
+ a| 
+Procesa solicitudes de la API de administración de red y de la API de administración de inquilinos.
+
+
+
+ a| 
+[[nms]]Sistema de gestión de red (NMS)
+ a| 
+Proporciona funcionalidad para el administrador de cuadrícula.
+
+
+
+ a| 
+[[prometeo]]Prometeo
+ a| 
+Recopila y almacena métricas de series temporales de los servicios en todos los nodos.
+
+
+
+ a| 
+[[ssm]]Monitor de estado del servidor (SSM)
+ a| 
+Supervisa el sistema operativo y el hardware subyacente.
+
+|===

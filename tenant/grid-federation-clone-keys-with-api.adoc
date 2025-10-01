@@ -1,0 +1,94 @@
+---
+permalink: tenant/grid-federation-clone-keys-with-api.html 
+sidebar: sidebar 
+keywords: s3 access key, secret key id, account clone, tenant manager api 
+summary: Si su cuenta de inquilino tiene el permiso Usar conexión de federación de red, puede usar la API de administración de inquilinos para clonar manualmente las claves de acceso S3 del inquilino en la red de origen al inquilino en la red de destino. 
+---
+= Clonar claves de acceso S3 usando la API
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si su cuenta de inquilino tiene el permiso *Usar conexión de federación de red*, puede usar la API de administración de inquilinos para clonar manualmente las claves de acceso S3 del inquilino en la red de origen al inquilino en la red de destino.
+
+.Antes de empezar
+* La cuenta de inquilino tiene el permiso *Usar conexión de federación de red*.
+* La conexión de la federación de red tiene un *Estado de conexión* de *Conectado*.
+* Ha iniciado sesión en el Administrador de inquilinos en la cuadrícula de origen del inquilino mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Perteneces a un grupo de usuarios que tiene lalink:tenant-management-permissions.html["Administre sus propias credenciales S3 o permiso de acceso root"] .
+* Si está clonando claves de acceso para un usuario local, el usuario ya existe en ambas cuadrículas.
++
+
+NOTE: Cuando se clonan claves de acceso S3 para un usuario federado, tanto el usuario como las claves de acceso S3 se agregan al inquilino de destino.
+
+
+
+
+
+== Clona tus propias claves de acceso
+
+Puede clonar sus propias claves de acceso si necesita acceder a los mismos depósitos en ambas cuadrículas.
+
+.Pasos
+. Usando el Administrador de inquilinos en la red de origen,link:creating-your-own-s3-access-keys.html["crea tus propias claves de acceso"] y descargar el `.csv` archivo.
+. Desde la parte superior del Administrador de inquilinos, seleccione el ícono de ayuda y seleccione *Documentación de API*.
+. En la sección *s3*, seleccione el siguiente punto final:
++
+`POST /org/users/current-user/replicate-s3-access-key`
+
++
+image::../media/grid-federation-post-current-user-replicate.png[Punto final POST para replicar la propia clave de acceso]
+
+. Seleccione *Probarlo*.
+. En el cuadro de texto *body*, reemplace las entradas de ejemplo para *accessKey* y *secretAccessKey* con los valores del archivo *.csv* que descargó.
++
+Asegúrese de conservar las comillas dobles alrededor de cada cadena.
+
++
+image::../media/grid-federation-clone-access-key.png[API de Tenant Manager que ingresa valores para clonar la clave de acceso]
+
+. Si la clave caducará, reemplace la entrada de ejemplo para *expires* con la fecha y hora de caducidad como una cadena en formato de datos y tiempo ISO 8601 (por ejemplo, `2024-02-28T22:46:33-08:00` ).  Si la clave no caducará, ingrese *null* como valor para la entrada *expires* (o elimine la línea *Expires* y la coma anterior).
+. Seleccione *Ejecutar*.
+. Confirme que el código de respuesta del servidor es *204*, lo que indica que la clave se clonó correctamente en la red de destino.
+
+
+
+
+== Clonar las claves de acceso de otro usuario
+
+Puede clonar las claves de acceso de otro usuario si necesita acceder a los mismos depósitos en ambas cuadrículas.
+
+.Pasos
+. Usando el Administrador de inquilinos en la red de origen,link:creating-another-users-s3-access-keys.html["crear las claves de acceso S3 del otro usuario"] y descargar el `.csv` archivo.
+. Desde la parte superior del Administrador de inquilinos, seleccione el ícono de ayuda y seleccione *Documentación de API*.
+. Obtener el ID del usuario.  Necesitará este valor para clonar las claves de acceso del otro usuario.
++
+.. Desde la sección *usuarios*, seleccione el siguiente punto final:
++
+`GET /org/users`
+
+.. Seleccione *Probarlo*.
+.. Especifique cualquier parámetro que desee utilizar al buscar usuarios.
+.. Seleccione *Ejecutar*.
+.. Busque el usuario cuyas claves desea clonar y copie el número en el campo *id*.
+
+
+. En la sección *s3*, seleccione el siguiente punto final:
++
+`POST /org/users/{userId}/replicate-s3-access-key`
+
++
+image::../media/grid-federation-post-other-user.png[Punto final POST para replicar la clave de acceso de otro usuario]
+
+. Seleccione *Probarlo*.
+. En el cuadro de texto *userId*, pegue el ID de usuario que copió.
+. En el cuadro de texto *body*, reemplace las entradas de ejemplo para *example access key* y *secret access key* con los valores del archivo *.csv* para ese usuario.
++
+Asegúrese de conservar las comillas dobles alrededor de la cadena.
+
+. Si la clave caducará, reemplace la entrada de ejemplo para *expires* con la fecha y hora de caducidad como una cadena en formato de datos y tiempo ISO 8601 (por ejemplo, `2023-02-28T22:46:33-08:00` ).  Si la clave no caducará, ingrese *null* como valor para la entrada *expires* (o elimine la línea *Expires* y la coma anterior).
+. Seleccione *Ejecutar*.
+. Confirme que el código de respuesta del servidor es *204*, lo que indica que la clave se clonó correctamente en la red de destino.
+

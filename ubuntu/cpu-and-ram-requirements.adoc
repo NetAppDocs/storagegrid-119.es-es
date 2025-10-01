@@ -1,0 +1,52 @@
+---
+permalink: ubuntu/cpu-and-ram-requirements.html 
+sidebar: sidebar 
+keywords: cpu, ram, cpu cores 
+summary: Antes de instalar el software StorageGRID , verifique y configure el hardware para que esté listo para soportar el sistema StorageGRID . 
+---
+= Requisitos de CPU y RAM
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de instalar el software StorageGRID , verifique y configure el hardware para que esté listo para soportar el sistema StorageGRID .
+
+Cada nodo de StorageGRID requiere los siguientes recursos mínimos:
+
+* Núcleos de CPU: 8 por nodo
+* RAM: depende de la RAM total disponible y de la cantidad de software que no sea StorageGRID que se ejecute en el sistema
++
+** Generalmente, al menos 24 GB por nodo y de 2 a 16 GB menos que la RAM total del sistema.
+** Un mínimo de 64 GB para cada inquilino que tendrá aproximadamente 5000 buckets
+
+
+
+
+Los recursos de nodo de solo metadatos basados en software deben coincidir con los recursos de los nodos de almacenamiento existentes. Por ejemplo:
+
+* Si el sitio StorageGRID existente utiliza dispositivos SG6000 o SG6100, los nodos de solo metadatos basados ​​en software deben cumplir los siguientes requisitos mínimos:
++
+** 128 GB de RAM
+** CPU de 8 núcleos
+** SSD de 8 TB o almacenamiento equivalente para la base de datos Cassandra (rangedb/0)
+
+
+* Si el sitio StorageGRID existente usa nodos de almacenamiento virtuales con 24 GB de RAM, CPU de 8 núcleos y 3 TB o 4 TB de almacenamiento de metadatos, los nodos solo de metadatos basados ​​en software deben usar recursos similares (24 GB de RAM, CPU de 8 núcleos y 4 TB de almacenamiento de metadatos (rangedb/0).
+
+
+Al agregar un nuevo sitio StorageGRID , la capacidad total de metadatos del nuevo sitio debe coincidir, como mínimo, con los sitios StorageGRID existentes y los recursos del nuevo sitio deben coincidir con los nodos de almacenamiento de los sitios StorageGRID existentes.
+
+Asegúrese de que la cantidad de nodos StorageGRID que planea ejecutar en cada host físico o virtual no exceda la cantidad de núcleos de CPU o la RAM física disponible.  Si los hosts no están dedicados a ejecutar StorageGRID (no recomendado), asegúrese de considerar los requisitos de recursos de las otras aplicaciones.
+
+
+CAUTION: Supervise periódicamente el uso de su CPU y memoria para garantizar que estos recursos sigan adaptándose a su carga de trabajo.  Por ejemplo, duplicar la asignación de RAM y CPU para los nodos de almacenamiento virtuales proporcionaría recursos similares a los proporcionados para los nodos del dispositivo StorageGRID .  Además, si la cantidad de metadatos por nodo supera los 500 GB, considere aumentar la RAM por nodo a 48 GB o más.  Para obtener información sobre cómo administrar el almacenamiento de metadatos de objetos, aumentar la configuración del espacio reservado de metadatos y monitorear el uso de CPU y memoria, consulte las instrucciones paralink:../admin/index.html["administrando"] ,link:../monitor/index.html["escucha"] , ylink:../upgrade/index.html["actualización"] StorageGRID.
+
+Si el hiperprocesamiento está habilitado en los hosts físicos subyacentes, puede proporcionar 8 núcleos virtuales (4 núcleos físicos) por nodo.  Si el hiperprocesamiento no está habilitado en los hosts físicos subyacentes, debe proporcionar 8 núcleos físicos por nodo.
+
+Si utiliza máquinas virtuales como hosts y tiene control sobre el tamaño y la cantidad de máquinas virtuales, debe usar una sola máquina virtual para cada nodo StorageGRID y dimensionar la máquina virtual en consecuencia.
+
+Para las implementaciones de producción, no debe ejecutar varios nodos de almacenamiento en el mismo hardware de almacenamiento físico o host virtual. Cada nodo de almacenamiento en una única implementación de StorageGRID debe estar en su propio dominio de falla aislado. Puede maximizar la durabilidad y disponibilidad de los datos de los objetos si se asegura de que una sola falla de hardware solo pueda afectar a un único nodo de almacenamiento.
+
+Consulte también link:storage-and-performance-requirements.html["Requisitos de almacenamiento y rendimiento"] .

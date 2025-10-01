@@ -1,0 +1,35 @@
+---
+permalink: monitor/monitoring-object-ingest-and-retrieval-rates.html 
+sidebar: sidebar 
+keywords: object ingest rates, object retrieval rates, monitor s3, client operations 
+summary: Puede supervisar las tasas de ingesta y recuperación de objetos, así como las métricas de recuento de objetos, consultas y verificación.  Puede ver la cantidad de intentos exitosos y fallidos de las aplicaciones cliente para leer, escribir y modificar objetos en el sistema StorageGRID . 
+---
+= Supervisar las operaciones del cliente S3
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede supervisar las tasas de ingesta y recuperación de objetos, así como las métricas de recuento de objetos, consultas y verificación.  Puede ver la cantidad de intentos exitosos y fallidos de las aplicaciones cliente para leer, escribir y modificar objetos en el sistema StorageGRID .
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+
+
+.Pasos
+. Desde el panel de control, seleccione la pestaña *Rendimiento*.
+. Consulte los gráficos de S3, que resumen la cantidad de operaciones de cliente realizadas por los nodos de almacenamiento y la cantidad de solicitudes de API recibidas por los nodos de almacenamiento durante el período de tiempo seleccionado.
+. Seleccione *NODOS* para acceder a la página Nodos.
+. Desde la página de inicio de Nodos (nivel de cuadrícula), seleccione la pestaña *Objetos*.
++
+El gráfico muestra las tasas de ingesta y recuperación de S3 para todo el sistema StorageGRID en bytes por segundo y la cantidad de datos ingeridos o recuperados.  Puede seleccionar un intervalo de tiempo o aplicar un intervalo personalizado.
+
+. Para ver información de un nodo de almacenamiento en particular, seleccione el nodo de la lista de la izquierda y seleccione la pestaña *Objetos*.
++
+El gráfico muestra las tasas de ingesta y recuperación del nodo.  La pestaña también incluye métricas para recuentos de objetos, consultas de metadatos y operaciones de verificación.
+
++
+image::../media/nodes_storage_node_objects_help.png[Captura de pantalla de Nodos > _Nodo de almacenamiento_ > Objetos > ayuda de atributos]
+
+

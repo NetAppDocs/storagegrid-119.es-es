@@ -1,0 +1,190 @@
+---
+permalink: admin/managing-admin-groups.html 
+sidebar: sidebar 
+keywords: what are admin groups, user permissions 
+summary: Puede crear grupos de administradores para administrar los permisos de seguridad de uno o más usuarios administradores.  Los usuarios deben pertenecer a un grupo para tener acceso al sistema StorageGRID . 
+---
+= Administrar grupos de administradores
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede crear grupos de administradores para administrar los permisos de seguridad de uno o más usuarios administradores.  Los usuarios deben pertenecer a un grupo para tener acceso al sistema StorageGRID .
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tieneslink:admin-group-permissions.html["permisos de acceso específicos"] .
+* Si planea importar un grupo federado, ha configurado la federación de identidad y el grupo federado ya existe en la fuente de identidad configurada.
+
+
+
+
+== Crear un grupo de administradores
+
+Los grupos de administradores le permiten determinar qué usuarios pueden acceder a qué funciones y operaciones en el Administrador de Grid y la API de administración de Grid.
+
+
+
+=== Acceder al asistente
+
+.Pasos
+. Seleccione *CONFIGURACIÓN* > *Control de acceso* > *Grupos de administradores*.
+. Seleccione *Crear grupo*.
+
+
+
+
+=== Elija un tipo de grupo
+
+Puede crear un grupo local o importar un grupo federado.
+
+* Cree un grupo local si desea asignar permisos a usuarios locales.
+* Cree un grupo federado para importar usuarios desde la fuente de identidad.
+
+
+[role="tabbed-block"]
+====
+.Grupo local
+--
+.Pasos
+. Seleccione *Grupo local*.
+. Introduzca un nombre para mostrar para el grupo, que podrá actualizar más tarde según sea necesario.  Por ejemplo, "Usuarios de mantenimiento" o "Administradores de ILM".
+. Introduzca un nombre único para el grupo, que no podrá actualizar más tarde.
+. Seleccione *Continuar*.
+
+
+--
+.Grupo federado
+--
+.Pasos
+. Seleccione *Grupo federado*.
+. Ingrese el nombre del grupo que desea importar, exactamente como aparece en la fuente de identidad configurada.
++
+** Para Active Directory y Azure, utilice sAMAccountName.
+** Para OpenLDAP, utilice el CN (nombre común).
+** Para otro LDAP, utilice el nombre único apropiado para el servidor LDAP.
+
+
+. Seleccione *Continuar*.
+
+
+--
+====
+
+
+=== Administrar permisos de grupo
+
+.Pasos
+. Para *Modo de acceso*, seleccione si los usuarios del grupo pueden cambiar configuraciones y realizar operaciones en el Administrador de cuadrícula y la API de administración de cuadrícula o si solo pueden ver configuraciones y funciones.
++
+** *Lectura y escritura* (predeterminado): los usuarios pueden cambiar la configuración y realizar las operaciones permitidas por sus permisos de administración.
+** *Solo lectura*: los usuarios solo pueden ver configuraciones y funciones.  No pueden realizar ningún cambio ni realizar ninguna operación en el Administrador de Grid ni en la API de administración de Grid.  Los usuarios locales de solo lectura pueden cambiar sus propias contraseñas.
++
+
+NOTE: Si un usuario pertenece a varios grupos y alguno de ellos está configurado como *Solo lectura*, el usuario tendrá acceso de solo lectura a todas las configuraciones y funciones seleccionadas.
+
+
+
+. Seleccione uno o máslink:admin-group-permissions.html["permisos del grupo de administradores"] .
++
+Debe asignar al menos un permiso a cada grupo; de lo contrario, los usuarios que pertenecen al grupo no podrán iniciar sesión en StorageGRID.
+
+. Si está creando un grupo local, seleccione *Continuar*.  Si está creando un grupo federado, seleccione *Crear grupo* y *Finalizar*.
+
+
+
+
+=== Agregar usuarios (solo grupos locales)
+
+.Pasos
+. Opcionalmente, seleccione uno o más usuarios locales para este grupo.
++
+Si aún no ha creado usuarios locales, puede guardar el grupo sin agregar usuarios.  Puede agregar este grupo al usuario en la página Usuarios. Verlink:managing-users.html["Administrar usuarios"] Para más detalles.
+
+. Seleccione *Crear grupo* y *Finalizar*.
+
+
+
+
+== Ver y editar grupos de administradores
+
+Puede ver detalles de grupos existentes, modificar un grupo o duplicar un grupo.
+
+* Para ver información básica de todos los grupos, revise la tabla en la página Grupos.
+* Para ver todos los detalles de un grupo específico o editar un grupo, utilice el menú *Acciones* o la página de detalles.
++
+[cols="1a, 2a,2a"]
+|===
+| Tarea | Menú de acciones | Página de detalles 
+
+
+ a| 
+Ver detalles del grupo
+ a| 
+.. Seleccione la casilla de verificación del grupo.
+.. Seleccione *Acciones* > *Ver detalles del grupo*.
+
+ a| 
+Seleccione el nombre del grupo en la tabla.
+
+
+
+ a| 
+Editar nombre para mostrar (solo grupos locales)
+ a| 
+.. Seleccione la casilla de verificación del grupo.
+.. Seleccione *Acciones* > *Editar nombre del grupo*.
+.. Introduzca el nuevo nombre.
+.. Seleccione *Guardar cambios*.
+
+ a| 
+.. Seleccione el nombre del grupo para mostrar los detalles.
+.. Seleccione el icono de ediciónimage:../media/icon_edit_tm.png["Icono de edición"] .
+.. Introduzca el nuevo nombre.
+.. Seleccione *Guardar cambios*.
+
+
+
+
+ a| 
+Editar el modo de acceso o los permisos
+ a| 
+.. Seleccione la casilla de verificación del grupo.
+.. Seleccione *Acciones* > *Ver detalles del grupo*.
+.. Opcionalmente, cambie el modo de acceso del grupo.
+.. Opcionalmente, seleccione o desmarquelink:admin-group-permissions.html["permisos del grupo de administradores"] .
+.. Seleccione *Guardar cambios*.
+
+ a| 
+.. Seleccione el nombre del grupo para mostrar los detalles.
+.. Opcionalmente, cambie el modo de acceso del grupo.
+.. Opcionalmente, seleccione o desmarquelink:admin-group-permissions.html["permisos del grupo de administradores"] .
+.. Seleccione *Guardar cambios*.
+
+
+|===
+
+
+
+
+== Duplicar un grupo
+
+.Pasos
+. Seleccione la casilla de verificación del grupo.
+. Seleccione *Acciones* > *Duplicar grupo*.
+. Complete el asistente para duplicar grupo.
+
+
+
+
+== Eliminar un grupo
+
+Puede eliminar un grupo de administradores cuando desee eliminar el grupo del sistema y eliminar todos los permisos asociados con el grupo.  Al eliminar un grupo de administradores se eliminan todos los usuarios del grupo, pero no se eliminan los usuarios mismos.
+
+.Pasos
+. Desde la página Grupos, seleccione la casilla de verificación de cada grupo que desee eliminar.
+. Seleccione *Acciones* > *Eliminar grupo*.
+. Seleccione *Eliminar grupos*.
+

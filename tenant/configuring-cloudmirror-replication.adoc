@@ -1,0 +1,101 @@
+---
+permalink: tenant/configuring-cloudmirror-replication.html 
+sidebar: sidebar 
+keywords: how to configure CloudMirror replication, replication xml 
+summary: Para habilitar la replicación de CloudMirror para un depósito, cree un XML de configuración de replicación de depósito y use el Administrador de inquilinos para aplicar el XML al depósito. 
+---
+= Configurar la replicación de CloudMirror
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para habilitar la replicación de CloudMirror para un depósito, debe crear y aplicar un XML de configuración de replicación de depósito válido.
+
+.Antes de empezar
+* Un administrador de StorageGRID habilitó los servicios de plataforma para su cuenta de inquilino.
+* Ya ha creado un depósito para que actúe como fuente de replicación.
+* El punto final que desea utilizar como destino para la replicación de CloudMirror ya existe y tiene su URN.
+* Perteneces a un grupo de usuarios que tiene lalink:tenant-management-permissions.html["Administrar todos los depósitos o permisos de acceso raíz"] .  Estos permisos anulan las configuraciones de permisos en las políticas de grupo o de depósito cuando se configura el depósito mediante el Administrador de inquilinos.
+
+
+.Acerca de esta tarea
+La replicación de CloudMirror copia objetos de un depósito de origen a un depósito de destino que se especifica en un punto final.
+
+Para obtener información general sobre la replicación de buckets y cómo configurarla, consulte https://docs.aws.amazon.com/AmazonS3/latest/userguide/replication.html["Documentación de Amazon Simple Storage Service (S3): Replicación de objetos"^] .  Para obtener información sobre cómo StorageGRID implementa GetBucketReplication, DeleteBucketReplication y PutBucketReplication, consulte lalink:../s3/operations-on-buckets.html["Operaciones en buckets"] .
+
+
+NOTE: La replicación de CloudMirror tiene similitudes y diferencias importantes con la función de replicación entre redes.  Para obtener más información, consultelink:../admin/grid-federation-compare-cgr-to-cloudmirror.html["Comparar la replicación entre redes y la replicación de CloudMirror"] .
+
+Tenga en cuenta los siguientes requisitos y características al configurar la replicación de CloudMirror:
+
+* Cuando crea y aplica un XML de configuración de replicación de bucket válido, debe utilizar el URN de un punto final de bucket S3 para cada destino.
+* La replicación no es compatible con los depósitos de origen o destino que tengan el bloqueo de objetos S3 habilitado.
+* Si habilita la replicación de CloudMirror en un depósito que contiene objetos, los objetos nuevos agregados al depósito se replican, pero los objetos existentes en el depósito no se replican.  Debe actualizar los objetos existentes para activar la replicación.
+* Si especifica una clase de almacenamiento en el XML de configuración de replicación, StorageGRID utiliza esa clase al realizar operaciones contra el punto final S3 de destino.  El punto final de destino también debe admitir la clase de almacenamiento especificada.  Asegúrese de seguir todas las recomendaciones proporcionadas por el proveedor del sistema de destino.
+
+
+.Pasos
+. Habilite la replicación para su depósito de origen:
++
+** Utilice un editor de texto para crear el XML de configuración de replicación necesario para habilitar la replicación, como se especifica en la API de replicación S3.
+** Al configurar el XML:
++
+*** Tenga en cuenta que StorageGRID solo admite la versión 1 de la configuración de replicación.  Esto significa que StorageGRID no admite el uso de `Filter` elemento para reglas y sigue las convenciones V1 para la eliminación de versiones de objetos.  Consulte la documentación de Amazon sobre la configuración de replicación para obtener más detalles.
+*** Utilice la URN de un punto final del bucket S3 como destino.
+*** Opcionalmente agregue el `<StorageClass>` elemento y especifique uno de los siguientes:
++
+****  `STANDARD`:La clase de almacenamiento predeterminada.  Si no especifica una clase de almacenamiento cuando carga un objeto, el `STANDARD` Se utiliza la clase de almacenamiento.
+**** `STANDARD_IA`:(Estándar - acceso poco frecuente).  Utilice esta clase de almacenamiento para datos a los que se accede con menos frecuencia, pero que aún requieren acceso rápido cuando sea necesario.
+**** `REDUCED_REDUNDANCY`:Utilice esta clase de almacenamiento para datos no críticos y reproducibles que se pueden almacenar con menos redundancia que la `STANDARD` clase de almacenamiento.
+
+
+*** Si especifica un `Role` En el XML de configuración se ignorará.  StorageGRID no utiliza este valor.
++
+[listing]
+----
+<ReplicationConfiguration>
+    <Role></Role>
+    <Rule>
+        <Status>Enabled</Status>
+        <Prefix>2020</Prefix>
+        <Destination>
+           <Bucket>urn:sgws:s3:::2017-records</Bucket>
+           <StorageClass>STANDARD</StorageClass>
+         </Destination>
+     </Rule>
+</ReplicationConfiguration>
+----
+
+
+
+
+. Seleccione *Ver depósitos* en el panel de control o seleccione *ALMACENAMIENTO (S3)* > *Depósitos*.
+. Seleccione el nombre del depósito de origen.
++
+Aparece la página de detalles del depósito.
+
+. Seleccione *Servicios de plataforma* > *Replicación*.
+. Seleccione la casilla de verificación *Habilitar replicación*.
+. Pegue el XML de configuración de replicación en el cuadro de texto y seleccione *Guardar cambios*.
++
+
+NOTE: Los servicios de la plataforma deben ser habilitados para cada cuenta de inquilino por un administrador de StorageGRID mediante Grid Manager o Grid Management API.  Comuníquese con su administrador de StorageGRID si se produce un error al guardar el XML de configuración.
+
+. Verifique que la replicación esté configurada correctamente:
++
+.. Agregue un objeto al depósito de origen que cumpla con los requisitos de replicación según lo especificado en la configuración de replicación.
++
+En el ejemplo mostrado anteriormente, se replican los objetos que coinciden con el prefijo "2020".
+
+.. Confirme que el objeto se haya replicado en el depósito de destino.
++
+Para objetos pequeños, la replicación ocurre rápidamente.
+
+
+
+
+
+.Información relacionada
+link:creating-platform-services-endpoint.html["Crear punto final de servicios de plataforma"]

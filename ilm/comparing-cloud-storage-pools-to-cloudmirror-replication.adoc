@@ -1,0 +1,105 @@
+---
+permalink: ilm/comparing-cloud-storage-pools-to-cloudmirror-replication.html 
+sidebar: sidebar 
+keywords: cloud storage pools, cloudmirror replication 
+summary: A medida que comience a utilizar los grupos de almacenamiento en la nube, puede resultar útil comprender las similitudes y diferencias entre los grupos de almacenamiento en la nube y el servicio de replicación StorageGRID CloudMirror. 
+---
+= Comparar los grupos de almacenamiento en la nube y la replicación de CloudMirror
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A medida que comience a utilizar los grupos de almacenamiento en la nube, puede resultar útil comprender las similitudes y diferencias entre los grupos de almacenamiento en la nube y el servicio de replicación StorageGRID CloudMirror.
+
+[cols="1a,3a,3a"]
+|===
+|  | Grupo de almacenamiento en la nube | Servicio de replicación CloudMirror 
+
+
+ a| 
+¿Cuál es el propósito principal?
+ a| 
+Actúa como un objetivo de archivo.  La copia del objeto en el grupo de almacenamiento en la nube puede ser la única copia del objeto o puede ser una copia adicional.  Es decir, en lugar de mantener dos copias en el sitio, puede mantener una copia dentro de StorageGRID y enviar una copia al grupo de almacenamiento en la nube.
+ a| 
+Permite que un inquilino replique automáticamente objetos desde un depósito en StorageGRID (origen) a un depósito S3 externo (destino).  Crea una copia independiente de un objeto en una infraestructura S3 independiente.
+
+
+
+ a| 
+¿Cómo está configurado?
+ a| 
+Se define de la misma manera que los grupos de almacenamiento, utilizando Grid Manager o la API de administración de Grid.  Se puede seleccionar como ubicación de colocación en una regla ILM.  Mientras que un grupo de almacenamiento consta de un grupo de nodos de almacenamiento, un grupo de almacenamiento en la nube se define mediante un punto final remoto de S3 o Azure (dirección IP, credenciales, etc.).
+ a| 
+Un usuario inquilinolink:../tenant/configuring-cloudmirror-replication.html["configura la replicación de CloudMirror"] definiendo un punto final de CloudMirror (dirección IP, credenciales, etc.) mediante el Administrador de inquilinos o la API S3.  Una vez configurado el punto final de CloudMirror, cualquier depósito propiedad de esa cuenta de inquilino se puede configurar para apuntar al punto final de CloudMirror.
+
+
+
+ a| 
+¿Quién es responsable de configurarlo?
+ a| 
+Por lo general, un administrador de red
+ a| 
+Normalmente, un usuario inquilino
+
+
+
+ a| 
+¿Cual es el destino?
+ a| 
+* Cualquier infraestructura S3 compatible (incluido Amazon S3)
+* Nivel de archivo de blobs de Azure
+* Plataforma de Google Cloud (GCP)
+
+ a| 
+* Cualquier infraestructura S3 compatible (incluido Amazon S3)
+* Plataforma de Google Cloud (GCP)
+
+
+
+
+ a| 
+¿Qué hace que los objetos se muevan al destino?
+ a| 
+Una o más reglas ILM en las políticas ILM activas.  Las reglas de ILM definen qué objetos StorageGRID mueve al grupo de almacenamiento en la nube y cuándo se mueven los objetos.
+ a| 
+El acto de ingerir un nuevo objeto en un depósito de origen que se ha configurado con un punto final de CloudMirror.  Los objetos que existían en el depósito de origen antes de que este se configurara con el punto final de CloudMirror no se replican, a menos que se modifiquen.
+
+
+
+ a| 
+¿Cómo se recuperan los objetos?
+ a| 
+Las aplicaciones deben realizar solicitudes a StorageGRID para recuperar objetos que se han movido a un grupo de almacenamiento en la nube.  Si la única copia de un objeto se ha transferido al almacenamiento de archivo, StorageGRID administra el proceso de restauración del objeto para que pueda recuperarse.
+ a| 
+Dado que la copia reflejada en el depósito de destino es una copia independiente, las aplicaciones pueden recuperar el objeto realizando solicitudes a StorageGRID o al destino S3.  Por ejemplo, supongamos que utiliza la replicación de CloudMirror para reflejar objetos en una organización asociada.  El socio puede utilizar sus propias aplicaciones para leer o actualizar objetos directamente desde el destino S3.  No es necesario utilizar StorageGRID .
+
+
+
+ a| 
+¿Puedes leer desde el destino directamente?
+ a| 
+No. Los objetos trasladados a un grupo de almacenamiento en la nube son administrados por StorageGRID.  Las solicitudes de lectura deben dirigirse a StorageGRID (y StorageGRID será responsable de la recuperación del grupo de almacenamiento en la nube).
+ a| 
+Sí, porque la copia reflejada es una copia independiente.
+
+
+
+ a| 
+¿Qué sucede si se elimina un objeto de la fuente?
+ a| 
+El objeto también se elimina del grupo de almacenamiento en la nube.
+ a| 
+La acción de eliminar no se replica.  Un objeto eliminado ya no existe en el depósito StorageGRID , pero continúa existiendo en el depósito de destino.  De manera similar, los objetos en el depósito de destino se pueden eliminar sin afectar el origen.
+
+
+
+ a| 
+¿Cómo acceder a los objetos después de un desastre (el sistema StorageGRID no está operativo)?
+ a| 
+Los nodos StorageGRID fallidos deben recuperarse.  Durante este proceso, se pueden restaurar copias de objetos replicados utilizando las copias en el grupo de almacenamiento en la nube.
+ a| 
+Las copias de objetos en el destino CloudMirror son independientes de StorageGRID, por lo que se puede acceder a ellas directamente antes de que se recuperen los nodos de StorageGRID .
+
+|===

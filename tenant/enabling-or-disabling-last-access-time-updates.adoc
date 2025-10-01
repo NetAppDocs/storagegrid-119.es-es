@@ -1,0 +1,136 @@
+---
+permalink: tenant/enabling-or-disabling-last-access-time-updates.html 
+sidebar: sidebar 
+keywords: how to enable or disable last access time updates 
+summary: 'Cuando los administradores de red crean las reglas de administración del ciclo de vida de la información (ILM) para un sistema StorageGRID , pueden especificar opcionalmente que se utilice el último tiempo de acceso de un objeto para determinar si se debe mover ese objeto a una ubicación de almacenamiento diferente.  Si utiliza un inquilino S3, puede aprovechar dichas reglas habilitando actualizaciones de hora del último acceso para los objetos en un bucket S3.' 
+---
+= Habilitar o deshabilitar las actualizaciones de la última hora de acceso
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando los administradores de red crean reglas de administración del ciclo de vida de la información (ILM) para un sistema StorageGRID , pueden especificar opcionalmente que se utilice la última hora de acceso de un objeto para determinar si se debe mover ese objeto a una ubicación de almacenamiento diferente.  Si utiliza un inquilino S3, puede aprovechar dichas reglas habilitando actualizaciones de hora del último acceso para los objetos en un bucket S3.
+
+Estas instrucciones solo se aplican a los sistemas StorageGRID que incluyen al menos una regla ILM que utiliza la opción *Hora del último acceso* como filtro avanzado o como hora de referencia.  Puede ignorar estas instrucciones si su sistema StorageGRID no incluye dicha regla. Verlink:../ilm/using-last-access-time-in-ilm-rules.html["Utilice la hora del último acceso en las reglas de ILM"] Para más detalles.
+
+.Antes de empezar
+* Ha iniciado sesión en el Administrador de inquilinos mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Perteneces a un grupo de usuarios que tiene lalink:tenant-management-permissions.html["Administrar todos los depósitos o permisos de acceso raíz"] . Estos permisos anulan la configuración de permisos en las políticas de grupo o de depósito.
+
+
+.Acerca de esta tarea
+*Hora del último acceso* es una de las opciones disponibles para la instrucción de ubicación de *Hora de referencia* para una regla ILM.  Establecer la hora de referencia para una regla en Hora del último acceso permite a los administradores de la red especificar que los objetos se coloquen en determinadas ubicaciones de almacenamiento en función de cuándo se recuperaron (leyeron o vieron) por última vez.
+
+Por ejemplo, para garantizar que los objetos vistos recientemente permanezcan en un almacenamiento más rápido, un administrador de red puede crear una regla ILM que especifique lo siguiente:
+
+* Los objetos que se hayan recuperado durante el último mes deben permanecer en los nodos de almacenamiento locales.
+* Los objetos que no se hayan recuperado durante el último mes deberán trasladarse a una ubicación fuera del sitio.
+
+
+De forma predeterminada, las actualizaciones de la hora del último acceso están deshabilitadas.  Si su sistema StorageGRID incluye una regla ILM que utiliza la opción *Hora del último acceso* y desea que esta opción se aplique a los objetos en este bucket, debe habilitar las actualizaciones de la hora del último acceso para los buckets S3 especificados en esa regla.
+
+
+CAUTION: Actualizar la hora del último acceso cuando se recupera un objeto puede reducir el rendimiento de StorageGRID , especialmente para objetos pequeños.
+
+Se produce un impacto en el rendimiento con las actualizaciones del último tiempo de acceso porque StorageGRID debe realizar estos pasos adicionales cada vez que se recuperan objetos:
+
+* Actualizar los objetos con nuevas marcas de tiempo
+* Agregue los objetos a la cola de ILM, para que puedan reevaluarse según las reglas y políticas de ILM actuales.
+
+
+La tabla resume el comportamiento aplicado a todos los objetos en el depósito cuando el último tiempo de acceso está deshabilitado o habilitado.
+
+[cols="1a,1a,1a,1a,1a"]
+|===
+
+
+.2+| Tipo de solicitud 2+| Comportamiento si el último tiempo de acceso está deshabilitado (predeterminado) 2+| Comportamiento si el último tiempo de acceso está habilitado 
+
+
+| ¿Última hora de acceso actualizada? | ¿Objeto agregado a la cola de evaluación de ILM? | ¿Última hora de acceso actualizada? | ¿Objeto agregado a la cola de evaluación de ILM? 
+
+
+ a| 
+Solicitud para recuperar un objeto, su lista de control de acceso o sus metadatos
+ a| 
+No
+ a| 
+No
+ a| 
+Sí
+ a| 
+Sí
+
+
+
+ a| 
+Solicitud para actualizar los metadatos de un objeto
+ a| 
+Sí
+ a| 
+Sí
+ a| 
+Sí
+ a| 
+Sí
+
+
+
+ a| 
+Solicitud de lista de objetos o versiones de objetos
+ a| 
+No
+ a| 
+No
+ a| 
+No
+ a| 
+No
+
+
+
+ a| 
+Solicitud para copiar un objeto de un depósito a otro
+ a| 
+* No, para la copia fuente
+* Sí, para la copia de destino
+
+ a| 
+* No, para la copia fuente
+* Sí, para la copia de destino
+
+ a| 
+* Sí, para la copia fuente
+* Sí, para la copia de destino
+
+ a| 
+* Sí, para la copia fuente
+* Sí, para la copia de destino
+
+
+
+
+ a| 
+Solicitud para completar una carga de varias partes
+ a| 
+Sí, para el objeto ensamblado
+ a| 
+Sí, para el objeto ensamblado
+ a| 
+Sí, para el objeto ensamblado
+ a| 
+Sí, para el objeto ensamblado
+
+|===
+.Pasos
+. Seleccione *Ver depósitos* en el panel de control o seleccione *ALMACENAMIENTO (S3)* > *Depósitos*.
+. Seleccione el nombre del depósito de la tabla.
++
+Aparece la página de detalles del depósito.
+
+. Desde la pestaña *Opciones de depósito*, seleccione el acordeón *Actualizaciones de hora del último acceso*.
+. Habilitar o deshabilitar las actualizaciones del último tiempo de acceso.
+. Seleccione *Guardar cambios*.
+

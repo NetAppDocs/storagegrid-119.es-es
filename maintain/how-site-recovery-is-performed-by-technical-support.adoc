@@ -1,0 +1,67 @@
+---
+permalink: maintain/how-site-recovery-is-performed-by-technical-support.html 
+sidebar: sidebar 
+keywords: storagegrid, site recovery, technical support, tech support 
+summary: Si falla un sitio completo de StorageGRID o si fallan varios nodos de almacenamiento, debe comunicarse con el soporte técnico.  El soporte técnico evaluará su situación, desarrollará un plan de recuperación y luego recuperará los nodos o el sitio fallidos de una manera que cumpla con sus objetivos comerciales, optimice el tiempo de recuperación y evite la pérdida innecesaria de datos. 
+---
+= Cómo el soporte técnico recupera un sitio
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si falla un sitio completo de StorageGRID o si fallan varios nodos de almacenamiento, debe comunicarse con el soporte técnico.  El soporte técnico evaluará su situación, desarrollará un plan de recuperación y luego recuperará los nodos o el sitio fallidos de una manera que cumpla con sus objetivos comerciales, optimice el tiempo de recuperación y evite la pérdida innecesaria de datos.
+
+
+CAUTION: La recuperación del sitio sólo puede ser realizada por soporte técnico.
+
+Los sistemas StorageGRID son resistentes a una amplia variedad de fallas, y usted mismo puede realizar con éxito muchos procedimientos de recuperación y mantenimiento.  Sin embargo, es difícil crear un procedimiento de recuperación del sitio simple y generalizado porque los pasos detallados dependen de factores específicos de su situación. Por ejemplo:
+
+* *Sus objetivos comerciales*: después de la pérdida total de un sitio de StorageGRID , debe evaluar cuál es la mejor manera de cumplir con sus objetivos comerciales.  Por ejemplo, ¿quieres reconstruir el sitio perdido en el lugar?  ¿Desea reemplazar el sitio StorageGRID perdido en una nueva ubicación?  La situación de cada cliente es diferente y su plan de recuperación debe estar diseñado para abordar sus prioridades.
+* *Naturaleza exacta de la falla*: antes de comenzar una recuperación del sitio, establezca si alguno de los nodos en el sitio fallido está intacto o si algún nodo de almacenamiento contiene objetos recuperables.  Si reconstruye nodos o volúmenes de almacenamiento que contienen datos válidos, podría producirse una pérdida de datos innecesaria.
+* *Políticas ILM activas*: la cantidad, el tipo y la ubicación de las copias de objetos en su cuadrícula están controlados por sus políticas ILM activas.  Los detalles de sus políticas ILM pueden afectar la cantidad de datos recuperables, así como las técnicas específicas necesarias para la recuperación.
++
+
+CAUTION: Si un sitio contiene la única copia de un objeto y el sitio se pierde, el objeto se pierde.
+
+* *Consistencia del bucket (o contenedor)*: la consistencia aplicada a un bucket (o contenedor) afecta si StorageGRID replica completamente los metadatos del objeto a todos los nodos y sitios antes de informar a un cliente que la ingesta del objeto fue exitosa.  Si el valor de consistencia permite una consistencia eventual, es posible que se hayan perdido algunos metadatos del objeto en la falla del sitio.  Esto puede afectar la cantidad de datos recuperables y potencialmente los detalles del procedimiento de recuperación.
+* *Historial de cambios recientes*: Los detalles de su procedimiento de recuperación pueden verse afectados por si había algún procedimiento de mantenimiento en curso en el momento de la falla o si se realizaron cambios recientes en sus políticas de ILM.  El soporte técnico debe evaluar el historial reciente de su red así como su situación actual antes de comenzar la recuperación del sitio.
+
+
+
+CAUTION: La recuperación del sitio sólo puede ser realizada por soporte técnico.
+
+Esta es una descripción general del proceso que utiliza el soporte técnico para recuperar un sitio fallido:
+
+. Apoyo técnico:
++
+.. Realiza una evaluación detallada del fallo.
+.. Trabaja con usted para revisar sus objetivos comerciales.
+.. Desarrolla un plan de recuperación adaptado a su situación.
+
+
+. Si el nodo de administración principal ha fallado, el soporte técnico lo recupera.
+. El soporte técnico recupera todos los nodos de almacenamiento, siguiendo este esquema:
++
+.. Reemplace el hardware del nodo de almacenamiento o las máquinas virtuales según sea necesario.
+.. Restaurar los metadatos del objeto en el sitio fallido.
+.. Restaurar datos de objetos en los nodos de almacenamiento recuperados.
++
+
+CAUTION: Se producirá pérdida de datos si se utilizan los procedimientos de recuperación para un solo nodo de almacenamiento fallido.
+
++
+
+NOTE: Cuando falla un sitio completo, el soporte técnico utiliza comandos especializados para restaurar exitosamente los objetos y los metadatos de los objetos.
+
+
+
+. El soporte técnico recupera otros nodos fallidos.
++
+Una vez recuperados los metadatos y datos de los objetos, el soporte técnico utiliza procedimientos estándar para recuperar nodos de puerta de enlace fallidos o nodos de administración no primarios.
+
+
+
+.Información relacionada
+link:site-decommissioning.html["Desmantelamiento del sitio"]

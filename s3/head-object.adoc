@@ -1,0 +1,189 @@
+---
+permalink: s3/head-object.html 
+sidebar: sidebar 
+keywords: HeadObject 
+summary: Puede utilizar la solicitud S3 HeadObject para recuperar metadatos de un objeto sin devolver el objeto en sí. 
+---
+= Objeto principal
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede utilizar la solicitud S3 HeadObject para recuperar metadatos de un objeto sin devolver el objeto en sí.  Si el objeto está almacenado en un grupo de almacenamiento en la nube, puede usar HeadObject para determinar el estado de transición del objeto.
+
+
+
+== Objetos HeadObject y multipart
+
+Puedes utilizar el `partNumber` parámetro de solicitud para recuperar metadatos para una parte específica de un objeto multiparte o segmentado.  El `x-amz-mp-parts-count` El elemento de respuesta indica cuántas partes tiene el objeto.
+
+Puedes configurar `partNumber` a 1 tanto para objetos segmentados/multiparte como para objetos no segmentados/no multiparte; sin embargo, el `x-amz-mp-parts-count` El elemento de respuesta solo se devuelve para objetos segmentados o multiparte.
+
+
+
+== Caracteres UTF-8 en metadatos de usuario
+
+StorageGRID no analiza ni interpreta caracteres UTF-8 escapados en metadatos definidos por el usuario.  Las solicitudes HEAD para un objeto con caracteres UTF-8 escapados en metadatos definidos por el usuario no devuelven el `x-amz-missing-meta` encabezado si el nombre o valor de la clave incluye caracteres no imprimibles.
+
+
+
+== Encabezado de solicitud compatible
+
+Se admite el siguiente encabezado de solicitud:
+
+* `x-amz-checksum-mode`
++
+El `partNumber` parámetro y `Range` Los encabezados no son compatibles con `x-amz-checksum-mode` para HeadObject.  Cuando los incluyas en la solicitud con `x-amz-checksum-mode` habilitado, StorageGRID no devuelve un valor de suma de comprobación en la respuesta.
+
+
+
+
+
+== Encabezado de solicitud no compatible
+
+El siguiente encabezado de solicitud no es compatible y devuelve `XNotImplemented` :
+
+* `x-amz-website-redirect-location`
+
+
+
+
+== Control de versiones
+
+Si un `versionId` Si no se especifica el subrecurso, la operación obtiene la versión más reciente del objeto en un depósito versionado.  Si la versión actual del objeto es un marcador de eliminación, se devuelve un estado "No encontrado" con el `x-amz-delete-marker` encabezado de respuesta establecido en `true` .
+
+
+
+== Encabezados de solicitud para cifrado del lado del servidor con claves de cifrado proporcionadas por el cliente (SSE-C)
+
+Utilice estos tres encabezados si el objeto está encriptado con una clave única que usted proporcionó.
+
+* `x-amz-server-side-encryption-customer-algorithm`: Especificar `AES256` .
+* `x-amz-server-side-encryption-customer-key`:Especifique su clave de cifrado para el objeto.
+* `x-amz-server-side-encryption-customer-key-MD5`:Especifique el resumen MD5 de la clave de cifrado del objeto.
+
+
+
+CAUTION: Las claves de cifrado que usted proporciona nunca se almacenan.  Si pierde una clave de cifrado, perderá el objeto correspondiente.  Antes de utilizar las claves proporcionadas por el cliente para proteger los datos de los objetos, revise las consideraciones enlink:using-server-side-encryption.html["Utilice cifrado del lado del servidor"] .
+
+
+
+== Respuestas de HeadObject para objetos de Cloud Storage Pool
+
+Si el objeto se almacena en unlink:../ilm/what-cloud-storage-pool-is.html["Grupo de almacenamiento en la nube"] , se devuelven los siguientes encabezados de respuesta:
+
+* `x-amz-storage-class: GLACIER`
+* `x-amz-restore`
+
+
+Los encabezados de respuesta brindan información sobre el estado de un objeto a medida que se mueve a un grupo de almacenamiento en la nube, opcionalmente pasa a un estado no recuperable y se restaura.
+
+[cols="1a,1a"]
+|===
+| Estado del objeto | Respuesta a HeadObject 
+
+
+ a| 
+Objeto ingerido en StorageGRID pero aún no evaluado por ILM, u objeto almacenado en un grupo de almacenamiento tradicional o que utiliza codificación de borrado
+ a| 
+`200 OK`(No se devuelve ningún encabezado de respuesta especial).
+
+
+
+ a| 
+Objeto en el grupo de almacenamiento en la nube pero que aún no ha pasado a un estado no recuperable
+ a| 
+`200 OK`
+
+`x-amz-storage-class: GLACIER`
+
+`x-amz-restore: ongoing-request="false", expiry-date="Sat, 23 July 20 2030 00:00:00 GMT"`
+
+Hasta que el objeto pase a un estado no recuperable, el valor de `expiry-date` Está ambientado en un momento distante en el futuro.  El tiempo exacto de transición no está controlado por el sistema StorageGRID .
+
+
+
+ a| 
+El objeto ha pasado al estado no recuperable, pero también existe al menos una copia en la cuadrícula
+ a| 
+`200 OK`
+
+`x-amz-storage-class: GLACIER`
+
+`x-amz-restore: ongoing-request="false", expiry-date="Sat, 23 July 20 2030 00:00:00 GMT"`
+
+El valor de `expiry-date` Está ambientado en un momento distante en el futuro.
+
+*Nota*: Si la copia en la red no está disponible (por ejemplo, un nodo de almacenamiento está inactivo), debe emitir unlink:post-object-restore.html["Restaurar objeto"] solicitud para restaurar la copia del grupo de almacenamiento en la nube antes de poder recuperar el objeto con éxito.
+
+
+
+ a| 
+El objeto pasó a un estado no recuperable y no existe ninguna copia en la cuadrícula
+ a| 
+`200 OK`
+
+`x-amz-storage-class: GLACIER`
+
+
+
+ a| 
+Objeto en proceso de restauración desde un estado no recuperable
+ a| 
+`200 OK`
+
+`x-amz-storage-class: GLACIER`
+
+`x-amz-restore: ongoing-request="true"`
+
+
+
+ a| 
+Objeto completamente restaurado al grupo de almacenamiento en la nube
+ a| 
+`200 OK`
+
+`x-amz-storage-class: GLACIER`
+
+`x-amz-restore: ongoing-request="false", expiry-date="Sat, 23 July 20 2018 00:00:00 GMT"`
+
+El `expiry-date` Indica cuándo el objeto en el grupo de almacenamiento en la nube volverá a un estado no recuperable.
+
+|===
+
+
+=== Objetos multiparte o segmentados en el grupo de almacenamiento en la nube
+
+Si cargó un objeto de varias partes o si StorageGRID dividió un objeto grande en segmentos, StorageGRID determina si el objeto está disponible en el grupo de almacenamiento en la nube mediante el muestreo de un subconjunto de las partes o segmentos del objeto.  En algunos casos, una solicitud HeadObject podría devolver incorrectamente `x-amz-restore: ongoing-request="false"` cuando algunas partes del objeto ya han sido trasladadas a un estado no recuperable o cuando algunas partes del objeto aún no han sido restauradas.
+
+
+
+== Replicación de HeadObject y entre cuadrículas
+
+Si estas usandolink:../admin/grid-federation-overview.html["federación de red"] ylink:../tenant/grid-federation-manage-cross-grid-replication.html["replicación entre redes"] está habilitado para un bucket, el cliente S3 puede verificar el estado de replicación de un objeto emitiendo una solicitud HeadObject.  La respuesta incluye el StorageGRID específico `x-ntap-sg-cgr-replication-status` encabezado de respuesta, que tendrá uno de los siguientes valores:
+
+[cols="1a,2a"]
+|===
+| Red | Estado de replicación 
+
+
+ a| 
+Fuente
+ a| 
+* *COMPLETADO*: La replicación fue exitosa.
+* *PENDIENTE*: El objeto aún no ha sido replicado.
+* *FALLO*: La replicación falló con un error permanente. Un usuario debe resolver el error.
+
+
+
+
+ a| 
+Destino
+ a| 
+*RÉPLICA*: El objeto fue replicado desde la cuadrícula de origen.
+
+|===
+
+NOTE: StorageGRID no es compatible con `x-amz-replication-status` encabezamiento.

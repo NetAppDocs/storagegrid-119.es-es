@@ -1,0 +1,198 @@
+---
+permalink: expand/deploying-new-grid-nodes.html 
+sidebar: sidebar 
+keywords: expansion, add nodes 
+summary: Los pasos para implementar nuevos nodos de red en una expansión son los mismos que los pasos utilizados cuando se instaló la red por primera vez.  Debe implementar todos los nuevos nodos de la red antes de poder realizar la expansión. 
+---
+= Implementar nuevos nodos de red
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los pasos para implementar nuevos nodos de red en una expansión son los mismos que los pasos utilizados cuando se instaló la red por primera vez.  Debe implementar todos los nuevos nodos de la red antes de poder realizar la expansión.
+
+Al expandir una cuadrícula, los nodos que agregue no tienen que coincidir con los tipos de nodos existentes.  Puede agregar nodos VMware, nodos basados en contenedores Linux o nodos de dispositivos.
+
+
+
+== VMware: Implementar nodos de red
+
+Debe implementar una máquina virtual en VMware vSphere para cada nodo VMware que desee agregar en la expansión.
+
+.Pasos
+. link:../vmware/deploying-storagegrid-node-as-virtual-machine.html["Implementar el nuevo nodo como máquina virtual"]y conectarlo a una o más redes StorageGRID .
++
+Al implementar el nodo, puede opcionalmente reasignar los puertos del nodo o aumentar la configuración de CPU o memoria.
+
+. Después de haber implementado todos los nuevos nodos de VMware,link:performing-expansion.html["realizar el procedimiento de expansión"] .
+
+
+
+
+== Linux: Implementar nodos de red
+
+Puede implementar nodos de red en nuevos hosts Linux o en hosts Linux existentes.  Si necesita hosts Linux adicionales para soportar los requisitos de CPU, RAM y almacenamiento de los nodos StorageGRID que desea agregar a su red, debe prepararlos de la misma manera que preparó los hosts cuando los instaló por primera vez.  Luego, implementa los nodos de expansión de la misma manera que implementaste los nodos de la red durante la instalación.
+
+.Antes de empezar
+* Tiene las instrucciones para instalar StorageGRID para su versión de Linux y ha revisado los requisitos de hardware y almacenamiento.
++
+** link:../rhel/index.html["Instalar StorageGRID en Red Hat Enterprise Linux"]
+** link:../ubuntu/index.html["Instalar StorageGRID en Ubuntu o Debian"]
+
+
+* Si planea implementar nuevos nodos de red en hosts existentes, debe confirmar que los hosts existentes tengan suficiente CPU, RAM y capacidad de almacenamiento para los nodos adicionales.
+* Tiene un plan para minimizar los dominios de falla.  Por ejemplo, no debe implementar todos los nodos de puerta de enlace en un solo host físico.
++
+
+CAUTION: En una implementación de producción, no ejecute más de un nodo de almacenamiento en un solo host físico o virtual.  El uso de un host dedicado para cada nodo de almacenamiento proporciona un dominio de falla aislado.
+
+* Si el nodo StorageGRID usa almacenamiento asignado desde un sistema NetApp ONTAP , confirme que el volumen no tenga habilitada una política de niveles de FabricPool .  Deshabilitar la organización en niveles de FabricPool para los volúmenes utilizados con nodos StorageGRID simplifica la resolución de problemas y las operaciones de almacenamiento.
+
+
+.Pasos
+. Si está agregando nuevos hosts, acceda a las instrucciones de instalación para implementar nodos StorageGRID .
+. Para implementar los nuevos hosts, siga las instrucciones para prepararlos.
+. Para crear archivos de configuración de nodos y validar la configuración de StorageGRID , siga las instrucciones para implementar nodos de la red.
+. Si está agregando nodos a un nuevo host Linux, inicie el servicio de host StorageGRID .
+. Si está agregando nodos a un host Linux existente, inicie los nuevos nodos utilizando la CLI del servicio de host storagegrid:``sudo storagegrid node start [<node name\>]``
+
+
+.Después de terminar
+Después de implementar todos los nuevos nodos de la red, puedelink:performing-expansion.html["realizar la expansión"] .
+
+
+
+== Dispositivos: Implementación de almacenamiento, puerta de enlace o nodos de administración no principales
+
+Para instalar el software StorageGRID en un nodo de dispositivo, utilice el instalador de dispositivo StorageGRID , que está incluido en el dispositivo.  En una expansión, cada dispositivo de almacenamiento funciona como un único nodo de almacenamiento y cada dispositivo de servicios funciona como un único nodo de puerta de enlace o un nodo de administración no principal.  Cualquier dispositivo puede conectarse a la red de red, a la red de administración y a la red de cliente.
+
+.Antes de empezar
+* El dispositivo se ha instalado en un rack o gabinete, se ha conectado a sus redes y se ha encendido.
+* Has completado el https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/configuring-hardware.html["Configurar el hardware"^] pasos.
++
+La configuración del hardware del dispositivo incluye los pasos necesarios para configurar las conexiones StorageGRID (enlaces de red y direcciones IP), así como los pasos opcionales para habilitar el cifrado de nodos, cambiar el modo RAID y reasignar los puertos de red.
+
+* Todas las subredes de la red Grid que aparecen en la página de configuración de IP del instalador del dispositivo StorageGRID se han definido en la lista de subredes de la red Grid en el nodo de administración principal.
+* El firmware del instalador del dispositivo StorageGRID en el dispositivo de reemplazo es compatible con la versión del software StorageGRID que se ejecuta actualmente en su red.  Si las versiones no son compatibles, debe actualizar el firmware del instalador del dispositivo StorageGRID .
+* Tienes una computadora portátil de servicio con unalink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Conoce una de las direcciones IP asignadas al controlador de cómputo del dispositivo.  Puede utilizar la dirección IP para cualquier red StorageGRID conectada.
+
+
+.Acerca de esta tarea
+El proceso de instalación de StorageGRID en un nodo de dispositivo tiene las siguientes fases:
+
+* Usted especifica o confirma la dirección IP del nodo de administración principal y el nombre del nodo del dispositivo.
+* Inicia la instalación y espera mientras se configuran los volúmenes y se instala el software.
++
+A mitad de las tareas de instalación del dispositivo, la instalación se detiene.  Para reanudar la instalación, inicie sesión en Grid Manager, apruebe todos los nodos de la red y complete el proceso de instalación de StorageGRID .
+
++
+
+NOTE: Si necesita implementar varios nodos de dispositivos al mismo tiempo, puede automatizar el proceso de instalación mediante el uso de `configure-sga.py` Script de instalación del dispositivo.
+
+
+
+.Pasos
+. Abra un navegador e ingrese una de las direcciones IP del controlador de cómputo del dispositivo.
++
+`https://_Controller_IP_:8443`
+
++
+Aparece la página de inicio del instalador del dispositivo StorageGRID .
+
+. En la sección de conexión *Nodo de administración principal*, determine si necesita especificar la dirección IP para el nodo de administración principal.
++
+Si anteriormente ha instalado otros nodos en este centro de datos, el instalador del dispositivo StorageGRID puede descubrir esta dirección IP automáticamente, suponiendo que el nodo de administración principal, o al menos otro nodo de la red con ADMIN_IP configurado, esté presente en la misma subred.
+
+. Si esta dirección IP no se muestra o necesita cambiarla, especifique la dirección:
++
+[cols="1a,2a"]
+|===
+| Opción | Descripción 
+
+
+ a| 
+Entrada manual de IP
+ a| 
+.. Desmarque la casilla de verificación *Habilitar descubrimiento de nodo de administración*.
+.. Introduzca la dirección IP manualmente.
+.. Haga clic en *Guardar*.
+.. Espere a que el estado de la conexión para la nueva dirección IP esté listo.
+
+
+
+
+ a| 
+Descubrimiento automático de todos los nodos de administración principales conectados
+ a| 
+.. Seleccione la casilla de verificación *Habilitar descubrimiento de nodo de administración*.
+.. Espere a que se muestre la lista de direcciones IP descubiertas.
+.. Seleccione el nodo de administración principal para la red donde se implementará este nodo de almacenamiento del dispositivo.
+.. Haga clic en *Guardar*.
+.. Espere a que el estado de la conexión para la nueva dirección IP esté listo.
+
+
+|===
+. En el campo *Nombre del nodo*, ingrese el nombre que desea usar para este nodo del dispositivo y seleccione *Guardar*.
++
+El nombre del nodo se asigna a este nodo del dispositivo en el sistema StorageGRID .  Se muestra en la página Nodos (pestaña Descripción general) en el Administrador de cuadrícula.  Si es necesario, puede cambiar el nombre cuando apruebe el nodo.
+
+. En la sección *Instalación*, confirme que el estado actual sea "Listo para iniciar la instalación de _nombre del nodo_ en la red con el nodo de administración principal _admin_ip_" y que el botón *Iniciar instalación* esté habilitado.
++
+Si el botón *Iniciar instalación* no está habilitado, es posible que necesite cambiar la configuración de red o la configuración del puerto.  Para obtener instrucciones, consulte las instrucciones de mantenimiento de su aparato.
+
+. Desde la página de inicio del instalador del dispositivo StorageGRID , seleccione *Iniciar instalación*.
++
+image::../media/appliance_installer_home_start_installation_enabled.gif[Esta imagen está descrita por el texto que la rodea.]
+
++
+El estado actual cambia a "La instalación está en curso" y se muestra la página de instalación del monitor.
+
+. Si su expansión incluye varios nodos de dispositivo, repita los pasos anteriores para cada dispositivo.
++
+
+NOTE: Si necesita implementar varios nodos de almacenamiento del dispositivo al mismo tiempo, puede automatizar el proceso de instalación mediante el script de instalación del dispositivo configure-sga.py.
+
+. Si necesita acceder manualmente a la página de Instalación del Monitor, seleccione *Instalación del Monitor* en la barra de menú.
++
+La página de instalación del monitor muestra el progreso de la instalación.
+
++
+image::../media/monitor_installation_configure_storage.gif[Esta imagen está explicada por el texto que la rodea.]
+
++
+La barra de estado azul indica qué tarea está actualmente en progreso.  Las barras de estado verdes indican tareas que se han completado correctamente.
+
++
+
+NOTE: El instalador garantiza que las tareas completadas en una instalación anterior no se vuelvan a ejecutar.  Si está volviendo a ejecutar una instalación, cualquier tarea que no necesite volver a ejecutarse se mostrará con una barra de estado verde y un estado de "Omitido".
+
+. Revise el progreso de las dos primeras etapas de instalación.
++
+*1.  Configurar el dispositivo*
+
++
+Durante esta etapa se produce uno de los siguientes procesos:
+
++
+** Para un dispositivo de almacenamiento, el instalador se conecta al controlador de almacenamiento, borra cualquier configuración existente, se comunica con SANtricity OS para configurar volúmenes y configura los ajustes del host.
+** Para un dispositivo de servicios, el instalador borra cualquier configuración existente de las unidades en el controlador de cómputo y configura los ajustes del host.
++
+*2.  Instalar sistema operativo*
+
++
+Durante esta etapa, el instalador copia la imagen del sistema operativo base de StorageGRID al dispositivo.
+
+
+
+. Continúe monitoreando el progreso de la instalación hasta que aparezca un mensaje en la ventana de la consola que le solicitará que utilice el Administrador de cuadrícula para aprobar el nodo.
++
+
+NOTE: Espere hasta que todos los nodos que agregó en esta expansión estén listos para su aprobación antes de ir al Administrador de cuadrícula para aprobar los nodos.
+
++
+image::../media/monitor_installation_install_sgws.gif[Esta imagen está explicada por el texto que la rodea.]
+
+

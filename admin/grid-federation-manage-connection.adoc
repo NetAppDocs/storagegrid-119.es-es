@@ -1,0 +1,282 @@
+---
+permalink: admin/grid-federation-manage-connection.html 
+sidebar: sidebar 
+keywords: grid federation, edit connection, remove connection, rotate certificates 
+summary: La administración de las conexiones de federación de red entre sistemas StorageGRID incluye editar los detalles de conexión, rotar los certificados, eliminar los permisos de inquilinos y eliminar las conexiones no utilizadas. 
+---
+= Administrar conexiones de federación de red
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La administración de las conexiones de federación de red entre sistemas StorageGRID incluye editar los detalles de conexión, rotar los certificados, eliminar los permisos de inquilinos y eliminar las conexiones no utilizadas.
+
+.Antes de empezar
+* Ha iniciado sesión en el Administrador de cuadrícula en cualquiera de las cuadrículas mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tú tienes ellink:admin-group-permissions.html["Permiso de acceso root"] para la red en la que ha iniciado sesión.
+
+
+
+
+== [[edit_grid_fed_connection]]Editar una conexión de federación de red
+
+Puede editar una conexión de federación de red iniciando sesión en el nodo de administración principal en cualquiera de las redes de la conexión.  Después de realizar cambios en la primera cuadrícula, deberá descargar un nuevo archivo de verificación y cargarlo en la otra cuadrícula.
+
+
+NOTE: Mientras se edita la conexión, las solicitudes de clonación de cuenta o replicación entre redes continuarán usando las configuraciones de conexión existentes.  Cualquier modificación que realice en la primera cuadrícula se guarda localmente, pero no se utiliza hasta que se haya cargado en la segunda cuadrícula, se haya guardado y se haya probado.
+
+
+
+=== Comience a editar la conexión
+
+.Pasos
+. Sign in en el Administrador de cuadrícula desde el nodo de administración principal en cualquiera de las cuadrículas.
+. Seleccione *NODOS* y confirme que todos los demás nodos de administración en su sistema estén en línea.
++
+
+NOTE: Cuando edita una conexión de federación de red, StorageGRID intenta guardar un archivo de "configuración candidata" en todos los nodos de administración de la primera red.  Si este archivo no se puede guardar en todos los nodos de administración, aparecerá un mensaje de advertencia cuando seleccione *Guardar y probar*.
+
+. Seleccione *CONFIGURACIÓN* > *Sistema* > *Federación de red*.
+. Edite los detalles de la conexión utilizando el menú *Acciones* en la página de federación de Grid o la página de detalles de una conexión específica.  Verlink:grid-federation-create-connection.html["Crear conexiones de federación de red"] para qué entrar.
++
+[role="tabbed-block"]
+====
+.Menú de acciones
+--
+.. Seleccione el botón de opción para la conexión.
+.. Seleccione *Acciones* > *Editar*.
+.. Introduzca la nueva información.
+
+
+--
+.Página de detalles
+--
+.. Seleccione un nombre de conexión para mostrar sus detalles.
+.. Seleccione *Editar*.
+.. Introduzca la nueva información.
+
+
+--
+====
+. Introduzca la contraseña de aprovisionamiento para la red en la que ha iniciado sesión.
+. Seleccione *Guardar y continuar*.
++
+Los nuevos valores se guardan, pero no se aplicarán a la conexión hasta que haya cargado el nuevo archivo de verificación en la otra cuadrícula.
+
+. Seleccione *Descargar archivo de verificación*.
++
+Para descargar este archivo más tarde, vaya a la página de detalles de la conexión.
+
+. Localice el archivo descargado(`_connection-name_.grid-federation` ) y guárdelo en un lugar seguro.
++
+
+CAUTION: El archivo de verificación contiene secretos y debe almacenarse y transmitirse de forma segura.
+
+. Seleccione *Cerrar* para regresar a la página de federación de Grid.
+. Confirme que el *Estado de conexión* sea *Pendiente de edición*.
++
+
+NOTE: Si el estado de la conexión era distinto de *Conectado* cuando comenzó a editar la conexión, no cambiará a *Pendiente de edición*.
+
+. Proporcionar el `_connection-name_.grid-federation` archivo al administrador de la red para la otra red.
+
+
+
+
+=== Terminar de editar la conexión
+
+Termine de editar la conexión cargando el archivo de verificación en la otra cuadrícula.
+
+.Pasos
+. Sign in en Grid Manager desde el nodo de administración principal.
+. Seleccione *CONFIGURACIÓN* > *Sistema* > *Federación de red*.
+. Seleccione *Cargar archivo de verificación* para acceder a la página de carga.
+. Seleccione *Subir archivo de verificación*.  Luego, busque y seleccione el archivo que se descargó de la primera cuadrícula.
+. Ingrese la contraseña de aprovisionamiento para la red en la que está conectado actualmente.
+. Seleccione *Guardar y probar*.
++
+Si se puede establecer la conexión utilizando los valores editados, aparecerá un mensaje de éxito.  De lo contrario, aparecerá un mensaje de error.  Revise el mensaje y solucione cualquier problema.
+
+. Cierre el asistente para regresar a la página de federación de Grid.
+. Confirme que el *Estado de conexión* sea *Conectado*.
+. Vaya a la página de federación de Grid en la primera cuadrícula y actualice el navegador.  Confirme que el *Estado de conexión* ahora es *Conectado*.
+. Una vez establecida la conexión, elimine de forma segura todas las copias del archivo de verificación.
+
+
+
+
+== [[test_grid_fed_connection]]Pruebe una conexión de federación de red
+
+.Pasos
+. Sign in en Grid Manager desde el nodo de administración principal.
+. Seleccione *CONFIGURACIÓN* > *Sistema* > *Federación de red*.
+. Pruebe la conexión utilizando el menú *Acciones* en la página de federación de Grid o la página de detalles de una conexión específica.
++
+[role="tabbed-block"]
+====
+.Menú de acciones
+--
+.. Seleccione el botón de opción para la conexión.
+.. Seleccione *Acciones* > *Prueba*.
+
+
+--
+.Página de detalles
+--
+.. Seleccione un nombre de conexión para mostrar sus detalles.
+.. Seleccione *Probar conexión*.
+
+
+--
+====
+. Revisar el estado de la conexión:
++
+[cols="1a,2a"]
+|===
+| Estado de la conexión | Descripción 
+
+
+ a| 
+Conectado
+ a| 
+Ambas redes están conectadas y se comunican normalmente.
+
+
+
+ a| 
+Error
+ a| 
+La conexión está en un estado de error.  Por ejemplo, un certificado ha expirado o un valor de configuración ya no es válido.
+
+
+
+ a| 
+Pendiente de edición
+ a| 
+Ha editado la conexión en esta cuadrícula, pero la conexión aún utiliza la configuración existente.  Para completar la edición, cargue el nuevo archivo de verificación en la otra cuadrícula.
+
+
+
+ a| 
+Esperando para conectar
+ a| 
+Ha configurado la conexión en esta red, pero la conexión no se ha completado en la otra red.  Descargue el archivo de verificación de esta cuadrícula y cárguelo en la otra cuadrícula.
+
+
+
+ a| 
+Desconocido
+ a| 
+La conexión está en un estado desconocido, posiblemente debido a un problema de red o un nodo fuera de línea.
+
+|===
+. Si el estado de la conexión es *Error*, resuelva cualquier problema.  Luego, seleccione *Probar conexión* nuevamente para confirmar que el problema se ha solucionado.
+
+
+
+
+== [[rotate_grid_fed_certificates]]Rotar certificados de conexión
+
+Cada conexión de federación de red utiliza cuatro certificados SSL generados automáticamente para proteger la conexión.  Cuando los dos certificados de cada red se acercan a su fecha de vencimiento, la alerta *Vencimiento del certificado de federación de red* le recuerda que debe rotar los certificados.
+
+
+CAUTION: Si los certificados en cualquiera de los extremos de la conexión caducan, la conexión dejará de funcionar y las replicaciones quedarán pendientes hasta que se actualicen los certificados.
+
+.Pasos
+. Sign in en el Administrador de cuadrícula desde el nodo de administración principal en cualquiera de las cuadrículas.
+. Seleccione *CONFIGURACIÓN* > *Sistema* > *Federación de red*.
+. Desde cualquiera de las pestañas de la página de federación de Grid, seleccione el nombre de la conexión para mostrar sus detalles.
+. Seleccione la pestaña *Certificados*.
+. Seleccione *Rotar certificados*.
+. Especifique cuántos días deben ser válidos los nuevos certificados.
+. Introduzca la contraseña de aprovisionamiento para la red en la que ha iniciado sesión.
+. Seleccione *Rotar certificados*.
+. Según sea necesario, repita estos pasos en la otra cuadrícula de la conexión.
++
+En general, utilice la misma cantidad de días para los certificados en ambos lados de la conexión.
+
+
+
+
+
+== [[remove_grid_fed_connection]]Eliminar una conexión de federación de red
+
+Puede eliminar una conexión de federación de red de cualquiera de las redes en la conexión.  Como se muestra en la figura, debe realizar los pasos previos necesarios en ambas redes para confirmar que ningún inquilino en ninguna de las redes esté utilizando la conexión.
+
+image::../media/grid-federation-remove-connection.png[Pasos para eliminar la conexión de la federación de red]
+
+Antes de eliminar una conexión, tenga en cuenta lo siguiente:
+
+* Eliminar una conexión no elimina ningún elemento que ya se haya copiado entre cuadrículas.  Por ejemplo, los usuarios, grupos y objetos del inquilino que existen en ambas cuadrículas no se eliminan de ninguna de las cuadrículas cuando se elimina el permiso del inquilino.  Si desea eliminar estos elementos, deberá eliminarlos manualmente de ambas cuadrículas.
+* Cuando elimina una conexión, todos los objetos que estén pendientes de replicación (ingeridos pero aún no replicados en la otra red) tendrán una falla permanente en su replicación.
+
+
+
+
+=== Deshabilitar la replicación para todos los depósitos de inquilinos
+
+.Pasos
+. Para comenzar desde cualquiera de las cuadrículas, inicie sesión en el Administrador de cuadrícula desde el nodo de administración principal.
+. Seleccione *CONFIGURACIÓN* > *Sistema* > *Federación de red*.
+. Seleccione el nombre de la conexión para mostrar sus detalles.
+. En la pestaña *Inquilinos permitidos*, determine si algún inquilino está utilizando la conexión.
+. Si hay inquilinos en la lista, instruya a todos los inquilinos alink:../tenant/grid-federation-manage-cross-grid-replication.html["Deshabilitar la replicación entre redes"] para todos sus cubos en ambas redes en la conexión.
++
+
+TIP: No puedes eliminar el permiso *Usar conexión de federación de red* si alguno de los depósitos de inquilinos tiene habilitada la replicación entre redes.  Cada cuenta de inquilino debe deshabilitar la replicación entre redes para sus depósitos en ambas redes.
+
+
+
+
+
+=== Eliminar el permiso para cada inquilino
+
+Una vez que se haya deshabilitado la replicación entre redes para todos los grupos de inquilinos, elimine el *permiso de uso de federación de red* de todos los inquilinos en ambas redes.
+
+.Pasos
+. Seleccione *CONFIGURACIÓN* > *Sistema* > *Federación de red*.
+. Seleccione el nombre de la conexión para mostrar sus detalles.
+. Para cada inquilino en la pestaña *Inquilinos permitidos*, elimine el permiso *Usar conexión de federación de red* de cada inquilino. Ver link:grid-federation-manage-tenants.html["Gestionar inquilinos permitidos"] .
+. Repita estos pasos para los inquilinos permitidos en la otra cuadrícula.
+
+
+
+
+=== Eliminar conexión
+
+.Pasos
+. Cuando ningún inquilino en ninguna de las redes esté usando la conexión, seleccione *Eliminar*.
+. Revise el mensaje de confirmación y seleccione *Eliminar*.
++
+** Si se puede eliminar la conexión, se muestra un mensaje de éxito.  La conexión de federación de red ahora se elimina de ambas redes.
+** Si no se puede eliminar la conexión (por ejemplo, todavía está en uso o hay un error de conexión), se muestra un mensaje de error.  Puede realizar cualquiera de las siguientes acciones:
++
+*** Resolver el error (recomendado). Ver link:grid-federation-troubleshoot.html["Solucionar errores de federación de red"] .
+*** Retire la conexión a la fuerza.  Vea la siguiente sección.
+
+
+
+
+
+
+
+
+== [[force-remove_grid_fed_connection]]Eliminar una conexión de federación de red por la fuerza
+
+Si es necesario, puede forzar la eliminación de una conexión que no tenga el estado *Conectado*.
+
+La eliminación forzada solo elimina la conexión de la red local.  Para eliminar completamente la conexión, realice los mismos pasos en ambas rejillas.
+
+.Pasos
+. Desde el cuadro de diálogo de confirmación, seleccione *Forzar eliminación*.
++
+Aparece un mensaje de éxito.  Esta conexión de federación de red ya no se puede utilizar.  Sin embargo, es posible que los depósitos de inquilinos aún tengan habilitada la replicación entre redes y que algunas copias de objetos ya se hayan replicado entre las redes de la conexión.
+
+. Desde la otra cuadrícula en la conexión, inicie sesión en el Administrador de cuadrícula desde el nodo de administración principal.
+. Seleccione *CONFIGURACIÓN* > *Sistema* > *Federación de red*.
+. Seleccione el nombre de la conexión para mostrar sus detalles.
+. Seleccione *Eliminar* y *Sí*.
+. Seleccione *Eliminar forzosamente* para eliminar la conexión de esta red.
+

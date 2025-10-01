@@ -1,0 +1,145 @@
+---
+permalink: maintain/accessing-decommission-nodes-page.html 
+sidebar: sidebar 
+keywords: storagegrid, decommission nodes, decommissioning nodes, maintenance task 
+summary: Cuando accede a la página Nodos de desmantelamiento en el Administrador de red, puede ver de un vistazo qué nodos se pueden desmantelar. 
+---
+= Acceder a la página de nodos de desmantelamiento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando accede a la página Nodos de desmantelamiento en el Administrador de red, puede ver de un vistazo qué nodos se pueden desmantelar.
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tú tienes ellink:../admin/admin-group-permissions.html["Permiso de mantenimiento o acceso root"] .
+
+
+
+CAUTION: Tenga cuidado al desmantelar nodos de almacenamiento en una red que contenga nodos solo de metadatos basados en software.  Si desmantela todos los nodos configurados para almacenar _tanto_ objetos como metadatos, se elimina la capacidad de almacenar objetos de la red.  Verlink:../primer/what-storage-node-is.html#types-of-storage-nodes["Tipos de nodos de almacenamiento"] para obtener más información sobre los nodos de almacenamiento de solo metadatos.
+
+.Pasos
+. Seleccione *MANTENIMIENTO* > *Tareas* > *Desmantelamiento*.
+. Seleccione *Nodos de desmantelamiento*.
++
+Aparece la página Nodos de desmantelamiento.  Desde esta página, puedes:
+
++
+** Determinar qué nodos de la red se pueden desmantelar actualmente.
+** Ver el estado de todos los nodos de la red
+** Ordene la lista en orden ascendente o descendente por *Nombre*, *Sitio*, *Tipo* o *Tiene ADC*.
+** Introduzca términos de búsqueda para encontrar rápidamente nodos específicos.
++
+En este ejemplo, la columna Desactivación posible indica que puede desactivar el nodo de puerta de enlace y uno de los cuatro nodos de almacenamiento.
+
++
+image::../media/decommission_nodes_page_all_connected.png[Página de nodos de desmantelamiento]
+
+
+
+. Revise la columna *Desactivación posible* para cada nodo que desee desactivar.
++
+Si se puede desmantelar un nodo de la red, esta columna incluye una marca de verificación verde y la columna izquierda incluye una casilla de verificación.  Si no se puede desmantelar un nodo, esta columna describe el problema.  Si hay más de un motivo por el cual no se puede desmantelar un nodo, se muestra el motivo más crítico.
+
++
+[cols="1a,1a,1a"]
+|===
+| Desmantelamiento Posible motivo | Descripción | Pasos para resolver 
+
+
+ a| 
+No, no se admite el desmantelamiento del _tipo de nodo_.
+ a| 
+No puedes desmantelar el nodo de administración principal.
+ a| 
+Ninguno.
+
+
+
+ a| 
+No, al menos un nodo de la red está desconectado.
+
+*Nota:* Este mensaje se muestra únicamente para los nodos de la red conectados.
+ a| 
+No es posible desmantelar un nodo de red conectado si algún nodo de red está desconectado.
+
+La columna *Salud* incluye uno de estos íconos para los nodos de la red que están desconectados:
+
+** image:../media/icon_alarm_gray_administratively_down.png["icono de signo de interrogación gris"](gris): Administrativamente caído
+** image:../media/icon_alarm_blue_unknown.png["icono de signo de interrogación azul"](azul): Desconocido
+
+ a| 
+Debe volver a poner en línea todos los nodos desconectados olink:decommissioning-disconnected-grid-nodes.html["Desmantelar todos los nodos desconectados"] antes de poder eliminar un nodo conectado.
+
+*Nota*: Si su red contiene varios nodos desconectados, el software requiere que los desactive todos al mismo tiempo, lo que aumenta la posibilidad de que se produzcan resultados inesperados.
+
+
+
+ a| 
+No, uno o más nodos requeridos están actualmente desconectados y deben recuperarse.
+
+*Nota:* Este mensaje se muestra únicamente para los nodos de la red desconectados.
+ a| 
+No se puede desmantelar un nodo de red desconectado si uno o más nodos requeridos también están desconectados (por ejemplo, un nodo de almacenamiento que es necesario para el quórum de ADC).
+ a| 
+.. Revise los mensajes de posible desconexión para todos los nodos desconectados.
+.. Determinar qué nodos no se pueden desmantelar porque son necesarios.
++
+*** Si la salud de un nodo requerido está administrativamente inactiva, vuelva a poner el nodo en línea.
+*** Si el estado de salud de un nodo requerido es desconocido, realice un procedimiento de recuperación de nodo para recuperarlo.
+
+
+
+
+
+
+ a| 
+No, miembro del grupo(s) de HA: _nombre del grupo_. Antes de poder desmantelar este nodo, debe eliminarlo de todos los grupos de alta disponibilidad.
+ a| 
+No se puede desmantelar un nodo de administración o un nodo de puerta de enlace si una interfaz de nodo pertenece a un grupo de alta disponibilidad (HA).
+ a| 
+Edite el grupo HA para eliminar la interfaz del nodo o eliminar todo el grupo HA. Ver link:../admin/configure-high-availability-group.html["Configurar grupos de alta disponibilidad"] .
+
+
+
+ a| 
+No, el sitio _x_ requiere un mínimo de _n_ nodos de almacenamiento con servicios ADC.
+ a| 
+*Solo nodos de almacenamiento.* No se puede desmantelar un nodo de almacenamiento si no quedan suficientes nodos en el sitio para cumplir con los requisitos de quórum de ADC.
+ a| 
+Realizar una expansión.  Agregue un nuevo nodo de almacenamiento al sitio y especifique que debe tener un servicio ADC.  Ver información sobre ellink:understanding-adc-service-quorum.html["Cuórum de la ADC"] .
+
+
+
+ a| 
+No, uno o más perfiles de codificación de borrado necesitan al menos _n_ nodos de almacenamiento.  Si el perfil no se utiliza en una regla ILM, puede desactivarlo.
+ a| 
+*Solo nodos de almacenamiento.* No se puede desmantelar un nodo de almacenamiento a menos que queden suficientes nodos para los perfiles de codificación de borrado existentes.
+
+Por ejemplo, si existe un perfil de codificación de borrado para codificación de borrado 4+2, deben permanecer al menos 6 nodos de almacenamiento.
+ a| 
+Para cada perfil de codificación de borrado afectado, realice uno de los siguientes pasos, según cómo se utilice el perfil:
+
+** *Se utiliza en políticas ILM activas*: Realizar una expansión.  Agregue suficientes nodos de almacenamiento nuevos para permitir que la codificación de borrado continúe. Vea las instrucciones paralink:../expand/index.html["expandiendo su red"] .
+** *Se usa en una regla ILM pero no en políticas ILM activas*: edite o elimine la regla y luego desactive el perfil de codificación de borrado.
+** *No se utiliza en ninguna regla ILM*: Desactivar el perfil de codificación de borrado.
+
+
+*Nota:* Aparece un mensaje de error si intenta desactivar un perfil de codificación de borrado y los datos del objeto aún están asociados con el perfil.  Es posible que tengas que esperar varias semanas antes de intentar nuevamente el proceso de desactivación.
+
+Conozca más sobrelink:../ilm/manage-erasure-coding-profiles.html["Desactivar un perfil de codificación de borrado"] .
+
+
+
+ a| 
+No, no puedes desmantelar un nodo de archivo a menos que el nodo esté desconectado.
+ a| 
+Si un nodo de archivo aún está conectado, no podrás eliminarlo.
+ a| 
+*Nota*: Se ha eliminado el soporte para nodos de archivo.  Si necesita desmantelar un nodo de archivo, consulte https://docs.netapp.com/us-en/storagegrid-118/maintain/grid-node-decommissioning.html["Desmantelamiento de nodos de red (sitio de documentación de StorageGRID 11.8)"^]
+
+|===
+

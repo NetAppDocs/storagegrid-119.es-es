@@ -1,0 +1,43 @@
+---
+permalink: s3/deprecated-bucket-requests-for-legacy-compliance.html 
+sidebar: sidebar 
+keywords: S3 REST API, S3 operations, deprecated bucket requests 
+summary: Es posible que necesite usar la API REST S3 de StorageGRID para administrar los depósitos que se crearon mediante la función de cumplimiento heredada. 
+---
+= Solicitudes de depósito obsoletas para cumplimiento heredado
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible que necesite usar la API REST S3 de StorageGRID para administrar los depósitos que se crearon mediante la función de cumplimiento heredada.
+
+
+
+== Función de cumplimiento obsoleta
+
+La función de cumplimiento de StorageGRID que estaba disponible en versiones anteriores de StorageGRID está obsoleta y ha sido reemplazada por S3 Object Lock.
+
+Si anteriormente habilitó la configuración de Cumplimiento global, la configuración de Bloqueo de objetos S3 global está habilitada en StorageGRID 11.6.  Ya no es posible crear nuevos buckets con Cumplimiento habilitado; sin embargo, según sea necesario, puede usar la API REST de StorageGRID S3 para administrar cualquier bucket Cumplimiento heredado existente.
+
+* link:use-s3-api-for-s3-object-lock.html["Utilice la API REST de S3 para configurar el bloqueo de objetos de S3"]
+* link:../ilm/index.html["Administrar objetos con ILM"]
+* https://kb.netapp.com/Advice_and_Troubleshooting/Hybrid_Cloud_Infrastructure/StorageGRID/How_to_manage_legacy_Compliant_buckets_in_StorageGRID_11.5["Base de conocimientos de NetApp : Cómo administrar los buckets compatibles heredados en StorageGRID 11.5"^]
+
+
+Solicitudes de cumplimiento obsoletas:
+
+* link:../s3/deprecated-put-bucket-request-modifications-for-compliance.html["Obsoleto: modificaciones de la solicitud PUT Bucket para cumplimiento"]
++
+El elemento XML SGCompliance está obsoleto.  Anteriormente, podía incluir este elemento personalizado StorageGRID en el cuerpo de la solicitud XML opcional de las solicitudes PUT Bucket para crear un bucket compatible.
+
+* link:../s3/deprecated-get-bucket-compliance-request.html["Obsoleto: cumplimiento del contenedor GET"]
++
+La solicitud de cumplimiento de GET Bucket está obsoleta.  Sin embargo, puede seguir usando esta solicitud para determinar las configuraciones de cumplimiento actualmente vigentes para un bucket compatible heredado existente.
+
+* link:../s3/deprecated-put-bucket-compliance-request.html["Obsoleto: cumplimiento del contenedor PUT"]
++
+La solicitud de cumplimiento de PUT Bucket está obsoleta.  Sin embargo, puede seguir usando esta solicitud para modificar la configuración de cumplimiento de un depósito compatible heredado existente.  Por ejemplo, puede colocar un depósito existente en retención legal o aumentar su período de retención.
+
+

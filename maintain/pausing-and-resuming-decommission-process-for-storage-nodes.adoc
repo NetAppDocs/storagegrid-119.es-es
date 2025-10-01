@@ -1,0 +1,46 @@
+---
+permalink: maintain/pausing-and-resuming-decommission-process-for-storage-nodes.html 
+sidebar: sidebar 
+keywords: how to pause decommission 
+summary: Si necesita realizar un segundo procedimiento de mantenimiento, puede pausar el procedimiento de desmantelamiento de un nodo de almacenamiento durante ciertas etapas.  Una vez finalizado el resto del procedimiento, puedes reanudar el desmantelamiento. 
+---
+= Pausar y reanudar el proceso de desmantelamiento de nodos de almacenamiento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si necesita realizar un segundo procedimiento de mantenimiento, puede pausar el procedimiento de desmantelamiento de un nodo de almacenamiento durante ciertas etapas.  Una vez finalizado el resto del procedimiento, puedes reanudar el desmantelamiento.
+
+
+NOTE: El botón *Pausa* se habilita solo cuando se alcanzan las etapas de evaluación de ILM o de desmantelamiento de datos codificados por borrado; sin embargo, la evaluación de ILM (migración de datos) continuará ejecutándose en segundo plano.
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tú tienes ellink:../admin/admin-group-permissions.html["Permiso de mantenimiento o acceso root"] .
+
+
+.Pasos
+. Seleccione *MANTENIMIENTO* > *Tareas* > *Desmantelamiento*.
++
+Aparece la página de Desmantelamiento.
+
+. Seleccione *Nodos de desmantelamiento*.
++
+Aparece la página Nodos de desmantelamiento.  Cuando el procedimiento de desmantelamiento llega a cualquiera de las siguientes etapas, se habilita el botón *Pausa*.
+
++
+** Evaluación de ILM
+** Desmantelamiento de datos codificados por borrado
+
+
+. Seleccione *Pausa* para suspender el procedimiento.
++
+La etapa actual está en pausa y el botón *Reanudar* está habilitado.
+
++
+image::../media/decommission_nodes_procedure_paused.png[Procedimiento de desmantelamiento de nodos en pausa]
+
+. Una vez finalizado el resto del procedimiento de mantenimiento, seleccione *Reanudar* para continuar con el desmantelamiento.
+

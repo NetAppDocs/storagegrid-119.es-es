@@ -1,0 +1,21 @@
+---
+permalink: maintain/decommissioning-multiple-storage-nodes.html 
+sidebar: sidebar 
+keywords: storagegrid, decommission nodes, storage node, multiple storage nodes 
+summary: Si necesita eliminar más de un nodo de almacenamiento, puede desmantelarlos de forma secuencial o en paralelo. 
+---
+= Desmantelar varios nodos de almacenamiento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si necesita eliminar más de un nodo de almacenamiento, puede desmantelarlos de forma secuencial o en paralelo.
+
+
+CAUTION: Tenga cuidado al desmantelar nodos de almacenamiento en una red que contenga nodos solo de metadatos basados en software.  Si desmantela todos los nodos configurados para almacenar _tanto_ objetos como metadatos, se elimina la capacidad de almacenar objetos de la red.  Verlink:../primer/what-storage-node-is.html#types-of-storage-nodes["Tipos de nodos de almacenamiento"] para obtener más información sobre los nodos de almacenamiento de solo metadatos.
+
+* Si desmantela nodos de almacenamiento de forma secuencial, debe esperar a que el primer nodo de almacenamiento complete el desmantelamiento antes de comenzar a desmantelar el siguiente nodo de almacenamiento.
+* Si desmantela nodos de almacenamiento en paralelo, estos procesarán simultáneamente tareas de desmantelamiento para todos los nodos de almacenamiento que se desmantelan.  Esto puede generar una situación en la que todas las copias permanentes de un archivo se marquen como "solo lectura", lo que deshabilita temporalmente la eliminación en las cuadrículas donde esta funcionalidad está habilitada.
+

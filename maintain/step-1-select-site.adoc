@@ -1,0 +1,107 @@
+---
+permalink: maintain/step-1-select-site.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, select site 
+summary: Para determinar si un sitio puede ser desmantelado, comience accediendo al asistente de Desmantelamiento de Sitio. 
+---
+= Paso 1: Seleccionar el sitio
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para determinar si un sitio puede ser desmantelado, comience accediendo al asistente de Desmantelamiento de Sitio.
+
+.Antes de empezar
+* Has obtenido todos los materiales necesarios.
+* Has revisado las consideraciones para eliminar un sitio.
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tú tienes ellink:../admin/admin-group-permissions.html["Permiso de acceso root o permisos de Mantenimiento e ILM"] .
+
+
+.Pasos
+. Seleccione *MANTENIMIENTO* > *Tareas* > *Desmantelamiento*.
+. Seleccione *Sitio de desmantelamiento*.
++
+Aparece el paso 1 (Seleccionar sitio) del asistente de desmantelamiento del sitio.  Este paso incluye una lista alfabética de los sitios en su sistema StorageGRID .
+
++
+image::../media/decommission_site_step_select_site.png[Sitio de desmantelamiento Paso 1 Seleccionar el sitio]
+
+. Vea los valores en la columna *Capacidad de almacenamiento utilizada* para determinar cuánto almacenamiento se está utilizando actualmente para los datos de objetos en cada sitio.
++
+La capacidad de almacenamiento utilizada es una estimación.  Si los nodos están fuera de línea, la capacidad de almacenamiento utilizada es el último valor conocido para el sitio.
+
++
+** Para el desmantelamiento de un sitio conectado, este valor representa la cantidad de datos de objetos que será necesario mover a otros sitios o eliminar por ILM antes de poder desmantelar este sitio de manera segura.
+** En el caso de la desconexión de un sitio, este valor representa la cantidad de almacenamiento de datos de su sistema que quedará inaccesible cuando desactive este sitio.
++
+
+NOTE: Si su política ILM fue diseñada para proteger contra la pérdida de un solo sitio, aún deberían existir copias de los datos de sus objetos en los sitios restantes.
+
+
+
+. Revise los motivos en la columna *Posible desmantelamiento* para determinar qué sitios se pueden desmantelar actualmente.
++
+
+NOTE: Si hay más de un motivo por el cual no se puede desmantelar un sitio, se muestra el motivo más crítico.
+
++
+[cols="1a,1a,1a"]
+|===
+| Desmantelamiento Posible motivo | Descripción | Siguiente paso 
+
+
+ a| 
+Marca de verificación verde (image:../media/icon_alert_green_checkmark.png["Icono de alerta Marca de verificación verde"] )
+ a| 
+Puedes deshabilitar este sitio.
+ a| 
+Vaya a <<decommission_possible,el siguiente paso>>.
+
+
+
+ a| 
+No. Este sitio contiene el nodo de administración principal.
+ a| 
+No se puede desmantelar un sitio que contenga el nodo de administración principal.
+ a| 
+Ninguno. No puedes realizar este procedimiento.
+
+
+
+ a| 
+No. Este sitio contiene uno o más nodos de archivo.
+ a| 
+No se puede desmantelar un sitio que contenga un nodo de archivo.
+ a| 
+Ninguno. No puedes realizar este procedimiento.
+
+
+
+ a| 
+No. Todos los nodos de este sitio están desconectados.  Comuníquese con su representante de cuenta de NetApp .
+ a| 
+No se puede realizar la desactivación de un sitio conectado a menos que todos los nodos del sitio estén conectados (image:../media/icon_alert_green_checkmark.png["Icono de alerta Marca de verificación verde"] ).
+ a| 
+Si desea realizar una desconexión de un sitio desconectado, debe comunicarse con su representante de cuenta de NetApp , quien revisará sus requisitos y habilitará el resto del asistente de desconexión de sitio.
+
+*IMPORTANTE*: Nunca desconectes nodos en línea para poder eliminar un sitio.  Perderás datos.
+
+|===
++
+El ejemplo muestra un sistema StorageGRID con tres sitios.  La marca de verificación verde (image:../media/icon_alert_green_checkmark.png["Icono de alerta Marca de verificación verde"] ) para los sitios de Raleigh y Sunnyvale indica que puede desmantelar esos sitios.  Sin embargo, no puedes desmantelar el sitio de Vancouver porque contiene el nodo de administración principal.
+
+
+
+[[decommission_possible]]
+. Si es posible desmantelar el sitio, seleccione el botón de opción correspondiente.
++
+El botón *Siguiente* está habilitado.
+
+. Seleccione *Siguiente*.
++
+Aparece el paso 2 (Ver detalles).
+
+

@@ -1,0 +1,171 @@
+---
+permalink: maintain/considerations-for-removing-site.html 
+sidebar: sidebar 
+keywords: how to remove site 
+summary: Antes de utilizar el procedimiento de desmantelamiento del sitio para eliminar un sitio, debe revisar las consideraciones. 
+---
+= Consideraciones para eliminar un sitio
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de utilizar el procedimiento de desmantelamiento del sitio para eliminar un sitio, debe revisar las consideraciones.
+
+
+
+== ¿Qué sucede cuando se desmantela un sitio?
+
+Cuando se desmantela un sitio, StorageGRID elimina de forma permanente todos los nodos del sitio y el sitio en sí del sistema StorageGRID .
+
+Una vez finalizado el procedimiento de desmantelamiento del sitio:
+
+* Ya no puede usar StorageGRID para ver o acceder al sitio ni a ninguno de los nodos del sitio.
+* Ya no podrás utilizar ningún grupo de almacenamiento ni perfiles de codificación de borrado que hicieran referencia al sitio.  Cuando StorageGRID desmantela un sitio, elimina automáticamente estos grupos de almacenamiento y desactiva estos perfiles de codificación de borrado.
+
+
+
+
+== Diferencias entre los procedimientos de desmantelamiento de sitios conectados y desconectados
+
+Puede utilizar el procedimiento de desmantelamiento del sitio para eliminar un sitio en el que todos los nodos están conectados a StorageGRID (lo que se denomina desmantelamiento de sitio conectado) o para eliminar un sitio en el que todos los nodos están desconectados de StorageGRID (lo que se denomina desmantelamiento de sitio desconectado).  Antes de comenzar, debes comprender las diferencias entre estos procedimientos.
+
+
+NOTE: Si un sitio contiene una mezcla de elementos conectados (image:../media/icon_alert_green_checkmark.png["Icono de alerta Marca de verificación verde"] ) y nodos desconectados (image:../media/icon_alarm_gray_administratively_down.png["Icono de alarma gris administrativamente inactivo"] oimage:../media/icon_alarm_blue_unknown.png["Icono Alarma Azul Desconocido"] ), debes volver a poner en línea todos los nodos fuera de línea.
+
+* La desactivación de un sitio conectado le permite eliminar un sitio operativo del sistema StorageGRID .  Por ejemplo, puede realizar una desactivación de un sitio conectado para eliminar un sitio que es funcional pero que ya no es necesario.
+* Cuando StorageGRID elimina un sitio conectado, utiliza ILM para administrar los datos de los objetos en el sitio.  Antes de poder iniciar la desactivación de un sitio conectado, debe eliminar el sitio de todas las reglas de ILM y activar una nueva política de ILM.  Los procesos ILM para migrar datos de objetos y los procesos internos para eliminar un sitio pueden ocurrir al mismo tiempo, pero la mejor práctica es permitir que los pasos ILM se completen antes de comenzar el procedimiento de desmantelamiento real.
+* La desactivación de un sitio desconectado le permite eliminar un sitio fallido del sistema StorageGRID .  Por ejemplo, puede realizar una desconexión del sitio para eliminar un sitio que haya sido destruido por un incendio o una inundación.
++
+Cuando StorageGRID elimina un sitio desconectado, considera que todos los nodos son irrecuperables y no intenta preservar los datos.  Sin embargo, antes de poder iniciar la desactivación de un sitio desconectado, debe eliminar el sitio de todas las reglas de ILM y activar una nueva política de ILM.
+
++
+
+CAUTION: Antes de realizar un procedimiento de desconexión de un sitio, debe comunicarse con su representante de cuenta de NetApp .  NetApp revisará sus requisitos antes de habilitar todos los pasos en el asistente de desmantelamiento del sitio.  No debe intentar desmantelar un sitio desconectado si cree que es posible recuperar el sitio o recuperar datos de objetos del sitio.
+
+
+
+
+
+== Requisitos generales para eliminar un sitio conectado o desconectado
+
+Antes de eliminar un sitio conectado o desconectado, debes tener en cuenta los siguientes requisitos:
+
+* No se puede desmantelar un sitio que incluya el nodo de administración principal.
+* No se puede desmantelar un sitio si alguno de los nodos tiene una interfaz que pertenece a un grupo de alta disponibilidad (HA).  Debe editar el grupo HA para eliminar la interfaz del nodo o eliminar todo el grupo HA.
+* No se puede desmantelar un sitio si contiene una mezcla de elementos conectados (image:../media/icon_alert_green_checkmark.png["Icono de alerta Marca de verificación verde"] ) y desconectado (image:../media/icon_alarm_blue_unknown.png["Icono Alarma Azul Desconocido"] oimage:../media/icon_alarm_gray_administratively_down.png["Icono de alarma gris administrativamente inactivo"] ) nodos.
+* No se puede desmantelar un sitio si algún nodo en cualquier otro sitio está desconectado (image:../media/icon_alarm_blue_unknown.png["Icono Alarma Azul Desconocido"] oimage:../media/icon_alarm_gray_administratively_down.png["Icono de alarma gris administrativamente inactivo"] ).
+* No se puede iniciar el procedimiento de desmantelamiento del sitio si hay una operación de reparación de nodo ec en curso.  Verlink:checking-data-repair-jobs.html["Comprobar trabajos de reparación de datos"] para realizar un seguimiento de las reparaciones de datos codificados por borrado.
+* Mientras se ejecuta el procedimiento de desmantelamiento del sitio:
++
+** No se pueden crear reglas ILM que hagan referencia al sitio que se va a desmantelar.  Tampoco puedes editar una regla ILM existente para hacer referencia al sitio.
+** No puede realizar otros procedimientos de mantenimiento, como expansión o actualización.
++
+
+NOTE: Si necesita realizar otro procedimiento de mantenimiento durante el desmantelamiento de un sitio conectado, puedelink:pausing-and-resuming-decommission-process-for-storage-nodes.html["Pausar el procedimiento mientras se eliminan los nodos de almacenamiento"] .  El botón *Pausa* se habilita solo cuando se alcanzan las etapas de evaluación de ILM o de desmantelamiento de datos codificados por borrado; sin embargo, la evaluación de ILM (migración de datos) continuará ejecutándose en segundo plano.  Una vez completado el segundo procedimiento de mantenimiento, puede reanudar el desmantelamiento.
+
+** Si necesita recuperar algún nodo después de iniciar el procedimiento de desmantelamiento del sitio, debe comunicarse con el soporte.
+
+
+* No es posible desmantelar más de un sitio a la vez.
+* Si el sitio incluye uno o más nodos de administración y el inicio de sesión único (SSO) está habilitado para su sistema StorageGRID , debe eliminar todas las relaciones de confianza de usuario autenticado para el sitio de los Servicios de federación de Active Directory (AD FS).
+
+
+
+
+== Requisitos para la gestión del ciclo de vida de la información (ILM)
+
+Como parte de la eliminación de un sitio, debe actualizar su configuración de ILM.  El asistente de desmantelamiento del sitio lo guía a través de una serie de pasos previos necesarios para garantizar lo siguiente:
+
+* El sitio no está referenciado por ninguna política de ILM.  Si es así, debe editar las políticas o crear y activar políticas con nuevas reglas ILM.
+* Ninguna regla de ILM se refiere al sitio, incluso si esas reglas no se utilizan en ninguna política.  Debes eliminar o editar todas las reglas que hacen referencia al sitio.
+
+
+Cuando StorageGRID desmantele el sitio, desactivará automáticamente todos los perfiles de codificación de borrado no utilizados que hagan referencia al sitio y eliminará automáticamente todos los grupos de almacenamiento no utilizados que hagan referencia al sitio.  Si existe el grupo de almacenamiento Todos los nodos de almacenamiento (StorageGRID 11.6 y anteriores), se elimina porque utiliza todos los sitios.
+
+
+CAUTION: Antes de poder eliminar un sitio, es posible que deba crear nuevas reglas ILM y activar una nueva política ILM.  Estas instrucciones suponen que usted tiene un buen conocimiento de cómo funciona ILM y que está familiarizado con la creación de grupos de almacenamiento, perfiles de codificación de borrado, reglas de ILM y la simulación y activación de una política de ILM. Ver link:../ilm/index.html["Administrar objetos con ILM"] .
+
+
+
+== Consideraciones sobre los datos de objetos en un sitio conectado
+
+Si está realizando una desactivación de un sitio conectado, debe decidir qué hacer con los datos de objetos existentes en el sitio cuando crea nuevas reglas ILM y una nueva política ILM.  Puede realizar una o ambas de las siguientes acciones:
+
+* Mueva datos de objetos del sitio seleccionado a uno o más sitios en su cuadrícula.
++
+*Ejemplo de movimiento de datos*: Supongamos que desea desmantelar un sitio en Raleigh porque agregó un nuevo sitio en Sunnyvale.  En este ejemplo, desea mover todos los datos de objetos del sitio antiguo al nuevo sitio.  Antes de actualizar sus reglas y políticas de ILM, debe revisar la capacidad en ambos sitios.  Debe asegurarse de que el sitio de Sunnyvale tenga suficiente capacidad para acomodar los datos de objetos del sitio de Raleigh y que permanezca en Sunnyvale la capacidad adecuada para el crecimiento futuro.
+
++
+
+NOTE: Para garantizar que haya suficiente capacidad disponible, es posible que necesite:link:../expand/index.html["expandir una cuadrícula"] agregando volúmenes de almacenamiento o nodos de almacenamiento a un sitio existente o agregando un nuevo sitio antes de realizar este procedimiento.
+
+* Eliminar copias de objetos del sitio seleccionado.
++
+*Ejemplo de eliminación de datos*: supongamos que actualmente utiliza una regla ILM de 3 copias para replicar datos de objetos en tres sitios.  Antes de desmantelar un sitio, puede crear una regla ILM de 2 copias equivalente para almacenar datos en solo dos sitios.  Cuando se activa una nueva política ILM que utiliza la regla de 2 copias, StorageGRID elimina las copias del tercer sitio porque ya no satisfacen los requisitos de ILM.  Sin embargo, los datos de los objetos seguirán protegidos y la capacidad de los dos sitios restantes seguirá siendo la misma.
+
++
+
+CAUTION: Nunca cree una regla ILM de copia única para acomodar la eliminación de un sitio.  Una regla ILM que crea solo una copia replicada por cada período de tiempo pone los datos en riesgo de pérdida permanente.  Si solo existe una copia replicada de un objeto, ese objeto se pierde si un nodo de almacenamiento falla o tiene un error significativo.  También perderá temporalmente el acceso al objeto durante procedimientos de mantenimiento, como actualizaciones.
+
+
+
+
+
+== Requisitos adicionales para el desmantelamiento de un sitio conectado
+
+Antes de que StorageGRID pueda eliminar un sitio conectado, debe asegurarse de lo siguiente:
+
+* Todos los nodos de su sistema StorageGRID deben tener un estado de conexión de *Conectado* (image:../media/icon_alert_green_checkmark.png["Icono de alerta Marca de verificación verde"] ); sin embargo, los nodos pueden tener alertas activas.
++
+
+NOTE: Puede completar los pasos 1 a 4 del asistente de desmantelamiento del sitio si uno o más nodos están desconectados.  Sin embargo, no puede completar el Paso 5 del asistente, que inicia el proceso de desmantelamiento, a menos que todos los nodos estén conectados.
+
+* Si el sitio que planea eliminar contiene un nodo de puerta de enlace o un nodo de administración que se utiliza para equilibrar la carga, es posible que debalink:../expand/index.html["expandir una cuadrícula"] para agregar un nuevo nodo equivalente en otro sitio.  Asegúrese de que los clientes puedan conectarse al nodo de reemplazo antes de iniciar el procedimiento de desmantelamiento del sitio.
+* Si el sitio que planea eliminar contiene algún nodo de puerta de enlace o nodos de administración que estén en un grupo de alta disponibilidad (HA), puede completar los pasos 1 a 4 del asistente de desmantelamiento del sitio.  Sin embargo, no podrá completar el Paso 5 del asistente, que inicia el proceso de desmantelamiento, hasta que elimine estos nodos de todos los grupos de HA.  Si los clientes existentes se conectan a un grupo de alta disponibilidad que incluye nodos del sitio, debe asegurarse de que puedan seguir conectándose a StorageGRID después de que se elimine el sitio.
+* Si los clientes se conectan directamente a los nodos de almacenamiento en el sitio que planea eliminar, debe asegurarse de que puedan conectarse a los nodos de almacenamiento en otros sitios antes de comenzar el procedimiento de desmantelamiento del sitio.
+* Debe proporcionar espacio suficiente en los sitios restantes para acomodar cualquier dato de objeto que se moverá debido a cambios en cualquier política ILM activa.  En algunos casos, es posible que necesiteslink:../expand/index.html["expandir una cuadrícula"] agregando nodos de almacenamiento, volúmenes de almacenamiento o nuevos sitios antes de poder completar el desmantelamiento de un sitio conectado.
+* Debe permitir tiempo suficiente para que se complete el procedimiento de desmantelamiento.  Los procesos ILM de StorageGRID pueden tardar días, semanas o incluso meses en mover o eliminar datos de objetos del sitio antes de que este pueda desmantelarse.
++
+
+NOTE: Mover o eliminar datos de objetos de un sitio puede llevar días, semanas o incluso meses, dependiendo de la cantidad de datos en el sitio, la carga en su sistema, las latencias de la red y la naturaleza de los cambios ILM requeridos.
+
+* Siempre que sea posible, debe completar los pasos 1 a 4 del asistente de desmantelamiento del sitio lo antes posible.  El procedimiento de desmantelamiento se completará más rápidamente y con menos interrupciones e impactos en el rendimiento si permite que los datos se muevan del sitio antes de comenzar el procedimiento de desmantelamiento real (seleccionando *Iniciar desmantelamiento* en el Paso 5 del asistente).
+
+
+
+
+== Requisitos adicionales para el desmantelamiento de un sitio desconectado
+
+Antes de que StorageGRID pueda eliminar un sitio desconectado, debe asegurarse de lo siguiente:
+
+* Se ha comunicado con su representante de cuenta de NetApp .  NetApp revisará sus requisitos antes de habilitar todos los pasos en el asistente de desmantelamiento del sitio.
++
+
+CAUTION: No debe intentar desmantelar un sitio desconectado si cree que es posible recuperar el sitio o recuperar algún dato de objeto del sitio. Ver link:how-site-recovery-is-performed-by-technical-support.html["Cómo el soporte técnico recupera un sitio"] .
+
+* Todos los nodos del sitio deben tener un estado de conexión de uno de los siguientes:
++
+** *Desconocido* (image:../media/icon_alarm_blue_unknown.png["Icono Alarma Azul Desconocido"] ): Por una razón desconocida, un nodo se desconecta o los servicios en el nodo dejan de funcionar inesperadamente.  Por ejemplo, es posible que se haya detenido un servicio en el nodo o que el nodo haya perdido su conexión a la red debido a un corte de energía o una interrupción inesperada.
+** *Administrativamente caído* (image:../media/icon_alarm_gray_administratively_down.png["Icono de alarma gris administrativamente inactivo"] ): El nodo no está conectado a la red por una razón esperada.  Por ejemplo, el nodo o los servicios en el nodo se han apagado correctamente.
+
+
+* Todos los nodos en todos los demás sitios deben tener un estado de conexión de *Conectado* (image:../media/icon_alert_green_checkmark.png["Icono de alerta Marca de verificación verde"] ); sin embargo, estos otros nodos pueden tener alertas activas.
+* Debe comprender que ya no podrá utilizar StorageGRID para ver ni recuperar ningún dato de objeto almacenado en el sitio.  Cuando StorageGRID realiza este procedimiento, no intenta conservar ningún dato del sitio desconectado.
++
+
+NOTE: Si sus reglas y políticas de ILM fueron diseñadas para proteger contra la pérdida de un solo sitio, aún existen copias de sus objetos en los sitios restantes.
+
+* Debes comprender que si el sitio contiene la única copia de un objeto, éste se pierde y no se puede recuperar.
+
+
+
+
+== Consideraciones para la coherencia al eliminar un sitio
+
+La consistencia de un bucket S3 determina si StorageGRID replica completamente los metadatos del objeto en todos los nodos y sitios antes de informar a un cliente que la ingesta del objeto fue exitosa.  La consistencia proporciona un equilibrio entre la disponibilidad de los objetos y la consistencia de esos objetos en diferentes nodos de almacenamiento y sitios.
+
+Cuando StorageGRID elimina un sitio, debe asegurarse de que no se escriban datos en el sitio que se va a eliminar.  Como resultado, anula temporalmente la consistencia de cada depósito o contenedor.  Después de iniciar el proceso de desmantelamiento del sitio, StorageGRID utiliza temporalmente una consistencia de sitio fuerte para evitar que se escriban metadatos de objetos en el sitio que se está eliminando.
+
+Como resultado de esta anulación temporal, tenga en cuenta que cualquier operación de escritura, actualización y eliminación de cliente que ocurra durante el desmantelamiento de un sitio puede fallar si varios nodos dejan de estar disponibles en los sitios restantes.

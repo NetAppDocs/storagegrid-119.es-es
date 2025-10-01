@@ -1,0 +1,71 @@
+---
+permalink: audit/etaf-security-authentication-failed.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, ETAF, Security Authentication Failed 
+summary: 'Este mensaje se genera cuando falla un intento de conexión mediante Seguridad de la capa de transporte (TLS).' 
+---
+= ETAF: Falló la autenticación de seguridad
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este mensaje se genera cuando falla un intento de conexión mediante Seguridad de la capa de transporte (TLS).
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+CNID
+ a| 
+Identificador de conexión
+ a| 
+El identificador único del sistema para la conexión TCP/IP en la que falló la autenticación.
+
+
+
+ a| 
+RUIDO
+ a| 
+Identidad del usuario
+ a| 
+Un identificador dependiente del servicio que representa la identidad del usuario remoto.
+
+
+
+ a| 
+RSLT
+ a| 
+Código de motivo
+ a| 
+La razón del fallo:
+
+SCNI: Error en el establecimiento de conexión segura.
+
+CERM: Falta el certificado.
+
+CERT: El certificado no era válido.
+
+CERE: El certificado ha expirado.
+
+CERR: El certificado fue revocado.
+
+CSGN: La firma del certificado no era válida.
+
+CSGU: Se desconoce el firmante del certificado.
+
+UCRM: Faltaban credenciales de usuario.
+
+UCRI: Las credenciales de usuario no eran válidas.
+
+UCRU: No se permitieron las credenciales de usuario.
+
+TOUT: Se agotó el tiempo de autenticación.
+
+|===
+Cuando se establece una conexión a un servicio seguro que utiliza TLS, las credenciales de la entidad remota se verifican utilizando el perfil TLS y la lógica adicional incorporada al servicio.  Si esta autenticación falla debido a certificados o credenciales no válidos, inesperados o no permitidos, se registra un mensaje de auditoría.  Esto permite realizar consultas sobre intentos de acceso no autorizado y otros problemas de conexión relacionados con la seguridad.
+
+El mensaje podría ser el resultado de una entidad remota que tiene una configuración incorrecta o de intentos de presentar credenciales no válidas o no permitidas al sistema.  Este mensaje de auditoría debe ser monitoreado para detectar intentos de obtener acceso no autorizado al sistema.

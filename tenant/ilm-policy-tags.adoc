@@ -1,0 +1,59 @@
+---
+permalink: tenant/ilm-policy-tags.html 
+sidebar: sidebar 
+keywords: how to assign ilm policy tag to bucket 
+summary: Elija una etiqueta de política ILM para asignar a un depósito en función de sus requisitos de almacenamiento de objetos. 
+---
+= Aplicar una etiqueta de política ILM a un depósito
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Elija una etiqueta de política ILM para aplicar a un depósito en función de sus requisitos de almacenamiento de objetos.
+
+La política ILM controla dónde se almacenan los datos del objeto y si se eliminan después de un cierto período de tiempo.  El administrador de su red crea políticas ILM y las asigna a etiquetas de políticas ILM cuando utiliza múltiples políticas activas.
+
+
+NOTE: Evite reasignar con frecuencia la etiqueta de política de un depósito.  De lo contrario, podrían surgir problemas de rendimiento.
+
+.Antes de empezar
+* Ha iniciado sesión en el Administrador de inquilinos mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Perteneces a un grupo de usuarios que tiene lalink:tenant-management-permissions.html["Permiso para acceso root, administrar todos los depósitos o ver todos los depósitos"] .  Estos permisos anulan la configuración de permisos en las políticas de grupo o de depósito.
+
+
+.Pasos
+. Seleccione *Ver depósitos* en el panel de control o seleccione *ALMACENAMIENTO (S3)* > *Depósitos*.
++
+Aparece la página Cubos.  Según sea necesario, puede ordenar la información por cualquier columna o puede avanzar o retroceder en la lista.
+
+. Seleccione el nombre del depósito al que desea asignar una etiqueta de política ILM.
++
+También puede cambiar la asignación de etiqueta de la política ILM para un depósito que ya tiene una etiqueta asignada.
+
++
+
+NOTE: Los valores de recuento de objetos y espacio utilizado que se muestran son estimaciones. Estas estimaciones se ven afectadas por el momento de la ingesta, la conectividad de la red y el estado del nodo.  Si los depósitos tienen habilitada la gestión de versiones, las versiones de los objetos eliminados se incluyen en el recuento de objetos.
+
+. En la pestaña Opciones de depósito, expanda el acordeón de etiquetas de política ILM.  Este acordeón solo aparece si el administrador de su red ha habilitado el uso de etiquetas de políticas personalizadas.
+. Lea la descripción de cada etiqueta de política para determinar qué etiqueta debe aplicarse al depósito.
++
+
+CAUTION: Cambiar la etiqueta de política ILM de un depósito activará la reevaluación ILM de todos los objetos del depósito.  Si la nueva política conserva los objetos durante un tiempo limitado, se eliminarán los objetos más antiguos.
+
+. Seleccione el botón de opción correspondiente a la etiqueta que desea asignar al depósito.
+. Seleccione *Guardar cambios*. Se establecerá una nueva etiqueta de depósito S3 en el depósito con la clave `NTAP-SG-ILM-BUCKET-TAG` y el valor del nombre de la etiqueta de política ILM.
++
+
+CAUTION: Asegúrese de que sus aplicaciones S3 no anulen ni eliminen accidentalmente la nueva etiqueta de depósito.  Si se omite esta etiqueta al aplicar un nuevo TagSet al depósito, los objetos del depósito volverán a evaluarse según la política ILM predeterminada.
+
++
+
+CAUTION: Establezca y modifique las etiquetas de política de ILM utilizando únicamente el Administrador de inquilinos o la API del Administrador de inquilinos donde se valida la etiqueta de política de ILM.  No modifique el `NTAP-SG-ILM-BUCKET-TAG` Etiqueta de política ILM que utiliza la API S3 PutBucketTagging o la API S3 DeleteBucketTagging.
+
++
+
+NOTE: Cambiar la etiqueta de política asignada a un depósito tiene un impacto temporal en el rendimiento mientras se reevalúan los objetos utilizando la nueva política ILM.
+
+

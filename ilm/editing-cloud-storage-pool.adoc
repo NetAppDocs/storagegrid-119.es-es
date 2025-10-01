@@ -1,0 +1,49 @@
+---
+permalink: ilm/editing-cloud-storage-pool.html 
+sidebar: sidebar 
+keywords: edit cloud storage pool 
+summary: Puede editar un grupo de almacenamiento en la nube para cambiar su nombre, punto final de servicio u otros detalles; sin embargo, no puede cambiar el depósito S3 ni el contenedor de Azure de un grupo de almacenamiento en la nube. 
+---
+= Editar un grupo de almacenamiento en la nube
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede editar un grupo de almacenamiento en la nube para cambiar su nombre, punto final de servicio u otros detalles; sin embargo, no puede cambiar el depósito S3 ni el contenedor de Azure de un grupo de almacenamiento en la nube.
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tieneslink:../admin/admin-group-permissions.html["permisos de acceso específicos"] .
+* Usted ha revisado ellink:considerations-for-cloud-storage-pools.html["Consideraciones para los grupos de almacenamiento en la nube"] .
+
+
+.Pasos
+. Seleccione *ILM* > *Grupos de almacenamiento* > *Grupos de almacenamiento en la nube*.
++
+La tabla Grupos de almacenamiento en la nube enumera los grupos de almacenamiento en la nube existentes.
+
+. Seleccione la casilla de verificación del grupo de almacenamiento en la nube que desea editar y luego seleccione *Acciones* > *Editar*.
++
+Alternativamente, seleccione el nombre del grupo de almacenamiento en la nube y luego seleccione *Editar*.
+
+. Según sea necesario, cambie el nombre del grupo de almacenamiento en la nube, el punto final del servicio, las credenciales de autenticación o el método de verificación del certificado.
++
+
+NOTE: No se puede cambiar el tipo de proveedor ni el bucket S3 ni el contenedor de Azure para un grupo de almacenamiento en la nube.
+
++
+Si anteriormente cargó un certificado de servidor o cliente, puede expandir el acordeón *Detalles del certificado* para revisar el certificado que está actualmente en uso.
+
+. Seleccione *Guardar*.
++
+Cuando guarda un grupo de almacenamiento en la nube, StorageGRID valida que el depósito o contenedor y el punto final del servicio existan y que se pueda acceder a ellos mediante las credenciales que usted especificó.
+
++
+Si falla la validación del grupo de almacenamiento en la nube, se muestra un mensaje de error.  Por ejemplo, se podría informar un error si hay un error de certificado.
+
++
+Vea las instrucciones paralink:troubleshooting-cloud-storage-pools.html["Solución de problemas de grupos de almacenamiento en la nube"] , resuelva el problema y luego intente guardar el grupo de almacenamiento en la nube nuevamente.
+
+

@@ -1,0 +1,75 @@
+---
+permalink: admin/kms-considerations-for-changing-for-site.html 
+sidebar: sidebar 
+keywords: kms cluster, copy kms encryption key 
+summary: 'Cada servidor de administración de claves (KMS) o clúster KMS proporciona una clave de cifrado a todos los nodos del dispositivo en un solo sitio o en un grupo de sitios.  Si necesita cambiar el KMS que se utiliza para un sitio, es posible que deba copiar la clave de cifrado de un KMS a otro.' 
+---
+= Consideraciones para cambiar el KMS de un sitio
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cada servidor de administración de claves (KMS) o clúster KMS proporciona una clave de cifrado a todos los nodos del dispositivo en un solo sitio o en un grupo de sitios.  Si necesita cambiar el KMS que se utiliza para un sitio, es posible que deba copiar la clave de cifrado de un KMS a otro.
+
+Si cambia el KMS utilizado para un sitio, debe asegurarse de que los nodos del dispositivo previamente cifrados en ese sitio se puedan descifrar usando la clave almacenada en el nuevo KMS.  En algunos casos, es posible que necesites copiar la versión actual de la clave de cifrado del KMS original al nuevo KMS.  Debe asegurarse de que el KMS tenga la clave correcta para descifrar los nodos del dispositivo cifrados en el sitio.
+
+Por ejemplo:
+
+. Inicialmente, configura un KMS predeterminado que se aplica a todos los sitios que no tienen un KMS dedicado.
+. Cuando se guarda el KMS, todos los nodos del dispositivo que tienen habilitada la configuración *Cifrado de nodo* se conectan al KMS y solicitan la clave de cifrado.  Esta clave se utiliza para cifrar los nodos del dispositivo en todos los sitios.  Esta misma clave también debe utilizarse para descifrar dichos dispositivos.
++
+image::../media/kms_default_key.png[Clave predeterminada de KMS]
+
+. Decide agregar un KMS específico del sitio para un sitio (Centro de datos 3 en la figura).  Sin embargo, debido a que los nodos del dispositivo ya están cifrados, se produce un error de validación cuando intenta guardar la configuración del KMS específico del sitio.  El error se produce porque el KMS específico del sitio no tiene la clave correcta para descifrar los nodos en ese sitio.
++
+image::../media/kms_wrong_key.png[Clave incorrecta de KMS]
+
+. Para solucionar el problema, copie la versión actual de la clave de cifrado del KMS predeterminado al nuevo KMS.  (Técnicamente, se copia la clave original a una nueva clave con el mismo alias.  (La clave original se convierte en una versión anterior de la nueva clave).  El KMS específico del sitio ahora tiene la clave correcta para descifrar los nodos del dispositivo en el Centro de datos 3, por lo que se puede guardar en StorageGRID.
++
+image::../media/kms_copied_key.png[Clave copiada de KMS]
+
+
+
+
+
+== Casos de uso para cambiar el KMS que se utiliza para un sitio
+
+La tabla resume los pasos necesarios para los casos más comunes de cambio del KMS de un sitio.
+
+[cols="1a,2a"]
+|===
+| Caso de uso para cambiar el KMS de un sitio | Pasos necesarios 
+
+
+ a| 
+Tiene una o más entradas KMS específicas del sitio y desea utilizar una de ellas como KMS predeterminado.
+ a| 
+Editar el KMS específico del sitio.  En el campo *Administra claves para*, seleccione *Sitios no administrados por otro KMS (KMS predeterminado)*.  El KMS específico del sitio ahora se utilizará como KMS predeterminado.  Se aplicará a cualquier sitio que no tenga un KMS dedicado.
+
+link:kms-editing.html["Editar un servidor de administración de claves (KMS)"]
+
+
+
+ a| 
+Tienes un KMS predeterminado y agregas un nuevo sitio en una expansión.  No desea utilizar el KMS predeterminado para el nuevo sitio.
+ a| 
+. Si los nodos del dispositivo en el nuevo sitio ya fueron cifrados por el KMS predeterminado, use el software KMS para copiar la versión actual de la clave de cifrado del KMS predeterminado a un nuevo KMS.
+. Utilizando el Administrador de cuadrícula, agregue el nuevo KMS y seleccione el sitio.
+
+
+link:kms-adding.html["Agregar un servidor de administración de claves (KMS)"]
+
+
+
+ a| 
+Desea que el KMS de un sitio utilice un servidor diferente.
+ a| 
+. Si los nodos del dispositivo en el sitio ya han sido cifrados por el KMS existente, utilice el software KMS para copiar la versión actual de la clave de cifrado del KMS existente al nuevo KMS.
+. Utilizando el Administrador de cuadrícula, edite la configuración KMS existente e ingrese el nuevo nombre de host o dirección IP.
+
+
+link:kms-adding.html["Agregar un servidor de administración de claves (KMS)"]
+
+|===

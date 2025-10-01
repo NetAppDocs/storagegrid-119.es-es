@@ -1,0 +1,154 @@
+---
+permalink: tenant/manage-groups.html 
+sidebar: sidebar 
+keywords: how to view and edit tenant groups, manage groups, duplicate group, remove group, edit group 
+summary: Administre sus grupos de inquilinos según sea necesario para ver, editar o duplicar un grupo y más. 
+---
+= Administrar grupos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Administre sus grupos de inquilinos según sea necesario para ver, editar o duplicar un grupo y más.
+
+.Antes de empezar
+* Ha iniciado sesión en el Administrador de inquilinos mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Perteneces a un grupo de usuarios que tiene lalink:tenant-management-permissions.html["Permiso de acceso root"] .
+
+
+
+
+== Ver o editar grupo
+
+Puede ver y editar la información básica y los detalles de cada grupo.
+
+.Pasos
+. Seleccione *GESTIÓN DE ACCESO* > *Grupos*.
+. Revise la información proporcionada en la página Grupos, que enumera información básica de todos los grupos locales y federados para esta cuenta de inquilino.
++
+Si la cuenta del inquilino tiene el permiso *Usar conexión de federación de red* y está viendo grupos en la red de origen del inquilino:
+
++
+** Un mensaje de banner indica que si edita o elimina un grupo, sus cambios no se sincronizarán con la otra cuadrícula.
+** Según sea necesario, un mensaje de banner indica si los grupos no se clonaron en el inquilino en la red de destino.  Puede<<clone-groups,reintentar una clonación de grupo>> Eso falló.
+
+
+. Si desea cambiar el nombre del grupo:
++
+.. Seleccione la casilla de verificación del grupo.
+.. Seleccione *Acciones* > *Editar nombre del grupo*.
+.. Introduzca el nuevo nombre.
+.. Seleccione *Guardar cambios.*
+
+
+. Si desea ver más detalles o realizar modificaciones adicionales, realice una de las siguientes acciones:
++
+** Seleccione el nombre del grupo.
+** Seleccione la casilla de verificación del grupo y seleccione *Acciones* > *Ver detalles del grupo*.
+
+
+. Revise la sección Descripción general, que muestra la siguiente información para cada grupo:
++
+** Nombre para mostrar
+** Nombre único
+** Tipo
+** Modo de acceso
+** Permisos
+** Política S3
+** Número de usuarios en este grupo
+** Campos adicionales si la cuenta del inquilino tiene el permiso *Usar conexión de federación de red* y está viendo el grupo en la red de origen del inquilino:
++
+*** Estado de clonación: *Éxito* o *Fracaso*
+*** Un banner azul que indica que si edita o elimina este grupo, sus cambios no se sincronizarán con la otra cuadrícula.
+
+
+
+
+. Edite la configuración del grupo según sea necesario. Verlink:creating-groups-for-s3-tenant.html["Crear grupos para un inquilino de S3"] ylink:creating-groups-for-swift-tenant.html["Crear grupos para un inquilino de Swift"] para obtener detalles sobre qué ingresar.
++
+.. En la sección Descripción general, cambie el nombre para mostrar seleccionando el nombre o el ícono de ediciónimage:../media/icon_edit_tm.png["Icono de edición"] .
+.. En la pestaña *Permisos de grupo*, actualice los permisos y seleccione *Guardar cambios*.
+.. En la pestaña *Política de grupo*, realice los cambios necesarios y seleccione *Guardar cambios*.
++
+*** Si está editando un grupo S3, opcionalmente seleccione una política de grupo S3 diferente o ingrese la cadena JSON para una política personalizada, según sea necesario.
+*** Si está editando un grupo Swift, opcionalmente seleccione o desmarque la casilla de verificación *Administrador Swift*.
+
+
+
+
+. Para agregar uno o más usuarios locales existentes al grupo:
++
+.. Seleccione la pestaña Usuarios.
++
+image::../media/manage_users.png[Administrar usuarios]
+
+.. Seleccione *Agregar usuarios*.
+.. Seleccione los usuarios existentes que desea agregar y seleccione *Agregar usuarios*.
++
+Aparece un mensaje de éxito en la parte superior derecha.
+
+
+
+. Para eliminar usuarios locales del grupo:
++
+.. Seleccione la pestaña Usuarios.
+.. Seleccione *Eliminar usuarios*.
+.. Seleccione los usuarios que desea eliminar y seleccione *Eliminar usuarios*.
++
+Aparece un mensaje de éxito en la parte superior derecha.
+
+
+
+. Confirme que ha seleccionado *Guardar cambios* para cada sección que haya modificado.
+
+
+
+
+== Grupo duplicado
+
+Puede duplicar un grupo existente para crear nuevos grupos más rápidamente.
+
+
+NOTE: Si su cuenta de inquilino tiene el permiso *Usar conexión de federación de red* y duplica un grupo de la red de origen del inquilino, el grupo duplicado se clonará en la red de destino del inquilino.
+
+.Pasos
+. Seleccione *GESTIÓN DE ACCESO* > *Grupos*.
+. Seleccione la casilla de verificación del grupo que desea duplicar.
+. Seleccione *Acciones* > *Duplicar grupo*.
+. Verlink:creating-groups-for-s3-tenant.html["Crear grupos para un inquilino de S3"] olink:creating-groups-for-swift-tenant.html["Crear grupos para un inquilino de Swift"] para obtener detalles sobre qué ingresar.
+. Seleccione *Crear grupo*.
+
+
+
+
+== [[grupos de clones]]Reintentar clonar grupo
+
+Para volver a intentar una clonación que falló:
+
+. Seleccione cada grupo que indique _(Clonación fallida)_ debajo del nombre del grupo.
+. Seleccione *Acciones* > *Clonar grupos*.
+. Vea el estado de la operación de clonación desde la página de detalles de cada grupo que esté clonando.
+
+
+Para obtener información adicional, consultelink:grid-federation-account-clone.html["Clonar grupos de inquilinos y usuarios"] .
+
+
+
+== Eliminar uno o más grupos
+
+Puedes eliminar uno o más grupos.  Cualquier usuario que pertenezca únicamente a un grupo eliminado ya no podrá iniciar sesión en el Administrador de inquilinos ni usar la cuenta de inquilino.
+
+
+NOTE: Si su cuenta de inquilino tiene el permiso *Usar conexión de federación de red* y elimina un grupo, StorageGRID no eliminará el grupo correspondiente en la otra red.  Si necesita mantener esta información sincronizada, debe eliminar el mismo grupo de ambas cuadrículas.
+
+.Pasos
+. Seleccione *GESTIÓN DE ACCESO* > *Grupos*.
+. Seleccione la casilla de verificación para cada grupo que desee eliminar.
+. Seleccione *Acciones* > *Eliminar grupo* o *Acciones* > *Eliminar grupos*.
++
+Aparece un cuadro de diálogo de confirmación.
+
+. Seleccione *Eliminar grupo* o *Eliminar grupos*.
+

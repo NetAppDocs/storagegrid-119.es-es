@@ -1,0 +1,108 @@
+---
+permalink: s3/example-group-policies.html 
+sidebar: sidebar 
+keywords: group policy examples 
+summary: Utilice los ejemplos de esta sección para crear políticas de acceso de StorageGRID para grupos. 
+---
+= Políticas de grupo de ejemplo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Utilice los ejemplos de esta sección para crear políticas de acceso de StorageGRID para grupos.
+
+Las políticas de grupo especifican los permisos de acceso para el grupo al que está asociada la política.  No hay `Principal` elemento de la política porque es implícito.  Las políticas de grupo se configuran mediante el Administrador de inquilinos o la API.
+
+
+
+== Ejemplo: Establecer una política de grupo mediante el Administrador de inquilinos
+
+Cuando agrega o edita un grupo en el Administrador de inquilinos, puede seleccionar una política de grupo para determinar qué permisos de acceso a S3 tendrán los miembros de este grupo. Ver link:../tenant/creating-groups-for-s3-tenant.html["Crear grupos para un inquilino de S3"] .
+
+* *Sin acceso S3*: Opción predeterminada.  Los usuarios de este grupo no tienen acceso a los recursos de S3, a menos que se les conceda acceso con una política de bucket.  Si selecciona esta opción, solo el usuario root tendrá acceso a los recursos de S3 de forma predeterminada.
+* *Acceso de solo lectura*: los usuarios de este grupo tienen acceso de solo lectura a los recursos de S3.  Por ejemplo, los usuarios de este grupo pueden enumerar objetos y leer datos de objetos, metadatos y etiquetas.  Cuando selecciona esta opción, la cadena JSON para una política de grupo de solo lectura aparece en el cuadro de texto.  No puedes editar esta cadena.
+* *Acceso completo*: los usuarios de este grupo tienen acceso completo a los recursos de S3, incluidos los buckets.  Cuando selecciona esta opción, la cadena JSON para una política de grupo de acceso completo aparece en el cuadro de texto.  No puedes editar esta cadena.
+* *Mitigación de ransomware*: esta política de muestra se aplica a todos los depósitos de este inquilino.  Los usuarios de este grupo pueden realizar acciones comunes, pero no pueden eliminar de forma permanente objetos de los depósitos que tienen habilitada la versión de objetos.
++
+Los usuarios del administrador de inquilinos que tienen el permiso Administrar todos los depósitos pueden anular esta política de grupo.  Limite el permiso Administrar todos los depósitos a usuarios de confianza y utilice la autenticación multifactor (MFA) cuando esté disponible.
+
+* *Personalizado*: A los usuarios del grupo se les otorgan los permisos que usted especifique en el cuadro de texto.
+
+
+
+
+== Ejemplo: Permitir al grupo acceso completo a todos los depósitos
+
+En este ejemplo, a todos los miembros del grupo se les permite acceso total a todos los depósitos propiedad de la cuenta del inquilino, a menos que la política del depósito lo deniegue explícitamente.
+
+[listing]
+----
+{
+  "Statement": [
+    {
+      "Action": "s3:*",
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::*"
+    }
+  ]
+}
+----
+
+
+== Ejemplo: Permitir acceso de solo lectura al grupo a todos los depósitos
+
+En este ejemplo, todos los miembros del grupo tienen acceso de solo lectura a los recursos de S3, a menos que la política del bucket lo niegue explícitamente.  Por ejemplo, los usuarios de este grupo pueden enumerar objetos y leer datos de objetos, metadatos y etiquetas.
+
+[listing]
+----
+{
+  "Statement": [
+    {
+      "Sid": "AllowGroupReadOnlyAccess",
+      "Effect": "Allow",
+      "Action": [
+        "s3:ListAllMyBuckets",
+        "s3:ListBucket",
+        "s3:ListBucketVersions",
+        "s3:GetObject",
+        "s3:GetObjectTagging",
+        "s3:GetObjectVersion",
+        "s3:GetObjectVersionTagging"
+      ],
+      "Resource": "arn:aws:s3:::*"
+    }
+  ]
+}
+----
+
+
+== Ejemplo: Permitir a los miembros del grupo acceso completo únicamente a su "carpeta" en un depósito
+
+En este ejemplo, a los miembros del grupo solo se les permite enumerar y acceder a su carpeta específica (prefijo de clave) en el depósito especificado.  Tenga en cuenta que los permisos de acceso de otras políticas de grupo y la política de depósito deben considerarse al determinar la privacidad de estas carpetas.
+
+[listing]
+----
+{
+  "Statement": [
+    {
+      "Sid": "AllowListBucketOfASpecificUserPrefix",
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::department-bucket",
+      "Condition": {
+        "StringLike": {
+          "s3:prefix": "${aws:username}/*"
+        }
+      }
+    },
+    {
+      "Sid": "AllowUserSpecificActionsOnlyInTheSpecificUserPrefix",
+      "Effect": "Allow",
+      "Action": "s3:*Object",
+      "Resource": "arn:aws:s3:::department-bucket/${aws:username}/*"
+    }
+  ]
+}
+----

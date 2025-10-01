@@ -1,0 +1,46 @@
+---
+permalink: monitor/index.html 
+sidebar: sidebar 
+keywords: monitor StorageGRID 
+summary: Supervise periódicamente su sistema StorageGRID para asegurarse de que funcione como se espera. 
+---
+= Supervisar un sistema StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Supervise periódicamente su sistema StorageGRID para asegurarse de que funcione como se espera.
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tieneslink:../admin/admin-group-permissions.html["permisos de acceso específicos"] .
+
+
+
+NOTE: Para cambiar las unidades de los valores de almacenamiento que se muestran en el Administrador de cuadrícula, seleccione el menú desplegable de usuario en la parte superior derecha del Administrador de cuadrícula y luego seleccione *Preferencias de usuario*.
+
+.Acerca de esta tarea
+Estas instrucciones describen cómo:
+
+* link:viewing-dashboard.html["Ver y administrar el panel de control"]
+* link:viewing-nodes-page.html["Ver la página de Nodos"]
+* link:information-you-should-monitor-regularly.html["Supervise periódicamente estos aspectos del sistema:"]
++
+** link:monitoring-system-health.html["Salud del sistema"]
+** link:monitoring-storage-capacity.html["Capacidad de almacenamiento"]
+** link:monitoring-information-lifecycle-management.html["Gestión del ciclo de vida de la información"]
+** link:monitoring-network-connections-and-performance.html["Recursos de redes y sistemas"]
+** link:monitoring-tenant-activity.html["Actividad de los inquilinos"]
+** link:monitoring-load-balancing-operations.html["Operaciones de equilibrio de carga"]
+** link:grid-federation-monitor-connections.html["Conexiones de federación de red"]
+
+
+* link:managing-alerts.html["Administrar alertas"]
+* link:logs-files-reference.html["Ver archivos de registro"]
+* link:configure-audit-messages.html["Configurar mensajes de auditoría y destinos de registro"]
+* link:considerations-for-external-syslog-server.html["Utilice un servidor syslog externo"]para recopilar información de auditoría
+* link:using-snmp-monitoring.html["Utilice SNMP para la monitorización"]
+* link:using-charts-and-reports.html["Obtener datos adicionales de StorageGRID"], incluidas métricas y diagnósticos
+

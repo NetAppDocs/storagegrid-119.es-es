@@ -1,0 +1,38 @@
+= 
+:allow-uri-read: 
+
+
+Las siguientes listas para administradores de red y usuarios inquilinos contienen las tareas de alto nivel para usar la función de bloqueo de objetos S3.
+
+Administrador de red::
++
+--
+* Habilite la configuración global de bloqueo de objetos S3 para todo el sistema StorageGRID .
+* Asegúrese de que las políticas de gestión del ciclo de vida de la información (ILM) sean _compatibles_; es decir, que cumplan con los requisitoslink:../ilm/managing-objects-with-s3-object-lock.html["Requisitos de los buckets con bloqueo de objetos S3 habilitado"] .
+* Según sea necesario, permita que un inquilino utilice Cumplimiento como modo de retención.  De lo contrario, solo se permite el modo Gobernanza.
+* Según sea necesario, establezca un período máximo de retención para un inquilino.
+
+
+--
+Usuario inquilino::
++
+--
+* Revise las consideraciones para depósitos y objetos con bloqueo de objetos S3.
+* Según sea necesario, comuníquese con el administrador de la red para habilitar la configuración global de bloqueo de objetos S3 y establecer permisos.
+* Cree depósitos con el bloqueo de objetos S3 habilitado.
+* De manera opcional, configure los ajustes de retención predeterminados para un depósito:
++
+** Modo de retención predeterminado: Gobernanza o Cumplimiento, si lo permite el administrador de la red.
+** Período de retención predeterminado: debe ser menor o igual al período de retención máximo establecido por el administrador de la red.
+
+
+* Utilice la aplicación cliente S3 para agregar objetos y, opcionalmente, configurar la retención específica de objetos:
++
+** Modo de retención.  Gobernanza o Cumplimiento, si lo permite el administrador de la red.
+** Conservar hasta la fecha: debe ser menor o igual a lo permitido por el período máximo de retención establecido por el administrador de la red.
+
+
+
+
+--
+

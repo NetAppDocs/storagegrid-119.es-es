@@ -1,0 +1,130 @@
+---
+permalink: admin/manage-firewall-controls.html 
+sidebar: sidebar 
+keywords: firewall controls, untrusted client network, privileged address, manage external access 
+summary: StorageGRID incluye un firewall interno en cada nodo que mejora la seguridad de su red al permitirle personalizar el acceso a la red de red, la red de administración y la red de clientes. 
+---
+= Administrar los controles internos del firewall
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRID incluye un firewall interno en cada nodo que mejora la seguridad de su red al permitirle controlar el acceso de la red al nodo.  Utilice el firewall para evitar el acceso a la red en todos los puertos excepto aquellos necesarios para su implementación de red específica.  Los cambios de configuración que realice en la página de control del Firewall se implementarán en cada nodo.
+
+Utilice las tres pestañas de la página de control de Firewall para personalizar el acceso que necesita para su red.
+
+* *Lista de direcciones privilegiadas*: utilice esta pestaña para permitir el acceso seleccionado a puertos cerrados.  Puede agregar direcciones IP o subredes en notación CIDR que puedan acceder a puertos cerrados mediante la pestaña Administrar acceso externo.
+* *Administrar acceso externo*: utilice esta pestaña para cerrar puertos que están abiertos de forma predeterminada o reabrir puertos previamente cerrados.
+* *Red de cliente no confiable*: utilice esta pestaña para especificar si un nodo confía en el tráfico entrante de la red de cliente.
++
+La configuración de esta pestaña anula la configuración de la pestaña Administrar acceso externo.
+
++
+** Un nodo con una red de cliente no confiable solo aceptará conexiones en los puertos de punto final del balanceador de carga configurados en ese nodo (puntos finales globales, de interfaz de nodo y enlazados al tipo de nodo).
+** Los puertos finales del equilibrador de carga _son los únicos puertos abiertos_ en redes de cliente que no son de confianza, independientemente de la configuración en la pestaña Administrar redes externas.
+** Cuando es confiable, todos los puertos abiertos en la pestaña Administrar acceso externo son accesibles, así como también cualquier punto final del balanceador de carga abierto en la red del cliente.
+
+
+
+
+
+NOTE: Las configuraciones que realice en una pestaña pueden afectar los cambios de acceso que realice en otra pestaña.  Asegúrese de verificar la configuración en todas las pestañas para asegurarse de que su red se comporte de la manera esperada.
+
+Para configurar los controles internos del firewall, consultelink:../admin/configure-firewall-controls.html["Configurar los controles del firewall"] .
+
+Para obtener más información sobre firewalls externos y seguridad de red, consultelink:../admin/controlling-access-through-firewalls.html["Controlar el acceso al firewall externo"] .
+
+
+
+== Lista de direcciones privilegiadas y pestañas para administrar acceso externo
+
+La pestaña Lista de direcciones privilegiadas le permite registrar una o más direcciones IP a las que se les concede acceso a los puertos de la red que están cerrados.  La pestaña Administrar acceso externo le permite cerrar el acceso externo a puertos externos seleccionados o a todos los puertos externos abiertos (los puertos externos son puertos a los que pueden acceder los nodos que no pertenecen a la red de manera predeterminada).  Estas dos pestañas a menudo se pueden usar juntas para personalizar el acceso de red exacto que necesita permitir para su red.
+
+
+NOTE: Las direcciones IP privilegiadas no tienen acceso al puerto de la red interna de forma predeterminada.
+
+
+
+=== Ejemplo 1: Utilizar un host de salto para tareas de mantenimiento
+
+Supongamos que desea utilizar un host de salto (un host con seguridad reforzada) para la administración de la red.  Podrías utilizar estos pasos generales:
+
+. Utilice la pestaña Lista de direcciones privilegiadas para agregar la dirección IP del host de salto.
+. Utilice la pestaña Administrar acceso externo para bloquear todos los puertos.
+
+
+
+CAUTION: Agregue la dirección IP privilegiada antes de bloquear los puertos 443 y 8443.  Cualquier usuario actualmente conectado a un puerto bloqueado, incluido usted, perderá el acceso a Grid Manager a menos que su dirección IP se haya agregado a la lista de direcciones privilegiadas.
+
+Después de guardar su configuración, todos los puertos externos en el nodo de administración de su red se bloquearán para todos los hosts excepto el host de salto.  Luego, puede utilizar el host de salto para realizar tareas de mantenimiento en su red de forma más segura.
+
+
+
+=== Ejemplo 2: Bloquear puertos sensibles
+
+Supongamos que desea bloquear puertos sensibles y el servicio en ese puerto (por ejemplo, SSH en el puerto 22). Podrías utilizar los siguientes pasos generales:
+
+. Utilice la pestaña Lista de direcciones privilegiadas para otorgar acceso solo a los hosts que necesitan acceso al servicio.
+. Utilice la pestaña Administrar acceso externo para bloquear todos los puertos.
+
+
+
+CAUTION: Agregue la dirección IP privilegiada antes de bloquear el acceso a cualquier puerto asignado para acceder a Grid Manager y al administrador de inquilinos (los puertos preestablecidos son 443 y 8443).  Cualquier usuario actualmente conectado a un puerto bloqueado, incluido usted, perderá el acceso a Grid Manager a menos que su dirección IP se haya agregado a la lista de direcciones privilegiadas.
+
+Después de guardar su configuración, el puerto 22 y el servicio SSH estarán disponibles para los hosts en la lista de direcciones privilegiadas.  A todos los demás hosts se les negará el acceso al servicio sin importar de qué interfaz provenga la solicitud.
+
+
+
+=== Ejemplo 3: Deshabilitar el acceso a servicios no utilizados
+
+A nivel de red, podrías deshabilitar algunos servicios que no deseas utilizar.  Por ejemplo, para bloquear el tráfico del cliente HTTP S3, deberá utilizar el interruptor en la pestaña Administrar acceso externo para bloquear el puerto 18084.
+
+
+
+== Pestaña Redes de clientes no confiables
+
+Si utiliza una red de cliente, puede ayudar a proteger StorageGRID de ataques hostiles al aceptar tráfico de cliente entrante solo en puntos finales configurados explícitamente.
+
+De forma predeterminada, la red de cliente en cada nodo de la red es _confiable_.  Es decir, de forma predeterminada, StorageGRID confía en las conexiones entrantes a cada nodo de la red en todos loslink:../network/external-communications.html["puertos externos disponibles"] .
+
+Puede reducir la amenaza de ataques hostiles en su sistema StorageGRID especificando que la red de cliente en cada nodo sea _no confiable_.  Si la red de cliente de un nodo no es confiable, el nodo solo acepta conexiones entrantes en puertos configurados explícitamente como puntos finales del balanceador de carga. Verlink:../admin/configuring-load-balancer-endpoints.html["Configurar los puntos finales del balanceador de carga"] ylink:../admin/configure-firewall-controls.html["Configurar los controles del firewall"] .
+
+
+
+=== Ejemplo 1: El nodo de puerta de enlace solo acepta solicitudes HTTPS S3
+
+Supongamos que desea que un nodo de puerta de enlace rechace todo el tráfico entrante en la red del cliente, excepto las solicitudes HTTPS S3.  Realizarías estos pasos generales:
+
+. Desdelink:../admin/configuring-load-balancer-endpoints.html["Puntos finales del balanceador de carga"] página, configure un punto final de balanceador de carga para S3 sobre HTTPS en el puerto 443.
+. Desde la página de control de Firewall, seleccione No confiable para especificar que la red de cliente en el nodo de puerta de enlace no es confiable.
+
+
+Después de guardar su configuración, se descarta todo el tráfico entrante en la red de cliente del nodo de puerta de enlace, excepto las solicitudes HTTPS S3 en el puerto 443 y las solicitudes de eco ICMP (ping).
+
+
+
+=== Ejemplo 2: El nodo de almacenamiento envía solicitudes de servicios de la plataforma S3
+
+Supongamos que desea habilitar el tráfico saliente de servicios de la plataforma S3 desde un nodo de almacenamiento, pero desea evitar cualquier conexión entrante a ese nodo de almacenamiento en la red del cliente.  Realizarías este paso general:
+
+* Desde la pestaña Redes de clientes no confiables de la página de control de Firewall, indique que la red de clientes en el nodo de almacenamiento no es confiable.
+
+
+Después de guardar su configuración, el nodo de almacenamiento ya no acepta tráfico entrante en la red del cliente, pero continúa permitiendo solicitudes salientes a los destinos de servicios de plataforma configurados.
+
+
+
+=== Ejemplo 3: Limitar el acceso a Grid Manager a una subred
+
+Supongamos que desea permitir el acceso a Grid Manager solo en una subred específica.  Realizarías los siguientes pasos:
+
+. Conecte la red de cliente de sus nodos de administración a la subred.
+. Utilice la pestaña Red de cliente no confiable para configurar la red de cliente como no confiable.
+. Cuando crea un punto final de balanceador de carga de interfaz de administración, ingrese el puerto y seleccione la interfaz de administración a la que accederá el puerto.
+. Seleccione *Sí* para Red de cliente no confiable.
+. Utilice la pestaña Administrar acceso externo para bloquear todos los puertos externos (con o sin direcciones IP privilegiadas configuradas para hosts fuera de esa subred).
+
+
+Después de guardar su configuración, solo los hosts en la subred que especificó podrán acceder al Administrador de Grid.  Todos los demás hosts están bloqueados.

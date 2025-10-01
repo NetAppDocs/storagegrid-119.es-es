@@ -1,0 +1,46 @@
+---
+permalink: network/subnet-requirements.html 
+sidebar: sidebar 
+keywords: network subnets 
+summary: Siga estos requisitos y pautas para las subredes de red. 
+---
+= Requisitos de subred
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Siga estos requisitos y pautas para las subredes de red.
+
+
+NOTE: Cada red debe estar conectada a su propia subred que no se superponga con ninguna otra red en el nodo.
+
+El administrador de cuadrícula aplica las siguientes restricciones durante la implementación.  Se proporcionan aquí para ayudar en la planificación de la red previa a la implementación.
+
+* La máscara de subred para cualquier dirección IP de red no puede ser 255.255.255.254 o 255.255.255.255 (/31 o /32 en notación CIDR).
+* La subred definida por una dirección IP de interfaz de red y una máscara de subred (CIDR) no puede superponerse a la subred de ninguna otra interfaz configurada en el mismo nodo.
+* No utilice subredes que contengan las siguientes direcciones IPv4 para la red de cuadrícula, la red de administración o la red de cliente de ningún nodo:
++
+** 192.168.130.101
+** 192.168.131.101
+** 192.168.130.102
+** 192.168.131.102
+** 198.51.100.2
+** 198.51.100.4
+
+
++
+Por ejemplo, no utilice los siguientes rangos de subred para la red de cuadrícula, la red de administración o la red de cliente de ningún nodo:
+
++
+** 192.168.130.0/24 porque este rango de subred contiene las direcciones IP 192.168.130.101 y 192.168.130.102
+** 192.168.131.0/24 porque este rango de subred contiene las direcciones IP 192.168.131.101 y 192.168.131.102
+** 198.51.100.0/24 porque este rango de subred contiene las direcciones IP 198.51.100.2 y 198.51.100.4
+
+
+* La subred de la red Grid para cada nodo debe incluirse en el GNSL.
+* La subred de red de administración no puede superponerse a la subred de red de cuadrícula, a la subred de red de cliente ni a ninguna subred en GNSL.
+* Las subredes del AESL no pueden superponerse con ninguna subred del GNSL.
+* La subred de la red del cliente no puede superponerse a la subred de la red de cuadrícula, a la subred de la red de administración, a ninguna subred de GNSL ni a ninguna subred de AESL.
+

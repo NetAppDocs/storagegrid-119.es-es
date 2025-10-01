@@ -1,0 +1,70 @@
+---
+permalink: tenant/changing-bucket-versioning.html 
+sidebar: sidebar 
+keywords: how to change bucket versioning, disabled versioning, enabled versioning, suspended versioning 
+summary: Si está utilizando un inquilino S3, puede cambiar el estado de la versión de los depósitos S3. 
+---
+= Cambiar la versión de un objeto para un bucket
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si está utilizando un inquilino S3, puede cambiar el estado de la versión de los depósitos S3.
+
+.Antes de empezar
+* Ha iniciado sesión en el Administrador de inquilinos mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Perteneces a un grupo de usuarios que tiene lalink:tenant-management-permissions.html["Administrar todos los depósitos o permisos de acceso raíz"] . Estos permisos anulan la configuración de permisos en las políticas de grupo o de depósito.
+* Ha verificado que la cantidad requerida de nodos de almacenamiento y sitios están disponibles.  Si dos o más nodos de almacenamiento no están disponibles dentro de algún sitio, o si un sitio no está disponible, es posible que los cambios en estas configuraciones no estén disponibles.
+
+
+.Acerca de esta tarea
+Puede habilitar o suspender el control de versiones de objetos para un depósito.  Después de habilitar el control de versiones para un depósito, este no podrá regresar a un estado sin versiones.  Sin embargo, puedes suspender el control de versiones del depósito.
+
+* Deshabilitado: El control de versiones nunca se ha habilitado
+* Habilitado: el control de versiones está habilitado
+* Suspendido: el control de versiones estaba habilitado previamente y está suspendido
+
+
+Para obtener más información, consulte lo siguiente:
+
+* link:../s3/object-versioning.html["Control de versiones de objetos"]
+* link:../ilm/example-4-ilm-rules-and-policy-for-s3-versioned-objects.html["Reglas y políticas de ILM para objetos versionados de S3 (Ejemplo 4)"]
+* link:../ilm/how-objects-are-deleted.html["Cómo se eliminan los objetos"]
+
+
+.Pasos
+. Seleccione *Ver depósitos* en el panel de control o seleccione *ALMACENAMIENTO (S3)* > *Depósitos*.
+. Seleccione el nombre del depósito de la tabla.
++
+Aparece la página de detalles del depósito.
+
+. Desde la pestaña *Opciones de depósito*, seleccione el acordeón *Versiones de objeto*.
+. Seleccione un estado de control de versiones para los objetos en este depósito.
++
+El control de versiones de objetos debe permanecer habilitado para un depósito utilizado para la replicación entre redes.  Si está habilitado el bloqueo de objetos S3 o la conformidad con versiones anteriores, las opciones de *Control de versiones de objetos* estarán deshabilitadas.
+
++
+[cols="1a,3a"]
+|===
+| Opción | Descripción 
+
+
+ a| 
+Habilitar control de versiones
+ a| 
+Habilite el control de versiones de objetos si desea almacenar todas las versiones de cada objeto en este depósito.  Luego puede recuperar versiones anteriores de un objeto según sea necesario.
+
+Los objetos que ya estaban en el depósito se versionarán cuando un usuario los modifique.
+
+
+
+ a| 
+Suspender el control de versiones
+ a| 
+Suspenda el control de versiones de objetos si ya no desea que se creen nuevas versiones de objetos.  Aún puedes recuperar cualquier versión de objeto existente.
+
+|===
+. Seleccione *Guardar cambios*.
+

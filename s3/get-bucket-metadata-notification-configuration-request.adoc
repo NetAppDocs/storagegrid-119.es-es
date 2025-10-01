@@ -1,0 +1,182 @@
+---
+permalink: s3/get-bucket-metadata-notification-configuration-request.html 
+sidebar: sidebar 
+keywords: S3 REST API, S3 operations, GET bucket metadata notification configuration 
+summary: La solicitud de configuración de notificación de metadatos de bucket GET le permite recuperar el XML de configuración utilizado para configurar la integración de búsqueda para buckets individuales. 
+---
+= Configuración de notificación de metadatos del depósito GET
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La solicitud de configuración de notificación de metadatos de bucket GET le permite recuperar el XML de configuración utilizado para configurar la integración de búsqueda para buckets individuales.
+
+Debe tener el permiso s3:GetBucketMetadataNotification o ser la cuenta root para completar esta operación.
+
+
+
+== Ejemplo de solicitud
+
+Esta solicitud recupera la configuración de notificación de metadatos para el depósito denominado `bucket` .
+
+[listing, subs="specialcharacters,quotes"]
+----
+GET /bucket?x-ntap-sg-metadata-notification HTTP/1.1
+Date: _date_
+Authorization: _authorization string_
+Host: _host_
+----
+
+
+== Respuesta
+
+El cuerpo de la respuesta incluye la configuración de notificación de metadatos para el depósito.  La configuración de notificación de metadatos le permite determinar cómo se configura el depósito para la integración de búsqueda.  Es decir, permite determinar qué objetos están indexados y a qué puntos finales se envían sus metadatos de objetos.
+
+[listing]
+----
+<MetadataNotificationConfiguration>
+    <Rule>
+        <ID>Rule-1</ID>
+        <Status>rule-status</Status>
+        <Prefix>key-prefix</Prefix>
+        <Destination>
+           <Urn>arn:aws:es:_region:account-ID_:domain/_mydomain/myindex/mytype_</Urn>
+        </Destination>
+    </Rule>
+    <Rule>
+        <ID>Rule-2</ID>
+         ...
+    </Rule>
+     ...
+</MetadataNotificationConfiguration>
+----
+Cada configuración de notificación de metadatos incluye una o más reglas.  Cada regla especifica los objetos a los que se aplica y el destino donde StorageGRID debe enviar los metadatos de los objetos.  Los destinos deben especificarse utilizando el URN de un punto final de StorageGRID .
+
+[cols="1a,2a,1a"]
+|===
+| Nombre | Descripción | Requerido 
+
+
+ a| 
+Configuración de notificación de metadatos
+ a| 
+Etiqueta contenedora para reglas utilizadas para especificar los objetos y el destino de las notificaciones de metadatos.
+
+Contiene uno o más elementos de regla.
+ a| 
+Sí
+
+
+
+ a| 
+Regla
+ a| 
+Etiqueta contenedora para una regla que identifica los objetos cuyos metadatos deben agregarse a un índice específico.
+
+Se rechazan las reglas con prefijos superpuestos.
+
+Incluido en el elemento MetadataNotificationConfiguration.
+ a| 
+Sí
+
+
+
+ a| 
+IDENTIFICACIÓN
+ a| 
+Identificador único de la regla.
+
+Incluido en el elemento Regla.
+ a| 
+No
+
+
+
+ a| 
+Estado
+ a| 
+El estado puede ser 'Habilitado' o 'Deshabilitado'.  No se realiza ninguna acción para las reglas que están deshabilitadas.
+
+Incluido en el elemento Regla.
+ a| 
+Sí
+
+
+
+ a| 
+Prefijo
+ a| 
+Los objetos que coinciden con el prefijo se ven afectados por la regla y sus metadatos se envían al destino especificado.
+
+Para que coincida con todos los objetos, especifique un prefijo vacío.
+
+Incluido en el elemento Regla.
+ a| 
+Sí
+
+
+
+ a| 
+Destino
+ a| 
+Etiqueta de contenedor para el destino de una regla.
+
+Incluido en el elemento Regla.
+ a| 
+Sí
+
+
+
+ a| 
+Urna
+ a| 
+URN del destino donde se envían los metadatos del objeto.  Debe ser la URN de un punto final de StorageGRID con las siguientes propiedades:
+
+* `es`Debe ser el tercer elemento.
+* La URN debe terminar con el índice y tipo donde se almacenan los metadatos, en el formato `domain-name/myindex/mytype` .
+
+
+Los puntos finales se configuran mediante el Administrador de inquilinos o la API de administración de inquilinos.  Toman la siguiente forma:
+
+* `arn:aws:es:_region:account-ID_:domain/mydomain/myindex/mytype`
+* `urn:mysite:es:::mydomain/myindex/mytype`
+
+
+El punto final debe configurarse antes de enviar el XML de configuración; de lo contrario, la configuración fallará con un error 404.
+
+La urna está incluida en el elemento Destino.
+ a| 
+Sí
+
+|===
+
+
+== Ejemplo de respuesta
+
+El XML incluido entre el `<MetadataNotificationConfiguration></MetadataNotificationConfiguration>` Las etiquetas muestran cómo se configura la integración con un punto final de integración de búsqueda para el depósito.  En este ejemplo, los metadatos del objeto se envían a un índice de Elasticsearch llamado `current` y tipo nombrado `2017` que está alojado en un dominio de AWS llamado `records` .
+
+[listing]
+----
+HTTP/1.1 200 OK
+Date: Thu, 20 Jul 2017 18:24:05 GMT
+Connection: KEEP-ALIVE
+Server: StorageGRID/11.0.0
+x-amz-request-id: 3832973499
+Content-Length: 264
+Content-Type: application/xml
+
+<MetadataNotificationConfiguration>
+    <Rule>
+        <ID>Rule-1</ID>
+        <Status>Enabled</Status>
+        <Prefix>2017</Prefix>
+        <Destination>
+           <Urn>arn:aws:es:us-east-1:3333333:domain/records/current/2017</Urn>
+        </Destination>
+    </Rule>
+</MetadataNotificationConfiguration>
+----
+.Información relacionada
+link:../tenant/index.html["Utilice una cuenta de inquilino"]

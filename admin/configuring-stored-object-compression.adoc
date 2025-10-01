@@ -1,0 +1,46 @@
+---
+permalink: admin/configuring-stored-object-compression.html 
+sidebar: sidebar 
+keywords: object compression, compress stored objects 
+summary: Puede habilitar la compresión de objetos para reducir el tamaño de los objetos almacenados en StorageGRID, de modo que consuman menos almacenamiento. 
+---
+= Comprimir objetos almacenados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede habilitar la compresión de objetos para reducir el tamaño de los objetos almacenados en StorageGRID, de modo que consuman menos almacenamiento.
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tieneslink:admin-group-permissions.html["permisos de acceso específicos"] .
+
+
+.Acerca de esta tarea
+De forma predeterminada, la compresión de objetos está deshabilitada.  Si habilita la compresión, StorageGRID intentará comprimir cada objeto al guardarlo, utilizando compresión sin pérdida.
+
+
+NOTE: Si cambia esta configuración, tomará aproximadamente un minuto para que se aplique la nueva configuración.  El valor configurado se almacena en caché para mejorar el rendimiento y la escala.
+
+Antes de habilitar la compresión de objetos, tenga en cuenta lo siguiente:
+
+* No debe seleccionar *Comprimir objetos almacenados* a menos que sepa que los datos que se almacenan son comprimibles.
+* Las aplicaciones que guardan objetos en StorageGRID pueden comprimirlos antes de guardarlos.  Si una aplicación cliente ya ha comprimido un objeto antes de guardarlo en StorageGRID, seleccionar esta opción no reducirá aún más el tamaño del objeto.
+* No seleccione *Comprimir objetos almacenados* si está utilizando NetApp FabricPool con StorageGRID.
+* Si se selecciona *Comprimir objetos almacenados*, las aplicaciones cliente S3 deben evitar realizar operaciones GetObject que especifiquen un rango de bytes a devolver.  Estas operaciones de "lectura de rango" son ineficientes porque StorageGRID debe descomprimir efectivamente los objetos para acceder a los bytes solicitados.  Las operaciones GetObject que solicitan un rango pequeño de bytes de un objeto muy grande son especialmente ineficientes; por ejemplo, es ineficiente leer un rango de 10 MB de un objeto comprimido de 50 GB.
++
+Si se leen rangos de objetos comprimidos, las solicitudes del cliente pueden expirar.
+
++
+
+NOTE: Si necesita comprimir objetos y su aplicación cliente debe utilizar lecturas de rango, aumente el tiempo de espera de lectura de la aplicación.
+
+
+
+.Pasos
+. Seleccione *CONFIGURACIÓN* > *Sistema* > *Configuración de almacenamiento* > *Compresión de objetos*.
+. Seleccione la casilla de verificación *Comprimir objetos almacenados*.
+. Seleccione *Guardar*.
+

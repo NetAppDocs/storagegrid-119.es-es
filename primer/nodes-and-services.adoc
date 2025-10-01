@@ -1,0 +1,302 @@
+---
+permalink: primer/nodes-and-services.html 
+sidebar: sidebar 
+keywords: services, grid nodes, primary admin, storage, gateway 
+summary: El componente básico de un sistema StorageGRID es el nodo de la red.  Los nodos contienen servicios, que son módulos de software que proporcionan un conjunto de capacidades a un nodo de la red. 
+---
+= Nodos y servicios de la red
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El componente básico de un sistema StorageGRID es el nodo de la red.  Los nodos contienen servicios, que son módulos de software que proporcionan un conjunto de capacidades a un nodo de la red.
+
+
+
+== Tipos de nodos de la red
+
+El sistema StorageGRID utiliza cuatro tipos de nodos de red:
+
+Nodos de administración:: Proporcionar servicios de gestión como configuración del sistema, supervisión y registro.  Cuando inicia sesión en Grid Manager, se conecta a un nodo de administración.  Cada red debe tener un nodo de administración principal y puede tener nodos de administración no principales adicionales para redundancia. Puede conectarse a cualquier nodo de administración y cada nodo de administración muestra una vista similar del sistema StorageGRID .  Sin embargo, los procedimientos de mantenimiento deben realizarse utilizando el nodo de administración principal.
++
+--
+Los nodos de administración también se pueden utilizar para equilibrar la carga del tráfico del cliente S3.
+
+Verlink:what-admin-node-is.html["¿Qué es un nodo de administración?"]
+
+--
+Nodos de almacenamiento:: Administrar y almacenar datos de objetos y metadatos.  Cada sitio de su sistema StorageGRID debe tener al menos tres nodos de almacenamiento.
++
+--
+Verlink:what-storage-node-is.html["¿Qué es un nodo de almacenamiento?"]
+
+--
+Nodos de puerta de enlace (opcionales):: Proporciona una interfaz de equilibrio de carga que las aplicaciones cliente puedan usar para conectarse a StorageGRID.  Un balanceador de carga dirige sin problemas a los clientes a un nodo de almacenamiento óptimo, de modo que la falla de los nodos o incluso de un sitio completo sea transparente.
++
+--
+Verlink:what-gateway-node-is.html["¿Qué es un nodo de enlace?"]
+
+--
+
+
+
+
+== Nodos de hardware y software
+
+Los nodos StorageGRID se pueden implementar como nodos de dispositivo StorageGRID o como nodos basados ​​en software.
+
+
+
+=== Nodos de dispositivos StorageGRID
+
+Los dispositivos de hardware StorageGRID están diseñados especialmente para su uso en un sistema StorageGRID .  Algunos dispositivos pueden utilizarse como nodos de almacenamiento.  Se pueden utilizar otros dispositivos como nodos de administración o nodos de puerta de enlace.  Puede combinar nodos de dispositivos con nodos basados ​​en software o implementar redes de dispositivos completamente diseñadas que no dependan de hipervisores externos, almacenamiento o hardware de cómputo.
+
+Consulte lo siguiente para obtener información sobre los electrodomésticos disponibles:
+
+* https://docs.netapp.com/us-en/storagegrid-appliances/["Documentación del dispositivo StorageGRID"^]
+* https://hwu.netapp.com["NetApp Hardware Universe"^]
+
+
+
+
+=== Nodos basados en software
+
+Los nodos de red basados en software se pueden implementar como máquinas virtuales VMware o dentro de motores de contenedores en un host Linux.
+
+* Máquina virtual (VM) en VMware vSphere: consultelink:../vmware/index.html["Instalar StorageGRID en VMware"] .
+* Dentro de un motor de contenedores en Red Hat Enterprise Linux: Verlink:../rhel/index.html["Instalar StorageGRID en Red Hat Enterprise Linux"] .
+* Dentro de un motor de contenedores en Ubuntu o Debian: Verlink:../ubuntu/index.html["Instalar StorageGRID en Ubuntu o Debian"] .
+
+
+Utilice el https://imt.netapp.com/matrix/#welcome["Herramienta de matriz de interoperabilidad de NetApp (IMT)"^] para determinar las versiones compatibles.
+
+Durante la instalación inicial de un nuevo nodo de almacenamiento basado en software, puede especificar que solo se utilice paralink:../primer/what-storage-node-is.html#types-of-storage-nodes["almacenar metadatos"] .
+
+
+
+== Servicios de StorageGRID
+
+La siguiente es una lista completa de los servicios de StorageGRID .
+
+[cols="2a,3a,2a"]
+|===
+| Servicio | Descripción | Ubicación 
+
+
+ a| 
+Reenvío de servicios de cuenta
+ a| 
+Proporciona una interfaz para que el servicio Load Balancer consulte al servicio de cuenta en hosts remotos y proporciona notificaciones de cambios de configuración del punto final de Load Balancer al servicio Load Balancer.
+ a| 
+Servicio de balanceador de carga en nodos de administración y nodos de puerta de enlace
+
+
+
+ a| 
+ADC (Controlador de dominio administrativo)
+ a| 
+Mantiene la información de topología, proporciona servicios de autenticación y responde a las consultas de los servicios LDR y CMN.
+ a| 
+Al menos tres nodos de almacenamiento que contienen el servicio ADC en cada sitio
+
+
+
+ a| 
+AMS (Sistema de Gestión de Auditoría)
+ a| 
+Supervisa y registra todos los eventos y transacciones del sistema auditados en un archivo de registro de texto.
+ a| 
+Nodos de administración
+
+
+
+ a| 
+Cassandra Reaper
+ a| 
+Realiza reparaciones automáticas de metadatos de objetos.
+ a| 
+Nodos de almacenamiento
+
+
+
+ a| 
+Servicio de fragmentos
+ a| 
+Gestiona datos codificados por borrado y fragmentos de paridad.
+ a| 
+Nodos de almacenamiento
+
+
+
+ a| 
+CMN (Nodo de gestión de configuración)
+ a| 
+Gestiona configuraciones de todo el sistema y tareas de la red.  Cada red tiene un servicio CMN.
+ a| 
+Nodo de administración principal
+
+
+
+ a| 
+DDS (Almacén de datos distribuidos)
+ a| 
+Interfaces con la base de datos Cassandra para administrar metadatos de objetos.
+ a| 
+Nodos de almacenamiento
+
+
+
+ a| 
+DMV (Transportador de datos)
+ a| 
+Mueve datos a puntos finales en la nube.
+ a| 
+Nodos de almacenamiento
+
+
+
+ a| 
+IP dinámica (dynip)
+ a| 
+Supervisa la red para detectar cambios dinámicos de IP y actualiza las configuraciones locales.
+ a| 
+Todos los nodos
+
+
+
+ a| 
+Grafana
+ a| 
+Se utiliza para la visualización de métricas en el Administrador de cuadrícula.
+ a| 
+Nodos de administración
+
+
+
+ a| 
+Alta disponibilidad
+ a| 
+Administra direcciones IP virtuales de alta disponibilidad en los nodos configurados en la página Grupos de alta disponibilidad.  Este servicio también se conoce como servicio keepalived.
+ a| 
+Nodos de administración y de puerta de enlace
+
+
+
+ a| 
+Identidad (idnt)
+ a| 
+Federa identidades de usuarios de LDAP y Active Directory.
+ a| 
+Nodos de almacenamiento que utilizan el servicio ADC
+
+
+
+ a| 
+Árbitro Lambda
+ a| 
+Administra solicitudes SelectObjectContent de S3 Select.
+ a| 
+Todos los nodos
+
+
+
+ a| 
+Balanceador de carga (nginx-gw)
+ a| 
+Proporciona equilibrio de carga del tráfico S3 desde los clientes a los nodos de almacenamiento.  El servicio Load Balancer se puede configurar a través de la página de configuración de puntos finales de Load Balancer.  Este servicio también se conoce como servicio nginx-gw.
+ a| 
+Nodos de administración y de puerta de enlace
+
+
+
+ a| 
+LDR (Enrutador de distribución local)
+ a| 
+Gestiona el almacenamiento y la transferencia de contenido dentro de la red.
+ a| 
+Nodos de almacenamiento
+
+
+
+ a| 
+Demonio de control del servicio de información MISCd
+ a| 
+Proporciona una interfaz para consultar y administrar servicios en otros nodos y para administrar configuraciones ambientales en el nodo, como consultar el estado de los servicios que se ejecutan en otros nodos.
+ a| 
+Todos los nodos
+
+
+
+ a| 
+nginx
+ a| 
+Actúa como un mecanismo de autenticación y comunicación segura para varios servicios de red (como Prometheus y Dynamic IP) para poder comunicarse con servicios en otros nodos a través de API HTTPS.
+ a| 
+Todos los nodos
+
+
+
+ a| 
+nginx-gw
+ a| 
+Alimenta el servicio Load Balancer.
+ a| 
+Nodos de administración y de puerta de enlace
+
+
+
+ a| 
+NMS (Sistema de gestión de red)
+ a| 
+Potencia las opciones de monitoreo, informes y configuración que se muestran a través del Administrador de cuadrícula.
+ a| 
+Nodos de administración
+
+
+
+ a| 
+Persistencia
+ a| 
+Administra archivos en el disco raíz que deben persistir luego de un reinicio.
+ a| 
+Todos los nodos
+
+
+
+ a| 
+Prometeo
+ a| 
+Recopila métricas de series temporales de los servicios en todos los nodos.
+ a| 
+Nodos de administración
+
+
+
+ a| 
+RSM (Máquina de estados replicada)
+ a| 
+Garantiza que las solicitudes de servicio de la plataforma se envíen a sus respectivos puntos finales.
+ a| 
+Nodos de almacenamiento que utilizan el servicio ADC
+
+
+
+ a| 
+SSM (Monitor de estado del servidor)
+ a| 
+Supervisa las condiciones del hardware y las informa al servicio NMS.
+ a| 
+Hay una instancia presente en cada nodo de la red
+
+
+
+ a| 
+Recolector de trazas
+ a| 
+Realiza la recopilación de seguimiento para reunir información para uso del soporte técnico.  El servicio de recopilación de rastros utiliza software Jaeger de código abierto.
+ a| 
+Nodos de administración
+
+|===

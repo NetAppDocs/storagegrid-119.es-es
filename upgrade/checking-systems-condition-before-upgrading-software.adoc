@@ -1,0 +1,60 @@
+---
+permalink: upgrade/checking-systems-condition-before-upgrading-software.html 
+sidebar: sidebar 
+keywords: upgrade, grid tasks, firewall, ports 
+summary: Antes de actualizar un sistema StorageGRID , verifique que el sistema esté listo para admitir la actualización.  Asegúrese de que el sistema esté funcionando normalmente y que todos los nodos de la red estén operativos. 
+---
+= Verifique el estado del sistema
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de actualizar un sistema StorageGRID , verifique que el sistema esté listo para admitir la actualización.  Asegúrese de que el sistema esté funcionando normalmente y que todos los nodos de la red estén operativos.
+
+.Pasos
+. Sign in en Grid Manager usando unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+. Verifique y resuelva cualquier alerta activa.
+. Confirme que no haya tareas de cuadrícula conflictivas activas o pendientes.
++
+.. Seleccione *SOPORTE* > *Herramientas* > *Topología de cuadrícula*.
+.. Seleccione *_site_* > *_primary Admin Node_* > *CMN* > *Grid Tasks* > *Configuración*.
++
+Las tareas de evaluación de la gestión del ciclo de vida de la información (ILME) son las únicas tareas de la red que pueden ejecutarse simultáneamente con la actualización del software.
+
+.. Si hay otras tareas de la red activas o pendientes, espere a que finalicen o liberen su bloqueo.
++
+
+NOTE: Comuníquese con el soporte técnico si una tarea no finaliza o no libera su bloqueo.
+
+
+
+. Referirse alink:../network/internal-grid-node-communications.html["Comunicaciones internas de los nodos de la red"] ylink:../network/external-communications.html["Comunicaciones externas"] para garantizar que todos los puertos necesarios para StorageGRID 11.9 estén abiertos antes de realizar la actualización.
++
+
+NOTE: No se requieren puertos adicionales al actualizar a StorageGRID 11.9.
+
++
+El siguiente puerto requerido se agregó en StorageGRID 11.7.  Asegúrese de que esté disponible antes de actualizar a StorageGRID 11.9.
+
++
+[cols="1a,2a"]
+|===
+| Puerto | Descripción 
+
+
+ a| 
+18086
+ a| 
+Puerto TCP utilizado para solicitudes S3 del balanceador de carga StorageGRID a LDR y al nuevo servicio LDR.
+
+Antes de actualizar, confirme que este puerto esté abierto desde todos los nodos de la red a todos los nodos de almacenamiento.
+
+El bloqueo de este puerto provocará interrupciones del servicio S3 después de la actualización a StorageGRID 11.9.
+
+|===
+
+
+
+CAUTION: Si ha abierto algún puerto de firewall personalizado, se le notificará durante la comprobación previa a la actualización.  Debe ponerse en contacto con el soporte técnico antes de continuar con la actualización.

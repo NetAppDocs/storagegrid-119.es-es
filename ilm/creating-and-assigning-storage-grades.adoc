@@ -1,0 +1,65 @@
+---
+permalink: ilm/creating-and-assigning-storage-grades.html 
+sidebar: sidebar 
+keywords: what is a storage grade, create storage grade 
+summary: Los grados de almacenamiento identifican el tipo de almacenamiento utilizado por un nodo de almacenamiento.  Puede crear grados de almacenamiento si desea que las reglas ILM coloquen determinados objetos en determinados nodos de almacenamiento. 
+---
+= Crear y asignar grados de almacenamiento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los grados de almacenamiento identifican el tipo de almacenamiento utilizado por un nodo de almacenamiento.  Puede crear grados de almacenamiento si desea que las reglas ILM coloquen determinados objetos en determinados nodos de almacenamiento.
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tieneslink:../admin/admin-group-permissions.html["permisos de acceso específicos"] .
+
+
+.Acerca de esta tarea
+Cuando instala StorageGRID por primera vez, el grado de almacenamiento *Predeterminado* se asigna automáticamente a cada nodo de almacenamiento en su sistema.  Según sea necesario, puede definir opcionalmente grados de almacenamiento personalizados y asignarlos a diferentes nodos de almacenamiento.
+
+El uso de grados de almacenamiento personalizados le permite crear grupos de almacenamiento ILM que contienen solo un tipo específico de nodo de almacenamiento.  Por ejemplo, es posible que desee que determinados objetos se almacenen en sus nodos de almacenamiento más rápidos, como los dispositivos de almacenamiento totalmente flash StorageGRID .
+
+
+NOTE: Los nodos de almacenamiento se pueden configurar durante la instalación para que contengan solo metadatos de objetos y no datos de objetos. A los nodos de almacenamiento de solo metadatos no se les puede asignar un grado de almacenamiento. Para obtener más información, consulte link:../primer/what-storage-node-is.html#types-of-storage-nodes["Tipos de nodos de almacenamiento"] .
+
+Si el grado de almacenamiento no es una preocupación (por ejemplo, todos los nodos de almacenamiento son idénticos), puede omitir este procedimiento y usar la selección *incluye todos los grados de almacenamiento* para el grado de almacenamiento cuandolink:creating-storage-pool.html["crear grupos de almacenamiento"] .  El uso de esta selección garantiza que el grupo de almacenamiento incluirá todos los nodos de almacenamiento del sitio, independientemente de su grado de almacenamiento.
+
+
+NOTE: No cree más niveles de almacenamiento de los necesarios.  Por ejemplo, no cree un grado de almacenamiento para cada nodo de almacenamiento.  En su lugar, asigne cada grado de almacenamiento a dos o más nodos.  Los grados de almacenamiento asignados a un solo nodo pueden provocar retrasos en ILM si ese nodo deja de estar disponible.
+
+.Pasos
+. Seleccione *ILM* > *Grados de almacenamiento*.
+. Definir grados de almacenamiento personalizados:
++
+.. Para cada grado de almacenamiento personalizado que desee agregar, seleccione *Insertar*image:../media/icon_nms_insert.gif["insertar icono"] para agregar una fila.
+.. Introduzca una etiqueta descriptiva.
++
+image::../media/editing_storage_grades.gif[Página de grados de almacenamiento]
+
+.. Seleccione *Aplicar cambios*.
+.. Opcionalmente, si necesita modificar una etiqueta guardada, seleccione *Editar*image:../media/icon_nms_edit.gif["icono de edición"] y seleccione *Aplicar cambios*.
++
+
+NOTE: No se pueden eliminar los niveles de almacenamiento.
+
+
+
+. Asignar nuevos grados de almacenamiento a los nodos de almacenamiento:
++
+.. Localice el nodo de almacenamiento en la lista LDR y seleccione su ícono *Editar*image:../media/icon_nms_edit.gif["icono de edición"] .
+.. Seleccione el grado de almacenamiento apropiado de la lista.
++
+image::../media/assigning_storage_grades_to_storage_nodes.gif[Página de grados de almacenamiento]
+
++
+
+NOTE: Asignar un grado de almacenamiento a un nodo de almacenamiento determinado solo una vez.  Un nodo de almacenamiento recuperado de una falla mantiene el grado de almacenamiento asignado previamente.  No cambie esta asignación después de que se active la política ILM.  Si se cambia la asignación, los datos se almacenan según el nuevo grado de almacenamiento.
+
+.. Seleccione *Aplicar cambios*.
+
+
+

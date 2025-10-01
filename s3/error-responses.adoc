@@ -1,0 +1,378 @@
+---
+permalink: s3/error-responses.html 
+sidebar: sidebar 
+keywords: error, error responses 
+summary: El sistema StorageGRID admite todas las respuestas de error de API REST S3 estándar que corresponden.  Además, la implementación de StorageGRID agrega varias respuestas personalizadas. 
+---
+= Respuestas de error
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El sistema StorageGRID admite todas las respuestas de error de API REST S3 estándar que corresponden.  Además, la implementación de StorageGRID agrega varias respuestas personalizadas.
+
+
+
+== Códigos de error de la API de S3 compatibles
+
+[cols="1a,1a"]
+|===
+| Nombre | Estado HTTP 
+
+
+ a| 
+Acceso denegado
+ a| 
+403 Prohibido
+
+
+
+ a| 
+Mal resumen
+ a| 
+400 Solicitud incorrecta
+
+
+
+ a| 
+El cubo ya existe
+ a| 
+409 Conflict
+
+
+
+ a| 
+Cubo no vacío
+ a| 
+409 Conflict
+
+
+
+ a| 
+Cuerpo incompleto
+ a| 
+400 Solicitud incorrecta
+
+
+
+ a| 
+Error interno
+ a| 
+500 Error interno del servidor
+
+
+
+ a| 
+ID de clave de acceso no válido
+ a| 
+403 Prohibido
+
+
+
+ a| 
+Argumento inválido
+ a| 
+400 Solicitud incorrecta
+
+
+
+ a| 
+Nombre de cubo inválido
+ a| 
+400 Solicitud incorrecta
+
+
+
+ a| 
+Estado del cubo no válido
+ a| 
+409 Conflict
+
+
+
+ a| 
+Resumen inválido
+ a| 
+400 Solicitud incorrecta
+
+
+
+ a| 
+Error de algoritmo de cifrado no válido
+ a| 
+400 Solicitud incorrecta
+
+
+
+ a| 
+Parte inválida
+ a| 
+400 Solicitud incorrecta
+
+
+
+ a| 
+Orden de pieza no válida
+ a| 
+400 Solicitud incorrecta
+
+
+
+ a| 
+Rango inválido
+ a| 
+416 Rango solicitado no satisfacible
+
+
+
+ a| 
+Solicitud inválida
+ a| 
+400 Solicitud incorrecta
+
+
+
+ a| 
+Clase de almacenamiento no válida
+ a| 
+400 Solicitud incorrecta
+
+
+
+ a| 
+Etiqueta inválida
+ a| 
+400 Solicitud incorrecta
+
+
+
+ a| 
+URI no válido
+ a| 
+400 Solicitud incorrecta
+
+
+
+ a| 
+Clave demasiado larga
+ a| 
+400 Solicitud incorrecta
+
+
+
+ a| 
+XML malformado
+ a| 
+400 Solicitud incorrecta
+
+
+
+ a| 
+Metadatos demasiado grandes
+ a| 
+400 Solicitud incorrecta
+
+
+
+ a| 
+Método no permitido
+ a| 
+Método 405 no permitido
+
+
+
+ a| 
+Longitud de contenido faltante
+ a| 
+411 Longitud requerida
+
+
+
+ a| 
+Error de cuerpo de solicitud faltante
+ a| 
+400 Solicitud incorrecta
+
+
+
+ a| 
+Encabezado de seguridad faltante
+ a| 
+400 Solicitud incorrecta
+
+
+
+ a| 
+NoSuchBucket
+ a| 
+404 No encontrado
+
+
+
+ a| 
+NoSuchKey
+ a| 
+404 No encontrado
+
+
+
+ a| 
+NoSuchUpload
+ a| 
+404 No encontrado
+
+
+
+ a| 
+No implementado
+ a| 
+501 No implementado
+
+
+
+ a| 
+Política de no usar este cubo
+ a| 
+404 No encontrado
+
+
+
+ a| 
+Error de configuración de bloqueo de objeto no encontrado
+ a| 
+404 No encontrado
+
+
+
+ a| 
+Precondición fallida
+ a| 
+412 Precondición fallida
+
+
+
+ a| 
+RequestTimeTooSkewed
+ a| 
+403 Prohibido
+
+
+
+ a| 
+Servicio No Disponible
+ a| 
+503 Servicio no disponible
+
+
+
+ a| 
+La firma no coincide
+ a| 
+403 Prohibido
+
+
+
+ a| 
+Demasiados cubos
+ a| 
+400 Solicitud incorrecta
+
+
+
+ a| 
+La clave de usuario debe especificarse
+ a| 
+400 Solicitud incorrecta
+
+|===
+
+
+== Códigos de error personalizados de StorageGRID
+
+[cols="2a,2a,1a"]
+|===
+| Nombre | Descripción | Estado HTTP 
+
+
+ a| 
+Ciclo de vida de XBucket no permitido
+ a| 
+La configuración del ciclo de vida del bucket no está permitida en un bucket compatible heredado
+ a| 
+400 Solicitud incorrecta
+
+
+
+ a| 
+Excepción de análisis de política de XBucket
+ a| 
+No se pudo analizar el JSON de la política de depósito recibida.
+ a| 
+400 Solicitud incorrecta
+
+
+
+ a| 
+Conflicto de cumplimiento X
+ a| 
+Operación denegada debido a configuraciones de cumplimiento heredadas.
+ a| 
+403 Prohibido
+
+
+
+ a| 
+XComplianceReducedRedundancyForbidden
+ a| 
+No se permite redundancia reducida en el bucket compatible heredado
+ a| 
+400 Solicitud incorrecta
+
+
+
+ a| 
+Longitud máxima de la política de cubos X excedida
+ a| 
+Su póliza excede la longitud máxima permitida de la póliza.
+ a| 
+400 Solicitud incorrecta
+
+
+
+ a| 
+XMissingInternalRequestHeader
+ a| 
+Falta un encabezado de una solicitud interna.
+ a| 
+400 Solicitud incorrecta
+
+
+
+ a| 
+Cumplimiento de XNoSuchBucket
+ a| 
+El depósito especificado no tiene habilitada la conformidad heredada.
+ a| 
+404 No encontrado
+
+
+
+ a| 
+XNo aceptable
+ a| 
+La solicitud contiene uno o más encabezados de aceptación que no se pudieron satisfacer.
+ a| 
+406 No aceptable
+
+
+
+ a| 
+XNoImplementado
+ a| 
+La solicitud que proporcionó implica una funcionalidad que no está implementada.
+ a| 
+501 No implementado
+
+|===

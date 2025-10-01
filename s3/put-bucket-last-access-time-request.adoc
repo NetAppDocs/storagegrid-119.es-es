@@ -1,0 +1,50 @@
+---
+permalink: s3/put-bucket-last-access-time-request.html 
+sidebar: sidebar 
+keywords: S3 REST API, S3 operations, put bucket last access time request 
+summary: La solicitud de hora de último acceso al bucket GET le permite determinar si las actualizaciones de hora de último acceso están habilitadas o deshabilitadas para buckets individuales. 
+---
+= Hora del último acceso al depósito PUT
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La solicitud de hora de último acceso al depósito PUT le permite habilitar o deshabilitar actualizaciones de hora de último acceso para depósitos individuales.  Deshabilitar las actualizaciones del último tiempo de acceso mejora el rendimiento y es la configuración predeterminada para todos los depósitos creados con la versión 10.3.0 o posterior.
+
+Debe tener el permiso s3:PutBucketLastAccessTime para un bucket, o ser root de la cuenta, para completar esta operación.
+
+
+NOTE: A partir de la versión 10.3 de StorageGRID , las actualizaciones de la hora del último acceso están deshabilitadas de manera predeterminada para todos los depósitos nuevos.  Si tiene depósitos que se crearon utilizando una versión anterior de StorageGRID y desea que coincidan con el nuevo comportamiento predeterminado, debe deshabilitar explícitamente las actualizaciones de la última hora de acceso para cada uno de esos depósitos anteriores.  Puede habilitar o deshabilitar las actualizaciones de la última hora de acceso mediante la solicitud de última hora de acceso del depósito PUT o desde la página de detalles de un depósito en el Administrador de inquilinos. Ver link:../tenant/enabling-or-disabling-last-access-time-updates.html["Habilitar o deshabilitar las actualizaciones de la última hora de acceso"] .
+
+Si las actualizaciones del último tiempo de acceso están deshabilitadas para un depósito, se aplica el siguiente comportamiento a las operaciones en el depósito:
+
+* Las solicitudes GetObject, GetObjectAcl, GetObjectTagging y HeadObject no actualizan la hora del último acceso.  El objeto no se agrega a las colas para la evaluación de la gestión del ciclo de vida de la información (ILM).
+* Las solicitudes CopyObject y PutObjectTagging que actualizan solo los metadatos también actualizan la hora del último acceso.  El objeto se agrega a las colas para la evaluación de ILM.
+* Si las actualizaciones de la hora del último acceso están deshabilitadas para el depósito de origen, las solicitudes CopyObject no actualizan la hora del último acceso para el depósito de origen.  El objeto que se copió no se agrega a las colas para la evaluación de ILM para el depósito de origen.  Sin embargo, para el destino, las solicitudes CopyObject siempre actualizan la hora del último acceso.  La copia del objeto se agrega a las colas para la evaluación de ILM.
+* CompleteMultipartUpload solicita actualizar la hora del último acceso.  El objeto completado se agrega a las colas para la evaluación de ILM.
+
+
+
+
+== Solicitar ejemplos
+
+Este ejemplo habilita el último tiempo de acceso para un bucket.
+
+[listing, subs="specialcharacters,quotes"]
+----
+PUT /bucket?x-ntap-sg-lastaccesstime=enabled HTTP/1.1
+Date: _date_
+Authorization: _authorization string_
+Host: _host_
+----
+Este ejemplo deshabilita el tiempo del último acceso para un depósito.
+
+[listing, subs="specialcharacters,quotes"]
+----
+PUT /bucket?x-ntap-sg-lastaccesstime=disabled HTTP/1.1
+Date: _date_
+Authorization: _authorization string_
+Host: _host_
+----

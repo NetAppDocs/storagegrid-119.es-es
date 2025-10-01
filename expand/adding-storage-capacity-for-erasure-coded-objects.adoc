@@ -1,0 +1,28 @@
+---
+permalink: expand/adding-storage-capacity-for-erasure-coded-objects.html 
+sidebar: sidebar 
+keywords: erasure coding, capacity, storage nodes, ec, expand, expansion 
+summary: Si su política de ILM incluye una regla que realiza copias con código de borrado, debe planificar dónde y cuándo agregar nuevo almacenamiento.  La cantidad de almacenamiento que agregue y el momento de la adición pueden afectar la capacidad de almacenamiento utilizable de la red. 
+---
+= Añadir capacidad de almacenamiento para objetos con código de borrado
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si su política de ILM incluye una regla que realiza copias con código de borrado, debe planificar dónde y cuándo agregar nuevo almacenamiento.  La cantidad de almacenamiento que agregue y el momento de la adición pueden afectar la capacidad de almacenamiento utilizable de la red.
+
+El primer paso para planificar una expansión de almacenamiento es examinar las reglas en su política ILM que crean objetos con código de borrado.  Debido a que StorageGRID crea _k+m_ fragmentos para cada objeto con código de borrado y almacena cada fragmento en un nodo de almacenamiento diferente, debe asegurarse de que al menos _k+m_ nodos de almacenamiento tengan espacio para nuevos datos con código de borrado después de la expansión.  Si el perfil de codificación de borrado proporciona protección contra pérdida de sitio, debe agregar almacenamiento a cada sitio.  Verlink:../ilm/what-erasure-coding-schemes-are.html["¿Qué son los esquemas de codificación de borrado?"] para obtener información sobre los perfiles de codificación de borrado.
+
+La cantidad de nodos que necesita agregar también depende de qué tan llenos estén los nodos existentes cuando realice la expansión.
+
+
+
+== Recomendación general para agregar capacidad de almacenamiento para objetos con código de borrado
+
+Si desea evitar cálculos detallados, puede agregar dos nodos de almacenamiento por sitio cuando los nodos de almacenamiento existentes alcancen el 70 % de su capacidad.
+
+Esta recomendación general proporciona resultados razonables en una amplia gama de esquemas de codificación de borrado tanto para redes de un solo sitio como para redes en las que la codificación de borrado proporciona protección contra pérdida de sitios.
+
+Para comprender mejor los factores que llevaron a esta recomendación o para desarrollar un plan más preciso para su sitio, consultelink:considerations-for-rebalancing-erasure-coded-data.html["Consideraciones para reequilibrar los datos codificados por borrado"] .  Para obtener una recomendación personalizada optimizada para su situación, comuníquese con su consultor de Servicios Profesionales de NetApp .

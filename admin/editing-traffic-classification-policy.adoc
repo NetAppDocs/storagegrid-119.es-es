@@ -1,0 +1,52 @@
+---
+permalink: admin/editing-traffic-classification-policy.html 
+sidebar: sidebar 
+keywords: edit traffic classification policy 
+summary: Puede editar una política de clasificación de tráfico para cambiar su nombre o descripción, o para crear, editar o eliminar cualquier regla o límite para la política. 
+---
+= Editar la política de clasificación de tráfico
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede editar una política de clasificación de tráfico para cambiar su nombre o descripción, o para crear, editar o eliminar cualquier regla o límite para la política.
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tú tienes ellink:admin-group-permissions.html["Permiso de acceso root"] .
+
+
+.Pasos
+. Seleccione *CONFIGURACIÓN* > *Red* > *Clasificación de tráfico*.
++
+Aparece la página de Políticas de clasificación de tráfico y las políticas existentes se enumeran en una tabla.
+
+. Edite la política utilizando el menú Acciones o la página de detalles.  Verlink:../admin/creating-traffic-classification-policies.html["crear políticas de clasificación de tráfico"] para qué entrar.
++
+[role="tabbed-block"]
+====
+.Menú de acciones
+--
+.. Seleccione la casilla de verificación de la política.
+.. Seleccione *Acciones* > *Editar*.
+
+
+--
+.Página de detalles
+--
+.. Seleccione el nombre de la política.
+.. Seleccione el botón *Editar* junto al nombre de la política.
+
+
+--
+====
+. Para el paso Ingresar nombre de política, opcionalmente edite el nombre o la descripción de la política y seleccione *Continuar*.
+. Para el paso Agregar reglas coincidentes, opcionalmente agregue una regla o edite el *Tipo* y el *Valor de coincidencia* de la regla existente y seleccione *Continuar*.
+. Para el paso Establecer límites, opcionalmente agregue, edite o elimine un límite y seleccione *Continuar*.
+. Revise la política actualizada y seleccione *Guardar y continuar*.
++
+Los cambios realizados en la política se guardan y el tráfico de red ahora se maneja de acuerdo con las políticas de clasificación de tráfico.  Puede ver los gráficos de tráfico y verificar que las políticas estén aplicando los límites de tráfico esperados.
+
+

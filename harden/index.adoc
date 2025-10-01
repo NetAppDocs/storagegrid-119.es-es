@@ -1,0 +1,28 @@
+---
+permalink: harden/index.html 
+sidebar: sidebar 
+keywords: Hardening guidelines, system, security 
+summary: El fortalecimiento del sistema es el proceso de eliminar tantos riesgos de seguridad como sea posible de un sistema StorageGRID . 
+---
+= Consideraciones generales para el fortalecimiento del sistema
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El fortalecimiento del sistema es el proceso de eliminar tantos riesgos de seguridad como sea posible de un sistema StorageGRID .
+
+A medida que instala y configura StorageGRID, utilice estas pautas para ayudarlo a cumplir con los objetivos de seguridad prescritos en materia de confidencialidad, integridad y disponibilidad.
+
+Ya debería estar utilizando las mejores prácticas estándar de la industria para el fortalecimiento del sistema. Por ejemplo, utiliza contraseñas seguras para StorageGRID, usa HTTPS en lugar de HTTP y habilita la autenticación basada en certificados cuando esté disponible.
+
+StorageGRID sigue las https://security.netapp.com/policy/["Política de gestión de vulnerabilidades de NetApp"^] .  Las vulnerabilidades reportadas se verifican y abordan de acuerdo con el proceso de respuesta a incidentes de seguridad del producto.
+
+Al fortalecer un sistema StorageGRID , tenga en cuenta lo siguiente:
+
+* ¿*Cuál de las tres redes StorageGRID * ha implementado?  Todos los sistemas StorageGRID deben usar la red Grid, pero también es posible que utilice la red de administración, la red de cliente o ambas.  Cada red tiene diferentes consideraciones de seguridad.
+* *El tipo de plataformas* que utiliza para los nodos individuales en su sistema StorageGRID .  Los nodos StorageGRID se pueden implementar en máquinas virtuales VMware, dentro de un motor de contenedores en hosts Linux o como dispositivos de hardware dedicados.  Cada tipo de plataforma tiene su propio conjunto de mejores prácticas de fortalecimiento.
+* *Qué tan confiables son las cuentas de los inquilinos*.  Si usted es un proveedor de servicios con cuentas de inquilinos que no son de confianza, tendrá preocupaciones de seguridad diferentes que si solo utiliza inquilinos internos y de confianza.
+* *Qué requisitos y convenciones de seguridad* sigue su organización.  Es posible que deba cumplir con requisitos corporativos o regulatorios específicos.
+

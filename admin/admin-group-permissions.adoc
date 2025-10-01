@@ -1,0 +1,210 @@
+---
+permalink: admin/admin-group-permissions.html 
+sidebar: sidebar 
+keywords: admin group permissions 
+summary: Al crear grupos de usuarios administradores, selecciona uno o más permisos para controlar el acceso a funciones específicas del Administrador de cuadrícula.  Luego puede asignar cada usuario a uno o más de estos grupos de administración para determinar qué tareas puede realizar ese usuario. 
+---
+= Permisos del grupo de administradores
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Al crear grupos de usuarios administradores, selecciona uno o más permisos para controlar el acceso a funciones específicas del Administrador de cuadrícula.  Luego puede asignar cada usuario a uno o más de estos grupos de administración para determinar qué tareas puede realizar ese usuario.
+
+Debe asignar al menos un permiso a cada grupo; de lo contrario, los usuarios que pertenecen a ese grupo no podrán iniciar sesión en Grid Manager ni en la API de administración de Grid.
+
+De forma predeterminada, cualquier usuario que pertenezca a un grupo que tenga al menos un permiso puede realizar las siguientes tareas:
+
+* Sign in en el Administrador de cuadrícula
+* Ver el panel de control
+* Ver las páginas de Nodos
+* Ver alertas actuales y resueltas
+* Cambiar su propia contraseña (sólo usuarios locales)
+* Ver cierta información proporcionada en las páginas de Configuración y Mantenimiento
+
+
+
+
+== Interacción entre permisos y modo de acceso
+
+Para todos los permisos, la configuración *Modo de acceso* del grupo determina si los usuarios pueden cambiar configuraciones y realizar operaciones o si solo pueden ver las configuraciones y funciones relacionadas.  Si un usuario pertenece a varios grupos y alguno de ellos está configurado como *Solo lectura*, el usuario tendrá acceso de solo lectura a todas las configuraciones y funciones seleccionadas.
+
+Las siguientes secciones describen los permisos que puede asignar al crear o editar un grupo de administradores.  Cualquier funcionalidad no mencionada explícitamente requiere el permiso de *acceso root*.
+
+
+
+== Acceso root
+
+Este permiso proporciona acceso a todas las funciones de administración de la red.
+
+
+
+== Cambiar la contraseña raíz del inquilino
+
+Este permiso proporciona acceso a la opción *Cambiar contraseña root* en la página Inquilinos, lo que le permite controlar quién puede cambiar la contraseña del usuario root local del inquilino.  Este permiso también se utiliza para migrar claves S3 cuando la función de importación de claves S3 está habilitada.  Los usuarios que no tienen este permiso no pueden ver la opción *Cambiar contraseña root*.
+
+
+NOTE: Para otorgar acceso a la página Inquilinos, que contiene la opción *Cambiar contraseña root*, asigne también el permiso *Cuentas de inquilinos*.
+
+
+
+== Configuración de la página de topología de cuadrícula
+
+Este permiso proporciona acceso a las pestañas de Configuración en la página *SOPORTE* > *Herramientas* > *Topología de cuadrícula*.
+
+
+NOTE: La página de topología de cuadrícula ha quedado obsoleta y se eliminará en una versión futura.
+
+
+
+== ILM
+
+Este permiso proporciona acceso a las siguientes opciones del menú *ILM*:
+
+* Normas
+* Políticas
+* Etiquetas de política
+* Pools de almacenamiento
+* Grados de almacenamiento
+* Regiones
+* Búsqueda de metadatos de objetos
+
+
+
+NOTE: Los usuarios deben tener los permisos *Otra configuración de red* y *Configuración de página de topología de red* para administrar los niveles de almacenamiento.
+
+
+
+== Mantenimiento
+
+Los usuarios deben tener el permiso de Mantenimiento para utilizar estas opciones:
+
+* *CONFIGURACIÓN* > *Control de acceso*:
++
+** Contraseñas de la red
+
+
+* *CONFIGURACIÓN* > *Red*:
++
+** Nombres de dominio de punto final S3
+
+
+* *MANTENIMIENTO* > *Tareas*:
++
+** Desmantelamiento
+** Expansión
+** Comprobación de existencia de objetos
+** Recuperación
+
+
+* *MANTENIMIENTO* > *Sistema*:
++
+** Paquete de recuperación
+** Actualización de software
+
+
+* *SOPORTE* > *Herramientas*:
++
+** Registros
+
+
+
+
+Los usuarios que no tienen el permiso de Mantenimiento pueden ver, pero no editar, estas páginas:
+
+* *MANTENIMIENTO* > *Red*:
++
+** servidores DNS
+** Red de cuadrícula
+** servidores NTP
+
+
+* *MANTENIMIENTO* > *Sistema*:
++
+** Licencia
+
+
+* *CONFIGURACIÓN* > *Red*:
++
+** Nombres de dominio de punto final S3
+
+
+* *CONFIGURACIÓN* > *Seguridad*:
++
+** Certificados
+
+
+* *CONFIGURACIÓN* > *Monitoreo*:
++
+** Servidor de auditoría y syslog
+
+
+
+
+
+
+== Administrar alertas
+
+Este permiso proporciona acceso a opciones para administrar alertas.  Los usuarios deben tener este permiso para administrar silencios, notificaciones de alerta y reglas de alerta.
+
+
+
+== Consulta de métricas
+
+Este permiso proporciona acceso a:
+
+* *SOPORTE* > *Herramientas* > Página *Métricas*
+* Consultas de métricas de Prometheus personalizadas mediante la sección *Métricas* de la API de administración de cuadrícula
+* Tarjetas del panel de control de Grid Manager que contienen métricas
+
+
+
+
+== Búsqueda de metadatos de objetos
+
+Este permiso proporciona acceso a la página *ILM* > *Búsqueda de metadatos de objetos*.
+
+
+
+== Otra configuración de red
+
+Este permiso proporciona acceso a opciones de configuración de cuadrícula adicionales.
+
+
+TIP: Para ver estas opciones adicionales, los usuarios también deben tener el permiso *Configuración de la página de topología de cuadrícula*.
+
+* *ILM*:
++
+** Grados de almacenamiento
+
+
+* *CONFIGURACIÓN* > *Sistema*:
+* *SOPORTE* > *Otro*:
++
+** Costo del enlace
+
+
+
+
+
+
+== Administrador de dispositivos de almacenamiento
+
+Este permiso proporciona:
+
+* Acceso al E-Series SANtricity System Manager en dispositivos de almacenamiento a través del Grid Manager.
+* La capacidad de realizar tareas de resolución de problemas y mantenimiento en la pestaña Administrar unidades para dispositivos que admiten estas operaciones.
+
+
+
+
+== Cuentas de inquilinos
+
+Este permiso proporciona la capacidad de:
+
+* Acceda a la página Inquilinos, donde puede crear, editar y eliminar cuentas de inquilinos
+* Ver las políticas de clasificación de tráfico existentes
+* Ver las tarjetas del panel de Grid Manager que contienen detalles de los inquilinos
+

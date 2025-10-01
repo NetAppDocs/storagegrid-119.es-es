@@ -1,0 +1,72 @@
+---
+permalink: monitor/collecting-log-files-and-system-data.html 
+sidebar: sidebar 
+keywords: how to collect system data, how to collect logs 
+summary: 'Puede utilizar Grid Manager para recuperar archivos de registro y datos del sistema (incluidos datos de configuración) para su sistema StorageGRID .' 
+---
+= Recopilar archivos de registro y datos del sistema
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede utilizar Grid Manager para recuperar archivos de registro y datos del sistema (incluidos los datos de configuración) para su sistema StorageGRID .
+
+.Antes de empezar
+* Debe iniciar sesión en el Administrador de cuadrícula en el nodo de administración principal mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tieneslink:../admin/admin-group-permissions.html["permisos de acceso específicos"] .
+* Debe tener la contraseña de aprovisionamiento.
+
+
+.Acerca de esta tarea
+Puede utilizar el Administrador de cuadrícula para recopilarlink:logs-files-reference.html["archivos de registro"] , datos del sistema y datos de configuración de cualquier nodo de la red durante el período de tiempo que seleccione.  Los datos se recopilan y archivan en un archivo .tar.gz que luego puedes descargar a tu computadora local.
+
+Opcionalmente, puede cambiar el destino de los registros de auditoría y enviar información de auditoría a un servidor syslog externo. Los registros locales de registros de auditoría continúan generándose y almacenándose cuando se configura un servidor syslog externo. Ver link:../monitor/configure-audit-messages.html["Configurar mensajes de auditoría y destinos de registro"] .
+
+.Pasos
+. Seleccione *SOPORTE* > *Herramientas* > *Registros*.
++
+image::../media/support_logs_select_nodes.png[captura de pantalla de la interfaz de usuario de recopilación de registros]
+
+. Seleccione los nodos de la cuadrícula para los que desea recopilar archivos de registro.
++
+Según sea necesario, puede recopilar archivos de registro para toda la red o para todo el sitio del centro de datos.
+
+. Seleccione una *Hora de inicio* y una *Hora de finalización* para establecer el rango de tiempo de los datos que se incluirán en los archivos de registro.
++
+Si selecciona un período de tiempo muy largo o recopila registros de todos los nodos en una cuadrícula grande, el archivo de registros podría volverse demasiado grande para almacenarse en un nodo o demasiado grande para recopilarse en el nodo de administración principal para su descarga.  Si esto ocurre, deberá reiniciar la recopilación de registros con un conjunto de datos más pequeño.
+
+. Seleccione los tipos de registros que desea recopilar.
++
+** *Registros de aplicaciones*: registros específicos de la aplicación que el soporte técnico utiliza con mayor frecuencia para solucionar problemas. Los registros recopilados son un subconjunto de los registros de aplicaciones disponibles.
+** *Registros de auditoría*: Registros que contienen los mensajes de auditoría generados durante el funcionamiento normal del sistema.
+** *Rastreo de red*: registros utilizados para la depuración de red.
+** *Base de datos Prometheus*: métricas de series temporales de los servicios en todos los nodos.
+
+
+. Opcionalmente, ingrese notas sobre los archivos de registro que está recopilando en el cuadro de texto *Notas*.
++
+Puede utilizar estas notas para brindar al soporte técnico información sobre el problema que le llevó a recopilar los archivos de registro.  Sus notas se agregan a un archivo llamado `info.txt` , junto con otra información sobre la recopilación de archivos de registro.  El `info.txt` El archivo se guarda en el paquete de archivo de registro.
+
+. Ingrese la frase de contraseña de aprovisionamiento para su sistema StorageGRID en el cuadro de texto *Frase de contraseña de aprovisionamiento*.
+. Seleccione *Recopilar registros*.
++
+Cuando envía una nueva solicitud, se elimina la colección anterior de archivos de registro.
+
++
+Puede utilizar la página Registros para supervisar el progreso de la recopilación de archivos de registro para cada nodo de la cuadrícula.
+
++
+Si recibe un mensaje de error sobre el tamaño del registro, intente recopilar registros durante un período de tiempo más corto o para menos nodos.
+
+. Seleccione *Descargar* cuando se complete la recopilación del archivo de registro.
++
+El archivo _.tar.gz_ contiene todos los archivos de registro de todos los nodos de la red donde la recopilación de registros fue exitosa.  Dentro del archivo combinado _.tar.gz_, hay un archivo de registro para cada nodo de la red.
+
+
+
+.Después de terminar
+Puede volver a descargar el paquete de almacenamiento de archivos de registro más tarde si lo necesita.
+
+Opcionalmente, puede seleccionar *Eliminar* para eliminar el paquete de archivo de registro y liberar espacio en el disco.  El paquete de archivo de registro actual se elimina automáticamente la próxima vez que se recopilan archivos de registro.

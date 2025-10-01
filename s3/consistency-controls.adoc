@@ -1,0 +1,124 @@
+---
+permalink: s3/consistency-controls.html 
+sidebar: sidebar 
+keywords: consistency, consistency control, consistency values 
+summary: La consistencia proporciona un equilibrio entre la disponibilidad de los objetos y la consistencia de esos objetos en diferentes nodos de almacenamiento y sitios.  Puede cambiar la consistencia según lo requiera su aplicación. 
+---
+= Valores de consistencia
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La consistencia proporciona un equilibrio entre la disponibilidad de los objetos y la consistencia de esos objetos en diferentes nodos de almacenamiento y sitios.  Puede cambiar la consistencia según lo requiera su aplicación.
+
+De forma predeterminada, StorageGRID garantiza la consistencia de lectura tras escritura para los objetos recién creados. Cualquier operación GET posterior a una operación PUT completada con éxito podrá leer los datos recién escritos. Las sobrescrituras de objetos existentes, las actualizaciones de metadatos y las eliminaciones son eventualmente consistentes. Las sobrescrituras generalmente tardan segundos o minutos en propagarse, pero pueden demorar hasta 15 días.
+
+Si desea realizar operaciones de objetos con una consistencia diferente, puede:
+
+* Especificar una consistencia para<<bucket-consistency-control,cada cubo>> .
+* Especificar una consistencia para<<api-operation-consistency-control,cada operación de API>> .
+* Cambie la consistencia predeterminada de toda la cuadrícula realizando una de las siguientes tareas:
++
+** En el Administrador de cuadrícula, vaya a *CONFIGURACIÓN* > *Sistema* > *Configuración de almacenamiento* > *Consistencia predeterminada*.
+**  .
++
+
+NOTE: Un cambio en la consistencia de toda la cuadrícula se aplica solo a los depósitos creados después de que se modificó la configuración.  Para determinar los detalles de un cambio, consulte el registro de auditoría ubicado en `/var/local/log` (buscar *consistencyLevel*).
+
+
+
+
+
+
+
+== Valores de consistencia
+
+La consistencia afecta cómo se distribuyen los metadatos que StorageGRID utiliza para rastrear objetos entre los nodos y, por lo tanto, la disponibilidad de los objetos para las solicitudes de los clientes.
+
+Puede establecer la consistencia de un depósito o una operación de API en uno de los siguientes valores:
+
+* *Todos*: Todos los nodos reciben los datos inmediatamente o la solicitud fallará.
+* *Strong-global*: garantiza la consistencia de lectura después de escritura para todas las solicitudes de clientes en todos los sitios.
+* *Sitio fuerte*: garantiza la consistencia de lectura después de escritura para todas las solicitudes de clientes dentro de un sitio.
+* *Lectura después de nueva escritura*: (predeterminado) proporciona consistencia de lectura después de escritura para objetos nuevos y consistencia eventual para actualizaciones de objetos.  Ofrece alta disponibilidad y garantías de protección de datos.  Recomendado para la mayoría de los casos.
+* *Disponible*: Proporciona consistencia eventual tanto para objetos nuevos como para actualizaciones de objetos.  Para los buckets S3, úselo solo cuando sea necesario (por ejemplo, para un bucket que contiene valores de registro que rara vez se leen, o para operaciones HEAD o GET en claves que no existen).  No compatible con depósitos S3 FabricPool .
+
+
+
+
+== Utilice la consistencia "Lectura después de nueva escritura" y "Disponible"
+
+Cuando una operación HEAD o GET utiliza la consistencia "Lectura después de nueva escritura", StorageGRID realiza la búsqueda en varios pasos, de la siguiente manera:
+
+* Primero busca el objeto utilizando una consistencia baja.
+* Si esa búsqueda falla, se repite la búsqueda en el siguiente valor de consistencia hasta que alcanza una consistencia equivalente al comportamiento de strong-global.
+
+
+Si una operación HEAD o GET utiliza la consistencia "Lectura después de nueva escritura" pero el objeto no existe, la búsqueda del objeto siempre alcanzará una consistencia equivalente al comportamiento para una globalización fuerte.  Debido a que esta consistencia requiere que varias copias de los metadatos del objeto estén disponibles en cada sitio, puede recibir una gran cantidad de errores internos del servidor 500 si dos o más nodos de almacenamiento en el mismo sitio no están disponibles.
+
+A menos que necesite garantías de consistencia similares a Amazon S3, puede evitar estos errores para las operaciones HEAD y GET configurando la consistencia en "Disponible".  Cuando una operación HEAD o GET utiliza la consistencia "Disponible", StorageGRID solo proporciona consistencia eventual.  No vuelve a intentar una operación fallida con una consistencia creciente, por lo que no requiere que haya varias copias disponibles de los metadatos del objeto.
+
+
+
+== [[api-operation-consistency-control]]Especificar la consistencia para la operación de la API
+
+Para establecer la consistencia de una operación de API individual, los valores de consistencia deben ser compatibles con la operación y debe especificar la consistencia en el encabezado de la solicitud.  Este ejemplo establece la consistencia en "Strong-site" para una operación GetObject.
+
+[listing, subs="specialcharacters,quotes"]
+----
+GET /bucket/object HTTP/1.1
+Date: date
+Authorization: _authorization name_
+Host: _host_
+Consistency-Control: strong-site
+----
+
+NOTE: Debe utilizar la misma consistencia para las operaciones PutObject y GetObject.
+
+
+
+== [[bucket-consistency-control]]Especificar la consistencia para el depósito
+
+Para establecer la consistencia del bucket, puede utilizar StorageGRIDlink:put-bucket-consistency-request.html["Consistencia del depósito PUT"] pedido.  O puedeslink:../tenant/manage-bucket-consistency.html#change-bucket-consistency["cambiar la consistencia de un cubo"] del administrador de inquilinos.
+
+Al configurar la consistencia de un depósito, tenga en cuenta lo siguiente:
+
+* La configuración de la consistencia de un depósito determina qué consistencia se utiliza para las operaciones S3 realizadas en los objetos del depósito o en la configuración del depósito.  No afecta las operaciones en el bucket en sí.
+* La consistencia de una operación de API individual anula la consistencia del depósito.
+* En general, los buckets deben usar la consistencia predeterminada: "Lectura después de nueva escritura".  Si las solicitudes no funcionan correctamente, cambie el comportamiento del cliente de la aplicación si es posible.  O bien, configure el cliente para especificar la consistencia para cada solicitud de API.  Establezca la consistencia a nivel de depósito sólo como último recurso.
+
+
+
+
+== [[cómo-interactúan-los-controles-de-coherencia-y-las-reglas-ILM]]Cómo interactúan los controles de consistencia y las reglas ILM para afectar la protección de datos
+
+Tanto su elección de consistencia como su regla ILM afectan cómo se protegen los objetos.  Estas configuraciones pueden interactuar.
+
+Por ejemplo, la consistencia utilizada cuando se almacena un objeto afecta la ubicación inicial de los metadatos del objeto, mientras que el comportamiento de ingesta seleccionado para la regla ILM afecta la ubicación inicial de las copias del objeto.  Debido a que StorageGRID requiere acceso tanto a los metadatos de un objeto como a sus datos para cumplir con las solicitudes de los clientes, seleccionar niveles de protección coincidentes para la consistencia y el comportamiento de ingesta puede brindar una mejor protección de datos inicial y respuestas del sistema más predecibles.
+
+La siguientelink:../ilm/data-protection-options-for-ingest.html["opciones de ingesta"] Están disponibles para las reglas ILM:
+
+Compromiso dual:: StorageGRID realiza inmediatamente copias provisionales del objeto y devuelve el éxito al cliente.  Cuando sea posible se realizarán las copias especificadas en la regla ILM.
+Estricto:: Se deben realizar todas las copias especificadas en la regla ILM antes de devolver el éxito al cliente.
+Equilibrado:: StorageGRID intenta hacer todas las copias especificadas en la regla ILM durante la ingesta; si esto no es posible, se hacen copias provisionales y se devuelve el resultado exitoso al cliente.  Las copias especificadas en la regla ILM se realizan cuando es posible.
+
+
+
+
+== Ejemplo de cómo la consistencia y la regla ILM pueden interactuar
+
+Supongamos que tiene una cuadrícula de dos sitios con la siguiente regla ILM y la siguiente consistencia:
+
+* *Regla ILM*: Crea dos copias de objetos, una en el sitio local y otra en un sitio remoto. Utilice el comportamiento de ingesta estricto.
+* *Consistencia*: Fuerte-global (los metadatos del objeto se distribuyen inmediatamente a todos los sitios).
+
+
+Cuando un cliente almacena un objeto en la red, StorageGRID realiza copias de los objetos y distribuye metadatos a ambos sitios antes de devolver el éxito al cliente.
+
+El objeto está completamente protegido contra pérdida en el momento del mensaje de ingesta exitosa. Por ejemplo, si el sitio local se pierde poco después de la ingesta, aún existen copias de los datos del objeto y de los metadatos del objeto en el sitio remoto.  El objeto es completamente recuperable.
+
+Si, en cambio, utilizara la misma regla ILM y la consistencia del sitio fuerte, el cliente podría recibir un mensaje de éxito después de que los datos del objeto se repliquen en el sitio remoto pero antes de que los metadatos del objeto se distribuyan allí. En este caso, el nivel de protección de los metadatos del objeto no coincide con el nivel de protección de los datos del objeto. Si el sitio local se pierde poco después de la ingesta, se pierden los metadatos del objeto. No se puede recuperar el objeto.
+
+La interrelación entre la consistencia y las reglas ILM puede ser compleja.  Comuníquese con NetApp si necesita ayuda.

@@ -1,0 +1,115 @@
+---
+permalink: monitor/viewing-dashboard.html 
+sidebar: sidebar 
+keywords: how to view dashboard, how to configure dashboard 
+summary: Puede utilizar el panel de control para supervisar las actividades del sistema de un vistazo.  Puede crear paneles personalizados para supervisar su implementación de StorageGRID. 
+---
+= Ver y administrar el panel de control
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede utilizar el panel de control para supervisar las actividades del sistema de un vistazo.  Puede crear paneles personalizados para supervisar su implementación de StorageGRID.
+
+
+TIP: Para cambiar las unidades de los valores de almacenamiento que se muestran en el Administrador de cuadrícula, seleccione el menú desplegable de usuario en la parte superior derecha del Administrador de cuadrícula y luego seleccione *Preferencias de usuario*.
+
+Su panel de control puede ser diferente según la configuración del sistema.
+
+image::../media/grid_manager_dashboard.png[Panel de control de Grid Manager]
+
+
+
+== Ver el panel de control
+
+El panel de control consta de pestañas que contienen información específica sobre el sistema StorageGRID .  Cada pestaña contiene categorías de información que se muestran en las tarjetas.
+
+Puede utilizar el panel de control proporcionado por el sistema tal como está.  Además, puede crear paneles personalizados que contengan solo las pestañas y tarjetas que son relevantes para monitorear su implementación de StorageGRID.
+
+Las pestañas del panel proporcionadas por el sistema contienen tarjetas con los siguientes tipos de información:
+
+[cols="1a,3a"]
+|===
+| Pestaña en el panel de control proporcionado por el sistema | Contiene 
+
+
+ a| 
+Descripción general
+ a| 
+Información general sobre la cuadrícula, como alertas activas, uso de espacio y total de objetos en la cuadrícula.
+
+
+
+ a| 
+Actuación
+ a| 
+Uso de espacio, almacenamiento utilizado a lo largo del tiempo, operaciones S3, duración de la solicitud, tasa de error.
+
+
+
+ a| 
+Almacenamiento
+ a| 
+Uso de cuota de inquilino y uso de espacio lógico.  Pronósticos de uso de espacio para datos de usuario y metadatos.
+
+
+
+ a| 
+ILM
+ a| 
+Cola de gestión del ciclo de vida de la información y tasa de evaluación.
+
+
+
+ a| 
+Nodos
+ a| 
+Uso de CPU, datos y memoria por nodo.  Operaciones S3 por nodo.  Distribución de nodo a sitio.
+
+|===
+Algunas de las tarjetas se pueden maximizar para facilitar su visualización.  Seleccione el icono de maximizarimage:../media/icon_dashboard_card_maximize.png["Maximizar icono"] en la esquina superior derecha de la tarjeta.  Para cerrar una tarjeta maximizada, seleccione el icono de minimizarimage:../media/icon_dashboard_card_minimize.png["Minimizar icono"] o seleccione *Cerrar*.
+
+
+
+== Administrar paneles de control
+
+Si tiene acceso root (verlink:../admin/admin-group-permissions.html["Permisos del grupo de administradores"] ), puede realizar las siguientes tareas de administración de paneles:
+
+* Crea un panel de control personalizado desde cero.  Puede utilizar paneles personalizados para controlar qué información de StorageGRID se muestra y cómo se organiza esa información.
+* Clonar un panel para crear paneles personalizados.
+* Establecer un panel activo para un usuario.  El panel activo puede ser el panel proporcionado por el sistema o un panel personalizado.
+* Establezca un panel predeterminado, que es lo que ven todos los usuarios a menos que activen su propio panel.
+* Editar el nombre de un panel.
+* Edite un panel para agregar o eliminar pestañas y tarjetas.  Puedes tener un mínimo de 1 y un máximo de 20 pestañas.
+* Quitar un tablero.
+
+
+
+NOTE: Si tiene algún otro permiso además del acceso root, solo podrá configurar un panel activo.
+
+Para administrar paneles, seleccione *Acciones* > *Administrar paneles*.
+
+image::../media/dashboard_manage.png[Administrar paneles de control]
+
+
+
+== Configurar paneles de control
+
+Para crear un nuevo panel clonando el panel activo, seleccione *Acciones* > *Clonar panel activo*.
+
+Para editar o clonar un panel existente, seleccione *Acciones* > *Administrar paneles*.
+
+
+NOTE: El panel de control proporcionado por el sistema no se puede editar ni eliminar.
+
+Al configurar un panel, puedes:
+
+* Agregar o quitar pestañas
+* Cambiar el nombre de las pestañas y asignarles nombres únicos a las nuevas pestañas
+* Agregar, eliminar o reorganizar (arrastrar) tarjetas para cada pestaña
+* Seleccione el tamaño de las tarjetas individuales seleccionando *S*, *M*, *L* o *XL* en la parte superior de la tarjeta.
+
+
+image::../media/dashboard_configure.png[Configurar el panel de control]

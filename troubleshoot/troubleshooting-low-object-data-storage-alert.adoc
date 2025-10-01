@@ -1,0 +1,84 @@
+---
+permalink: troubleshoot/troubleshooting-low-object-data-storage-alert.html 
+sidebar: sidebar 
+keywords: how to troubleshoot the Low object data storage alert 
+summary: La alerta *Almacenamiento de datos de objetos bajo* monitorea cuánto espacio está disponible para almacenar datos de objetos en cada nodo de almacenamiento. 
+---
+= Solucionar la alerta de almacenamiento de datos de objetos bajos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La alerta *Almacenamiento de datos de objetos bajo* monitorea cuánto espacio está disponible para almacenar datos de objetos en cada nodo de almacenamiento.
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tieneslink:../admin/admin-group-permissions.html["permisos de acceso específicos"] .
+
+
+.Acerca de esta tarea
+La alerta *Almacenamiento de datos de objetos bajo* se activa cuando la cantidad total de datos de objetos replicados y codificados para borrado en un nodo de almacenamiento cumple una de las condiciones configuradas en la regla de alerta.
+
+De forma predeterminada, se activa una alerta importante cuando esta condición se evalúa como verdadera:
+
+[listing]
+----
+(storagegrid_storage_utilization_data_bytes/
+(storagegrid_storage_utilization_data_bytes + storagegrid_storage_utilization_usable_space_bytes)) >=0.90
+----
+En esta condición:
+
+* `storagegrid_storage_utilization_data_bytes`es una estimación del tamaño total de datos de objetos replicados y codificados por borrado para un nodo de almacenamiento.
+* `storagegrid_storage_utilization_usable_space_bytes`es la cantidad total de espacio de almacenamiento de objetos restante para un nodo de almacenamiento.
+
+
+Si se activa una alerta mayor o menor de *Almacenamiento de datos de objetos bajo*, debe realizar un procedimiento de expansión lo antes posible.
+
+.Pasos
+. Seleccione *ALERTAS* > *Actual*.
++
+Aparece la página de Alertas.
+
+. Desde la tabla de alertas, expanda el grupo de alerta *Almacenamiento de datos de objetos bajo*, si es necesario, y seleccione la alerta que desea ver.
++
+
+NOTE: Seleccione la alerta, no el encabezado, para un grupo de alertas.
+
+. Revise los detalles en el cuadro de diálogo y tenga en cuenta lo siguiente:
++
+** Tiempo activado
+** El nombre del sitio y del nodo
+** Los valores actuales de las métricas para esta alerta
+
+
+. Seleccione *NODOS* > *_Nodo de almacenamiento o Sitio_* > *Almacenamiento*.
+. Coloque el cursor sobre el gráfico Almacenamiento utilizado - Datos de objeto.
++
+Se muestran los siguientes valores:
+
++
+** *Usado (%)*: El porcentaje del espacio utilizable total que se ha utilizado para los datos del objeto.
+** *Usado*: La cantidad de espacio total utilizable que se ha utilizado para los datos del objeto.
+** *Datos replicados*: una estimación de la cantidad de datos de objetos replicados en este nodo, sitio o cuadrícula.
+** *Datos codificados por borrado*: una estimación de la cantidad de datos de objetos codificados por borrado en este nodo, sitio o cuadrícula.
+** *Total*: La cantidad total de espacio utilizable en este nodo, sitio o cuadrícula.  El valor utilizado es el `storagegrid_storage_utilization_data_bytes` métrico.
+
+
++
+image::../media/nodes_page_storage_used_object_data.png[Almacenamiento de páginas de nodos Datos de objetos utilizados]
+
+. Seleccione los controles de tiempo sobre el gráfico para ver el uso del almacenamiento en diferentes períodos de tiempo.
++
+Mirar el uso del almacenamiento a lo largo del tiempo puede ayudarle a comprender cuánto almacenamiento se utilizó antes y después de que se activara la alerta y puede ayudarle a estimar cuánto tiempo podría tardar en llenarse el espacio restante del nodo.
+
+. Lo antes posible,link:../expand/guidelines-for-adding-object-capacity.html["añadir capacidad de almacenamiento"] a tu red.
++
+Puede agregar volúmenes de almacenamiento (LUN) a nodos de almacenamiento existentes o puede agregar nuevos nodos de almacenamiento.
+
++
+
+NOTE: Para obtener más información, consulte link:../admin/managing-full-storage-nodes.html["Administrar nodos de almacenamiento completos"] .
+
+

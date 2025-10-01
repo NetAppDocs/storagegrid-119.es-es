@@ -1,0 +1,48 @@
+---
+permalink: s3/get-bucket-last-access-time-request.html 
+sidebar: sidebar 
+keywords: S3 REST API, S3 operations, GET last access time request 
+summary: La solicitud de hora de último acceso al bucket GET le permite determinar si las actualizaciones de hora de último acceso están habilitadas o deshabilitadas para buckets individuales. 
+---
+= GET Hora del último acceso al bucket
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La solicitud de hora de último acceso al bucket GET le permite determinar si las actualizaciones de hora de último acceso están habilitadas o deshabilitadas para buckets individuales.
+
+Debe tener el permiso s3:GetBucketLastAccessTime o ser root de la cuenta para completar esta operación.
+
+
+
+== Ejemplo de solicitud
+
+[listing, subs="specialcharacters,quotes"]
+----
+GET /bucket?x-ntap-sg-lastaccesstime HTTP/1.1
+Date: _date_
+Authorization: _authorization string_
+Host: _host_
+----
+
+
+== Ejemplo de respuesta
+
+Este ejemplo muestra que las actualizaciones del último tiempo de acceso están habilitadas para el depósito.
+
+[listing]
+----
+HTTP/1.1 200 OK
+Date: Sat, 29 Nov 2015 01:02:18 GMT
+Connection: CLOSE
+Server: StorageGRID/10.3.0
+x-amz-request-id: 12345
+Content-Length: 127
+Content-Type: application/xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<LastAccessTime xmlns="http://s3.storagegrid.com/doc/2015-02-01/">enabled
+</LastAccessTime>
+----

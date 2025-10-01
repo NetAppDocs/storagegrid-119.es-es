@@ -1,0 +1,34 @@
+---
+permalink: ubuntu/validating-storagegrid-configuration.html 
+sidebar: sidebar 
+keywords: how to validate StorageGRID configuration 
+summary: Después de crear archivos de configuración en /etc/storagegrid/nodes para cada uno de los nodos StorageGRID , debe validar el contenido de esos archivos. 
+---
+= Validar la configuración de StorageGRID
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de crear archivos de configuración en `/etc/storagegrid/nodes` Para cada uno de sus nodos StorageGRID , debe validar el contenido de esos archivos.
+
+Para validar el contenido de los archivos de configuración, ejecute el siguiente comando en cada host:
+
+[listing]
+----
+sudo storagegrid node validate all
+----
+Si los archivos son correctos, la salida muestra *PASSED* para cada archivo de configuración, como se muestra en el ejemplo.
+
+
+NOTE: Al utilizar solo un LUN en nodos de solo metadatos, es posible que reciba un mensaje de advertencia que puede ignorarse.
+
+image::../media/rhel_node_configuration_file_output.gif[Esta imagen está explicada por el texto que la rodea.]
+
+
+TIP: Para una instalación automatizada, puede suprimir esta salida utilizando el `-q` o `--quiet` opciones en el `storagegrid` comando (por ejemplo, `storagegrid --quiet...` ).  Si suprime la salida, el comando tendrá un valor de salida distinto de cero si se detectan advertencias o errores de configuración.
+
+Si los archivos de configuración son incorrectos, los problemas se muestran como *ADVERTENCIA* y *ERROR*, como se muestra en el ejemplo.  Si se encuentran errores de configuración, deberá corregirlos antes de continuar con la instalación.
+
+image::../media/rhel_node_configuration_file_output_with_errors.gif[Esta imagen está explicada por el texto que la rodea.]

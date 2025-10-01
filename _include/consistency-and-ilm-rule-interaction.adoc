@@ -1,0 +1,17 @@
+= 
+:allow-uri-read: 
+
+
+Supongamos que tiene una cuadrícula de dos sitios con la siguiente regla ILM y la siguiente consistencia:
+
+* *Regla ILM*: Crea dos copias de objetos, una en el sitio local y otra en un sitio remoto. Utilice el comportamiento de ingesta estricto.
+* *Consistencia*: Fuerte-global (los metadatos del objeto se distribuyen inmediatamente a todos los sitios).
+
+
+Cuando un cliente almacena un objeto en la red, StorageGRID realiza copias de los objetos y distribuye metadatos a ambos sitios antes de devolver el éxito al cliente.
+
+El objeto está completamente protegido contra pérdida en el momento del mensaje de ingesta exitosa. Por ejemplo, si el sitio local se pierde poco después de la ingesta, aún existen copias de los datos del objeto y de los metadatos del objeto en el sitio remoto.  El objeto es completamente recuperable.
+
+Si, en cambio, utilizara la misma regla ILM y la consistencia del sitio fuerte, el cliente podría recibir un mensaje de éxito después de que los datos del objeto se repliquen en el sitio remoto pero antes de que los metadatos del objeto se distribuyan allí. En este caso, el nivel de protección de los metadatos del objeto no coincide con el nivel de protección de los datos del objeto. Si el sitio local se pierde poco después de la ingesta, se pierden los metadatos del objeto. No se puede recuperar el objeto.
+
+La interrelación entre la consistencia y las reglas ILM puede ser compleja.  Comuníquese con NetApp si necesita ayuda.

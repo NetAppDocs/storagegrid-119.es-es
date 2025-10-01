@@ -1,0 +1,41 @@
+---
+permalink: tenant/signing-out-of-tenant-manager.html 
+sidebar: sidebar 
+keywords: how to sign out of tenant manager 
+summary: Cuando termine de trabajar con el Administrador de inquilinos, deberá cerrar la sesión para asegurarse de que usuarios no autorizados no puedan acceder al sistema StorageGRID .  Es posible que cerrar su navegador no cierre su sesión del sistema, según la configuración de cookies del navegador. 
+---
+= Cerrar sesión en el Administrador de inquilinos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando termine de trabajar con el Administrador de inquilinos, deberá cerrar la sesión para asegurarse de que usuarios no autorizados no puedan acceder al sistema StorageGRID .  Es posible que cerrar su navegador no cierre su sesión del sistema, según la configuración de cookies del navegador.
+
+.Pasos
+. Localice el menú desplegable de nombre de usuario en la esquina superior derecha de la interfaz de usuario.
++
+image::../media/tenant_user_sign_out.png[Enlace para cerrar sesión]
+
+. Seleccione el nombre de usuario y luego seleccione *Cerrar sesión*.
++
+** Si no se utiliza SSO:
++
+Has cerrado la sesión del nodo de administración.  Se muestra la página de inicio de sesión del Administrador de inquilinos.
+
++
+
+NOTE: Si inició sesión en más de un nodo de administración, deberá cerrar sesión en cada nodo.
+
+** Si SSO está habilitado:
++
+Has cerrado la sesión de todos los nodos de administración a los que estabas accediendo.  Se muestra la página de Sign in de StorageGRID .  El nombre de la cuenta de inquilino a la que acaba de acceder aparece como predeterminado en el menú desplegable *Cuentas recientes* y se muestra el *ID de cuenta* del inquilino.
+
++
+
+NOTE: Si SSO está habilitado y también ha iniciado sesión en Grid Manager, también debe cerrar sesión en Grid Manager para cerrar sesión en SSO.
+
+
+
+

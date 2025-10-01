@@ -1,0 +1,32 @@
+---
+permalink: ilm/how-ilm-operates-throughout-objects-life.html 
+sidebar: sidebar 
+keywords: ilm lifecycle, object lifecycle and ILM 
+summary: Comprender cómo StorageGRID utiliza ILM para administrar objetos durante cada etapa de su vida puede ayudarlo a diseñar una política más efectiva. 
+---
+= Cómo funciona ILM a lo largo de la vida de un objeto
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Comprender cómo StorageGRID utiliza ILM para administrar objetos durante cada etapa de su vida puede ayudarlo a diseñar una política más efectiva.
+
+* *Ingesta*: la ingesta comienza cuando una aplicación cliente S3 establece una conexión para guardar un objeto en el sistema StorageGRID y se completa cuando StorageGRID devuelve un mensaje de "ingesta exitosa" al cliente.  Los datos de los objetos se protegen durante la ingesta ya sea aplicando instrucciones ILM inmediatamente (colocación sincrónica) o creando copias provisionales y aplicando ILM más tarde (confirmación dual), dependiendo de cómo se especificaron los requisitos de ILM.
+* *Administración de copias*: después de crear la cantidad y el tipo de copias de objetos que se especifican en las instrucciones de ubicación de ILM, StorageGRID administra las ubicaciones de los objetos y los protege contra pérdidas.
++
+** *Escaneo y evaluación de ILM*: StorageGRID escanea continuamente la lista de objetos almacenados en la red y verifica si las copias actuales cumplen con los requisitos de ILM.  Cuando se requieren diferentes tipos, números o ubicaciones de copias de objetos, StorageGRID crea, elimina o mueve copias según sea necesario.
+** *Verificación en segundo plano*: StorageGRID realiza continuamente una verificación en segundo plano para comprobar la integridad de los datos de los objetos.  Si se encuentra un problema, StorageGRID crea automáticamente una nueva copia del objeto o un fragmento de objeto con código de borrado de reemplazo en una ubicación que cumpla con los requisitos ILM actuales. Ver link:../troubleshoot/verifying-object-integrity.html["Verificar la integridad del objeto"] .
+
+
+* *Eliminación de objetos*: la administración de un objeto finaliza cuando se eliminan todas las copias del sistema StorageGRID .  Los objetos se pueden eliminar como resultado de una solicitud de eliminación por parte de un cliente, o como resultado de una eliminación por parte de ILM o una eliminación causada por la expiración del ciclo de vida de un bucket de S3.
++
+
+NOTE: Los objetos de un bucket que tiene habilitado el bloqueo de objetos S3 no se pueden eliminar si están bajo una retención legal o si se ha especificado una fecha de retención pero aún no se cumple.
+
+
+
+El diagrama resume cómo funciona ILM a lo largo del ciclo de vida de un objeto.
+
+image::../media/overview_of_object_lifecycle.png[Descripción general del ciclo de vida de los objetos]

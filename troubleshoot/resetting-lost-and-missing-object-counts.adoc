@@ -1,0 +1,58 @@
+---
+permalink: troubleshoot/resetting-lost-and-missing-object-counts.html 
+sidebar: sidebar 
+keywords: how to reset lost object count, how to reset missing object count 
+summary: Después de investigar el sistema StorageGRID y verificar que todos los objetos perdidos registrados se perdieron de forma permanente o que es una falsa alarma, puede restablecer el valor del atributo Objetos perdidos a cero. 
+---
+= Restablecer el recuento de objetos perdidos y faltantes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de investigar el sistema StorageGRID y verificar que todos los objetos perdidos registrados se perdieron de forma permanente o que es una falsa alarma, puede restablecer el valor del atributo Objetos perdidos a cero.
+
+.Antes de empezar
+* Debe iniciar sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tieneslink:../admin/admin-group-permissions.html["permisos de acceso específicos"] .
+
+
+.Acerca de esta tarea
+Puede restablecer el contador de objetos perdidos desde cualquiera de las siguientes páginas:
+
+* *SOPORTE* > *Herramientas* > *Topología de cuadrícula* > *_Sitio_* > *_Nodo de almacenamiento_* > *LDR* > *Almacén de datos* > *Descripción general* > *Principal*
+* *SOPORTE* > *Herramientas* > *Topología de cuadrícula* > *_Sitio_* > *_Nodo de almacenamiento_* > *DDS* > *Almacén de datos* > *Descripción general* > *Principal*
+
+
+Estas instrucciones muestran cómo restablecer el contador desde la página *LDR* > *Data Store*.
+
+.Pasos
+. Seleccione *SOPORTE* > *Herramientas* > *Topología de cuadrícula*.
+. Seleccione *_Sitio_* > *_Nodo de almacenamiento_* > *LDR* > *Almacén de datos* > *Configuración* para el nodo de almacenamiento que tiene la alerta *Objetos perdidos* o la alarma LOST.
+. Seleccione *Restablecer recuento de objetos perdidos*.
++
+image::../media/reset_ldr_lost_object_count.gif[Captura de pantalla del recuento de objetos perdidos de restablecimiento de LDR]
+
+. Haga clic en *Aplicar cambios*.
++
+El atributo Objetos perdidos se restablece a 0 y la alerta *Objetos perdidos* y la alarma PERDIDO se borran, lo que puede tardar unos minutos.
+
+. Opcionalmente, restablezca otros valores de atributos relacionados que podrían haberse incrementado en el proceso de identificación del objeto perdido.
++
+.. Seleccione *_Sitio_* > *_Nodo de almacenamiento_* > *LDR* > *Codificación de borrado* > *Configuración*.
+.. Seleccione *Restablecer recuento de errores de lectura* y *Restablecer recuento de copias corruptas detectadas*.
+.. Haga clic en *Aplicar cambios*.
+.. Seleccione *_Sitio_* > *_Nodo de almacenamiento_* > *LDR* > *Verificación* > *Configuración*.
+.. Seleccione *Restablecer recuento de objetos faltantes* y *Restablecer recuento de objetos corruptos*.
+.. Si está seguro de que los objetos en cuarentena no son necesarios, puede seleccionar *Eliminar objetos en cuarentena*.
++
+Los objetos en cuarentena se crean cuando la verificación en segundo plano identifica una copia de objeto replicada dañada.  En la mayoría de los casos, StorageGRID reemplaza automáticamente el objeto dañado y es seguro eliminar los objetos en cuarentena.  Sin embargo, si se activa la alerta *Objetos perdidos* o la alarma LOST, es posible que el soporte técnico desee acceder a los objetos en cuarentena.
+
+.. Haga clic en *Aplicar cambios*.
+
+
++
+Los atributos pueden tardar unos minutos en restablecerse después de hacer clic en *Aplicar cambios*.
+
+

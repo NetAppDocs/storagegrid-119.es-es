@@ -1,0 +1,87 @@
+---
+permalink: tenant/configuring-cross-origin-resource-sharing-cors.html 
+sidebar: sidebar 
+keywords: how to configure cross-origin resource sharing, cors 
+summary: 'Puede configurar el uso compartido de recursos de origen cruzado (CORS) para un bucket S3 si desea que ese bucket y los objetos que contiene sean accesibles para las aplicaciones web en otros dominios.' 
+---
+= Configurar el uso compartido de recursos entre orígenes (CORS)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede configurar el uso compartido de recursos de origen cruzado (CORS) para un bucket S3 si desea que ese bucket y los objetos que contiene sean accesibles para las aplicaciones web en otros dominios.
+
+.Antes de empezar
+* Ha iniciado sesión en el Administrador de inquilinos mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Para las solicitudes de configuración GET CORS, usted pertenece a un grupo de usuarios que tiene lalink:tenant-management-permissions.html["Administrar todos los depósitos o Ver todos los permisos de los depósitos"] . Estos permisos anulan la configuración de permisos en las políticas de grupo o de depósito.
+* Para las solicitudes de configuración PUT CORS, usted pertenece a un grupo de usuarios que tiene lalink:tenant-management-permissions.html["Administrar todos los permisos de los buckets"] .  Este permiso anula la configuración de permisos en las políticas de grupo o de depósito.
+* Ellink:tenant-management-permissions.html["Permiso de acceso root"] Proporciona acceso a todas las solicitudes de configuración de CORS.
+
+
+.Acerca de esta tarea
+El uso compartido de recursos entre orígenes (CORS) es un mecanismo de seguridad que permite que las aplicaciones web cliente de un dominio accedan a recursos de un dominio diferente.  Por ejemplo, supongamos que utiliza un depósito S3 llamado `Images` para almacenar gráficos.  Al configurar CORS para el `Images` Cubo, puede permitir que las imágenes en ese cubo se muestren en el sitio web `+http://www.example.com+` .
+
+
+
+== Habilitar CORS para un bucket
+
+.Pasos
+. Utilice un editor de texto para crear el XML requerido.  Este ejemplo muestra el XML utilizado para habilitar CORS para un bucket S3.  Específicamente:
++
+** Permite que cualquier dominio envíe solicitudes GET al depósito
+** Sólo permite el `+http://www.example.com+` dominio para enviar solicitudes GET, POST y DELETE
+** Se permiten todos los encabezados de solicitud
++
+[listing]
+----
+<CORSConfiguration
+    xmlns="http://s3.amazonaws.com/doc/2020-10-22/">
+    <CORSRule>
+        <AllowedOrigin>*</AllowedOrigin>
+        <AllowedMethod>GET</AllowedMethod>
+        <AllowedHeader>*</AllowedHeader>
+    </CORSRule>
+    <CORSRule>
+        <AllowedOrigin>http://www.example.com</AllowedOrigin>
+        <AllowedMethod>GET</AllowedMethod>
+        <AllowedMethod>POST</AllowedMethod>
+        <AllowedMethod>DELETE</AllowedMethod>
+        <AllowedHeader>*</AllowedHeader>
+    </CORSRule>
+</CORSConfiguration>
+----
++
+Para obtener más información sobre el XML de configuración de CORS, consulte http://docs.aws.amazon.com/AmazonS3/latest/dev/Welcome.html["Documentación de Amazon Web Services (AWS): Guía del usuario de Amazon Simple Storage Service"^] .
+
+
+
+. Seleccione *Ver depósitos* en el panel de control o seleccione *ALMACENAMIENTO (S3)* > *Depósitos*.
+. Seleccione el nombre del depósito de la tabla.
++
+Aparece la página de detalles del depósito.
+
+. Desde la pestaña *Acceso al bucket*, seleccione el acordeón *Intercambio de recursos de origen cruzado (CORS)*.
+. Seleccione la casilla de verificación *Habilitar CORS*.
+. Pegue el XML de configuración de CORS en el cuadro de texto.
+. Seleccione *Guardar cambios*.
+
+
+
+
+== Modificar la configuración de CORS
+
+.Pasos
+. Actualice el XML de configuración de CORS en el cuadro de texto o seleccione *Borrar* para comenzar de nuevo.
+. Seleccione *Guardar cambios*.
+
+
+
+
+== Deshabilitar la configuración CORS
+
+.Pasos
+. Desmarque la casilla de verificación *Habilitar CORS*.
+. Seleccione *Guardar cambios*.
+

@@ -1,0 +1,48 @@
+---
+permalink: maintain/downloading-hotfix-file.html 
+sidebar: sidebar 
+keywords: storagegrid, hotfix, download 
+summary: Debe descargar el archivo de revisión antes de poder aplicar la revisión. 
+---
+= Descargar archivo de revisión
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe descargar el archivo de revisión antes de poder aplicar la revisión.
+
+.Pasos
+. Ir a https://mysupport.netapp.com/site/products/all/details/storagegrid/downloads-tab["Descargas de NetApp : StorageGRID"^] .
+. Seleccione la flecha hacia abajo debajo de *Software disponible* para ver una lista de revisiones que están disponibles para descargar.
++
+
+NOTE: Las versiones del archivo de revisión tienen el formato: 11.4__.x.y__.
+
+. Revise los cambios que se incluyen en la actualización.
++
+
+NOTE: Si acabas delink:configuring-replacement-primary-admin-node.html["recuperó el nodo de administración principal"] y necesita aplicar una revisión, seleccione la misma versión de revisión que está instalada en los otros nodos de la red.
+
++
+.. Seleccione la versión de revisión que desea descargar y seleccione *Ir*.
+.. Sign in con el nombre de usuario y la contraseña de su cuenta de NetApp .
+.. Lea y acepte el Acuerdo de licencia de usuario final.
++
+Aparecerá la página de descarga de la versión que usted seleccionó.
+
+.. Descargar la revisión `readme.txt` archivo para ver un resumen de los cambios incluidos en la revisión.
+
+
+. Seleccione el botón de descarga para la revisión y guarde el archivo.
++
+
+NOTE: No cambie el nombre de este archivo.
+
++
+
+NOTE: Si está utilizando un dispositivo macOS, el archivo de revisión podría guardarse automáticamente como un `.txt` archivo.  Si es así, debes cambiar el nombre del archivo sin el `.txt` extensión.
+
+. Seleccione una ubicación para la descarga y seleccione *Guardar*.
+

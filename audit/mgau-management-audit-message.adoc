@@ -1,0 +1,134 @@
+---
+permalink: audit/mgau-management-audit-message.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, MGAU, Management audit message 
+summary: La categoría Administración registra las solicitudes de los usuarios a la API de Administración.  Cada solicitud que no sea una solicitud GET o HEAD a la API registra una respuesta con el nombre de usuario, la IP y el tipo de solicitud a la API. 
+---
+= MGAU: Mensaje de auditoría de gestión
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La categoría Administración registra las solicitudes de los usuarios a la API de Administración.  Cada solicitud HTTP que no sea una solicitud GET o HEAD a una URI de API válida registra una respuesta que contiene el nombre de usuario, la IP y el tipo de solicitud a la API.  Las URI de API no válidas (como /api/v3-authorize) y las solicitudes no válidas a URI de API válidas no se registran.
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+MDIP
+ a| 
+Dirección IP de destino
+ a| 
+La dirección IP del servidor (destino).
+
+
+
+ a| 
+ADNmd
+ a| 
+Nombre de dominio
+ a| 
+El nombre de dominio del host.
+
+
+
+ a| 
+MPAT
+ a| 
+Solicitar PATH
+ a| 
+La ruta de la solicitud.
+
+
+
+ a| 
+MPQP
+ a| 
+Parámetros de consulta de solicitud
+ a| 
+Los parámetros de consulta para la solicitud.
+
+
+
+ a| 
+MRBD
+ a| 
+Cuerpo de la solicitud
+ a| 
+El contenido del cuerpo de la solicitud.  Si bien el cuerpo de la respuesta se registra de forma predeterminada, el cuerpo de la solicitud se registra en ciertos casos cuando el cuerpo de la respuesta está vacío.  Como la siguiente información no está disponible en el cuerpo de la respuesta, se toma del cuerpo de la solicitud para los siguientes métodos POST:
+
+* Nombre de usuario e ID de cuenta en *POST autorizar*
+* Nueva configuración de subredes en *POST /grid/grid-networks/update*
+* Nuevos servidores NTP en *POST /grid/ntp-servers/update*
+* ID de servidores dados de baja en *POST /grid/servers/decommission*
+
+
+*Nota:* La información confidencial se elimina (por ejemplo, una clave de acceso S3) o se oculta con asteriscos (por ejemplo, una contraseña).
+
+
+
+ a| 
+MRMD
+ a| 
+Método de solicitud
+ a| 
+El método de solicitud HTTP:
+
+* CORREO
+* PONER
+* BORRAR
+* PARCHE
+
+
+
+
+ a| 
+MRSC
+ a| 
+Código de respuesta
+ a| 
+El código de respuesta.
+
+
+
+ a| 
+Precio de venta sugerido al público
+ a| 
+Cuerpo de la respuesta
+ a| 
+El contenido de la respuesta (el cuerpo de la respuesta) se registra de forma predeterminada.
+
+*Nota:* La información confidencial se elimina (por ejemplo, una clave de acceso S3) o se oculta con asteriscos (por ejemplo, una contraseña).
+
+
+
+ a| 
+MSIP
+ a| 
+Dirección IP de origen
+ a| 
+La dirección IP del cliente (fuente).
+
+
+
+ a| 
+MUUN
+ a| 
+URN de usuario
+ a| 
+El URN (nombre uniforme del recurso) del usuario que envió la solicitud.
+
+
+
+ a| 
+RSLT
+ a| 
+Resultado
+ a| 
+Devuelve el éxito (SUCS) o el error informado por el backend.
+
+|===

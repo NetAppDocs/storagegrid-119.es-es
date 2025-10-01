@@ -1,0 +1,128 @@
+---
+permalink: ilm/considerations-for-cloud-storage-pools.html 
+sidebar: sidebar 
+keywords: what is a cloud storage pool, considerations for a cloud storage pool 
+summary: Si planea utilizar un grupo de almacenamiento en la nube para mover objetos fuera del sistema StorageGRID , debe revisar las consideraciones para configurar y usar grupos de almacenamiento en la nube. 
+---
+= Consideraciones para los grupos de almacenamiento en la nube
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si planea utilizar un grupo de almacenamiento en la nube para mover objetos fuera del sistema StorageGRID , debe revisar las consideraciones para configurar y usar grupos de almacenamiento en la nube.
+
+
+
+== Consideraciones generales
+
+* En general, el almacenamiento de archivo en la nube, como Amazon S3 Glacier o Azure Blob Storage, es un lugar económico para almacenar datos de objetos.  Sin embargo, los costos de recuperar datos del almacenamiento de archivos en la nube son relativamente altos.  Para lograr el costo general más bajo, debe considerar cuándo y con qué frecuencia accederá a los objetos en el grupo de almacenamiento en la nube.  Se recomienda utilizar un grupo de almacenamiento en la nube solo para contenido al que se espera acceder con poca frecuencia.
+* No se admite el uso de grupos de almacenamiento en la nube con FabricPool debido a la latencia adicional para recuperar un objeto del destino del grupo de almacenamiento en la nube.
+* Los objetos que tienen habilitado el bloqueo de objetos S3 no se pueden colocar en grupos de almacenamiento en la nube.
+* Si el depósito S3 de destino de un grupo de almacenamiento en la nube tiene habilitado el bloqueo de objetos S3, el intento de configurar la replicación del depósito (PutBucketReplication) fallará con un error AccessDenied.
+* Las siguientes combinaciones de plataforma, autenticación y protocolo con bloqueo de objetos S3 no son compatibles con los grupos de almacenamiento en la nube:
++
+** *Plataformas*: Google Cloud Platform y Azure
+** *Tipos de autenticación*: Roles de IAM en cualquier lugar y acceso anónimo
+** *Protocolo*: HTTP
+
+
+
+
+
+
+== Consideraciones sobre los puertos utilizados para los grupos de almacenamiento en la nube
+
+Para garantizar que las reglas ILM puedan mover objetos hacia y desde el grupo de almacenamiento en la nube especificado, debe configurar la red o las redes que contienen los nodos de almacenamiento de su sistema.  Debe asegurarse de que los siguientes puertos puedan comunicarse con el grupo de almacenamiento en la nube.
+
+De forma predeterminada, los grupos de almacenamiento en la nube utilizan los siguientes puertos:
+
+* *80*: Para URI de punto final que comienzan con http
+* *443*: Para URI de puntos finales que comienzan con https
+
+
+Puede especificar un puerto diferente al crear o editar un grupo de almacenamiento en la nube.
+
+Si utiliza un servidor proxy no transparente, también debelink:../admin/configuring-storage-proxy-settings.html["configurar un proxy de almacenamiento"] para permitir que se envíen mensajes a puntos finales externos, como un punto final en Internet.
+
+
+
+== Consideraciones sobre los costos
+
+El acceso al almacenamiento en la nube mediante un Cloud Storage Pool requiere conectividad de red a la nube.  Debe considerar el costo de la infraestructura de red que utilizará para acceder a la nube y aprovisionarla adecuadamente, en función de la cantidad de datos que espera mover entre StorageGRID y la nube mediante el grupo de almacenamiento en la nube.
+
+Cuando StorageGRID se conecta al punto final del grupo de almacenamiento en la nube externo, emite varias solicitudes para monitorear la conectividad y garantizar que pueda realizar las operaciones necesarias.  Si bien estas solicitudes implicarán algunos costos adicionales, el costo de monitorear un grupo de almacenamiento en la nube debería ser solo una pequeña fracción del costo total de almacenar objetos en S3 o Azure.
+
+Es posible que se produzcan costos más significativos si necesita mover objetos desde un punto final de un grupo de almacenamiento en la nube externo a StorageGRID.  Los objetos se pueden mover nuevamente a StorageGRID en cualquiera de estos casos:
+
+* La única copia del objeto está en un grupo de almacenamiento en la nube y usted decide almacenar el objeto en StorageGRID .  En este caso, reconfigura tus reglas y políticas de ILM.  Cuando se produce la evaluación de ILM, StorageGRID emite varias solicitudes para recuperar el objeto del grupo de almacenamiento en la nube.  Luego, StorageGRID crea localmente la cantidad especificada de copias replicadas o codificadas por borrado.  Una vez que el objeto se mueve nuevamente a StorageGRID, se elimina la copia en el grupo de almacenamiento en la nube.
+* Los objetos se pierden debido a una falla del nodo de almacenamiento.  Si la única copia restante de un objeto está en un grupo de almacenamiento en la nube, StorageGRID restaura temporalmente el objeto y crea una nueva copia en el nodo de almacenamiento recuperado.
+
+
+
+NOTE: Cuando los objetos se mueven nuevamente a StorageGRID desde un grupo de almacenamiento en la nube, StorageGRID emite múltiples solicitudes al punto final del grupo de almacenamiento en la nube para cada objeto.  Antes de mover grandes cantidades de objetos, comuníquese con el soporte técnico para obtener ayuda para estimar el tiempo y los costos asociados.
+
+
+
+== S3: Permisos necesarios para el depósito del grupo de almacenamiento en la nube
+
+Las políticas para el depósito S3 externo utilizado para un grupo de almacenamiento en la nube deben otorgarle a StorageGRID permiso para mover un objeto al depósito, obtener el estado de un objeto, restaurar un objeto desde el almacenamiento de Glacier cuando sea necesario, etc.  Idealmente, StorageGRID debería tener acceso de control total al depósito.(`s3:*` ); sin embargo, si esto no es posible, la política del bucket debe otorgar los siguientes permisos S3 a StorageGRID:
+
+* `s3:AbortMultipartUpload`
+* `s3:DeleteObject`
+* `s3:GetObject`
+* `s3:ListBucket`
+* `s3:ListBucketMultipartUploads`
+* `s3:ListMultipartUploadParts`
+* `s3:PutObject`
+* `s3:RestoreObject`
+
+
+
+
+== S3: Consideraciones para el ciclo de vida del depósito externo
+
+El movimiento de objetos entre StorageGRID y el depósito S3 externo especificado en el grupo de almacenamiento en la nube está controlado por las reglas de ILM y las políticas de ILM activas en StorageGRID.  Por el contrario, la transición de objetos del depósito S3 externo especificado en el grupo de almacenamiento en la nube a Amazon S3 Glacier o S3 Glacier Deep Archive (o a una solución de almacenamiento que implementa la clase de almacenamiento Glacier) está controlada por la configuración del ciclo de vida de ese depósito.
+
+Si desea realizar la transición de objetos desde el grupo de almacenamiento en la nube, debe crear la configuración de ciclo de vida adecuada en el depósito S3 externo y debe utilizar una solución de almacenamiento que implemente la clase de almacenamiento Glacier y admita la API S3 RestoreObject.
+
+Por ejemplo, supongamos que desea que todos los objetos que se mueven desde StorageGRID al grupo de almacenamiento en la nube se transfieran al almacenamiento de Amazon S3 Glacier de inmediato.  Debe crear una configuración de ciclo de vida en el depósito S3 externo que especifique una única acción (*Transición*) de la siguiente manera:
+
+[listing]
+----
+<LifecycleConfiguration>
+  <Rule>
+    <ID>Transition Rule</ID>
+    <Filter>
+       <Prefix></Prefix>
+    </Filter>
+    <Status>Enabled</Status>
+    <Transition>
+      <Days>0</Days>
+      <StorageClass>GLACIER</StorageClass>
+    </Transition>
+  </Rule>
+</LifecycleConfiguration>
+----
+Esta regla trasladaría todos los objetos de bucket a Amazon S3 Glacier el día en que se crearon (es decir, el día en que se trasladaron de StorageGRID al Cloud Storage Pool).
+
+
+CAUTION: Al configurar el ciclo de vida del depósito externo, nunca utilice acciones *Expiración* para definir cuándo expiran los objetos.  Las acciones de expiración hacen que el sistema de almacenamiento externo elimine los objetos expirados.  Si posteriormente intenta acceder a un objeto caducado desde StorageGRID, no se encontrará el objeto eliminado.
+
+Si desea transferir objetos del grupo de almacenamiento en la nube a S3 Glacier Deep Archive (en lugar de a Amazon S3 Glacier), especifique `<StorageClass>DEEP_ARCHIVE</StorageClass>` en el ciclo de vida del bucket.  Sin embargo, tenga en cuenta que no puede utilizar el `Expedited` Nivel para restaurar objetos del Archivo S3 Glacier Deep.
+
+
+
+== Azure: Consideraciones para el nivel de acceso
+
+Al configurar una cuenta de almacenamiento de Azure, puede establecer el nivel de acceso predeterminado en Activo o Esporádico.  Al crear una cuenta de almacenamiento para usarla con un grupo de almacenamiento en la nube, debe utilizar el nivel Activo como nivel predeterminado.  Si bien StorageGRID establece inmediatamente el nivel en Archivo cuando mueve objetos al grupo de almacenamiento en la nube, el uso de una configuración predeterminada de Activo garantiza que no se le cobrará una tarifa de eliminación anticipada por los objetos eliminados del nivel Fresco antes del mínimo de 30 días.
+
+
+
+== Azure: No se admite la gestión del ciclo de vida
+
+No utilice la administración del ciclo de vida del almacenamiento de blobs de Azure para el contenedor utilizado con un grupo de almacenamiento en la nube.  Las operaciones del ciclo de vida podrían interferir con las operaciones del grupo de almacenamiento en la nube.
+
+.Información relacionada
+link:creating-cloud-storage-pool.html["Crear un grupo de almacenamiento en la nube"]

@@ -1,0 +1,60 @@
+---
+permalink: s3/upload-part.html 
+sidebar: sidebar 
+keywords: s3 UploadPart operation 
+summary: La operación UploadPart carga una parte en una carga multiparte para un objeto. 
+---
+= Subir parte
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La operación UploadPart carga una parte en una carga multiparte para un objeto.
+
+
+
+== Encabezados de solicitud admitidos
+
+Se admiten los siguientes encabezados de solicitud:
+
+* `x-amz-checksum-sha256`
+* `Content-Length`
+* `Content-MD5`
+
+
+
+
+== Encabezados de solicitud para el cifrado del lado del servidor
+
+Si especificó el cifrado SSE-C para la solicitud CreateMultipartUpload, también debe incluir los siguientes encabezados de solicitud en cada solicitud UploadPart:
+
+* `x-amz-server-side-encryption-customer-algorithm`: Especificar `AES256` .
+* `x-amz-server-side-encryption-customer-key`:Especifique la misma clave de cifrado que proporcionó en la solicitud CreateMultipartUpload.
+* `x-amz-server-side-encryption-customer-key-MD5`:Especifique el mismo resumen MD5 que proporcionó en la solicitud CreateMultipartUpload.
+
+
+
+CAUTION: Las claves de cifrado que usted proporciona nunca se almacenan.  Si pierde una clave de cifrado, perderá el objeto correspondiente.  Antes de utilizar las claves proporcionadas por el cliente para proteger los datos de los objetos, revise las consideraciones enlink:using-server-side-encryption.html["Utilice cifrado del lado del servidor"] .
+
+Si especificó una suma de comprobación SHA-256 durante la solicitud CreateMultipartUpload, también debe incluir el siguiente encabezado de solicitud en cada solicitud UploadPart:
+
+* `x-amz-checksum-sha256`:Especifique la suma de comprobación SHA-256 para esta parte.
+
+
+
+
+== Encabezados de solicitud no admitidos
+
+Los siguientes encabezados de solicitud no son compatibles:
+
+* `x-amz-sdk-checksum-algorithm`
+* `x-amz-trailer`
+
+
+
+
+== Control de versiones
+
+La carga multiparte consta de operaciones separadas para iniciar la carga, enumerar las cargas, cargar partes, ensamblar las partes cargadas y completar la carga.  Los objetos se crean (y se versionan si corresponde) cuando se realiza la operación CompleteMultipartUpload.

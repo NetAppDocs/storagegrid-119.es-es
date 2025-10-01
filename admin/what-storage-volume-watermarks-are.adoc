@@ -1,0 +1,109 @@
+---
+permalink: admin/what-storage-volume-watermarks-are.html 
+sidebar: sidebar 
+keywords: what are storage volume watermarks, storage volume soft read-only watermark, storage volume hard read-only watermark, storage volume read-write watermark 
+summary: StorageGRID utiliza tres marcas de agua de volumen de almacenamiento para garantizar que los nodos de almacenamiento pasen de forma segura a un estado de solo lectura antes de que se queden críticamente sin espacio y para permitir que los nodos de almacenamiento que han pasado a un estado de solo lectura vuelvan a ser de lectura y escritura. 
+---
+= ¿Qué son las marcas de agua del volumen de almacenamiento?
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRID utiliza tres marcas de agua de volumen de almacenamiento para garantizar que los nodos de almacenamiento pasen de forma segura a un estado de solo lectura antes de que se queden críticamente sin espacio y para permitir que los nodos de almacenamiento que han pasado a un estado de solo lectura vuelvan a ser de lectura y escritura.
+
+image::../media/storage_volume_watermarks.png[Marcas de agua de volumen de almacenamiento]
+
+
+NOTE: Las marcas de agua del volumen de almacenamiento solo se aplican al espacio utilizado para datos de objetos replicados y codificados para borrado.  Para obtener más información sobre el espacio reservado para los metadatos de objetos en el volumen 0, vaya alink:managing-object-metadata-storage.html["Administrar el almacenamiento de metadatos de objetos"] .
+
+
+
+== ¿Qué es la marca de agua suave de solo lectura?
+
+La *marca de agua de solo lectura suave del volumen de almacenamiento* es la primera marca de agua que indica que el espacio utilizable de un nodo de almacenamiento para los datos de objetos se está llenando.
+
+Si cada volumen de un nodo de almacenamiento tiene menos espacio libre que la marca de agua de solo lectura de ese volumen, el nodo de almacenamiento pasa al _modo de solo lectura_.  El modo de solo lectura significa que el nodo de almacenamiento anuncia servicios de solo lectura al resto del sistema StorageGRID , pero cumple con todas las solicitudes de escritura pendientes.
+
+Por ejemplo, supongamos que cada volumen de un nodo de almacenamiento tiene una marca de agua de solo lectura de 10 GB.  Tan pronto como cada volumen tenga menos de 10 GB de espacio libre, el nodo de almacenamiento pasará al modo de solo lectura suave.
+
+
+
+== ¿Qué es la marca de agua de sólo lectura?
+
+La *marca de agua de solo lectura del volumen de almacenamiento* es la siguiente marca de agua que indica que el espacio utilizable de un nodo para los datos de objetos se está llenando.
+
+Si el espacio libre en un volumen es menor que la marca de agua de solo lectura de ese volumen, las escrituras en el volumen fallarán.  Sin embargo, las escrituras en otros volúmenes pueden continuar hasta que el espacio libre en esos volúmenes sea menor que sus marcas de agua de solo lectura.
+
+Por ejemplo, supongamos que cada volumen de un nodo de almacenamiento tiene una marca de agua de solo lectura de 5 GB.  Tan pronto como cada volumen tenga menos de 5 GB de espacio libre, el nodo de almacenamiento ya no aceptará ninguna solicitud de escritura.
+
+La marca de agua de solo lectura dura siempre es menor que la marca de agua de solo lectura suave.
+
+
+
+== ¿Qué es la marca de agua de lectura y escritura?
+
+La *marca de agua de lectura y escritura del volumen de almacenamiento* se aplica únicamente a los nodos de almacenamiento que han pasado al modo de solo lectura.  Determina cuándo el nodo puede volver a ser de lectura y escritura.  Cuando el espacio libre en cualquier volumen de almacenamiento en un nodo de almacenamiento es mayor que la marca de agua de lectura y escritura de ese volumen, el nodo vuelve automáticamente al estado de lectura y escritura.
+
+Por ejemplo, supongamos que el nodo de almacenamiento ha pasado al modo de solo lectura.  Supongamos también que cada volumen tiene una marca de agua de lectura y escritura de 30 GB.  Tan pronto como el espacio libre para cualquier volumen aumenta a 30 GB, el nodo vuelve a ser de lectura y escritura.
+
+La marca de agua de lectura y escritura siempre es más grande que la marca de agua de solo lectura suave y que la marca de agua de solo lectura dura.
+
+
+
+== Ver marcas de agua del volumen de almacenamiento
+
+Puede ver la configuración actual de la marca de agua y los valores optimizados del sistema.  Si no se utilizan marcas de agua optimizadas, puede determinar si puede o debe ajustar la configuración.
+
+.Antes de empezar
+* Ha completado la actualización a StorageGRID 11.6 o superior.
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tú tienes ellink:admin-group-permissions.html["Permiso de acceso root"] .
+
+
+
+
+=== Ver la configuración actual de la marca de agua
+
+Puede ver la configuración actual de la marca de agua de almacenamiento en el Administrador de cuadrícula.
+
+.Pasos
+. Seleccione *SOPORTE* > *Otros* > *Marcas de agua de almacenamiento*.
+. En la página Marcas de agua de almacenamiento, mire la casilla de verificación Usar valores optimizados.
++
+** Si se selecciona la casilla de verificación, las tres marcas de agua se optimizan para cada volumen de almacenamiento en cada nodo de almacenamiento, según el tamaño del nodo de almacenamiento y la capacidad relativa del volumen.
++
+Esta es la configuración predeterminada y recomendada.  No actualice estos valores. Opcionalmente, puedes<<view-optimized-storage-watermarks,Ver marcas de agua de almacenamiento optimizadas>> .
+
+** Si la casilla de verificación Usar valores optimizados no está seleccionada, se utilizarán marcas de agua personalizadas (no optimizadas).  No se recomienda utilizar configuraciones de marca de agua personalizadas.  Utilice las instrucciones paralink:../troubleshoot/troubleshoot-low-watermark-alert.html["Solución de problemas de alertas de anulación de marca de agua de solo lectura baja"] para determinar si puede o debe ajustar la configuración.
++
+Al especificar configuraciones de marca de agua personalizadas, debe ingresar valores mayores a 0.
+
+
+
+
+
+
+
+=== [[view-optimized-storage-watermarks]]Ver marcas de agua de almacenamiento optimizadas
+
+StorageGRID utiliza dos métricas de Prometheus para mostrar los valores optimizados que ha calculado para la marca de agua de solo lectura del volumen de almacenamiento.  Puede ver los valores mínimos y máximos optimizados para cada nodo de almacenamiento en su red.
+
+. Seleccione *SOPORTE* > *Herramientas* > *Métricas*.
+. En la sección Prometheus, seleccione el enlace para acceder a la interfaz de usuario de Prometheus.
+. Para ver la marca de agua de solo lectura mínima recomendada, ingrese la siguiente métrica de Prometheus y seleccione *Ejecutar*:
++
+`storagegrid_storage_volume_minimum_optimized_soft_readonly_watermark`
+
++
+La última columna muestra el valor mínimo optimizado de la marca de agua de solo lectura suave para todos los volúmenes de almacenamiento en cada nodo de almacenamiento.  Si este valor es mayor que la configuración personalizada para la marca de agua de solo lectura suave del volumen de almacenamiento, se activa la alerta *Anulación de marca de agua de solo lectura baja* para el nodo de almacenamiento.
+
+. Para ver la marca de agua de solo lectura suave máxima recomendada, ingrese la siguiente métrica de Prometheus y seleccione *Ejecutar*:
++
+`storagegrid_storage_volume_maximum_optimized_soft_readonly_watermark`
+
++
+La última columna muestra el valor máximo optimizado de la marca de agua de solo lectura suave para todos los volúmenes de almacenamiento en cada nodo de almacenamiento.
+
+

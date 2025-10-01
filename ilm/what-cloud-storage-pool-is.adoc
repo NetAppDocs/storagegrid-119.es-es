@@ -1,0 +1,102 @@
+---
+permalink: ilm/what-cloud-storage-pool-is.html 
+sidebar: sidebar 
+keywords: what is a cloud storage pool 
+summary: Un grupo de almacenamiento en la nube le permite usar ILM para mover datos de objetos fuera de su sistema StorageGRID .  Por ejemplo, es posible que desee mover objetos a los que se accede con poca frecuencia a un almacenamiento en la nube de menor costo, como Amazon S3 Glacier, S3 Glacier Deep Archive, Google Cloud o el nivel de acceso de archivo en el almacenamiento de blobs de Microsoft Azure.  O bien, es posible que desee mantener una copia de seguridad en la nube de los objetos StorageGRID para mejorar la recuperación ante desastres. 
+---
+= ¿Qué es un pool de almacenamiento en la nube?
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Un grupo de almacenamiento en la nube le permite usar ILM para mover datos de objetos fuera de su sistema StorageGRID .  Por ejemplo, es posible que desee mover objetos a los que se accede con poca frecuencia a un almacenamiento en la nube de menor costo, como Amazon S3 Glacier, S3 Glacier Deep Archive, Google Cloud o el nivel de acceso de archivo en el almacenamiento de blobs de Microsoft Azure.  O bien, es posible que desee mantener una copia de seguridad en la nube de los objetos StorageGRID para mejorar la recuperación ante desastres.
+
+Desde una perspectiva ILM, un grupo de almacenamiento en la nube es similar a un grupo de almacenamiento.  Para almacenar objetos en cualquiera de las ubicaciones, seleccione el grupo al crear las instrucciones de ubicación para una regla ILM.  Sin embargo, mientras que los grupos de almacenamiento constan de nodos de almacenamiento dentro del sistema StorageGRID , un grupo de almacenamiento en la nube consta de un depósito externo (S3) o contenedor (almacenamiento de blobs de Azure).
+
+La tabla compara los grupos de almacenamiento con los grupos de almacenamiento en la nube y muestra las similitudes y diferencias de alto nivel.
+
+[cols="1a,2a,5a"]
+|===
+|  | Pool de almacenamiento | Grupo de almacenamiento en la nube 
+
+
+ a| 
+¿Cómo se crea?
+ a| 
+Usando la opción *ILM* > *Grupos de almacenamiento* en el Administrador de Grid.
+ a| 
+Usando la opción *ILM* > *Grupos de almacenamiento* > *Grupos de almacenamiento en la nube* en Grid Manager.
+
+Debe configurar el contenedor o depósito externo antes de poder crear el grupo de almacenamiento en la nube.
+
+
+
+ a| 
+¿Cuántos pools puedes crear?
+ a| 
+Ilimitado.
+ a| 
+Hasta 10.
+
+
+
+ a| 
+¿Dónde se almacenan los objetos?
+ a| 
+En uno o más nodos de almacenamiento dentro de StorageGRID.
+ a| 
+En un bucket de Amazon S3, un contenedor de almacenamiento de blobs de Azure o un Google Cloud externo al sistema StorageGRID .
+
+Si el grupo de almacenamiento en la nube es un bucket de Amazon S3:
+
+* Opcionalmente, puede configurar un ciclo de vida de depósito para trasladar objetos a un almacenamiento a largo plazo y de bajo costo, como Amazon S3 Glacier o S3 Glacier Deep Archive.  El sistema de almacenamiento externo debe ser compatible con la clase de almacenamiento Glacier y la API S3 RestoreObject.
+* Puede crear grupos de almacenamiento en la nube para usar con AWS Commercial Cloud Services (C2S), que admite la región secreta de AWS.
+
+
+Si el grupo de almacenamiento en la nube es un contenedor de almacenamiento de blobs de Azure, StorageGRID traslada el objeto al nivel de archivo.
+
+*Nota:* En general, no configure la administración del ciclo de vida del almacenamiento de blobs de Azure para el contenedor utilizado para un grupo de almacenamiento en la nube.  Las operaciones de restauración de objetos en el grupo de almacenamiento en la nube pueden verse afectadas por el ciclo de vida configurado.
+
+
+
+ a| 
+¿Qué controla la ubicación de los objetos?
+ a| 
+Una regla ILM en las políticas ILM activas.
+ a| 
+Una regla ILM en las políticas ILM activas.
+
+
+
+ a| 
+¿Qué método de protección de datos se utiliza?
+ a| 
+Codificación de replicación o borrado.
+ a| 
+Replicación.
+
+
+
+ a| 
+¿Cuántas copias de cada objeto están permitidas?
+ a| 
+Múltiple.
+ a| 
+Una copia en el grupo de almacenamiento en la nube y, opcionalmente, una o más copias en StorageGRID.
+
+*Nota:* No es posible almacenar un objeto en más de un grupo de almacenamiento en la nube al mismo tiempo.
+
+
+
+ a| 
+¿Cuales son las ventajas?
+ a| 
+Los objetos son accesibles rápidamente en cualquier momento.
+ a| 
+Almacenamiento de bajo coste.
+
+*Nota*: Los datos de FabricPool no se pueden agrupar en grupos de almacenamiento en la nube.
+
+|===

@@ -1,0 +1,106 @@
+---
+permalink: audit/common-elements-in-audit-messages.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, messages, message, common elements, AMID, ANID, ASES, ASQN, ATID, ATIM, ATYP, AVER, RSLT 
+summary: Todos los mensajes de auditoría contienen los elementos comunes. 
+---
+= Elementos comunes en los mensajes de auditoría
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Todos los mensajes de auditoría contienen los elementos comunes.
+
+[cols="1a,1a,4a"]
+|===
+| Código | Tipo | Descripción 
+
+
+ a| 
+EN MEDIO DE
+ a| 
+FC32
+ a| 
+ID del módulo: un identificador de cuatro caracteres del ID del módulo que generó el mensaje.  Esto indica el segmento de código dentro del cual se generó el mensaje de auditoría.
+
+
+
+ a| 
+ANID
+ a| 
+UI32
+ a| 
+ID de nodo: el ID del nodo de la red asignado al servicio que generó el mensaje.  A cada servicio se le asigna un identificador único en el momento en que se configura e instala el sistema StorageGRID .  Esta identificación no se puede cambiar.
+
+
+
+ a| 
+ASES
+ a| 
+UI64
+ a| 
+Identificador de sesión de auditoría: en versiones anteriores, este elemento indicaba el momento en el que se inicializaba el sistema de auditoría después de iniciarse el servicio.  Este valor de tiempo se midió en microsegundos desde la época del sistema operativo (00:00:00 UTC del 1 de enero de 1970).
+
+*Nota:* Este elemento está obsoleto y ya no aparece en los mensajes de auditoría.
+
+
+
+ a| 
+ASQN
+ a| 
+UI64
+ a| 
+Recuento de secuencia: en versiones anteriores, este contador se incrementaba para cada mensaje de auditoría generado en el nodo de la red (ANID) y se restablecía a cero al reiniciar el servicio.
+
+*Nota:* Este elemento está obsoleto y ya no aparece en los mensajes de auditoría.
+
+
+
+ a| 
+ATID
+ a| 
+UI64
+ a| 
+ID de seguimiento: un identificador que comparte el conjunto de mensajes que se activaron mediante un solo evento.
+
+
+
+ a| 
+ATIM
+ a| 
+UI64
+ a| 
+Marca de tiempo: la hora en que se generó el evento que activó el mensaje de auditoría, medido en microsegundos desde la época del sistema operativo (00:00:00 UTC del 1 de enero de 1970).  Tenga en cuenta que la mayoría de las herramientas disponibles para convertir la marca de tiempo a fecha y hora locales se basan en milisegundos.
+
+Podría ser necesario redondear o truncar la marca de tiempo registrada.  La hora legible por humanos que aparece al comienzo del mensaje de auditoría en el `audit.log` El archivo es el atributo ATIM en formato ISO 8601.  La fecha y la hora se representan como `_YYYY-MMDDTHH:MM:SS.UUUUUU_` , donde el `T` es un carácter de cadena literal que indica el comienzo del segmento de tiempo de la fecha. `_UUUUUU_` son microsegundos.
+
+
+
+ a| 
+ATYP
+ a| 
+FC32
+ a| 
+Tipo de evento: un identificador de cuatro caracteres del evento que se está registrando.  Esto regula el contenido de "carga útil" del mensaje: los atributos que se incluyen.
+
+
+
+ a| 
+AFIRMAR
+ a| 
+UI32
+ a| 
+Versión: La versión del mensaje de auditoría.  A medida que el software StorageGRID evoluciona, las nuevas versiones de los servicios podrían incorporar nuevas funciones en los informes de auditoría.  Este campo permite la compatibilidad con versiones anteriores del servicio AMS para procesar mensajes de versiones anteriores de los servicios.
+
+
+
+ a| 
+RSLT
+ a| 
+FC32
+ a| 
+Resultado: El resultado de un evento, proceso o transacción.  Si no es relevante para un mensaje, se utiliza NONE en lugar de SUCS para que el mensaje no se filtre accidentalmente.
+
+|===

@@ -1,0 +1,38 @@
+---
+permalink: monitor/viewing-storage-tab.html 
+sidebar: sidebar 
+keywords: storage tab 
+summary: La pestaña Almacenamiento resume la disponibilidad de almacenamiento y otras métricas de almacenamiento. 
+---
+= Ver la pestaña Almacenamiento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La pestaña Almacenamiento resume la disponibilidad de almacenamiento y otras métricas de almacenamiento.
+
+La pestaña Almacenamiento se muestra para todos los nodos, cada sitio y toda la cuadrícula.
+
+
+
+== Gráficos utilizados en almacenamiento
+
+Para los nodos de almacenamiento, cada sitio y toda la red, la pestaña Almacenamiento incluye gráficos que muestran cuánto almacenamiento han utilizado los datos y los metadatos de los objetos a lo largo del tiempo.
+
+
+NOTE: Cuando un nodo no está conectado a la red, como durante una actualización o en un estado desconectado, ciertas métricas podrían no estar disponibles o estar excluidas de los totales del sitio y de la red.  Después de que un nodo se vuelva a conectar a la red, espere varios minutos para que los valores se estabilicen.
+
+image::../media/nodes_storage_node_storage_tab.png[Nodos > Nodo de almacenamiento > Pestaña Almacenamiento]
+
+
+
+== Tablas de dispositivos de disco, volúmenes y almacenes de objetos
+
+Para todos los nodos, la pestaña Almacenamiento contiene detalles de los dispositivos de disco y volúmenes del nodo.  Para los nodos de almacenamiento, la tabla Almacenes de objetos proporciona información sobre cada volumen de almacenamiento.
+
+image::../media/nodes_page_storage_tables.png[Tablas de almacenamiento de páginas de nodos]
+
+.Información relacionada
+link:monitoring-storage-capacity.html["Supervisar la capacidad de almacenamiento"]

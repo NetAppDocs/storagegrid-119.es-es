@@ -1,0 +1,70 @@
+---
+permalink: ilm/configuring-regions-optional-and-s3-only.html 
+sidebar: sidebar 
+keywords: S3 regions, region, ilm rules 
+summary: Las reglas ILM pueden filtrar objetos según las regiones donde se crean los buckets S3, lo que le permite almacenar objetos de diferentes regiones en diferentes ubicaciones de almacenamiento. 
+---
+= Configurar regiones (opcional y solo S3)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Las reglas ILM pueden filtrar objetos según las regiones donde se crean los buckets S3, lo que le permite almacenar objetos de diferentes regiones en diferentes ubicaciones de almacenamiento.
+
+Si desea utilizar una región de bucket S3 como filtro en una regla, primero debe crear las regiones que los buckets pueden usar en su sistema.
+
+
+NOTE: No es posible cambiar la región de un depósito una vez creado el mismo.
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tieneslink:../admin/admin-group-permissions.html["permisos de acceso específicos"] .
+
+
+.Acerca de esta tarea
+Al crear un depósito S3, puede especificar que el depósito se cree en una región específica.  Al especificar una región, el bucket puede estar geográficamente cerca de sus usuarios, lo que puede ayudar a optimizar la latencia, minimizar los costos y abordar los requisitos regulatorios.
+
+Al crear una regla ILM, es posible que desee utilizar la región asociada con un depósito S3 como filtro avanzado.  Por ejemplo, puede diseñar una regla que se aplique únicamente a los objetos en los depósitos S3 creados en el `us-west-2` región.  Luego, puede especificar que se coloquen copias de esos objetos en nodos de almacenamiento en un sitio del centro de datos dentro de esa región para optimizar la latencia.
+
+Al configurar regiones, siga estas pautas:
+
+* De forma predeterminada, se considera que todos los depósitos pertenecen a la `us-east-1` región.
+* Debe crear las regiones usando Grid Manager antes de poder especificar una región no predeterminada al crear depósitos usando Tenant Manager o Tenant Management API o con el elemento de solicitud LocationConstraint para solicitudes de API de depósito PUT de S3.  Se produce un error si una solicitud PUT Bucket utiliza una región que no se ha definido en StorageGRID.
+* Debes utilizar el nombre exacto de la región al crear el bucket S3.  Los nombres de las regiones distinguen entre mayúsculas y minúsculas.  Los caracteres válidos son números, letras y guiones.
++
+
+NOTE: EU no se considera un alias de eu-west-1. Si desea utilizar la región UE o eu-west-1, debe utilizar el nombre exacto.
+
+* No se puede eliminar ni modificar una región si se utiliza en una regla asignada a cualquier política (activa o inactiva).
+* Si utiliza una región no válida como filtro avanzado en una regla ILM, no podrá agregar esa regla a una política.
++
+Puede obtenerse una región no válida si utiliza una región como filtro avanzado en una regla ILM pero luego elimina esa región, o si utiliza la API de administración de cuadrícula para crear una regla y especificar una región que no ha definido.
+
+* Si elimina una región después de usarla para crear un depósito S3, deberá volver a agregar la región si alguna vez desea utilizar el filtro avanzado de Restricción de ubicación para buscar objetos en ese depósito.
+
+
+.Pasos
+. Seleccione *ILM* > *Regiones*.
++
+Aparece la página Regiones, con una lista de las regiones definidas actualmente.  *Región 1* muestra la región predeterminada, `us-east-1` , que no se puede modificar ni eliminar.
+
+. Para agregar una región:
++
+.. Seleccione *Agregar otra región*.
+.. Ingrese el nombre de la región que desea utilizar al crear depósitos S3.
++
+Debe utilizar este nombre de región exacto como elemento de solicitud LocationConstraint cuando cree el bucket S3 correspondiente.
+
+
+
+. Para eliminar una región no utilizada, seleccione el icono de eliminarimage:../media/icon-x-to-remove.png["Eliminar icono"] .
++
+Aparece un mensaje de error si intenta eliminar una región que se utiliza actualmente en cualquier política (activa o inactiva).
+
+. Cuando haya terminado de realizar cambios, seleccione *Guardar*.
++
+Ahora puede seleccionar estas regiones desde la sección Filtros avanzados en el paso 1 del asistente Crear regla ILM. Ver link:create-ilm-rule-enter-details.html#use-advanced-filters-in-ilm-rules["Utilice filtros avanzados en las reglas de ILM"] .
+
+

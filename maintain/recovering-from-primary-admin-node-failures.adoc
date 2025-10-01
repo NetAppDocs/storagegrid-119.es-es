@@ -1,0 +1,30 @@
+---
+permalink: maintain/recovering-from-primary-admin-node-failures.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, primary admin node failure 
+summary: 'Debe completar un conjunto específico de tareas para recuperarse de una falla del nodo de administración principal.  El nodo de administración principal aloja el servicio del nodo de administración de configuración (CMN) para la red.' 
+---
+= Recuperarse de fallas del nodo de administración principal
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe completar un conjunto específico de tareas para recuperarse de una falla del nodo de administración principal.  El nodo de administración principal aloja el servicio del nodo de gestión de configuración (CMN) para la red.
+
+
+CAUTION: Debe reparar o reemplazar rápidamente un nodo de administración principal que haya fallado o la red podría perder su capacidad de ingerir nuevos objetos.  El período de tiempo exacto depende de su tasa de ingesta de objetos: si necesita una evaluación más precisa del período de tiempo para su red, comuníquese con el soporte técnico.
+
+El servicio Nodo de gestión de configuración (CMN) en el nodo de administración principal es responsable de emitir bloques de identificadores de objetos para la red.  Estos identificadores se asignan a los objetos a medida que se ingieren.  No se pueden ingerir nuevos objetos a menos que haya identificadores disponibles.  La ingesta de objetos puede continuar mientras el CMN no está disponible porque aproximadamente un mes de suministro de identificadores se almacena en caché en la red.  Sin embargo, una vez agotados los identificadores almacenados en caché, no se pueden agregar objetos nuevos.
+
+Siga estos pasos de alto nivel para recuperar un nodo de administración principal:
+
+. link:copying-audit-logs-from-failed-primary-admin-node.html["Copiar registros de auditoría del nodo de administración principal fallido"]
+. link:replacing-primary-admin-node.html["Reemplazar el nodo de administración principal"]
+. link:configuring-replacement-primary-admin-node.html["Configurar el nodo de administración principal de reemplazo"]
+. link:assess-hotfix-requirement-during-primary-admin-node-recovery.html["Determinar si existe un requisito de revisión urgente para el nodo de administración principal recuperado"]
+. link:restoring-audit-log-on-recovered-primary-admin-node.html["Restaurar el registro de auditoría en el nodo de administración principal recuperado"]
+. link:restoring-admin-node-database-primary-admin-node.html["Restaurar la base de datos del nodo de administración al recuperar un nodo de administración principal"]
+. link:restoring-prometheus-metrics-primary-admin-node.html["Restaurar las métricas de Prometheus al recuperar un nodo de administración principal"]
+

@@ -1,0 +1,140 @@
+---
+permalink: admin/grid-federation-compare-cgr-to-cloudmirror.html 
+sidebar: sidebar 
+keywords: cross-grid replication, cloudmirror replication 
+summary: A medida que comience a utilizar la federación de cuadrículas, revise las similitudes y diferencias entre la replicación entre cuadrículas y el servicio de replicación StorageGRID CloudMirror. 
+---
+= Comparar la replicación entre redes y la replicación de CloudMirror
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A medida que comience a utilizar la federación de red, revise las similitudes y diferencias entrelink:grid-federation-what-is-cross-grid-replication.html["replicación entre redes"] y ellink:../tenant/understanding-cloudmirror-replication-service.html["Servicio de replicación StorageGRID CloudMirror"] .
+
+[cols="1a,3a,3a"]
+|===
+|  | Replicación entre redes | Servicio de replicación CloudMirror 
+
+
+ a| 
+¿Cuál es el propósito principal?
+ a| 
+Un sistema StorageGRID actúa como un sistema de recuperación ante desastres.  Los objetos de un bucket se pueden replicar entre las cuadrículas en una o ambas direcciones.
+ a| 
+Permite que un inquilino replique automáticamente objetos desde un depósito en StorageGRID (origen) a un depósito S3 externo (destino).
+
+La replicación de CloudMirror crea una copia independiente de un objeto en una infraestructura S3 independiente. Esta copia independiente no se utiliza como copia de seguridad, sino que a menudo se procesa en la nube.
+
+
+
+ a| 
+¿Cómo está configurado?
+ a| 
+. Configurar una conexión de federación de red entre dos redes.
+. Agregue nuevas cuentas de inquilinos, que se clonarán automáticamente en la otra red.
+. Agregue nuevos grupos de inquilinos y usuarios, que también se clonan.
+. Cree depósitos correspondientes en cada cuadrícula y habilite la replicación entre cuadrículas para que se produzca en una o ambas direcciones.
+
+ a| 
+. Un usuario inquilino configura la replicación de CloudMirror definiendo un punto final de CloudMirror (dirección IP, credenciales, etc.) mediante el Administrador de inquilinos o la API S3.
+. Cualquier depósito propiedad de esa cuenta de inquilino se puede configurar para apuntar al punto final de CloudMirror.
+
+
+
+
+ a| 
+¿Quién es responsable de configurarlo?
+ a| 
+* Un administrador de red configura la conexión y los inquilinos.
+* Los usuarios inquilinos configuran los grupos, usuarios, claves y depósitos.
+
+ a| 
+Normalmente, un usuario inquilino.
+
+
+
+ a| 
+¿Cual es el destino?
+ a| 
+Un bucket S3 correspondiente e idéntico en el otro sistema StorageGRID en la conexión de federación de red.
+ a| 
+* Cualquier infraestructura S3 compatible (incluido Amazon S3).
+* Plataforma de Google Cloud (GCP)
+
+
+
+
+ a| 
+¿Es necesario el control de versiones de objetos?
+ a| 
+Sí, tanto los depósitos de origen como los de destino deben tener habilitada la versión de objetos.
+ a| 
+No, la replicación de CloudMirror admite cualquier combinación de depósitos versionados y no versionados tanto en el origen como en el destino.
+
+
+
+ a| 
+¿Qué hace que los objetos se muevan al destino?
+ a| 
+Los objetos se replican automáticamente cuando se agregan a un depósito que tiene habilitada la replicación entre cuadrículas.
+ a| 
+Los objetos se replican automáticamente cuando se agregan a un depósito que se ha configurado con un punto final de CloudMirror.  Los objetos que existían en el depósito de origen antes de que este se configurara con el punto final de CloudMirror no se replican, a menos que se modifiquen.
+
+
+
+ a| 
+¿Cómo se replican los objetos?
+ a| 
+La replicación entre cuadrículas crea objetos versionados y replica el ID de la versión del depósito de origen al depósito de destino.  Esto permite mantener el orden de las versiones en ambas cuadrículas.
+ a| 
+La replicación de CloudMirror no requiere depósitos con control de versiones habilitado, por lo que CloudMirror solo puede mantener el orden de una clave dentro de un sitio.  No hay garantías de que se mantenga el orden para las solicitudes de un objeto en un sitio diferente.
+
+
+
+ a| 
+¿Qué pasa si un objeto no se puede replicar?
+ a| 
+El objeto se pone en cola para su replicación, sujeto a los límites de almacenamiento de metadatos.
+ a| 
+El objeto se pone en cola para la replicación, sujeto a los límites de los servicios de la plataforma (consultelink:manage-platform-services-for-tenants.html["Recomendaciones para el uso de los servicios de la plataforma"] ).
+
+
+
+ a| 
+¿Se replican los metadatos del sistema del objeto?
+ a| 
+Sí, cuando un objeto se replica en la otra red, sus metadatos del sistema también se replican.  Los metadatos serán idénticos en ambas cuadrículas.
+ a| 
+No, cuando un objeto se replica en el depósito externo, se actualizan sus metadatos del sistema.  Los metadatos variarán según la ubicación, dependiendo del momento de la ingesta y del comportamiento de la infraestructura S3 independiente.
+
+
+
+ a| 
+¿Cómo se recuperan los objetos?
+ a| 
+Las aplicaciones pueden recuperar o leer objetos realizando una solicitud al depósito en cualquiera de las cuadrículas.
+ a| 
+Las aplicaciones pueden recuperar o leer objetos realizando una solicitud a StorageGRID o al destino S3.  Por ejemplo, supongamos que utiliza la replicación de CloudMirror para reflejar objetos en una organización asociada.  El socio puede utilizar sus propias aplicaciones para leer o actualizar objetos directamente desde el destino S3.  No es necesario utilizar StorageGRID .
+
+
+
+ a| 
+¿Qué pasa si se elimina un objeto?
+ a| 
+* Las solicitudes de eliminación que incluyen un ID de versión nunca se replican en la cuadrícula de destino.
+* Las solicitudes de eliminación que no incluyen un ID de versión agregan un marcador de eliminación al depósito de origen, que opcionalmente se puede replicar en la cuadrícula de destino.
+* Si la replicación entre redes está configurada para una sola dirección, los objetos en el depósito de destino se pueden eliminar sin afectar el origen.
+
+ a| 
+Los resultados variarán según el estado de la versión de los depósitos de origen y destino (que no necesitan ser los mismos):
+
+* Si ambos depósitos están versionados, una solicitud de eliminación agregará un marcador de eliminación en ambas ubicaciones.
+* Si solo está versionado el depósito de origen, una solicitud de eliminación agregará un marcador de eliminación al origen, pero no al destino.
+* Si ninguno de los buckets tiene versión, una solicitud de eliminación eliminará el objeto del origen pero no del destino.
+
+
+De manera similar, los objetos en el depósito de destino se pueden eliminar sin afectar el origen.
+
+|===

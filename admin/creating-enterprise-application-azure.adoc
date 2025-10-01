@@ -1,0 +1,102 @@
+---
+permalink: admin/creating-enterprise-application-azure.html 
+sidebar: sidebar 
+keywords: enterprise application, azure ad, single sign on, sso 
+summary: Utilice Azure AD para crear una aplicación empresarial para cada nodo de administración en su sistema. 
+---
+= Crear aplicaciones empresariales en Azure AD
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Utilice Azure AD para crear una aplicación empresarial para cada nodo de administración en su sistema.
+
+.Antes de empezar
+* Ha comenzado a configurar el inicio de sesión único para StorageGRID y seleccionó *Azure* como tipo de SSO.
+* El *modo Sandbox* está seleccionado en la página de inicio de sesión único en Grid Manager. Ver link:../admin/using-sandbox-mode.html["Utilizar el modo sandbox"] .
+* Tiene el *nombre de la aplicación empresarial* para cada nodo de administración en su sistema. Puede copiar estos valores de la tabla de detalles del nodo de administración en la página de inicio de sesión único de StorageGRID .
++
+
+NOTE: Debe crear una aplicación empresarial para cada nodo de administración en su sistema StorageGRID .  Tener una aplicación empresarial para cada nodo de administración garantiza que los usuarios puedan iniciar y cerrar sesión de forma segura en cualquier nodo de administración.
+
+* Tiene experiencia en la creación de aplicaciones empresariales en Azure Active Directory.
+* Tiene una cuenta de Azure con una suscripción activa.
+* Tiene uno de los siguientes roles en la cuenta de Azure: Administrador global, Administrador de aplicaciones en la nube, Administrador de aplicaciones o propietario de la entidad de servicio.
+
+
+
+
+== Acceder a Azure AD
+
+.Pasos
+. Iniciar sesión en el https://portal.azure.com["Portal de Azure"^] .
+. Navegar a https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade["Directorio activo de Azure"^] .
+. Seleccionar https://portal.azure.com/#blade/Microsoft_AAD_IAM/StartboardApplicationsMenuBlade/Overview/menuId/["Aplicaciones empresariales"^] .
+
+
+
+
+== Cree aplicaciones empresariales y guarde la configuración de SSO de StorageGRID
+
+Para guardar la configuración de SSO para Azure en StorageGRID, debe usar Azure para crear una aplicación empresarial para cada nodo de administración.  Copiará las URL de metadatos de federación de Azure y las pegará en los campos *URL de metadatos de federación* correspondientes en la página de inicio de sesión único de StorageGRID .
+
+.Pasos
+. Repita los siguientes pasos para cada nodo de administración.
++
+.. En el panel de aplicaciones empresariales de Azure, seleccione *Nueva aplicación*.
+.. Seleccione *Crea tu propia aplicación*.
+.. Para el nombre, ingrese el *nombre de la aplicación empresarial* que copió de la tabla de detalles del nodo de administración en la página de inicio de sesión único de StorageGRID .
+.. Deje seleccionado el botón de opción *Integrar cualquier otra aplicación que no encuentre en la galería (No galería)*.
+.. Seleccione *Crear*.
+.. Seleccione el enlace *Comenzar* en el *2.  Configurar el cuadro de inicio de sesión único* o seleccione el enlace *Inicio de sesión único* en el margen izquierdo.
+.. Seleccione la casilla *SAML*.
+.. Copie la *URL de metadatos de federación de aplicaciones*, que puede encontrar en el *Paso 3 Certificado de firma SAML*.
+.. Vaya a la página de inicio de sesión único de StorageGRID y pegue en el campo *URL de metadatos de federación* la URL que corresponde al *nombre de la aplicación empresarial* que utilizó.
+
+
+. Después de haber pegado una URL de metadatos de federación para cada nodo de administración y realizado todos los demás cambios necesarios en la configuración de SSO, seleccione *Guardar* en la página de inicio de sesión único de StorageGRID .
+
+
+
+
+== Descargar metadatos SAML para cada nodo de administración
+
+Una vez guardada la configuración de SSO, puede descargar un archivo de metadatos SAML para cada nodo de administración en su sistema StorageGRID .
+
+.Pasos
+. Repita estos pasos para cada nodo de administración.
++
+.. Sign in en StorageGRID desde el nodo de administración.
+.. Seleccione *CONFIGURACIÓN* > *Control de acceso* > *Inicio de sesión único*.
+.. Seleccione el botón para descargar los metadatos SAML para ese nodo de administración.
+.. Guarde el archivo que cargará en Azure AD.
+
+
+
+
+
+
+== Cargar metadatos SAML a cada aplicación empresarial
+
+Después de descargar un archivo de metadatos SAML para cada nodo de administración de StorageGRID , realice los siguientes pasos en Azure AD:
+
+.Pasos
+. Regresar al Portal de Azure.
+. Repita estos pasos para cada aplicación empresarial:
++
+
+NOTE: Es posible que necesites actualizar la página de aplicaciones empresariales para ver las aplicaciones que agregaste previamente a la lista.
+
++
+.. Vaya a la página Propiedades de la aplicación empresarial.
+.. Establezca *Tarea requerida* en *No* (a menos que desee configurar las asignaciones por separado).
+.. Vaya a la página de inicio de sesión único.
+.. Complete la configuración de SAML.
+.. Seleccione el botón *Cargar archivo de metadatos* y seleccione el archivo de metadatos SAML que descargó para el nodo de administración correspondiente.
+.. Después de cargar el archivo, seleccione *Guardar* y luego seleccione *X* para cerrar el panel.  Regresará a la página Configurar inicio de sesión único con SAML.
+
+
+. Siga los pasos enlink:../admin/using-sandbox-mode.html["Utilizar el modo sandbox"] para probar cada aplicación.
+

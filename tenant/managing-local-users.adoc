@@ -1,0 +1,225 @@
+---
+permalink: tenant/managing-local-users.html 
+sidebar: sidebar 
+keywords: how to create local tenant users, manage users 
+summary: 'Puede crear usuarios locales y asignarlos a grupos locales para determinar a qué funciones pueden acceder estos usuarios. El administrador de inquilinos incluye un usuario local predefinido, llamado "root".  Aunque puedes agregar y eliminar usuarios locales, no puedes eliminar el usuario root.' 
+---
+= Administrar usuarios locales
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede crear usuarios locales y asignarlos a grupos locales para determinar a qué funciones pueden acceder estos usuarios. El administrador de inquilinos incluye un usuario local predefinido, llamado "root". Aunque puedes agregar y eliminar usuarios locales, no puedes eliminar el usuario root.
+
+
+NOTE: Si el inicio de sesión único (SSO) está habilitado para su sistema StorageGRID , los usuarios locales no podrán iniciar sesión en el Administrador de inquilinos ni en la API de administración de inquilinos, aunque podrán usar aplicaciones cliente para acceder a los recursos del inquilino, según los permisos del grupo.
+
+.Antes de empezar
+* Ha iniciado sesión en el Administrador de inquilinos mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Perteneces a un grupo de usuarios que tiene lalink:tenant-management-permissions.html["Permiso de acceso root"] .
+* Si su cuenta de inquilino tiene el permiso *Usar conexión de federación de red*, ha revisado el flujo de trabajo y las consideraciones paralink:grid-federation-account-clone.html["Clonación de grupos de inquilinos y usuarios"] , y ha iniciado sesión en la red de origen del inquilino.
+
+
+
+
+== [[create-user]]Crear un usuario local
+
+Puede crear un usuario local y asignarlo a uno o más grupos locales para controlar sus permisos de acceso.
+
+Los usuarios de S3 que no pertenecen a ningún grupo no tienen permisos de administración ni políticas de grupo de S3 aplicadas a ellos.  A estos usuarios se les podría otorgar acceso al bucket S3 a través de una política de bucket.
+
+Los usuarios de Swift que no pertenecen a ningún grupo no tienen permisos de administración ni acceso al contenedor Swift.
+
+
+
+=== Acceder al asistente para crear usuarios
+
+.Pasos
+. Seleccione *GESTIÓN DE ACCESO* > *Usuarios*.
++
+Si su cuenta de inquilino tiene el permiso *Usar conexión de federación de red*, un banner azul indica que esta es la red de origen del inquilino.  Cualquier usuario local que cree en esta red se clonará en la otra red de la conexión.
+
++
+image::../media/grid-federation-tenant-user-banner.png[Imagen de banner azul en la página de Usuario si esta es la cuadrícula de origen del inquilino]
+
+. Seleccione *Crear usuario*.
+
+
+
+
+=== Ingresar credenciales
+
+.Pasos
+. Para el paso *Ingresar credenciales de usuario*, complete los siguientes campos.
++
+[cols="1a,3a"]
+|===
+| Campo | Descripción 
+
+
+ a| 
+Nombre completo
+ a| 
+El nombre completo de este usuario, por ejemplo, el nombre y apellido de una persona o el nombre de una aplicación.
+
+
+
+ a| 
+Nombre de usuario
+ a| 
+El nombre que este usuario usará para iniciar sesión. Los nombres de usuario deben ser únicos y no se pueden cambiar.
+
+*Nota*: Si su cuenta de inquilino tiene el permiso *Usar conexión de federación de red*, se producirá un error de clonación si ya existe el mismo *Nombre de usuario* para el inquilino en la red de destino.
+
+
+
+ a| 
+Contraseña y Confirmar contraseña
+ a| 
+La contraseña que el usuario utilizará inicialmente al iniciar sesión.
+
+
+
+ a| 
+Denegar el acceso
+ a| 
+Seleccione *Sí* para evitar que este usuario inicie sesión en la cuenta de inquilino, incluso si aún pertenece a uno o más grupos.
+
+Por ejemplo, seleccione *Sí* para suspender temporalmente la capacidad de un usuario de iniciar sesión.
+
+|===
+. Seleccione *Continuar*.
+
+
+
+
+=== Asignar a grupos
+
+.Pasos
+. Asigne el usuario a uno o más grupos locales para determinar qué tareas puede realizar.
++
+La asignación de un usuario a grupos es opcional.  Si lo prefiere, puede seleccionar usuarios al crear o editar grupos.
+
++
+Los usuarios que no pertenecen a ningún grupo no tendrán permisos de administración.  Los permisos son acumulativos.  Los usuarios tendrán todos los permisos para todos los grupos a los que pertenecen. Ver link:tenant-management-permissions.html["Permisos de gestión de inquilinos"] .
+
+. Seleccione *Crear usuario*.
++
+Si su cuenta de inquilino tiene el permiso *Usar conexión de federación de red* y usted está en la red de origen del inquilino, el nuevo usuario local se clona en la red de destino del inquilino.  *Éxito* aparece como *Estado de clonación* en la sección Descripción general de la página de detalles del usuario.
+
+. Seleccione *Finalizar* para regresar a la página Usuarios.
+
+
+
+
+== Ver o editar usuario local
+
+.Pasos
+. Seleccione *GESTIÓN DE ACCESO* > *Usuarios*.
+. Revise la información proporcionada en la página Usuarios, que enumera información básica de todos los usuarios locales y federados para esta cuenta de inquilino.
++
+Si la cuenta del inquilino tiene el permiso *Usar conexión de federación de red* y está viendo al usuario en la red de origen del inquilino:
+
++
+** Un mensaje de banner indica que si edita o elimina un usuario, sus cambios no se sincronizarán con la otra cuadrícula.
+** Según sea necesario, un mensaje de banner indica si los usuarios no fueron clonados al inquilino en la red de destino. Puede <<clone-users,Reintentar una clonación de usuario que falló>> Es
+
+
+. Si desea cambiar el nombre completo del usuario:
++
+.. Seleccione la casilla de verificación para el usuario.
+.. Seleccione *Acciones* > *Editar nombre completo*.
+.. Introduzca el nuevo nombre.
+.. Seleccione *Guardar cambios.*
+
+
+. Si desea ver más detalles o realizar modificaciones adicionales, realice una de las siguientes acciones:
++
+** Seleccione el nombre de usuario.
+** Seleccione la casilla de verificación del usuario y seleccione *Acciones* > *Ver detalles del usuario*.
+
+
+. Revise la sección Descripción general, que muestra la siguiente información para cada usuario:
++
+** Nombre completo
+** Nombre de usuario
+** Tipo de usuario
+** Acceso denegado
+** Modo de acceso
+** Membresía grupal
+** Campos adicionales si la cuenta del inquilino tiene el permiso *Usar conexión de federación de red* y está viendo al usuario en la red de origen del inquilino:
++
+*** Estado de clonación: *Éxito* o *Fracaso*
+*** Un banner azul que indica que si edita este usuario, sus cambios no se sincronizarán con la otra cuadrícula.
+
+
+
+
+. Edite la configuración del usuario según sea necesario. Ver<<create-user,Crear usuario local>> para obtener detalles sobre qué ingresar.
++
+.. En la sección Descripción general, cambie el nombre completo seleccionando el nombre o el ícono de ediciónimage:../media/icon_edit_tm.png["Icono de edición"] .
++
+No puedes cambiar el nombre de usuario.
+
+.. En la pestaña *Contraseña*, cambie la contraseña del usuario y seleccione *Guardar cambios*.
+.. En la pestaña *Acceso*, seleccione *No* para permitir que el usuario inicie sesión o seleccione *Sí* para evitar que el usuario inicie sesión. Luego, seleccione *Guardar cambios*.
+.. En la pestaña *Teclas de acceso*, seleccione *Crear clave* y siga las instrucciones paralink:creating-another-users-s3-access-keys.html["creando las claves de acceso S3 de otro usuario"] .
+.. En la pestaña *Grupos*, seleccione *Editar grupos* para agregar el usuario a grupos o eliminarlo de grupos.  Luego, seleccione *Guardar cambios*.
+
+
+. Confirme que ha seleccionado *Guardar cambios* para cada sección que haya modificado.
+
+
+
+
+== Usuario local duplicado
+
+Puede duplicar un usuario local para crear un nuevo usuario más rápidamente.
+
+
+NOTE: Si su cuenta de inquilino tiene el permiso *Usar conexión de federación de red* y duplica un usuario de la red de origen del inquilino, el usuario duplicado se clonará en la red de destino del inquilino.
+
+.Pasos
+. Seleccione *GESTIÓN DE ACCESO* > *Usuarios*.
+. Seleccione la casilla de verificación del usuario que desea duplicar.
+. Seleccione *Acciones* > *Duplicar usuario*.
+. Ver<<create-user,Crear usuario local>> para obtener detalles sobre qué ingresar.
+. Seleccione *Crear usuario*.
+
+
+
+
+== [[clone-users]]Reintentar clonar usuario
+
+Para volver a intentar una clonación que falló:
+
+. Seleccione cada usuario que indique _(Clonación fallida)_ debajo del nombre de usuario.
+. Seleccione *Acciones* > *Clonar usuarios*.
+. Vea el estado de la operación de clonación desde la página de detalles de cada usuario que esté clonando.
+
+
+Para obtener información adicional, consultelink:grid-federation-account-clone.html["Clonar grupos de inquilinos y usuarios"] .
+
+
+
+== Eliminar uno o más usuarios locales
+
+Puede eliminar de forma permanente uno o más usuarios locales que ya no necesiten acceder a la cuenta de inquilino de StorageGRID .
+
+
+NOTE: Si su cuenta de inquilino tiene el permiso *Usar conexión de federación de red* y elimina un usuario local, StorageGRID no eliminará el usuario correspondiente en la otra red.  Si necesita mantener esta información sincronizada, debe eliminar el mismo usuario de ambas cuadrículas.
+
+
+NOTE: Debe utilizar la fuente de identidad federada para eliminar usuarios federados.
+
+.Pasos
+. Seleccione *GESTIÓN DE ACCESO* > *Usuarios*.
+. Seleccione la casilla de verificación para cada usuario que desee eliminar.
+. Seleccione *Acciones* > *Eliminar usuario* o *Acciones* > *Eliminar usuarios*.
++
+Aparece un cuadro de diálogo de confirmación.
+
+. Seleccione *Eliminar usuario* o *Eliminar usuarios*.
+

@@ -1,0 +1,33 @@
+---
+permalink: fabricpool/configure-dns-server.html 
+sidebar: sidebar 
+keywords: dns, vip, virtual ip, fqdn, server name 
+summary: Después de configurar grupos de alta disponibilidad, puntos finales del balanceador de carga y nombres de dominio S3, debe asegurarse de que el DNS incluya las entradas necesarias para StorageGRID. 
+---
+= Configurar el servidor DNS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de configurar grupos de alta disponibilidad, puntos finales del equilibrador de carga y nombres de dominio de puntos finales S3, debe asegurarse de que el DNS incluya las entradas necesarias para StorageGRID.  Debe incluir una entrada DNS para cada nombre en el certificado de seguridad y para cada dirección IP que pueda utilizar.
+
+Ver link:../admin/managing-load-balancing.html["Consideraciones para el equilibrio de carga"] .
+
+
+
+== Entradas DNS para el nombre del servidor StorageGRID
+
+Agregue entradas DNS para asociar el nombre del servidor StorageGRID (nombre de dominio completo) a cada dirección IP de StorageGRID que utilizará.  Las direcciones IP que ingrese en el DNS dependen de si está utilizando un grupo HA de nodos de equilibrio de carga:
+
+* Si ha configurado un grupo de HA, ONTAP se conectará a las direcciones IP virtuales de ese grupo de HA.
+* Si no está utilizando un grupo HA, ONTAP puede conectarse al servicio StorageGRID Load Balancer usando la dirección IP de cualquier nodo de puerta de enlace o nodo de administración.
+* Si el nombre del servidor se resuelve en más de una dirección IP, ONTAP establece conexiones de cliente con todas las direcciones IP (hasta un máximo de 16 direcciones IP).  Las direcciones IP se seleccionan mediante un método rotatorio cuando se establecen conexiones.
+
+
+
+
+== Entradas DNS para solicitudes de estilo alojado virtual
+
+Si has definidolink:../admin/configuring-s3-api-endpoint-domain-names.html["Nombres de dominio de punto final S3"] y utilizará solicitudes de estilo alojado virtual, agregará entradas DNS para todos los nombres de dominio de punto final S3 requeridos, incluidos los nombres comodín.

@@ -1,0 +1,27 @@
+---
+permalink: network/client-network-topology.html 
+sidebar: sidebar 
+keywords: client network topology 
+summary: 'Tener una red de clientes es opcional.  El uso de una red de cliente permite separar el tráfico de la red de cliente (por ejemplo, S3) del tráfico interno de la red, lo que permite que la red de red sea más segura.  El tráfico administrativo puede ser manejado por el Cliente o la Red Grid cuando la Red de Administración no está configurada.' 
+---
+= Topología de red del cliente
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Tener una red de clientes es opcional.  El uso de una red de cliente permite separar el tráfico de la red del cliente (por ejemplo, S3) del tráfico interno de la red, lo que permite que la red de la red sea más segura.  El tráfico administrativo puede ser manejado por el Cliente o la Red Grid cuando la Red de Administración no está configurada.
+
+Cuando configura la red del cliente, establece la dirección IP del host, la máscara de subred y la dirección IP de la puerta de enlace para la interfaz eth2 del nodo configurado.  La red de clientes de cada nodo puede ser independiente de la red de clientes de cualquier otro nodo.
+
+Si configura una red de cliente para un nodo durante la instalación, la puerta de enlace predeterminada del nodo cambia de la puerta de enlace de la red de cuadrícula a la puerta de enlace de la red de cliente cuando se completa la instalación.  Si posteriormente se agrega una red de cliente, la puerta de enlace predeterminada del nodo cambia de la misma manera.
+
+En este ejemplo, la red de cliente se utiliza para solicitudes de clientes S3 y para funciones administrativas, mientras que la red de cuadrícula se dedica a operaciones de gestión de objetos internos.
+
+image::../media/grid_client_networks.png[Redes de clientes de Grid]
+
+image::../media/grid_client_networks_ips.png[IP de redes de clientes de Grid]
+
+.Información relacionada
+link:../maintain/changing-nodes-network-configuration.html["Cambiar la configuración de la red del nodo"]

@@ -1,0 +1,29 @@
+---
+permalink: maintain/installing-services-appliance-platform-change-only.html 
+sidebar: sidebar 
+keywords: storagegrid, recover services appliance, recover appliance, recovering appliance, recovering services appliance, install services appliance, installing services appliance, services appliance 
+summary: 'Cuando recupera un nodo de red fallido que estaba alojado en VMware o un host Linux y está usando un dispositivo de servicios para el nodo de reemplazo, primero debe instalar el nuevo hardware del dispositivo usando el mismo nombre de nodo (nombre del sistema) que el nodo fallido.' 
+---
+= Instalar dispositivo de servicios (solo cambio de plataforma)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando recupera un nodo de red fallido que estaba alojado en VMware o un host Linux y está usando un dispositivo de servicios para el nodo de reemplazo, primero debe instalar el nuevo hardware del dispositivo usando el mismo nombre de nodo (nombre del sistema) que el nodo fallido.
+
+.Antes de empezar
+Tiene la siguiente información sobre el nodo fallido:
+
+* *Nombre del nodo*: debe instalar el dispositivo de servicios utilizando el mismo nombre de nodo que el nodo fallido.  El nombre del nodo es el nombre del host (nombre del sistema).
+* *Direcciones IP*: puede asignar al dispositivo de servicios las mismas direcciones IP que el nodo fallido, que es la opción preferida, o puede seleccionar una nueva dirección IP no utilizada en cada red.
+
+
+.Acerca de esta tarea
+Realice este procedimiento solo si está recuperando un nodo fallido que estaba alojado en VMware o Linux y lo está reemplazando por un nodo alojado en un dispositivo de servicios.
+
+.Pasos
+. Siga las instrucciones para instalar un nuevo dispositivo de servicios. Ver https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/index.html["Inicio rápido para la instalación de hardware"^] .
+. Cuando se le solicite un nombre de nodo, utilice el nombre del nodo que falló.
+

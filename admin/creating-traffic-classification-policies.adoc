@@ -1,0 +1,135 @@
+---
+permalink: admin/creating-traffic-classification-policies.html 
+sidebar: sidebar 
+keywords: traffic classification, network traffic, traffic limits, policy 
+summary: Crea políticas de clasificación de tráfico si deseas monitorear y, opcionalmente, limitar el tráfico de red por depósito, inquilino, subred IP o punto final del balanceador de carga.  Opcionalmente, puede establecer límites para una política en función del ancho de banda, la cantidad de solicitudes simultáneas o la tasa de solicitudes. 
+---
+= Crear políticas de clasificación de tráfico
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede crear políticas de clasificación de tráfico si desea monitorear y, opcionalmente, limitar el tráfico de red por depósito, expresión regular de depósito, CIDR, punto final del balanceador de carga o inquilino.  Opcionalmente, puede establecer límites para una política en función del ancho de banda, la cantidad de solicitudes simultáneas o la tasa de solicitudes.
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tú tienes ellink:admin-group-permissions.html["Permiso de acceso root"] .
+* Ha creado todos los puntos finales del balanceador de carga que desea que coincidan.
+* Has creado todos los inquilinos que quieres emparejar.
+
+
+.Pasos
+. Seleccione *CONFIGURACIÓN* > *Red* > *Clasificación de tráfico*.
+. Seleccione *Crear*.
+. Ingrese un nombre y una descripción (opcional) para la política y seleccione *Continuar*.
++
+Por ejemplo, describa a qué se aplica esta política de clasificación de tráfico y qué limitará.
+
+. Seleccione *Agregar regla* y especifique los siguientes detalles para crear una o más reglas coincidentes para la política.  Cualquier política que cree debe tener al menos una regla coincidente. Seleccione *Continuar*.
++
+[cols="1a,3a"]
+|===
+| Campo | Descripción 
+
+
+ a| 
+Tipo
+ a| 
+Seleccione los tipos de tráfico a los que se aplica la regla de coincidencia.  Los tipos de tráfico son bucket, regex de bucket, CIDR, punto final del equilibrador de carga e inquilino.
+
+
+
+ a| 
+Valor de coincidencia
+ a| 
+Introduzca el valor que coincida con el tipo seleccionado.
+
+** Cubo: Ingrese uno o más nombres de cubo.
+** Expresión regular de depósito: ingrese una o más expresiones regulares utilizadas para hacer coincidir un conjunto de nombres de depósito.
++
+La expresión regular no está anclada.  Utilice el ancla ^ para que coincida al principio del nombre del depósito, y utilice el ancla $ para que coincida al final del nombre.  La coincidencia de expresiones regulares admite un subconjunto de la sintaxis PCRE (expresión regular compatible con Perl).
+
+** CIDR: ingrese una o más subredes IPv4, en notación CIDR, que coincidan con la subred deseada.
+** Punto final del equilibrador de carga: seleccione un nombre de punto final.  Estos son los puntos finales del balanceador de carga que definió en ellink:../admin/configuring-load-balancer-endpoints.html["Configurar los puntos finales del balanceador de carga"] .
+** Inquilino: la coincidencia de inquilinos utiliza el ID de la clave de acceso.  Si la solicitud no contiene un ID de clave de acceso (por ejemplo, acceso anónimo), se utiliza la propiedad del depósito al que se accede para determinar el inquilino.
+
+
+
+
+ a| 
+Partido inverso
+ a| 
+Si desea hacer coincidir todo el tráfico de la red _excepto_ el tráfico consistente con el Tipo y el Valor de coincidencia que acaba de definir, seleccione la casilla de verificación *Coincidencia inversa*.  De lo contrario, deje la casilla de verificación sin marcar.
+
+Por ejemplo, si desea que esta política se aplique a todos los puntos finales del balanceador de carga excepto uno, especifique el punto final del balanceador de carga que se excluirá y seleccione *Coincidencia inversa*.
+
+Para una política que contiene varios comparadores donde al menos uno es un comparador inverso, tenga cuidado de no crear una política que coincida con todas las solicitudes.
+
+|===
+. Opcionalmente, seleccione *Agregar un límite* y seleccione los siguientes detalles para agregar uno o más límites para controlar el tráfico de red que coincide con una regla.
++
+
+NOTE: StorageGRID recopila métricas incluso si no agrega ningún límite, para que pueda comprender las tendencias de tráfico.
+
++
+[cols="1a,3a"]
+|===
+| Campo | Descripción 
+
+
+ a| 
+Tipo
+ a| 
+El tipo de límite que desea aplicar al tráfico de red que coincide con la regla.  Por ejemplo, puede limitar el ancho de banda o la velocidad de solicitud.
+
+*Nota*: Puede crear políticas para limitar el ancho de banda agregado o para limitar el ancho de banda por solicitud.  Sin embargo, StorageGRID no puede limitar ambos tipos de ancho de banda al mismo tiempo.  Cuando se utiliza el ancho de banda agregado, el ancho de banda por solicitud no está disponible.  Por el contrario, cuando se utiliza el ancho de banda por solicitud, el ancho de banda agregado no está disponible.  Los límites de ancho de banda agregados pueden imponer un impacto menor adicional en el rendimiento del tráfico no limitado.
+
+Para los límites de ancho de banda, StorageGRID aplica la política que mejor coincide con el tipo de límite establecido.  Por ejemplo, si tiene una política que limita el tráfico en una sola dirección, entonces el tráfico en la dirección opuesta será ilimitado, incluso si hay tráfico que coincida con políticas adicionales que tienen límites de ancho de banda.  StorageGRID implementa las "mejores" coincidencias para los límites de ancho de banda en el siguiente orden:
+
+** Dirección IP exacta (máscara /32)
+** Nombre exacto del depósito
+** Expresión regular de cubo
+** Arrendatario
+** Punto final
+** Coincidencias CIDR no exactas (no /32)
+** Coincidencias inversas
+
+
+
+
+ a| 
+Se aplica a
+ a| 
+Si este límite se aplica a solicitudes de lectura del cliente (GET o HEAD) o solicitudes de escritura (PUT, POST o DELETE).
+
+
+
+ a| 
+Valor
+ a| 
+El valor al que se limitará el tráfico de red, según la unidad que seleccione.  Por ejemplo, ingrese 10 y seleccione MiB/s para evitar que el tráfico de red que coincide con esta regla supere los 10 MiB/s.
+
+*Nota*: Dependiendo de la configuración de las unidades, las unidades disponibles serán binarias (por ejemplo, GiB) o decimales (por ejemplo, GB).  Para cambiar la configuración de las unidades, seleccione el menú desplegable de usuario en la parte superior derecha del Administrador de cuadrícula, luego seleccione *Preferencias de usuario*.
+
+
+
+ a| 
+Unidad
+ a| 
+La unidad que describe el valor ingresado.
+
+|===
++
+Por ejemplo, si desea crear un límite de ancho de banda de 40 GB/s para un nivel de SLA, cree dos límites de ancho de banda agregados: GET/HEAD a 40 GB/s y PUT/POST/DELETE a 40 GB/s.
+
+. Seleccione *Continuar*.
+. Lea y revise la política de clasificación de tráfico.  Utilice el botón *Anterior* para volver atrás y realizar los cambios necesarios.  Cuando esté satisfecho con la política, seleccione *Guardar y continuar*.
++
+El tráfico del cliente S3 ahora se maneja de acuerdo con la política de clasificación de tráfico.
+
+
+
+.Después de terminar
+link:viewing-network-traffic-metrics.html["Ver métricas de tráfico de red"]para verificar que las políticas estén haciendo cumplir los límites de tráfico esperados.

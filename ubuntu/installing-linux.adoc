@@ -1,0 +1,102 @@
+---
+permalink: ubuntu/installing-linux.html 
+sidebar: sidebar 
+keywords: how to install Linux 
+summary: Debe instalar StorageGRID en todos los hosts de red Ubuntu o Debian. Para obtener una lista de las versiones compatibles, utilice la herramienta Matriz de interoperabilidad de NetApp . 
+---
+= Instalar Linux
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe instalar StorageGRID en todos los hosts de red Ubuntu o Debian. Para obtener una lista de las versiones compatibles, utilice la herramienta Matriz de interoperabilidad de NetApp .
+
+.Antes de empezar
+Asegúrese de que su sistema operativo cumpla con los requisitos mínimos de versión de kernel de StorageGRID, como se detalla a continuación.  Utilice el comando `uname -r` para obtener la versión del kernel de su sistema operativo o consulte con el proveedor de su sistema operativo.
+
+*Nota:* La compatibilidad con las versiones 18.04 y 20.04 de Ubuntu ha quedado obsoleta y se eliminará en una versión futura.
+
+[cols="1a,2a,3a"]
+|===
+| Versión de Ubuntu | Versión mínima del kernel | Nombre del paquete del kernel 
+
+
+ a| 
+18.04.6 (obsoleto)
+ a| 
+5.4.0-150-genérico
+ a| 
+imagen-de-linux-5.4.0-150-genérica/actualizaciones-bionic,seguridad-bionic,ahora 5.4.0-150.167~18.04.1
+
+
+
+ a| 
+20.04.5 (obsoleto)
+ a| 
+5.4.0-131-genérico
+ a| 
+imagen-de-linux-5.4.0-131-genérica/actualizaciones-focales, ahora 5.4.0-131.147
+
+
+
+ a| 
+22.04.1
+ a| 
+5.15.0-47-genérico
+ a| 
+imagen-de-linux-5.15.0-47-genérica/actualizaciones-de-jammy,seguridad-de-jammy,ahora 5.15.0-47.51
+
+
+
+ a| 
+24,04
+ a| 
+6.8.0-31-genérico
+ a| 
+imagen-de-linux-6.8.0-31-genérica/noble,ahora 6.8.0-31.31
+
+|===
+*Nota:* El soporte para la versión 11 de Debian ha quedado obsoleto y se eliminará en una versión futura.
+
+[cols="1a,2a,2a"]
+|===
+| Versión de Debian | Versión mínima del kernel | Nombre del paquete del kernel 
+
+
+ a| 
+11 (obsoleto)
+ a| 
+5.10.0-18-amd64
+ a| 
+imagen de Linux 5.10.0-18-amd64/estable, ahora 5.10.150-1
+
+
+
+ a| 
+12
+ a| 
+6.1.0-9-amd64
+ a| 
+imagen de Linux 6.1.0-9-amd64/estable, ahora 6.1.27-1
+
+|===
+.Pasos
+. Instale Linux en todos los hosts de la red física o virtual de acuerdo con las instrucciones del distribuidor o su procedimiento estándar.
++
+
+NOTE: No instale ningún entorno de escritorio gráfico. Al instalar Ubuntu, debes seleccionar *utilidades del sistema estándar*. Se recomienda seleccionar *Servidor OpenSSH* para habilitar el acceso ssh a sus hosts Ubuntu. Todas las demás opciones pueden permanecer desactivadas.
+
+. Asegúrese de que todos los hosts tengan acceso a los repositorios de paquetes de Ubuntu o Debian.
+. Si el intercambio está habilitado:
++
+.. Ejecute el siguiente comando: `$ sudo swapoff --all`
+.. Eliminar todas las entradas de intercambio de `/etc/fstab` para conservar la configuración.
++
+
+NOTE: No deshabilitar el intercambio por completo puede reducir gravemente el rendimiento.
+
+
+
+

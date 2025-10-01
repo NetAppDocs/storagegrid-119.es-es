@@ -1,0 +1,52 @@
+---
+permalink: upgrade/changes-to-grid-management-api.html 
+sidebar: sidebar 
+keywords: grid management api, api, api version, swagger, rest api, usageCacheDuration 
+summary: StorageGRID 11.9 utiliza la versión 4 de la API de administración de Grid. La versión 4 deja obsoleta la versión 3; sin embargo, las versiones 1, 2 y 3 aún son compatibles. 
+---
+= Cambios en la API de administración de la red
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRID 11.9 utiliza la versión 4 de la API de administración de Grid. La versión 4 deja obsoleta la versión 3; sin embargo, las versiones 1, 2 y 3 aún son compatibles.
+
+
+NOTE: Puede seguir usando versiones obsoletas de la API de administración con StorageGRID 11.9; sin embargo, la compatibilidad con estas versiones de la API se eliminará en una futura versión de StorageGRID. Después de actualizar a StorageGRID 11.9, puede desactivar las API obsoletas mediante el uso de `PUT /grid/config/management` API.
+
+Para obtener más información, visitelink:../admin/using-grid-management-api.html["Utilice la API de gestión de red"] .
+
+
+
+== Revisar la configuración de cumplimiento después de habilitar el bloqueo global de objetos S3
+
+Revise la configuración de cumplimiento de los inquilinos existentes después de habilitar la configuración global de Bloqueo de objetos S3.  Cuando habilita esta configuración, las configuraciones de bloqueo de objetos S3 por inquilino dependen de la versión de StorageGRID en el momento en que se creó el inquilino.
+
+
+
+== Solicitudes de mgmt-api heredadas eliminadas
+
+Se han eliminado estas solicitudes heredadas:
+
+`/grid/server-types`
+
+`/grid/ntp-roles`
+
+
+
+== Cambios en `GET /private/storage-usage` API
+
+* Una nueva propiedad, `usageCacheDuration` , se ha agregado al cuerpo de la respuesta.  Esta propiedad especifica la duración (en segundos) durante la cual la caché de búsqueda de uso permanece válida.  Este valor se aplica al verificar el uso frente a la cuota de almacenamiento del inquilino y los límites de capacidad del depósito.
+* El `GET /api/v4/private/storage-usage` Se ha corregido el comportamiento para que coincida con la anidación del esquema.
+* Estos cambios se aplican únicamente a la API privada.
+
+
+
+
+== Cambios en `GET cross-grid-replication` API
+
+La API GET */org/containers/:name/cross-grid-replication* ya no requiere acceso root(`rootAccess` ) permiso; sin embargo, debe pertenecer a un grupo de usuarios que tenga el permiso Administrar todos los depósitos(`manageAllContainers` ) o Ver todos los depósitos(`viewAllContainers` ) permiso.
+
+La API PUT */org/containers/:name/cross-grid-replication* no ha cambiado y aún requiere acceso root.(`rootAccess` ) permiso.

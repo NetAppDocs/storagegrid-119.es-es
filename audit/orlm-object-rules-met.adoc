@@ -1,0 +1,158 @@
+---
+permalink: audit/orlm-object-rules-met.html 
+sidebar: sidebar 
+keywords: audit message, ORLM, Object Rules Met, ilm rule 
+summary: Este mensaje se genera cuando el objeto se almacena y copia correctamente según lo especificado por las reglas de ILM. 
+---
+= ORLM: Se cumplen las reglas de objeto
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este mensaje se genera cuando el objeto se almacena y copia correctamente según lo especificado por las reglas de ILM.
+
+
+NOTE: El mensaje ORLM no se genera cuando un objeto se almacena correctamente mediante la regla predeterminada Hacer 2 copias si otra regla en la política utiliza el filtro avanzado Tamaño del objeto.
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+CONSTRUIR
+ a| 
+Encabezado del cubo
+ a| 
+Campo de identificación del depósito.  Se utiliza para operaciones internas.  Sólo aparece si STAT es PRGD.
+
+
+
+ a| 
+CBD
+ a| 
+Identificador de bloque de contenido
+ a| 
+El CBID del objeto.
+
+
+
+ a| 
+CSIZ
+ a| 
+Tamaño del contenido
+ a| 
+El tamaño del objeto en bytes.
+
+
+
+ a| 
+LOCS
+ a| 
+Ubicaciones
+ a| 
+La ubicación de almacenamiento de los datos de objetos dentro del sistema StorageGRID .  El valor de LOCS es "" si el objeto no tiene ubicaciones (por ejemplo, ha sido eliminado).
+
+CLEC: para objetos con código de borrado, el ID del perfil de codificación de borrado y el ID del grupo de codificación de borrado que se aplica a los datos del objeto.
+
+CLDI: para objetos replicados, el ID del nodo LDR y el ID del volumen de la ubicación del objeto.
+
+CLNL: ID del nodo ARC de la ubicación del objeto si los datos del objeto están archivados.
+
+
+
+ a| 
+CAMINO
+ a| 
+Cubo/clave S3
+ a| 
+El nombre del depósito S3 y el nombre de la clave S3.
+
+
+
+ a| 
+RSLT
+ a| 
+Resultado
+ a| 
+El resultado de la operación ILM.
+
+SUCS: La operación ILM fue exitosa.
+
+
+
+ a| 
+REGLA
+ a| 
+Etiqueta de reglas
+ a| 
+La etiqueta legible por humanos dada a la regla ILM aplicada a este objeto.
+
+
+
+ a| 
+SEGC
+ a| 
+UUID del contenedor
+ a| 
+UUID del contenedor del objeto segmentado.  Este valor solo está disponible si el objeto está segmentado.
+
+
+
+ a| 
+SGCB
+ a| 
+Contenedor CBDI
+ a| 
+CBID del contenedor del objeto segmentado.  Este valor solo está disponible para objetos segmentados y multiparte.
+
+
+
+ a| 
+ESTADÍSTICA
+ a| 
+Estado
+ a| 
+El estado de la operación de ILM.
+
+HECHO: Se han completado las operaciones ILM contra el objeto.
+
+DFER: El objeto ha sido marcado para una futura reevaluación ILM.
+
+PRGD: El objeto ha sido eliminado del sistema StorageGRID .
+
+NLOC: Los datos del objeto ya no se pueden encontrar en el sistema StorageGRID .  Este estado podría indicar que todas las copias de los datos del objeto faltan o están dañadas.
+
+
+
+ a| 
+UUID
+ a| 
+Identificador único universal
+ a| 
+El identificador del objeto dentro del sistema StorageGRID .
+
+
+
+ a| 
+VSID
+ a| 
+ID de versión
+ a| 
+El ID de la versión de un nuevo objeto creado en un depósito versionado.  Las operaciones en depósitos y objetos en depósitos no versionados no incluyen este campo.
+
+|===
+El mensaje de auditoría ORLM se puede emitir más de una vez para un solo objeto.  Por ejemplo, se emite siempre que ocurre uno de los siguientes eventos:
+
+* Las reglas ILM para el objeto se satisfacen para siempre.
+* Las reglas ILM para el objeto se cumplen para esta época.
+* Las reglas de ILM han eliminado el objeto.
+* El proceso de verificación de fondo detecta que una copia de los datos del objeto replicado está dañada.  El sistema StorageGRID realiza una evaluación ILM para reemplazar el objeto dañado.
+
+
+.Información relacionada
+* link:object-ingest-transactions.html["Transacciones de ingesta de objetos"]
+* link:object-delete-transactions.html["Transacciones de eliminación de objetos"]
+

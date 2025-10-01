@@ -1,0 +1,87 @@
+---
+permalink: s3/complete-multipart-upload.html 
+sidebar: sidebar 
+keywords: multipart upload, object, object size 
+summary: La operación CompleteMultipartUpload completa una carga multiparte de un objeto ensamblando las partes cargadas previamente. 
+---
+= Carga completa de varias partes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La operación CompleteMultipartUpload completa una carga multiparte de un objeto ensamblando las partes cargadas previamente.
+
+
+NOTE: StorageGRID admite valores no consecutivos en orden ascendente para el `partNumber` parámetro de solicitud con CompleteMultipartUpload.  El parámetro puede comenzar con cualquier valor.
+
+
+
+== Resolver conflictos
+
+Las solicitudes de clientes conflictivas, como dos clientes que escriben en la misma clave, se resuelven según el criterio del "último que gana".  El momento de la evaluación de "últimas victorias" se basa en cuándo el sistema StorageGRID completa una solicitud determinada y no en cuándo los clientes S3 comienzan una operación.
+
+
+
+== Encabezados de solicitud admitidos
+
+Se admiten los siguientes encabezados de solicitud:
+
+* `x-amz-checksum-sha256`
+* `x-amz-storage-class`
++
+El `x-amz-storage-class` El encabezado afecta la cantidad de copias de objetos que crea StorageGRID si la regla ILM correspondiente especificalink:../ilm/data-protection-options-for-ingest.html["Opción de doble confirmación o ingesta equilibrada"] .
+
+* `STANDARD`
++
+(Predeterminado) Especifica una operación de ingesta de confirmación dual cuando la regla ILM usa la opción Confirmación dual o cuando la opción Equilibrada recurre a la creación de copias provisionales.
+
+* `REDUCED_REDUNDANCY`
++
+Especifica una operación de ingesta de confirmación única cuando la regla ILM usa la opción de confirmación dual o cuando la opción Equilibrada recurre a la creación de copias provisionales.
+
++
+
+NOTE: Si está ingiriendo un objeto en un depósito con el bloqueo de objetos S3 habilitado, `REDUCED_REDUNDANCY` La opción se ignora.  Si está ingiriendo un objeto en un depósito compatible heredado, el `REDUCED_REDUNDANCY` La opción devuelve un error.  StorageGRID siempre realizará una ingesta de confirmación dual para garantizar que se cumplan los requisitos de cumplimiento.
+
+
+
+
+CAUTION: Si una carga de varias partes no se completa dentro de los 15 días, la operación se marca como inactiva y todos los datos asociados se eliminan del sistema.
+
+
+NOTE: El `ETag` El valor devuelto no es una suma MD5 de los datos, sino que sigue la implementación de la API de Amazon S3 de la `ETag` valor para objetos multiparte.
+
+
+
+== Encabezados de solicitud no admitidos
+
+Los siguientes encabezados de solicitud no son compatibles:
+
+* `x-amz-sdk-checksum-algorithm`
+* `x-amz-trailer`
+
+
+
+
+== Control de versiones
+
+Esta operación completa una carga de varias partes.  Si el control de versiones está habilitado para un bucket, la versión del objeto se crea después de completar la carga de varias partes.
+
+Si el control de versiones está habilitado para un bucket, se creará un único `versionId` Se genera automáticamente para la versión del objeto que se está almacenando.  Este `versionId` También se devuelve en la respuesta utilizando el `x-amz-version-id` encabezado de respuesta.
+
+Si se suspende el control de versiones, la versión del objeto se almacena con un valor nulo. `versionId` y si ya existe una versión nula, se sobrescribirá.
+
+
+NOTE: Cuando el control de versiones está habilitado para un bucket, completar una carga multiparte siempre crea una nueva versión, incluso si hay cargas multiparte simultáneas completadas en la misma clave de objeto.  Cuando el control de versiones no está habilitado para un bucket, es posible iniciar una carga multiparte y luego iniciar y completar primero otra carga multiparte en la misma clave de objeto.  En los depósitos sin versiones, la carga multiparte que se completa en último lugar tiene prioridad.
+
+
+
+== Error de replicación, notificación o notificación de metadatos
+
+Si el depósito donde se produce la carga multiparte está configurado para un servicio de plataforma, la carga multiparte se realiza correctamente incluso si falla la acción de replicación o notificación asociada.
+
+Un inquilino puede activar la replicación o notificación fallida actualizando los metadatos o las etiquetas del objeto.  Un inquilino puede volver a enviar los valores existentes para evitar realizar cambios no deseados.
+
+Consulte link:../admin/troubleshooting-platform-services.html["Solucionar problemas de servicios de la plataforma"] .

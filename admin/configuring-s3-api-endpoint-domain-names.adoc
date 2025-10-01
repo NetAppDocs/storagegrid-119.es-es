@@ -1,0 +1,102 @@
+---
+permalink: admin/configuring-s3-api-endpoint-domain-names.html 
+sidebar: sidebar 
+keywords: s3 endpoint domain names, virtual-hosted-style requests 
+summary: Para admitir solicitudes de estilo alojado virtualmente S3, debe usar Grid Manager para configurar la lista de nombres de dominio de puntos finales S3 a los que se conectan los clientes S3. 
+---
+= Configurar nombres de dominio de puntos finales S3
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para admitir solicitudes de estilo alojado virtualmente S3, debe usar Grid Manager para configurar la lista de nombres de dominio de puntos finales S3 a los que se conectan los clientes S3.
+
+
+CAUTION: No se admite el uso de una dirección IP para un nombre de dominio de punto final.  Las versiones futuras evitarán esta configuración.
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tieneslink:../admin/admin-group-permissions.html["permisos de acceso específicos"] .
+* Ha confirmado que no hay ninguna actualización de la red en curso.
++
+
+CAUTION: No realice ningún cambio en la configuración del nombre de dominio cuando haya una actualización de la red en curso.
+
+
+
+.Acerca de esta tarea
+Para permitir que los clientes utilicen nombres de dominio de punto final S3, debe realizar todo lo siguiente:
+
+* Utilice Grid Manager para agregar los nombres de dominio del punto final S3 al sistema StorageGRID .
+* Asegúrese de que ellink:../admin/configuring-administrator-client-certificates.html["Certificado que el cliente utiliza para conexiones HTTPS a StorageGRID"] Está firmado para todos los nombres de dominio que requiera el cliente.
++
+Por ejemplo, si el punto final es `s3.company.com` , debe asegurarse de que el certificado utilizado para las conexiones HTTPS incluya el `s3.company.com` punto final y el nombre alternativo del sujeto (SAN) comodín del punto final: `*.s3.company.com` .
+
+* Configurar el servidor DNS utilizado por el cliente.  Incluya registros DNS para las direcciones IP que los clientes usan para realizar conexiones y asegúrese de que los registros hagan referencia a todos los nombres de dominio de punto final S3 requeridos, incluidos todos los nombres comodín.
++
+
+NOTE: Los clientes pueden conectarse a StorageGRID utilizando la dirección IP de un nodo de puerta de enlace, un nodo de administración o un nodo de almacenamiento, o conectándose a la dirección IP virtual de un grupo de alta disponibilidad.  Debe comprender cómo se conectan las aplicaciones cliente a la red para incluir las direcciones IP correctas en los registros DNS.
+
+
+
+Los clientes que utilizan conexiones HTTPS (recomendadas) a la red pueden usar cualquiera de estos certificados:
+
+* Los clientes que se conectan a un punto final del equilibrador de carga pueden usar un certificado personalizado para ese punto final.  Cada punto final del equilibrador de carga se puede configurar para reconocer diferentes nombres de dominio de punto final S3.
+* Los clientes que se conectan a un punto final del balanceador de carga o directamente a un nodo de almacenamiento pueden personalizar el certificado API S3 global para incluir todos los nombres de dominio de punto final S3 requeridos.
+
+
+
+NOTE: Si no agrega nombres de dominio de punto final S3 y la lista está vacía, se deshabilita la compatibilidad con solicitudes de estilo alojado virtualmente S3.
+
+
+
+== Agregar un nombre de dominio de punto final S3
+
+.Pasos
+. Seleccione *CONFIGURACIÓN* > *Red* > *Nombres de dominio de punto final S3*.
+. Introduzca el nombre de dominio en el campo *Nombre de dominio 1*.  Seleccione *Agregar otro nombre de dominio* para agregar más nombres de dominio.
+. Seleccione *Guardar*.
+. Asegúrese de que los certificados de servidor que utilizan los clientes coincidan con los nombres de dominio de punto final S3 requeridos.
++
+** Si los clientes se conectan a un punto final del balanceador de carga que utiliza su propio certificado,link:../admin/configuring-load-balancer-endpoints.html["Actualizar el certificado asociado con el punto final"] .
+** Si los clientes se conectan a un punto final del balanceador de carga que utiliza el certificado de API S3 global o directamente a los nodos de almacenamiento,link:../admin/use-s3-setup-wizard-steps.html["actualizar el certificado API global de S3"] .
+
+
+. Agregue los registros DNS necesarios para garantizar que se puedan resolver las solicitudes de nombre de dominio del punto final.
+
+
+.Resultado
+Ahora, cuando los clientes utilizan el punto final `_bucket.s3.company.com_` , el servidor DNS se resuelve en el punto final correcto y el certificado autentica el punto final como se esperaba.
+
+
+
+== Cambiar el nombre de un dominio de punto final S3
+
+Si cambia un nombre utilizado por aplicaciones S3, las solicitudes de estilo alojado virtualmente fallarán.
+
+.Pasos
+. Seleccione *CONFIGURACIÓN* > *Red* > *Nombres de dominio de punto final S3*.
+. Seleccione el campo de nombre de dominio que desea editar y realice los cambios necesarios.
+. Seleccione *Guardar*.
+. Seleccione *Sí* para confirmar su cambio.
+
+
+
+
+== Eliminar un nombre de dominio de punto final S3
+
+Si elimina un nombre utilizado por aplicaciones S3, las solicitudes de estilo alojado virtualmente fallarán.
+
+.Pasos
+. Seleccione *CONFIGURACIÓN* > *Red* > *Nombres de dominio de punto final S3*.
+. Seleccione el icono de eliminarimage:../media/icon-x-to-remove.png["icono de eliminar"] junto al nombre de dominio.
+. Seleccione *Sí* para confirmar la eliminación.
+
+
+.Información relacionada
+* link:../s3/index.html["Utilice la API REST de S3"]
+* link:viewing-ip-addresses.html["Ver direcciones IP"]
+* link:configure-high-availability-group.html["Configurar grupos de alta disponibilidad"]
+

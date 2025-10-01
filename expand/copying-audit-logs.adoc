@@ -1,0 +1,98 @@
+---
+permalink: expand/copying-audit-logs.html 
+sidebar: sidebar 
+keywords: copy audit log, Admin Node expansion, 
+summary: Cuando se agrega un nuevo nodo de administración a través de un procedimiento de expansión, su servicio AMS solo registra los eventos y acciones que ocurren después de que se une al sistema. Según sea necesario, puede copiar registros de auditoría de un nodo de administración previamente instalado al nuevo nodo de administración de expansión para que esté sincronizado con el resto del sistema StorageGRID . 
+---
+= Copiar registros de auditoría
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando se agrega un nuevo nodo de administración a través de un procedimiento de expansión, su servicio AMS solo registra los eventos y acciones que ocurren después de que se une al sistema. Según sea necesario, puede copiar registros de auditoría de un nodo de administración previamente instalado al nuevo nodo de administración de expansión para que esté sincronizado con el resto del sistema StorageGRID .
+
+.Antes de empezar
+* Ha completado los pasos de expansión necesarios para agregar un nodo de administración.
+* Tú tienes el `Passwords.txt` archivo.
+
+
+.Acerca de esta tarea
+Para que los mensajes de auditoría históricos estén disponibles en un nuevo nodo de administración, debe copiar manualmente los archivos de registro de auditoría desde un nodo de administración existente al nodo de administración de expansión.
+
+[NOTE]
+====
+De forma predeterminada, la información de auditoría se envía al registro de auditoría en los nodos de administración.  Puede omitir estos pasos si se aplica alguna de las siguientes situaciones:
+
+* Configuró un servidor syslog externo y los registros de auditoría ahora se envían al servidor syslog en lugar de a los nodos de administración.
+* Usted especificó explícitamente que los mensajes de auditoría deben guardarse solo en los nodos locales que los generaron.
+
+
+Verlink:../monitor/configure-audit-messages.html["Configurar mensajes de auditoría y destinos de registro"] Para más detalles.
+
+====
+.Pasos
+. Inicie sesión en el nodo de administración principal:
++
+.. Introduzca el siguiente comando: `ssh _admin@_primary_Admin_Node_IP_`
+.. Introduzca la contraseña que aparece en el `Passwords.txt` archivo.
+.. Introduzca el siguiente comando para cambiar a root: `su -`
+.. Introduzca la contraseña que aparece en el `Passwords.txt` archivo.
++
+Cuando inicia sesión como root, el mensaje cambia de `$` a `#` .
+
+
+
+. Detenga el servicio AMS para evitar que cree un nuevo archivo: `service ams stop`
+. Navegue hasta el directorio de exportación de auditoría:
++
+`cd /var/local/log`
+
+. Cambiar el nombre de la fuente `audit.log` archivo para asegurarse de que no sobrescriba el archivo en el nodo de administración de expansión al que lo está copiando:
++
+[listing]
+----
+ls -l
+mv audit.log _new_name_.txt
+----
+. Copie todos los archivos de registro de auditoría a la ubicación de destino en el nodo de administración de expansión:
++
+`scp -p * _IP_address_:/var/local/log`
+
+. Si se le solicita la contraseña para `/root/.ssh/id_rsa` , ingrese la contraseña de acceso SSH para el nodo de administración principal que aparece en la `Passwords.txt` archivo.
+. Restaurar el original `audit.log` archivo:
++
+`mv _new_name_.txt audit.log`
+
+. Iniciar el servicio AMS:
++
+`service ams start`
+
+. Cerrar sesión en el servidor:
++
+`exit`
+
+. Inicie sesión en el nodo de administración de expansión:
++
+.. Introduzca el siguiente comando: `ssh admin@_expansion_Admin_Node_IP_`
+.. Introduzca la contraseña que aparece en el `Passwords.txt` archivo.
+.. Introduzca el siguiente comando para cambiar a root: `su -`
+.. Introduzca la contraseña que aparece en el `Passwords.txt` archivo.
++
+Cuando inicia sesión como root, el mensaje cambia de `$` a `#` .
+
+
+
+. Actualice la configuración de usuario y grupo para los archivos de registro de auditoría:
++
+`cd /var/local/log`
+
++
+`chown ams-user:bycast *`
+
+. Cerrar sesión en el servidor:
++
+`exit`
+
+

@@ -1,0 +1,84 @@
+---
+permalink: tenant/manage-bucket-consistency.html 
+sidebar: sidebar 
+keywords: how to manage bucket consistency, how to change bucket consistency, read after new write, read-after-new-write, strong site, strong-site, strong global, strong-global 
+summary: Los valores de consistencia se pueden usar para especificar la disponibilidad de los cambios de configuración del depósito, así como para proporcionar un equilibrio entre la disponibilidad de los objetos dentro de un depósito y la consistencia de esos objetos en diferentes nodos de almacenamiento y sitios.  Puede cambiar los valores de consistencia para que sean diferentes de los valores predeterminados para que las aplicaciones cliente puedan satisfacer sus necesidades operativas. 
+---
+= Gestionar la consistencia del depósito
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los valores de consistencia se pueden usar para especificar la disponibilidad de los cambios de configuración del depósito, así como para proporcionar un equilibrio entre la disponibilidad de los objetos dentro de un depósito y la consistencia de esos objetos en diferentes nodos de almacenamiento y sitios.  Puede cambiar los valores de consistencia para que sean diferentes de los valores predeterminados para que las aplicaciones cliente puedan satisfacer sus necesidades operativas.
+
+.Antes de empezar
+* Ha iniciado sesión en el Administrador de inquilinos mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Perteneces a un grupo de usuarios que tiene lalink:tenant-management-permissions.html["Administrar todos los depósitos o permisos de acceso raíz"] . Estos permisos anulan la configuración de permisos en las políticas de grupo o de depósito.
+
+
+
+
+== Pautas de consistencia del cubo
+
+La consistencia del depósito se utiliza para determinar la consistencia de las aplicaciones cliente que afectan a los objetos dentro de ese depósito S3.  En general, debe utilizar la consistencia *Lectura después de nueva escritura* para sus depósitos.
+
+
+
+== [[change-bucket-consistency]]Cambiar la consistencia del depósito
+
+Si la consistencia de *Lectura después de nueva escritura* no cumple con los requisitos de la aplicación cliente, puede cambiar la consistencia configurando la consistencia del depósito o utilizando el `Consistency-Control` encabezamiento.  El `Consistency-Control` El encabezado anula la consistencia del depósito.
+
+
+NOTE: Cuando se cambia la consistencia de un bucket, solo aquellos objetos que se ingieran después del cambio tienen la garantía de cumplir con la configuración revisada.
+
+.Pasos
+. Seleccione *Ver depósitos* en el panel de control o seleccione *ALMACENAMIENTO (S3)* > *Depósitos*.
+. Seleccione el nombre del depósito de la tabla.
++
+Aparece la página de detalles del depósito.
+
+. Desde la pestaña *Opciones de depósito*, seleccione el acordeón **.
+. Seleccione una consistencia para las operaciones realizadas en los objetos de este depósito.
++
+** *Todos*: Proporciona el mayor nivel de consistencia.  Todos los nodos reciben los datos inmediatamente o la solicitud fallará.
+** *Strong-global*: garantiza la consistencia de lectura después de escritura para todas las solicitudes de clientes en todos los sitios.
+** *Sitio fuerte*: garantiza la consistencia de lectura después de escritura para todas las solicitudes de clientes dentro de un sitio.
+** *Lectura después de nueva escritura* (predeterminado): proporciona consistencia de lectura después de escritura para objetos nuevos y consistencia eventual para actualizaciones de objetos.  Ofrece alta disponibilidad y garantías de protección de datos.  Recomendado para la mayoría de los casos.
+** *Disponible*: Proporciona consistencia eventual tanto para objetos nuevos como para actualizaciones de objetos.  Para los buckets S3, úselo solo cuando sea necesario (por ejemplo, para un bucket que contiene valores de registro que rara vez se leen, o para operaciones HEAD o GET en claves que no existen).  No compatible con depósitos S3 FabricPool .
+
+
+. Seleccione *Guardar cambios*.
+
+
+
+
+== ¿Qué sucede cuando cambias la configuración del depósito?
+
+Los depósitos tienen múltiples configuraciones que afectan el comportamiento de los depósitos y de los objetos dentro de ellos.
+
+Las siguientes configuraciones de depósito utilizan una consistencia *fuerte* de manera predeterminada.  Si dos o más nodos de almacenamiento no están disponibles dentro de algún sitio, o si un sitio no está disponible, es posible que los cambios en estas configuraciones no estén disponibles.
+
+* link:deleting-s3-bucket-objects.html["Eliminación de un depósito vacío en segundo plano"]
+* link:enabling-or-disabling-last-access-time-updates.html["Hora del último acceso"]
+* link:../s3/create-s3-lifecycle-configuration.html["Ciclo de vida del bucket"]
+* link:../s3/bucket-and-group-access-policies.html["Política de cubos"]
+* link:../s3/operations-on-buckets.html["Etiquetado de cubos"]
+* link:changing-bucket-versioning.html["Control de versiones de bucket"]
+* link:using-s3-object-lock.html["Bloqueo de objetos S3"]
+* link:../admin/reviewing-storagegrid-encryption-methods.html#bucket-encryption-table["Cifrado de bucket"]
+
+
+
+NOTE: El valor de consistencia para el control de versiones del bucket, el bloqueo de objetos S3 y el cifrado del bucket no se puede establecer en un valor que no sea fuertemente consistente.
+
+Las siguientes configuraciones de depósito no utilizan una consistencia fuerte y tienen una mayor disponibilidad para los cambios.  Los cambios en esta configuración pueden tardar algún tiempo antes de surtir efecto.
+
+* link:considerations-for-platform-services.html["Configuración de servicios de la plataforma: Integración de notificaciones, replicación o búsqueda"]
+* link:configuring-cross-origin-resource-sharing-cors.html["Configuración de CORS"]
+* <<change-bucket-consistency,Cambiar la consistencia del depósito>>
+
+
+
+TIP: Si la consistencia predeterminada utilizada al cambiar la configuración del depósito no cumple con los requisitos de la aplicación cliente, puede cambiar la consistencia mediante el uso de `Consistency-Control` encabezado para ellink:../s3/put-bucket-consistency-request.html["API REST de S3"] o mediante el uso del `reducedConsistency` o `force` opciones en ellink:understanding-tenant-management-api.html["API de gestión de inquilinos"] .

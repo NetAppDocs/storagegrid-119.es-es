@@ -1,0 +1,70 @@
+---
+permalink: admin/changing-browser-session-timeout-interface.html 
+sidebar: sidebar 
+keywords: security, browser inactivity timeout, management API stack track 
+summary: La configuración de seguridad de la interfaz le permite controlar si se cierra la sesión de los usuarios si están inactivos durante más de la cantidad de tiempo especificada y si se incluye un seguimiento de pila en las respuestas de error de API. 
+---
+= Cambiar la configuración de seguridad de la interfaz
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La configuración de seguridad de la interfaz le permite controlar si se cierra la sesión de los usuarios si están inactivos durante más de la cantidad de tiempo especificada y si se incluye un seguimiento de pila en las respuestas de error de API.
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tieneslink:admin-group-permissions.html["Permiso de acceso root"] .
+
+
+.Acerca de esta tarea
+La página *Configuración de seguridad* incluye las configuraciones de *Tiempo de espera de inactividad del navegador* y *Seguimiento de la pila de API de administración*.
+
+Tiempo de espera por inactividad del navegador:: Indica cuánto tiempo puede estar inactivo el navegador de un usuario antes de que se cierre la sesión.  El valor predeterminado es 15 minutos.
++
+--
+El tiempo de espera por inactividad del navegador también está controlado por lo siguiente:
+
+* Un temporizador StorageGRID independiente, no configurable, que se incluye para la seguridad del sistema.  El token de autenticación de cada usuario expira 16 horas después de que el usuario inicia sesión. Cuando expira la autenticación de un usuario, ese usuario cierra la sesión automáticamente, incluso si el tiempo de espera de inactividad del navegador está deshabilitado o no se ha alcanzado el valor del tiempo de espera del navegador.  Para renovar el token, el usuario deberá volver a iniciar sesión.
+* Configuración de tiempo de espera para el proveedor de identidad, asumiendo que el inicio de sesión único (SSO) está habilitado para StorageGRID.
++
+Si SSO está habilitado y el navegador de un usuario expira, el usuario debe volver a ingresar sus credenciales de SSO para acceder a StorageGRID nuevamente. Ver link:configuring-sso.html["Configurar el inicio de sesión único"] .
+
+
+
+--
+Seguimiento de la pila de la API de gestión:: Controla si se devuelve un seguimiento de pila en las respuestas de error de API de Grid Manager y Tenant Manager.
++
+--
+Esta opción está deshabilitada de forma predeterminada, pero es posible que desee habilitar esta funcionalidad para un entorno de prueba.  En general, debe dejar el seguimiento de pila deshabilitado en entornos de producción para evitar revelar detalles internos del software cuando ocurren errores de API.
+
+--
+
+
+.Pasos
+. Seleccione *CONFIGURACIÓN* > *Seguridad* > *Configuración de seguridad*.
+. Seleccione la pestaña *Interfaz*.
+. Para cambiar la configuración del tiempo de espera por inactividad del navegador:
++
+.. Expandir el acordeón.
+.. Para cambiar el período de tiempo de espera, especifique un valor entre 60 segundos y 7 días.  El tiempo de espera predeterminado es de 15 minutos.
+.. Para desactivar esta función, desmarque la casilla de verificación.
+.. Seleccione *Guardar*.
++
+La nueva configuración no afecta a los usuarios que actualmente hayan iniciado sesión. Los usuarios deben iniciar sesión nuevamente o actualizar sus navegadores para que la nueva configuración de tiempo de espera surta efecto.
+
+
+
+. Para cambiar la configuración del seguimiento de la pila de la API de administración:
++
+.. Expandir el acordeón.
+.. Seleccione la casilla de verificación para devolver un seguimiento de la pila en las respuestas de error de API de Grid Manager y Tenant Manager.
++
+
+CAUTION: Deje el seguimiento de pila deshabilitado en entornos de producción para evitar revelar detalles internos del software cuando se producen errores de API.
+
+.. Seleccione *Guardar*.
+
+
+

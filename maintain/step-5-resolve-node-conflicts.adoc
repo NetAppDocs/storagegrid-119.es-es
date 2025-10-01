@@ -1,0 +1,111 @@
+---
+permalink: maintain/step-5-resolve-node-conflicts.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, resolve node conflict 
+summary: 'Desde el Paso 5 \(Resolver conflictos de nodos\) del Asistente para desmantelar el sitio, puede determinar si algún nodo en su sistema StorageGRID está desconectado o si algún nodo en el sitio seleccionado pertenece a un grupo de alta disponibilidad \(HA\).  Una vez resueltos los conflictos de nodos, puede iniciar el procedimiento de desmantelamiento desde esta página.' 
+---
+= Paso 5: Resolver los conflictos de nodos (y comenzar el desmantelamiento)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Desde el Paso 5 (Resolver conflictos de nodos) del Asistente para desmantelar el sitio, puede determinar si algún nodo en su sistema StorageGRID está desconectado o si algún nodo en el sitio seleccionado pertenece a un grupo de alta disponibilidad (HA).  Una vez resueltos los conflictos de nodos, puede iniciar el procedimiento de desmantelamiento desde esta página.
+
+.Antes de empezar
+Debe asegurarse de que todos los nodos de su sistema StorageGRID estén en el estado correcto, de la siguiente manera:
+
+* Todos los nodos de su sistema StorageGRID deben estar conectados (image:../media/icon_alert_green_checkmark.png["Icono de alerta Marca de verificación verde"] ).
++
+
+NOTE: Si está realizando una desconexión de un sitio desconectado, todos los nodos del sitio que está eliminando deben estar desconectados y todos los nodos de todos los demás sitios deben estar conectados.
+
++
+
+NOTE: La desactivación no se iniciará si uno o más volúmenes están fuera de línea (desmontados) o si están en línea (montados) pero en un estado de error.
+
++
+
+NOTE: Si uno o más volúmenes se desconectan mientras se lleva a cabo un desmantelamiento, el proceso de desmantelamiento se completa después de que estos volúmenes vuelvan a estar en línea.
+
+* Ningún nodo del sitio que está eliminando puede tener una interfaz que pertenezca a un grupo de alta disponibilidad (HA).
+
+
+.Acerca de esta tarea
+Si algún nodo aparece en la lista del Paso 5 (Resolver conflictos de nodos), debe corregir el problema antes de poder comenzar el desmantelamiento.
+
+Antes de iniciar el procedimiento de desmantelamiento del sitio desde esta página, revise las siguientes consideraciones:
+
+* Debe permitir tiempo suficiente para que se complete el procedimiento de desmantelamiento.
++
+
+NOTE: Mover o eliminar datos de objetos de un sitio puede llevar días, semanas o incluso meses, dependiendo de la cantidad de datos en el sitio, la carga en su sistema, las latencias de la red y la naturaleza de los cambios ILM requeridos.
+
+* Mientras se ejecuta el procedimiento de desmantelamiento del sitio:
++
+** No se pueden crear reglas ILM que hagan referencia al sitio que se va a desmantelar.  Tampoco puedes editar una regla ILM existente para hacer referencia al sitio.
+** No puede realizar otros procedimientos de mantenimiento, como expansión o actualización.
++
+
+NOTE: Si necesita realizar otro procedimiento de mantenimiento durante el desmantelamiento de un sitio conectado, puede pausar el procedimiento mientras se eliminan los nodos de almacenamiento.  El botón *Pausa* está habilitado durante la etapa de "Desmantelamiento de datos replicados y codificados por borrado".
+
+** Si necesita recuperar algún nodo después de iniciar el procedimiento de desmantelamiento del sitio, debe comunicarse con el soporte.
+
+
+
+
+.Pasos
+. Revise la sección de nodos desconectados del Paso 5 (Resolver conflictos de nodos) para determinar si algún nodo en su sistema StorageGRID tiene un estado de conexión desconocido (image:../media/icon_alarm_blue_unknown.png["Icono Alarma Azul Desconocido"] ) o Administrativamente Inactivo (image:../media/icon_alarm_gray_administratively_down.png["Icono de alarma gris administrativamente inactivo"] ).
++
+image::../media/decommission_site_step_5_disconnected_nodes.png[Sitio de desmantelamiento Paso 5 Resolver conflictos de nodos]
+
+. Si algún nodo está desconectado, vuelva a ponerlo en línea.
++
+Ver ellink:../maintain/grid-node-procedures.html["Procedimientos de nodo"] . Comuníquese con el soporte técnico si necesita ayuda.
+
+. Cuando todos los nodos desconectados se hayan vuelto a poner en línea, revise la sección Grupos de alta disponibilidad del Paso 5 (Resolver conflictos de nodos).
++
+Esta tabla enumera todos los nodos en el sitio seleccionado que pertenecen a un grupo de alta disponibilidad (HA).
+
++
+image::../media/decommission_site_step_5_ha_groups.png[Grupos de alta disponibilidad del paso 5 del sitio de desmantelamiento]
+
+. Si hay nodos enumerados, realice una de las siguientes acciones:
++
+** Edite cada grupo de HA afectado para eliminar la interfaz del nodo.
+** Eliminar un grupo de HA que solo incluya nodos de este sitio.  Consulte las instrucciones para administrar StorageGRID.
+
+
++
+Si todos los nodos están conectados y ningún nodo en el sitio seleccionado se utiliza en un grupo de alta disponibilidad, se habilita el campo *Frase de contraseña de aprovisionamiento*.
+
+. Introduzca la contraseña de aprovisionamiento.
++
+Se habilita el botón *Iniciar desmantelamiento*.
+
++
+image::../media/decommission_site_step_5_provision_passphrase.png[Paso 5 del sitio de desmantelamiento: Frase de contraseña de provisión]
+
+. Si está listo para iniciar el procedimiento de desmantelamiento del sitio, seleccione *Iniciar desmantelamiento*.
++
+Una advertencia enumera el sitio y los nodos que se eliminarán.  Se le recuerda que podría tomar días, semanas o incluso meses eliminar el sitio por completo.
+
++
+image::../media/decommission_site_step_5_warning.png[Advertencia del paso 5 del sitio de desmantelamiento]
+
+. Revise la advertencia.  Si está listo para comenzar, seleccione *Aceptar*.
++
+Aparece un mensaje a medida que se genera la nueva configuración de la cuadrícula.  Este proceso puede llevar algún tiempo, dependiendo del tipo y número de nodos de red dados de baja.
+
++
+image::../media/decommission_site_step_5_grid_configuration.png[Sitio de desmantelamiento Paso 5 Configuración de la red]
+
++
+Una vez generada la nueva configuración de la red, aparece el Paso 6 (Desmantelamiento del monitor).
+
++
+
+NOTE: El botón *Anterior* permanecerá deshabilitado hasta que se complete el desmantelamiento.
+
+

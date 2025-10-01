@@ -1,0 +1,196 @@
+---
+permalink: audit/supd-s3-metadata-updated.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, SUPD, S3 Metadata Updated 
+summary: La API S3 genera este mensaje cuando un cliente S3 actualiza los metadatos de un objeto ingerido.  El servidor emite el mensaje si la actualización de metadatos es exitosa. 
+---
+= SUPD: Metadatos S3 actualizados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La API S3 genera este mensaje cuando un cliente S3 actualiza los metadatos de un objeto ingerido.  El servidor emite el mensaje si la actualización de metadatos es exitosa.
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+CBD
+ a| 
+Identificador de bloque de contenido
+ a| 
+El identificador único del bloque de contenido solicitado.  Si se desconoce el CBID, este campo se establece en 0.  Las operaciones en depósitos no incluyen este campo.
+
+
+
+ a| 
+CNCH
+ a| 
+Encabezado de control de consistencia
+ a| 
+El valor del encabezado de solicitud HTTP Consistency-Control, si está presente en la solicitud, al actualizar la configuración de cumplimiento de un depósito.
+
+
+
+ a| 
+CNID
+ a| 
+Identificador de conexión
+ a| 
+El identificador único del sistema para la conexión TCP/IP.
+
+
+
+ a| 
+CSIZ
+ a| 
+Tamaño del contenido
+ a| 
+El tamaño del objeto recuperado en bytes.  Las operaciones en depósitos no incluyen este campo.
+
+
+
+ a| 
+HTRH
+ a| 
+Encabezado de solicitud HTTP
+ a| 
+Lista de nombres y valores de encabezado de solicitud HTTP registrados según se seleccionaron durante la configuración.
+
+ `X-Forwarded-For`se incluye automáticamente si está presente en la solicitud y si el `X-Forwarded-For` El valor es diferente de la dirección IP del remitente de la solicitud (campo de auditoría SAIP).
+
+
+
+ a| 
+RSLT
+ a| 
+Código de resultado
+ a| 
+Resultado de la transacción GET.  El resultado siempre es:
+
+SUCS: exitoso
+
+
+
+ a| 
+S3AI
+ a| 
+ID de cuenta de inquilino de S3 (remitente de la solicitud)
+ a| 
+El ID de la cuenta de inquilino del usuario que envió la solicitud.  Un valor vacío indica acceso anónimo.
+
+
+
+ a| 
+S3AK
+ a| 
+ID de clave de acceso S3 (remitente de la solicitud)
+ a| 
+El ID de clave de acceso S3 en formato hash para el usuario que envió la solicitud.  Un valor vacío indica acceso anónimo.
+
+
+
+ a| 
+S3BK
+ a| 
+Cubo S3
+ a| 
+El nombre del depósito S3.
+
+
+
+ a| 
+S3KY
+ a| 
+Clave S3
+ a| 
+El nombre de la clave S3, sin incluir el nombre del depósito.  Las operaciones en depósitos no incluyen este campo.
+
+
+
+ a| 
+SACC
+ a| 
+Nombre de la cuenta del inquilino de S3 (remitente de la solicitud)
+ a| 
+El nombre de la cuenta de inquilino del usuario que envió la solicitud.  Vacío para solicitudes anónimas.
+
+
+
+ a| 
+SAIP
+ a| 
+Dirección IP (remitente de la solicitud)
+ a| 
+La dirección IP de la aplicación cliente que realizó la solicitud.
+
+
+
+ a| 
+SBAC
+ a| 
+Nombre de la cuenta del inquilino de S3 (propietario del depósito)
+ a| 
+El nombre de la cuenta del inquilino del propietario del depósito.  Se utiliza para identificar acceso entre cuentas o anónimo.
+
+
+
+ a| 
+SBAI
+ a| 
+ID de cuenta de inquilino de S3 (propietario del depósito)
+ a| 
+El ID de la cuenta de inquilino del propietario del depósito de destino.  Se utiliza para identificar acceso entre cuentas o anónimo.
+
+
+
+ a| 
+SUSR
+ a| 
+URN de usuario S3 (remitente de la solicitud)
+ a| 
+El ID de la cuenta del inquilino y el nombre de usuario del usuario que realiza la solicitud.  El usuario puede ser un usuario local o un usuario LDAP. Por ejemplo:  `urn:sgws:identity::03393893651506583485:root`
+
+Vacío para solicitudes anónimas.
+
+
+
+ a| 
+TIEMPO
+ a| 
+Tiempo
+ a| 
+Tiempo total de procesamiento de la solicitud en microsegundos.
+
+
+
+ a| 
+TLIP
+ a| 
+Dirección IP del balanceador de carga confiable
+ a| 
+Si la solicitud fue enrutada por un balanceador de carga de capa 7 confiable, la dirección IP del balanceador de carga.
+
+
+
+ a| 
+UUID
+ a| 
+Identificador único universal
+ a| 
+El identificador del objeto dentro del sistema StorageGRID .
+
+
+
+ a| 
+VSID
+ a| 
+ID de versión
+ a| 
+El ID de la versión de la versión específica de un objeto cuyos metadatos se actualizaron.  Las operaciones en depósitos y objetos en depósitos no versionados no incluyen este campo.
+
+|===

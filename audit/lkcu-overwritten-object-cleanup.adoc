@@ -1,0 +1,73 @@
+---
+permalink: audit/lkcu-overwritten-object-cleanup.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, LKCU, Overwritten Object Cleanup 
+summary: Este mensaje se genera cuando StorageGRID elimina un objeto sobrescrito que anteriormente requería limpieza para liberar espacio de almacenamiento.  Un objeto se sobrescribe cuando un cliente S3 escribe un objeto en una ruta que ya contiene un objeto.  El proceso de eliminación se produce de forma automática y en segundo plano. 
+---
+= LKCU: Limpieza de objetos sobrescritos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este mensaje se genera cuando StorageGRID elimina un objeto sobrescrito que anteriormente requería limpieza para liberar espacio de almacenamiento.  Un objeto se sobrescribe cuando un cliente S3 escribe un objeto en una ruta que ya contiene un objeto.  El proceso de eliminación se produce de forma automática y en segundo plano.
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+CSIZ
+ a| 
+Tamaño del contenido
+ a| 
+El tamaño del objeto en bytes.
+
+
+
+ a| 
+LTYP
+ a| 
+Tipo de limpieza
+ a| 
+_Sólo para uso interno._
+
+
+
+ a| 
+LUID
+ a| 
+UUID del objeto eliminado
+ a| 
+El identificador del objeto que fue eliminado.
+
+
+
+ a| 
+CAMINO
+ a| 
+Cubo/clave S3
+ a| 
+El nombre del depósito S3 y el nombre de la clave S3.
+
+
+
+ a| 
+SEGC
+ a| 
+UUID del contenedor
+ a| 
+UUID del contenedor del objeto segmentado.  Este valor solo está disponible si el objeto está segmentado.
+
+
+
+ a| 
+UUID
+ a| 
+Identificador único universal
+ a| 
+El identificador del objeto que todavía existe.  Este valor solo está disponible si el objeto no ha sido eliminado.
+
+|===

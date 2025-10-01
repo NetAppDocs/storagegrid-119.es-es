@@ -1,0 +1,109 @@
+---
+permalink: admin/managing-traffic-classification-policies.html 
+sidebar: sidebar 
+keywords: QoS, quality of service, traffic classification, best practices, limit traffic, monitor traffic 
+summary: 'Las políticas de clasificación de tráfico le permiten identificar y monitorear diferentes tipos de tráfico de red.  Estas políticas pueden ayudar a limitar y monitorear el tráfico para mejorar sus ofertas de calidad de servicio (QoS).' 
+---
+= ¿Qué son las políticas de clasificación de tráfico?
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Las políticas de clasificación de tráfico le permiten identificar y monitorear diferentes tipos de tráfico de red.  Estas políticas pueden ayudar a limitar y monitorear el tráfico para mejorar sus ofertas de calidad de servicio (QoS).
+
+Las políticas de clasificación de tráfico se aplican a los puntos finales en el servicio StorageGRID Load Balancer para los nodos de puerta de enlace y los nodos de administración.  Para crear políticas de clasificación de tráfico, es necesario que ya haya creado puntos finales del balanceador de carga.
+
+
+
+== Reglas de coincidencia
+
+Cada política de clasificación de tráfico contiene una o más reglas de coincidencia para identificar el tráfico de red relacionado con una o más de las siguientes entidades:
+
+* Cubos
+* Subred
+* Arrendatario
+* Puntos finales del balanceador de carga
+
+
+StorageGRID monitorea el tráfico que coincide con cualquier regla dentro de la política según los objetivos de la regla.  Cualquier tráfico que coincida con alguna regla de una política es manejado por esa política.  Por el contrario, puedes establecer reglas para que coincidan con todo el tráfico excepto una entidad específica.
+
+
+
+== Limitación del tráfico
+
+Opcionalmente, puede agregar los siguientes tipos de límites a una política:
+
+* Ancho de banda agregado
+* Ancho de banda por solicitud
+* Solicitudes concurrentes
+* Tarifa de solicitud
+
+
+Los valores límite se aplican según cada equilibrador de carga.  Si el tráfico se distribuye simultáneamente entre varios balanceadores de carga, las velocidades máximas totales son un múltiplo de los límites de velocidad que especifique.
+
+
+NOTE: Puede crear políticas para limitar el ancho de banda agregado o para limitar el ancho de banda por solicitud.  Sin embargo, StorageGRID no puede limitar ambos tipos de ancho de banda al mismo tiempo.  Los límites de ancho de banda agregados pueden imponer un impacto menor adicional en el rendimiento del tráfico no limitado.
+
+Para límites de ancho de banda agregados o por solicitud, las solicitudes entran o salen a la velocidad que usted establezca.  StorageGRID solo puede aplicar una velocidad, por lo que la coincidencia de política más específica, por tipo de comparador, es la que se aplica.  El ancho de banda consumido por la solicitud no se tiene en cuenta para otras políticas de coincidencia menos específicas que contienen políticas de límite de ancho de banda agregado.  Para todos los demás tipos de límites, las solicitudes de los clientes se retrasan 250 milisegundos y reciben una respuesta 503 Slow Down para las solicitudes que exceden cualquier límite de política coincidente.
+
+En el Administrador de cuadrícula, puede ver gráficos de tráfico y verificar que las políticas estén aplicando los límites de tráfico esperados.
+
+
+
+== Utilice políticas de clasificación de tráfico con SLA
+
+Puede utilizar políticas de clasificación de tráfico junto con límites de capacidad y protección de datos para aplicar acuerdos de nivel de servicio (SLA) que proporcionen detalles específicos sobre la capacidad, la protección de datos y el rendimiento.
+
+El siguiente ejemplo muestra tres niveles de un SLA.  Puede crear políticas de clasificación de tráfico para lograr los objetivos de rendimiento de cada nivel de SLA.
+
+[cols="1a,1a,1a,1a,1a"]
+|===
+| Nivel de servicio | Capacidad | Protección de datos | Máximo rendimiento permitido | Costo 
+
+
+ a| 
+Oro
+ a| 
+Se permite 1 PB de almacenamiento
+ a| 
+3 copia la regla ILM
+ a| 
+25 K solicitudes/seg
+
+Ancho de banda de 5 GB/seg (40 Gbps)
+ a| 
+$$$ por mes
+
+
+
+ a| 
+Plata
+ a| 
+Se permiten 250 TB de almacenamiento
+ a| 
+2 copia la regla ILM
+ a| 
+10 K solicitudes/seg
+
+1,25 GB/seg (10 Gbps) de ancho de banda
+ a| 
+$$ por mes
+
+
+
+ a| 
+Bronce
+ a| 
+Se permiten 100 TB de almacenamiento
+ a| 
+2 copia la regla ILM
+ a| 
+5 K solicitudes/seg
+
+1 GB/seg (8 Gbps) de ancho de banda
+ a| 
+$ por mes
+
+|===

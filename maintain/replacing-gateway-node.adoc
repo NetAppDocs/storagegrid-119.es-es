@@ -1,0 +1,49 @@
+---
+permalink: maintain/replacing-gateway-node.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, replace gateway node, replacing gateway node 
+summary: Puede reemplazar un nodo de puerta de enlace fallido con un nodo de puerta de enlace que se ejecute en el mismo hardware físico o virtual, o puede reemplazar un nodo de puerta de enlace que se ejecute en VMware o un host Linux con un nodo de puerta de enlace alojado en un dispositivo de servicios. 
+---
+= Reemplazar el nodo de puerta de enlace
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede reemplazar un nodo de puerta de enlace fallido con un nodo de puerta de enlace que se ejecute en el mismo hardware físico o virtual, o puede reemplazar un nodo de puerta de enlace que se ejecute en VMware o un host Linux con un nodo de puerta de enlace alojado en un dispositivo de servicios.
+
+El procedimiento de reemplazo de nodo que debe seguir depende de qué plataforma utilizará el nodo de reemplazo.  Después de completar el procedimiento de reemplazo de nodo (que es adecuado para todos los tipos de nodo), ese procedimiento lo dirigirá al siguiente paso para la recuperación del nodo de puerta de enlace.
+
+[cols="1a,2a"]
+|===
+| Plataforma de reemplazo | Procedimiento 
+
+
+ a| 
+VMware
+ a| 
+link:all-node-types-replacing-vmware-node.html["Reemplazar un nodo de VMware"]
+
+
+
+ a| 
+Linux
+ a| 
+link:all-node-types-replacing-linux-node.html["Reemplazar un nodo Linux"]
+
+
+
+ a| 
+Servicios de electrodomésticos
+ a| 
+link:replacing-failed-node-with-services-appliance.html["Reemplazar un dispositivo de servicios"]
+
+
+
+ a| 
+OpenStack
+ a| 
+Los archivos de disco de máquina virtual y los scripts proporcionados por NetApp para OpenStack ya no son compatibles con las operaciones de recuperación.  Si necesita recuperar un nodo que se ejecuta en una implementación de OpenStack, descargue los archivos para su sistema operativo Linux.  A continuación, siga el procedimiento paralink:all-node-types-replacing-linux-node.html["Reemplazar un nodo Linux"] .
+
+|===

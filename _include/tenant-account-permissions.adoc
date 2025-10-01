@@ -1,0 +1,31 @@
+= 
+:allow-uri-read: 
+
+
+[cols="1a,3a"]
+|===
+| Permiso | Si se selecciona... 
+
+
+ a| 
+Permitir servicios de plataforma
+ a| 
+El inquilino puede utilizar servicios de la plataforma S3 como CloudMirror. Ver link:../admin/manage-platform-services-for-tenants.html["Administrar servicios de plataforma para cuentas de inquilinos de S3"] .
+
+
+
+ a| 
+Utilice su propia fuente de identidad
+ a| 
+El inquilino puede configurar y administrar su propia fuente de identidad para grupos y usuarios federados. Esta opción está deshabilitada si tienelink:../admin/configuring-sso.html["SSO configurado"] para su sistema StorageGRID .
+
+
+
+ a| 
+Permitir selección de S3
+ a| 
+El inquilino puede emitir solicitudes de API S3 SelectObjectContent para filtrar y recuperar datos de objetos. Ver link:../admin/manage-s3-select-for-tenant-accounts.html["Administrar S3 Select para cuentas de inquilinos"] .
+
+*Importante*: Las solicitudes SelectObjectContent pueden disminuir el rendimiento del balanceador de carga para todos los clientes S3 y todos los inquilinos.  Habilite esta función solo cuando sea necesario y solo para inquilinos de confianza.
+
+|===

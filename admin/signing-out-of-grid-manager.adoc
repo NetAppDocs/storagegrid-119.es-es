@@ -1,0 +1,47 @@
+---
+permalink: admin/signing-out-of-grid-manager.html 
+sidebar: sidebar 
+keywords: grid manager, sign on, log out 
+summary: Cuando termine de trabajar con Grid Manager, deberá cerrar la sesión para asegurarse de que usuarios no autorizados no puedan acceder al sistema StorageGRID .  Es posible que cerrar su navegador no cierre su sesión del sistema, según la configuración de cookies del navegador. 
+---
+= Cerrar sesión en Grid Manager
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando termine de trabajar con Grid Manager, deberá cerrar la sesión para asegurarse de que usuarios no autorizados no puedan acceder al sistema StorageGRID .  Es posible que cerrar su navegador no cierre su sesión del sistema, según la configuración de cookies del navegador.
+
+.Pasos
+. Seleccione su nombre de usuario en la esquina superior derecha.
++
+image::../media/sign_out.png[Enlace para cerrar sesión]
+
+. Seleccione *Cerrar sesión*.
++
+[cols="1a,2a"]
+|===
+| Opción | Descripción 
+
+
+ a| 
+SSO no en uso
+ a| 
+Has cerrado la sesión del nodo de administración.
+
+Se muestra la página de inicio de sesión de Grid Manager.
+
+*Nota:* Si inició sesión en más de un nodo de administración, deberá cerrar sesión en cada nodo.
+
+
+
+ a| 
+SSO habilitado
+ a| 
+Has cerrado la sesión de todos los nodos de administración a los que estabas accediendo.  Se muestra la página de inicio de sesión de StorageGRID .  *Grid Manager* aparece como predeterminado en el menú desplegable *Cuentas recientes* y el campo *ID de cuenta* muestra 0.
+
+*Nota:* Si SSO está habilitado y también ha iniciado sesión en el Administrador de inquilinos, también debelink:../tenant/signing-out-of-tenant-manager.html["cerrar sesión en la cuenta del inquilino"] alink:configuring-sso.html["cerrar sesión de SSO"] .
+
+|===
+

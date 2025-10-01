@@ -1,0 +1,94 @@
+---
+permalink: audit/object-storage-audit-messages.html 
+sidebar: sidebar 
+keywords: audit, object storage, object management, object retrieval, node transfer, verification, BROR, CBSE, CBRE, CGRR, EBDL, EBKR, SCMT, SREM 
+summary: Debe estar familiarizado con los mensajes de auditoría que pertenecen a la categoría de auditoría de almacenamiento de objetos.  Estos son eventos relacionados con el almacenamiento y la gestión de objetos dentro del sistema StorageGRID .  Estos incluyen almacenamiento y recuperación de objetos, transferencias de nodo de red a nodo de red y verificaciones. 
+---
+= Mensajes de auditoría de almacenamiento de objetos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los mensajes de auditoría que pertenecen a la categoría de auditoría de almacenamiento de objetos se utilizan para eventos relacionados con el almacenamiento y la administración de objetos dentro del sistema StorageGRID .  Estos incluyen almacenamiento y recuperación de objetos, transferencias de nodo de red a nodo de red y verificaciones.
+
+
+NOTE: Los códigos de auditoría se eliminan del producto y de la documentación a medida que las funciones quedan obsoletas. Si encuentra un código de auditoría que no aparece aquí, consulte las versiones anteriores de este tema para ver versiones anteriores de SG. Por ejemplo,  https://docs.netapp.com/us-en/storagegrid-118/audit/object-storage-audit-messages.html["Mensajes de auditoría de almacenamiento de objetos de StorageGRID 11.8"^] .
+
+[cols="1a,2a,1a"]
+|===
+| Código | Descripción | Ver 
+
+
+ a| 
+HERMANO
+ a| 
+Solicitud de solo lectura de depósito: un depósito ingresó o salió del modo de solo lectura.
+ a| 
+link:bror-bucket-read-only-request.html["BROR: Solicitud de solo lectura de depósito"]
+
+
+
+ a| 
+CBSE
+ a| 
+Fin de envío de objeto: la entidad de origen completó una operación de transferencia de datos de un nodo de la red a otro nodo de la red.
+ a| 
+link:cbse-object-send-end.html["CBSE: Fin de envío de objetos"]
+
+
+
+ a| 
+CBRE
+ a| 
+Fin de recepción del objeto: la entidad de destino completó una operación de transferencia de datos de un nodo de la red a otro nodo de la red.
+ a| 
+link:cbre-object-receive-end.html["CBRE: Extremo de recepción de objetos"]
+
+
+
+ a| 
+CGRR
+ a| 
+Solicitud de replicación entre redes: StorageGRID intentó una operación de replicación entre redes para replicar objetos entre depósitos en una conexión de federación de redes.
+ a| 
+link:cgrr-cross-grid-replication-request.html["CGRR: Solicitud de replicación entre redes"]
+
+
+
+ a| 
+EBDL
+ a| 
+Eliminar depósito vacío: el escáner ILM eliminó un objeto en un depósito que está eliminando todos los objetos (realizando una operación de depósito vacío).
+ a| 
+link:ebdl-empty-bucket-delete.html["EBDL: Eliminar depósito vacío"]
+
+
+
+ a| 
+EBKR
+ a| 
+Solicitud de depósito vacío: un usuario envió una solicitud para activar o desactivar el depósito vacío (es decir, para eliminar objetos del depósito o para dejar de eliminar objetos).
+ a| 
+link:ebkr-empty-bucket-request.html["EBKR: Solicitud de cubo vacío"]
+
+
+
+ a| 
+SCMT
+ a| 
+Confirmación de almacén de objetos: se almacenó y verificó completamente un bloque de contenido y ahora se puede solicitar.
+ a| 
+link:scmt-object-store-commit.html["SCMT: Solicitud de confirmación del almacén de objetos"]
+
+
+
+ a| 
+SREM
+ a| 
+Eliminar almacén de objetos: se eliminó un bloque de contenido de un nodo de la cuadrícula y ya no se puede solicitar directamente.
+ a| 
+link:srem-object-store-remove.html["SREM: Eliminar almacén de objetos"]
+
+|===

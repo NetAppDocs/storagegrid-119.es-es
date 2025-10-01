@@ -1,0 +1,55 @@
+---
+permalink: maintain/how-your-system-is-affected-when-you-apply-hotfix.html 
+sidebar: sidebar 
+keywords: storagegrid, hotfix 
+summary: Debe comprender cómo se verá afectado su sistema StorageGRID cuando aplique una revisión. 
+---
+= Cómo se ve afectado su sistema cuando aplica una revisión
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe comprender cómo se verá afectado su sistema StorageGRID cuando aplique una revisión.
+
+
+
+== Las revisiones de StorageGRID no son disruptivas
+
+El sistema StorageGRID puede ingerir y recuperar datos de las aplicaciones cliente durante todo el proceso de revisión.  Si aprueba que se realicen revisiones en todos los nodos del mismo tipo (por ejemplo, nodos de almacenamiento), los nodos se desactivan uno a la vez, por lo que no hay ningún momento en el que todos los nodos de la red o todos los nodos de la red de un determinado tipo no estén disponibles.
+
+Para permitir la disponibilidad continua, asegúrese de que su política ILM contenga reglas que especifiquen el almacenamiento de múltiples copias de cada objeto.  También debe asegurarse de que todos los clientes S3 externos estén configurados para enviar solicitudes a uno de los siguientes:
+
+* Una dirección IP virtual de grupo de alta disponibilidad (HA)
+* Un balanceador de carga de terceros de alta disponibilidad
+* Múltiples nodos de puerta de enlace para cada cliente
+* Múltiples nodos de almacenamiento para cada cliente
+
+
+
+
+== Las aplicaciones cliente podrían experimentar interrupciones a corto plazo
+
+El sistema StorageGRID puede ingerir y recuperar datos de las aplicaciones cliente durante todo el proceso de revisión; sin embargo, las conexiones de los clientes a los nodos de puerta de enlace o nodos de almacenamiento individuales pueden interrumpirse temporalmente si la revisión necesita reiniciar los servicios en esos nodos.  La conectividad se restablecerá una vez que se complete el proceso de revisión y se reanuden los servicios en los nodos individuales.
+
+Es posible que sea necesario programar un tiempo de inactividad para aplicar una revisión si la pérdida de conectividad durante un período breve no es aceptable.  Puede utilizar la aprobación selectiva para programar cuándo se actualizan determinados nodos.
+
+
+NOTE: Puede utilizar varias puertas de enlace y grupos de alta disponibilidad (HA) para proporcionar conmutación por error automática durante el proceso de revisión. Vea las instrucciones paralink:../admin/configure-high-availability-group.html["configuración de grupos de alta disponibilidad"] .
+
+
+
+== Es posible que se activen alertas y notificaciones SNMP
+
+Es posible que se activen alertas y notificaciones SNMP cuando se reinician los servicios y cuando el sistema StorageGRID está funcionando como un entorno de versión mixta (algunos nodos de la red ejecutan una versión anterior, mientras que otros se han actualizado a una versión posterior).  En general, estas alertas y notificaciones desaparecerán cuando se complete la revisión.
+
+
+
+== Los cambios de configuración están restringidos
+
+Al aplicar una revisión a StorageGRID:
+
+* No realice ningún cambio en la configuración de la red (por ejemplo, especificar subredes de la red de red o aprobar nodos de red pendientes) hasta que la revisión se haya aplicado a todos los nodos.
+* No actualice la configuración de ILM hasta que la revisión se haya aplicado a todos los nodos.
+

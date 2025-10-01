@@ -1,0 +1,21 @@
+---
+permalink: monitor/using-task-tab-to-reboot-grid-node.html 
+sidebar: sidebar 
+keywords: Tasks tab, rename node, reboot node, maintenance mode 
+summary: La pestaña Tareas se muestra para todos los nodos. Puede utilizar esta pestaña para cambiar el nombre o reiniciar un nodo o para poner un nodo del dispositivo en modo de mantenimiento. 
+---
+= Utilice la pestaña Tareas
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La pestaña Tareas se muestra para todos los nodos. Puede utilizar esta pestaña para cambiar el nombre o reiniciar un nodo o para poner un nodo del dispositivo en modo de mantenimiento.
+
+Para conocer los requisitos completos y las instrucciones para cada opción en esta pestaña, consulte lo siguiente:
+
+* link:../maintain/rename-grid-site-node-overview.html["Cambiar el nombre de la cuadrícula, los sitios y los nodos"]
+* link:../maintain/rebooting-grid-node-from-grid-manager.html["Reiniciar el nodo de la red"]
+* https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/placing-appliance-into-maintenance-mode.html["Coloque el aparato en modo de mantenimiento"^]
+

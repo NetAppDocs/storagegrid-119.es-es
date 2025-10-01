@@ -1,0 +1,90 @@
+---
+permalink: primer/using-information-lifecycle-management.html 
+sidebar: sidebar 
+keywords: what is information lifecycle management, how to use ilm 
+summary: 'Utilice la gestión del ciclo de vida de la información (ILM) para controlar la ubicación, la duración y el comportamiento de ingesta de todos los objetos en su sistema StorageGRID . Las reglas ILM determinan cómo StorageGRID almacena objetos a lo largo del tiempo. Configura una o más reglas ILM y luego las agrega a una política ILM.' 
+---
+= Gestión del ciclo de vida de la información
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Utilice la gestión del ciclo de vida de la información (ILM) para controlar la ubicación, la duración y el comportamiento de ingesta de todos los objetos en su sistema StorageGRID . Las reglas ILM determinan cómo StorageGRID almacena objetos a lo largo del tiempo. Configura una o más reglas ILM y luego las agrega a una política ILM.
+
+Una red solo tiene una política activa a la vez.  Una política puede contener múltiples reglas.
+
+Las reglas de ILM definen:
+
+* ¿Qué objetos deben almacenarse? Una regla puede aplicarse a todos los objetos o puede especificar filtros para identificar a qué objetos se aplica una regla. Por ejemplo, una regla puede aplicarse solo a objetos asociados con determinadas cuentas de inquilino, depósitos S3 o contenedores Swift específicos, o valores de metadatos específicos.
+* El tipo y la ubicación de almacenamiento.  Los objetos se pueden almacenar en nodos de almacenamiento o en grupos de almacenamiento en la nube.
+* El tipo de copias de objetos realizadas.  Las copias pueden replicarse o codificarse para borrarlas.
+* Para copias replicadas, el número de copias realizadas.
+* Para copias con código de borrado, se utiliza el esquema de codificación de borrado.
+* Los cambios a lo largo del tiempo en la ubicación de almacenamiento de un objeto y el tipo de copias.
+* Cómo se protegen los datos de los objetos a medida que se incorporan a la red (ubicación sincrónica o confirmación dual).
+
+
+Tenga en cuenta que los metadatos de los objetos no son administrados por las reglas ILM.  En cambio, los metadatos de los objetos se almacenan en una base de datos de Cassandra en lo que se conoce como un almacén de metadatos.  Se mantienen automáticamente tres copias de los metadatos de los objetos en cada sitio para proteger los datos contra pérdidas.
+
+
+
+== Ejemplo de regla ILM
+
+A modo de ejemplo, una regla ILM podría especificar lo siguiente:
+
+* Aplicar únicamente a los objetos pertenecientes al Inquilino A.
+* Haga dos copias replicadas de esos objetos y almacene cada copia en un sitio diferente.
+* Conserve las dos copias "para siempre", lo que significa que StorageGRID no las eliminará automáticamente.  En su lugar, StorageGRID conservará estos objetos hasta que sean eliminados por una solicitud de eliminación del cliente o hasta que expire el ciclo de vida de un depósito.
+* Utilice la opción Equilibrado para el comportamiento de ingesta: la instrucción de ubicación de dos sitios se aplica tan pronto como el Inquilino A guarda un objeto en StorageGRID, a menos que no sea posible realizar inmediatamente ambas copias requeridas.
++
+Por ejemplo, si no se puede acceder al Sitio 2 cuando el Inquilino A guarda un objeto, StorageGRID hará dos copias provisionales en los Nodos de almacenamiento del Sitio 1.  Tan pronto como el Sitio 2 esté disponible, StorageGRID hará la copia requerida en ese sitio.
+
+
+
+
+
+== Cómo una política ILM evalúa los objetos
+
+Las políticas ILM activas para su sistema StorageGRID controlan la ubicación, la duración y el comportamiento de ingesta de todos los objetos.
+
+Cuando los clientes guardan objetos en StorageGRID, los objetos se evalúan en función del conjunto ordenado de reglas ILM en la política activa, de la siguiente manera:
+
+. Si los filtros de la primera regla de la política coinciden con un objeto, el objeto se ingiere de acuerdo con el comportamiento de ingesta de esa regla y se almacena de acuerdo con las instrucciones de ubicación de esa regla.
+. Si los filtros de la primera regla no coinciden con el objeto, este se evalúa en relación con cada regla posterior de la política hasta que se encuentre una coincidencia.
+. Si ninguna regla coincide con un objeto, se aplican el comportamiento de ingesta y las instrucciones de ubicación de la regla predeterminada en la política.  La regla predeterminada es la última regla de una política y no puede utilizar ningún filtro.  Debe aplicarse a todos los inquilinos, todos los depósitos y todas las versiones de objetos.
+
+
+
+
+== Ejemplo de política ILM
+
+A modo de ejemplo, una política ILM podría contener tres reglas ILM que especifiquen lo siguiente:
+
+* *Regla 1: Copias replicadas para el inquilino A*
++
+** Empareja todos los objetos que pertenecen al inquilino A.
+** Almacene estos objetos como tres copias replicadas en tres sitios.
+** Los objetos que pertenecen a otros inquilinos no coinciden con la Regla 1, por lo que se evalúan según la Regla 2.
+
+
+* *Regla 2: Codificación de borrado para objetos mayores a 1 MB*
++
+** Coincide con todos los objetos de otros inquilinos, pero solo si son mayores a 1 MB.  Estos objetos más grandes se almacenan utilizando codificación de borrado 6+3 en tres sitios.
+** No coincide con objetos de 1 MB o más pequeños, por lo que estos objetos se evalúan según la Regla 3.
+
+
+* *Regla 3: 2 copias, 2 centros de datos* (predeterminado)
++
+** Es la última regla predeterminada de la política.  No utiliza filtros.
+** Realice dos copias replicadas de todos los objetos que no coincidan con la Regla 1 o la Regla 2 (objetos que no pertenecen al Inquilino A y que tienen 1 MB o menos).
+
+
+
+
+image::../media/ilm_policy_and_rules.png[Política y reglas de ILM]
+
+.Información relacionada
+* link:../ilm/index.html["Administrar objetos con ILM"]
+

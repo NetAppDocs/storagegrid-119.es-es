@@ -1,0 +1,136 @@
+---
+permalink: tenant/configuring-event-notifications.html 
+sidebar: sidebar 
+keywords: how to configure event notifications, bucket notification 
+summary: Puede habilitar las notificaciones para un depósito creando un XML de configuración de notificaciones y utilizando el Administrador de inquilinos para aplicar el XML a un depósito. 
+---
+= Configurar notificaciones de eventos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede habilitar las notificaciones para un depósito creando un XML de configuración de notificaciones y utilizando el Administrador de inquilinos para aplicar el XML a un depósito.
+
+.Antes de empezar
+* Un administrador de StorageGRID habilitó los servicios de plataforma para su cuenta de inquilino.
+* Ya has creado un depósito que actuará como fuente de notificaciones.
+* El punto final que desea utilizar como destino para las notificaciones de eventos ya existe y tiene su URN.
+* Perteneces a un grupo de usuarios que tiene lalink:tenant-management-permissions.html["Administrar todos los depósitos o permisos de acceso raíz"] .  Estos permisos anulan las configuraciones de permisos en las políticas de grupo o de depósito cuando se configura el depósito mediante el Administrador de inquilinos.
+
+
+.Acerca de esta tarea
+Puede configurar las notificaciones de eventos asociando el XML de configuración de notificaciones con un depósito de origen. El XML de configuración de notificaciones sigue las convenciones S3 para configurar notificaciones de bucket, con el tema de destino de Kafka o Amazon SNS especificado como el URN de un punto final.
+
+Para obtener información general sobre las notificaciones de eventos y cómo configurarlas, consulte la https://docs.aws.amazon.com/s3/["Documentación de Amazon"^] .  Para obtener información sobre cómo StorageGRID implementa la API de configuración de notificaciones de bucket S3, consultelink:../s3/index.html["Instrucciones para implementar aplicaciones cliente S3"] .
+
+Tenga en cuenta los siguientes requisitos y características al configurar las notificaciones de eventos para un bucket:
+
+* Cuando crea y aplica un XML de configuración de notificación válido, debe utilizar el URN de un punto final de notificaciones de eventos para cada destino.
+* Si bien la notificación de eventos se puede configurar en un bucket con el bloqueo de objetos S3 habilitado, los metadatos del bloqueo de objetos S3 (incluidos la fecha de retención y el estado de retención legal) de los objetos no se incluirán en los mensajes de notificación.
+* Después de configurar las notificaciones de eventos, cada vez que ocurre un evento específico para un objeto en el bucket de origen, se genera una notificación y se envía al tema de Amazon SNS o Kafka utilizado como punto final de destino.
+* Si habilita las notificaciones de eventos para un depósito que contiene objetos, las notificaciones se envían solo para las acciones que se realizan después de guardar la configuración de notificación.
+
+
+.Pasos
+. Habilitar notificaciones para su depósito de origen:
++
+** Utilice un editor de texto para crear el XML de configuración de notificación necesario para habilitar las notificaciones de eventos, como se especifica en la API de notificación S3.
+** Al configurar el XML, utilice la URN de un punto final de notificaciones de eventos como tema de destino.
++
+[listing]
+----
+<NotificationConfiguration>
+  <TopicConfiguration>
+     <Id>Image-created</Id>
+     <Filter>
+        <S3Key>
+          <FilterRule>
+            <Name>prefix</Name>
+            <Value>images/</Value>
+          </FilterRule>
+        </S3Key>
+    </Filter>
+    <Topic>arn:aws:sns:us-east-1:050340950352:sgws-topic</Topic>
+    <Event>s3:ObjectCreated:*</Event>
+   </TopicConfiguration>
+ </NotificationConfiguration>
+----
+
+
+. En el Administrador de inquilinos, seleccione *ALMACENAMIENTO (S3)* > *Cubos*.
+. Seleccione el nombre del depósito de origen.
++
+Aparece la página de detalles del depósito.
+
+. Seleccione *Servicios de plataforma* > *Notificaciones de eventos*.
+. Seleccione la casilla de verificación *Habilitar notificaciones de eventos*.
+. Pegue el XML de configuración de notificación en el cuadro de texto y seleccione *Guardar cambios*.
++
+
+NOTE: Los servicios de la plataforma deben ser habilitados para cada cuenta de inquilino por un administrador de StorageGRID mediante Grid Manager o Grid Management API.  Comuníquese con su administrador de StorageGRID si se produce un error al guardar el XML de configuración.
+
+. Verifique que las notificaciones de eventos estén configuradas correctamente:
++
+.. Realizar una acción en un objeto en el depósito de origen que cumpla con los requisitos para activar una notificación según lo configurado en el XML de configuración.
++
+En el ejemplo, se envía una notificación de evento cada vez que se crea un objeto con el `images/` prefijo.
+
+.. Confirme que se ha enviado una notificación al tema de destino de Amazon SNS o Kafka.
++
+Por ejemplo, si el tema de destino está alojado en Amazon SNS, puede configurar el servicio para que le envíe un correo electrónico cuando se entregue la notificación.
+
++
+[listing]
+----
+{
+   "Records":[
+      {
+         "eventVersion":"2.0",
+         "eventSource":"sgws:s3",
+         "eventTime":"2017-08-08T23:52:38Z",
+         "eventName":"ObjectCreated:Put",
+         "userIdentity":{
+            "principalId":"1111111111111111111"
+         },
+         "requestParameters":{
+            "sourceIPAddress":"193.51.100.20"
+         },
+         "responseElements":{
+            "x-amz-request-id":"122047343"
+         },
+         "s3":{
+            "s3SchemaVersion":"1.0",
+            "configurationId":"Image-created",
+            "bucket":{
+               "name":"test1",
+               "ownerIdentity":{
+                  "principalId":"1111111111111111111"
+               },
+               "arn":"arn:sgws:s3:::test1"
+            },
+            "object":{
+               "key":"images/cat.jpg",
+               "size":0,
+               "eTag":"d41d8cd98f00b204e9800998ecf8427e",
+               "sequencer":"14D90402421461C7"
+            }
+         }
+      }
+   ]
+}
+----
++
+Si la notificación se recibe en el tema de destino, ha configurado correctamente su depósito de origen para las notificaciones de StorageGRID .
+
+
+
+
+
+.Información relacionada
+link:understanding-notifications-for-buckets.html["Comprender las notificaciones de los buckets"]
+
+link:../s3/index.html["Utilice la API REST de S3"]
+
+link:creating-platform-services-endpoint.html["Crear punto final de servicios de plataforma"]

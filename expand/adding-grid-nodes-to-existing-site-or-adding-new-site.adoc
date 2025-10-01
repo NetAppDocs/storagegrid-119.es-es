@@ -1,0 +1,30 @@
+---
+permalink: expand/adding-grid-nodes-to-existing-site-or-adding-new-site.html 
+sidebar: sidebar 
+keywords: grid node, add node, add site, expand, expansion 
+summary: Siga este procedimiento para agregar nodos de cuadrícula a sitios existentes o para agregar un sitio nuevo.  Sólo se puede realizar un tipo de expansión a la vez. 
+---
+= Agregar nodos de cuadrícula a un sitio existente o agregar un sitio nuevo
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Siga este procedimiento para agregar nodos de cuadrícula a sitios existentes o para agregar un sitio nuevo.  Sólo se puede realizar un tipo de expansión a la vez.
+
+.Antes de empezar
+* Tú tienes ellink:../admin/admin-group-permissions.html["Acceso root o permiso de mantenimiento"] .
+* Todos los nodos existentes en la red están en funcionamiento en todos los sitios.
+* Se han completado todos los procedimientos previos de expansión, actualización, desmantelamiento o recuperación.
++
+
+NOTE: No se le permite iniciar una expansión mientras otro procedimiento de expansión, actualización, recuperación o desmantelamiento activo esté en curso.  Sin embargo, si es necesario, puede pausar un procedimiento de desmantelamiento para iniciar una expansión.
+
+
+
+.Pasos
+. link:updating-subnets-for-grid-network.html["Actualizar subredes para la red Grid"] .
+. link:deploying-new-grid-nodes.html["Implementar nuevos nodos de red"] .
+. link:performing-expansion.html["Realizar expansión"] .
+

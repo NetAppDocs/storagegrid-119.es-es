@@ -1,0 +1,66 @@
+---
+permalink: network/networking-requirements-and-guidelines.html 
+sidebar: sidebar 
+keywords: storagegrid, networking requirements, network requirements, nat 
+summary: Debe verificar que la infraestructura y la configuración de red actuales puedan soportar el diseño de red StorageGRID planificado. 
+---
+= Requisitos de red
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe verificar que la infraestructura y la configuración de red actuales puedan soportar el diseño de red StorageGRID planificado.
+
+
+
+== Requisitos generales de red
+
+Todas las implementaciones de StorageGRID deben poder admitir las siguientes conexiones.
+
+Estas conexiones pueden ocurrir a través de las redes Grid, Admin o Client, o las combinaciones de estas redes como se ilustra en los ejemplos de topología de red.
+
+* *Conexiones de administración*: Conexiones entrantes de un administrador al nodo, generalmente a través de SSH.  Acceso mediante navegador web al Administrador de red, al Administrador de inquilinos y al Instalador de dispositivos StorageGRID .
+* *Conexiones de servidor NTP*: Conexión UDP saliente que recibe una respuesta UDP entrante.
++
+El nodo de administración principal debe poder acceder al menos a un servidor NTP.
+
+* *Conexiones de servidor DNS*: Conexión UDP saliente que recibe una respuesta UDP entrante.
+* *Conexiones de servidor LDAP/Active Directory*: Conexión TCP saliente desde el servicio de identidad en los nodos de almacenamiento.
+* * AutoSupport*: Conexión TCP saliente desde los nodos de administración a cualquiera de los `support.netapp.com` o un proxy configurado por el cliente.
+* *Servidor de administración de claves externo*: Conexión TCP saliente desde cada nodo del dispositivo con cifrado de nodo habilitado.
+* Conexiones TCP entrantes desde clientes S3.
+* Solicitudes salientes de servicios de la plataforma StorageGRID , como la replicación de CloudMirror o de grupos de almacenamiento en la nube.
+
+
+Si StorageGRID no puede comunicarse con ninguno de los servidores NTP o DNS provistos mediante las reglas de enrutamiento predeterminadas, intentará comunicarse automáticamente en todas las redes (Grid, Admin y Client) siempre que se especifiquen las direcciones IP de los servidores DNS y NTP.  Si se puede acceder a los servidores NTP o DNS en cualquier red, StorageGRID creará automáticamente reglas de enrutamiento adicionales para garantizar que esa red se utilice para todos los intentos futuros de conectarse a ella.
+
+
+TIP: Si bien puede utilizar estas rutas de host descubiertas automáticamente, en general debe configurar manualmente las rutas DNS y NTP para garantizar la conectividad en caso de que falle el descubrimiento automático.
+
+Si no está listo para configurar las redes de cliente y administrador opcionales durante la implementación, puede configurar estas redes cuando apruebe los nodos de la red durante los pasos de configuración.  Además, puede configurar estas redes después de la instalación, utilizando la herramienta Cambiar IP (consultelink:../maintain/configuring-ip-addresses.html["Configurar direcciones IP"] ).
+
+Solo se admiten conexiones de cliente S3 y conexiones administrativas SSH, Grid Manager y Tenant Manager a través de interfaces VLAN.  Las conexiones salientes, como a servidores NTP, DNS, LDAP, AutoSupport y KMS, deben realizarse directamente a través de las interfaces de red de cliente, administrador o cuadrícula.  Si la interfaz está configurada como troncal para soportar interfaces VLAN, este tráfico fluirá a través de la VLAN nativa de la interfaz, tal como esté configurada en el conmutador.
+
+
+
+== Redes de área amplia (WAN) para múltiples sitios
+
+Al configurar un sistema StorageGRID con varios sitios, la conexión WAN entre sitios debe tener un ancho de banda mínimo de 25 Mbit/segundo en cada dirección antes de tener en cuenta el tráfico del cliente.  La replicación de datos o la codificación de borrado entre sitios, la expansión de nodos o sitios, la recuperación de nodos y otras operaciones o configuraciones requerirán ancho de banda adicional.
+
+Los requisitos reales de ancho de banda mínimo de WAN dependen de la actividad del cliente y del esquema de protección ILM.  Para obtener ayuda para estimar los requisitos mínimos de ancho de banda de WAN, comuníquese con su consultor de servicios profesionales de NetApp .
+
+
+
+== Conexiones para nodos de administración y nodos de puerta de enlace
+
+Los nodos de administración siempre deben estar protegidos de clientes que no sean de confianza, como aquellos en Internet abierto.  Debe asegurarse de que ningún cliente no confiable pueda acceder a ningún nodo de administración en la red Grid, la red de administración o la red de clientes.
+
+Los nodos de administración y los nodos de puerta de enlace que planea agregar a grupos de alta disponibilidad deben configurarse con una dirección IP estática. Para obtener más información, consulte link:../admin/managing-high-availability-groups.html["Administrar grupos de alta disponibilidad"] .
+
+
+
+== Uso de la traducción de direcciones de red (NAT)
+
+No utilice la traducción de direcciones de red (NAT) en la red Grid entre nodos Grid o entre sitios StorageGRID .  Cuando se utilizan direcciones IPv4 privadas para la red de cuadrícula, dichas direcciones deben ser enrutables directamente desde cada nodo de la red en cada sitio.  Sin embargo, según sea necesario, puede utilizar NAT entre clientes externos y nodos de la red, por ejemplo, para proporcionar una dirección IP pública para un nodo de puerta de enlace.  El uso de NAT para unir un segmento de red pública solo es posible cuando se emplea una aplicación de tunelización que sea transparente para todos los nodos de la red, lo que significa que los nodos de la red no requieren conocimiento de direcciones IP públicas.

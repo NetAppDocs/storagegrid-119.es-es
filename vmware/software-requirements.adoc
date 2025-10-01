@@ -1,0 +1,45 @@
+---
+permalink: vmware/software-requirements.html 
+sidebar: sidebar 
+keywords: software requirements 
+summary: Puede utilizar una máquina virtual para alojar cualquier tipo de nodo StorageGRID .  Necesita una máquina virtual para cada nodo de la red. 
+---
+= Requisitos de software para VMware
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede utilizar una máquina virtual para alojar cualquier tipo de nodo StorageGRID .  Necesita una máquina virtual para cada nodo de la red.
+
+
+
+== Hipervisor VMware vSphere
+
+Debe instalar VMware vSphere Hypervisor en un servidor físico preparado.  El hardware debe estar configurado correctamente (incluidas las versiones de firmware y la configuración del BIOS) antes de instalar el software VMware.
+
+* Configure la red en el hipervisor según sea necesario para admitir la red para el sistema StorageGRID que está instalando.
++
+link:../network/index.html["Pautas para establecer redes"]
+
+* Asegúrese de que el almacén de datos sea lo suficientemente grande para las máquinas virtuales y los discos virtuales necesarios para alojar los nodos de la red.
+* Si crea más de un almacén de datos, asigne un nombre a cada uno para poder identificar fácilmente qué almacén de datos usar para cada nodo de la cuadrícula cuando cree máquinas virtuales.
+
+
+
+
+== Requisitos de configuración del host ESX
+
+
+CAUTION: Debe configurar correctamente el protocolo de tiempo de red (NTP) en cada host ESX.  Si la hora del host es incorrecta, podrían ocurrir efectos negativos, incluida la pérdida de datos.
+
+
+
+== Requisitos de configuración de VMware
+
+Debe instalar y configurar VMware vSphere y vCenter antes de implementar nodos StorageGRID .
+
+Para conocer las versiones compatibles del software VMware vSphere Hypervisor y VMware vCenter Server, consulte la https://imt.netapp.com/matrix/#welcome["Herramienta de matriz de interoperabilidad de NetApp"^] .
+
+Para conocer los pasos necesarios para instalar estos productos VMware, consulte la documentación de VMware.

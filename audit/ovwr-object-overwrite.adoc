@@ -1,0 +1,93 @@
+---
+permalink: audit/ovwr-object-overwrite.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, OVWR, Object Overwrite 
+summary: Este mensaje se genera cuando una operación externa solicitada por el cliente hace que un objeto sea sobrescrito por otro. 
+---
+= OVWR: Sobrescritura de objetos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Este mensaje se genera cuando una operación externa (solicitada por el cliente) hace que un objeto sea sobrescrito por otro objeto.
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+CBD
+ a| 
+Identificador de bloque de contenido (nuevo)
+ a| 
+El CBID del nuevo objeto.
+
+
+
+ a| 
+CSIZ
+ a| 
+Tamaño del objeto anterior
+ a| 
+El tamaño, en bytes, del objeto que se está sobrescribiendo.
+
+
+
+ a| 
+Trastorno obsesivo-compulsivo (OCBD)
+ a| 
+Identificador de bloque de contenido (anterior)
+ a| 
+El CBID del objeto anterior.
+
+
+
+ a| 
+UUID
+ a| 
+Identificación única universal (nueva)
+ a| 
+El identificador del nuevo objeto dentro del sistema StorageGRID .
+
+
+
+ a| 
+OUID
+ a| 
+Identificación única universal (anterior)
+ a| 
+El identificador del objeto anterior dentro del sistema StorageGRID .
+
+
+
+ a| 
+CAMINO
+ a| 
+Ruta del objeto S3
+ a| 
+La ruta del objeto S3 utilizada tanto para el objeto anterior como para el nuevo
+
+
+
+ a| 
+RSLT
+ a| 
+Código de resultado
+ a| 
+Resultado de la transacción de sobrescritura de objeto.  El resultado siempre es:
+
+SUCS: Exitoso
+
+
+
+ a| 
+SGRP
+ a| 
+Sitio (Grupo)
+ a| 
+Si está presente, el objeto sobrescrito se eliminó en el sitio especificado, que no es el sitio donde se ingirió el objeto sobrescrito.
+
+|===

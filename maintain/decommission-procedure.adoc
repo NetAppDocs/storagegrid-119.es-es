@@ -1,0 +1,24 @@
+---
+permalink: maintain/decommission-procedure.html 
+sidebar: sidebar 
+keywords: how to decommission 
+summary: Puede realizar un procedimiento de desmantelamiento para eliminar de forma permanente los nodos de la red o un sitio completo del sistema StorageGRID . 
+---
+= Nodo o sitio de desmantelamiento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede realizar un procedimiento de desmantelamiento para eliminar de forma permanente los nodos de la red o un sitio completo del sistema StorageGRID .
+
+Para eliminar un nodo de la red o un sitio, realice uno de los siguientes procedimientos de desmantelamiento:
+
+* Realizar unalink:grid-node-decommissioning.html["Desmantelamiento de nodos de red"] para eliminar uno o más ganglios, que pueden estar en uno o más sitios.  Los nodos que elimine pueden estar en línea y conectados al sistema StorageGRID o pueden estar fuera de línea y desconectados.
+* Realizar unalink:considerations-for-removing-site.html["desmantelamiento del sitio"] para eliminar un sitio.  Se realiza una *desactivación del sitio conectado* si todos los nodos están conectados a StorageGRID.  Se realiza una *desconexión del sitio desconectado* si todos los nodos están desconectados de StorageGRID.  Si el sitio contiene una mezcla de nodos conectados y desconectados, deberá volver a poner en línea todos los nodos fuera de línea.
++
+
+CAUTION: Antes de realizar la desconexión de un sitio desconectado, comuníquese con su representante de cuenta de NetApp .  NetApp revisará sus requisitos antes de habilitar todos los pasos en el asistente de desmantelamiento del sitio.  No debe intentar desmantelar un sitio desconectado si cree que es posible recuperar el sitio o recuperar datos de objetos del sitio.
+
+

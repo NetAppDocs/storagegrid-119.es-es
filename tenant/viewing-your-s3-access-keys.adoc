@@ -1,0 +1,34 @@
+---
+permalink: tenant/viewing-your-s3-access-keys.html 
+sidebar: sidebar 
+keywords: how to view your s3 access key 
+summary: Si está utilizando un inquilino S3 y tiene el permiso adecuado, puede ver una lista de sus claves de acceso S3.  Puede ordenar la lista por tiempo de expiración, para poder determinar qué claves expirarán pronto.  Según sea necesario, puede crear nuevas claves o eliminar claves que ya no utiliza. 
+---
+= Ver sus claves de acceso S3
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si está utilizando un inquilino S3 y tiene lalink:tenant-management-permissions.html["permiso apropiado"] , puede ver una lista de sus claves de acceso S3.  Puede ordenar la lista por tiempo de expiración, para poder determinar qué claves expirarán pronto.  Según sea necesario, puedelink:creating-your-own-s3-access-keys.html["crear nuevas claves"] olink:deleting-your-own-s3-access-keys.html["borrar teclas"] que ya no estas usando.
+
+
+CAUTION: Se puede acceder a los depósitos y objetos S3 que pertenecen a su cuenta mediante el ID de clave de acceso y la clave de acceso secreta que se muestran para su cuenta en el Administrador de inquilinos.  Por este motivo, proteja las claves de acceso como lo haría con una contraseña.  Rote las claves de acceso periódicamente, elimine las claves no utilizadas de su cuenta y nunca las comparta con otros usuarios.
+
+.Antes de empezar
+* Ha iniciado sesión en el Administrador de inquilinos mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Pertenece a un grupo de usuarios que tiene la opción Administrar sus propias credenciales de S3link:tenant-management-permissions.html["permiso"] .
+
+
+.Pasos
+. Seleccione *ALMACENAMIENTO (S3)* > *Mis claves de acceso*.
+. Desde la página Mis claves de acceso, ordene las claves de acceso existentes por *Tiempo de vencimiento* o *ID de clave de acceso*.
+. Según sea necesario, cree nuevas claves o elimine aquellas que ya no utilice.
++
+Si crea nuevas claves antes de que caduquen las claves existentes, puede comenzar a usar las nuevas claves sin perder temporalmente el acceso a los objetos de la cuenta.
+
++
+Las claves caducadas se eliminan automáticamente.
+
+

@@ -1,0 +1,160 @@
+---
+permalink: ilm/troubleshooting-cloud-storage-pools.html 
+sidebar: sidebar 
+keywords: cloud storage pool, troubleshoot 
+summary: Utilice estos pasos de solución de problemas para ayudar a resolver errores que pueda encontrar al crear, editar o eliminar un grupo de almacenamiento en la nube. 
+---
+= Solucionar problemas de grupos de almacenamiento en la nube
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Utilice estos pasos de solución de problemas para ayudar a resolver errores que pueda encontrar al crear, editar o eliminar un grupo de almacenamiento en la nube.
+
+
+
+== Determinar si se ha producido un error
+
+StorageGRID realiza una comprobación de estado simple en cada grupo de almacenamiento en la nube leyendo el objeto conocido `x-ntap-sgws-cloud-pool-uuid` para garantizar que se pueda acceder al grupo de almacenamiento en la nube y que funcione correctamente.  Cuando StorageGRID detecta un error en el punto final, realiza una comprobación del estado cada minuto desde cada nodo de almacenamiento.  Cuando se resuelve el error, las comprobaciones de estado se detienen.  Si una verificación de estado detecta un problema, se muestra un mensaje en la columna Último error de la tabla Grupos de almacenamiento en la nube en la página Grupos de almacenamiento.
+
+La tabla muestra el error más reciente detectado para cada grupo de almacenamiento en la nube e indica cuánto tiempo hace que ocurrió el error.
+
+Además, se activa una alerta de *Error de conectividad del Cloud Storage Pool* si la comprobación de estado detecta que se han producido uno o más errores nuevos del Cloud Storage Pool en los últimos 5 minutos.  Si recibe una notificación por correo electrónico para esta alerta, vaya a la página Grupos de almacenamiento (seleccione *ILM* > *Grupos de almacenamiento*), revise los mensajes de error en la columna Último error y consulte las pautas de solución de problemas a continuación.
+
+
+
+== Comprobar si se ha resuelto un error
+
+Después de resolver cualquier problema subyacente, puede determinar si se ha resuelto el error.  Desde la página Grupo de almacenamiento en la nube, seleccione el punto final y seleccione *Borrar error*.  Un mensaje de confirmación indica que StorageGRID ha solucionado el error del grupo de almacenamiento en la nube.
+
+Si se ha resuelto el problema subyacente, el mensaje de error ya no se muestra.  Sin embargo, si el problema subyacente no se ha solucionado (o si se encuentra un error diferente), el mensaje de error se mostrará en la columna Último error dentro de unos minutos.
+
+
+
+== Error: Error en la comprobación de salud.  Error del punto final
+
+Es posible que encuentre este error cuando habilite el bloqueo de objetos S3 con retención predeterminada para su depósito de Amazon S3 después de comenzar a usar este depósito para un grupo de almacenamiento en la nube.  Este error ocurre cuando la operación PUT no tiene un encabezado HTTP con un valor de suma de comprobación de carga útil como `Content-MD5` .  AWS requiere este valor de encabezado para operaciones PUT en buckets con el bloqueo de objetos S3 habilitado.
+
+Para corregir este problema, siga los pasos que se indican enlink:editing-cloud-storage-pool.html["Editar un grupo de almacenamiento en la nube"] sin realizar ningún cambio.  Esta acción activa la validación de la configuración del grupo de almacenamiento en la nube que detecta y actualiza automáticamente el indicador de bloqueo de objetos S3 en una configuración de punto final del grupo de almacenamiento en la nube.
+
+
+
+== Error: Este grupo de almacenamiento en la nube contiene contenido inesperado
+
+Es posible que encuentre este error cuando intente crear, editar o eliminar un grupo de almacenamiento en la nube.  Este error se produce si el depósito o contenedor incluye el `x-ntap-sgws-cloud-pool-uuid` archivo marcador, pero ese archivo no tiene el campo de metadatos con el UUID esperado.
+
+Por lo general, solo verá este error si está creando un nuevo grupo de almacenamiento en la nube y otra instancia de StorageGRID ya está usando el mismo grupo de almacenamiento en la nube.
+
+Pruebe uno de estos pasos para corregir el problema:
+
+* Si está configurando un nuevo grupo de almacenamiento en la nube y el depósito contiene el `x-ntap-sgws-cloud-pool-uuid` archivo y claves de objeto adicionales similares al siguiente ejemplo, cree un nuevo depósito y use este nuevo depósito en su lugar.
++
+Ejemplo de una clave de objeto adicional: `my-bucket.3E64CF2C-B74D-4B7D-AFE7-AD28BC18B2F6.1727326606730410`
+
+* Si el `x-ntap-sgws-cloud-pool-uuid` el archivo es el único objeto en el depósito, elimine este archivo.
+
+
+Si estos pasos no se aplican a su situación, comuníquese con el soporte técnico.
+
+
+
+== Error: No se pudo crear o actualizar el grupo de almacenamiento en la nube.  Error del punto final
+
+Es posible que encuentre este error en las siguientes circunstancias:
+
+* Cuando intenta crear o editar un grupo de almacenamiento en la nube.
+* Cuando selecciona una plataforma, autenticación o combinación de protocolo no compatible con S3 Object Lock durante la configuración de un nuevo grupo de almacenamiento en la nube. Ver link:../ilm/considerations-for-cloud-storage-pools.html["Consideraciones para los grupos de almacenamiento en la nube"] .
+
+
+Este error indica que un problema de conectividad o configuración impide que StorageGRID escriba en el grupo de almacenamiento en la nube.
+
+Para corregir el problema, revise el mensaje de error del punto final.
+
+* Si el mensaje de error contiene `Get _url_: EOF` Verifique que el punto final del servicio utilizado para el grupo de almacenamiento en la nube no utilice HTTP para un contenedor o depósito que requiera HTTPS.
+* Si el mensaje de error contiene `Get _url_: net/http: request canceled while waiting for connection` , verifique que la configuración de la red permita que los nodos de almacenamiento accedan al punto final de servicio utilizado para el grupo de almacenamiento en la nube.
+* Si el error se debe a una plataforma, autenticación o protocolo no compatible, cambie a una configuración compatible con S3 Object Lock e intente guardar nuevamente el nuevo grupo de almacenamiento en la nube.
+* Para todos los demás mensajes de error de punto final, pruebe una o más de las siguientes opciones:
++
+** Cree un contenedor o depósito externo con el mismo nombre que ingresó para el grupo de almacenamiento en la nube e intente guardar el nuevo grupo de almacenamiento en la nube nuevamente.
+** Corrija el nombre del contenedor o depósito que especificó para el grupo de almacenamiento en la nube e intente guardar el nuevo grupo de almacenamiento en la nube nuevamente.
+
+
+
+
+
+
+== Error: No se pudo analizar el certificado de CA
+
+Es posible que encuentre este error cuando intente crear o editar un grupo de almacenamiento en la nube.  El error ocurre si StorageGRID no pudo analizar el certificado ingresado al configurar el grupo de almacenamiento en la nube.
+
+Para corregir el problema, verifique el certificado CA que proporcionó para ver si hay problemas.
+
+
+
+== Error: No se encontró un grupo de almacenamiento en la nube con este ID
+
+Es posible que encuentre este error cuando intente editar o eliminar un grupo de almacenamiento en la nube.  Este error ocurre si el punto final devuelve una respuesta 404, que puede significar cualquiera de las siguientes cosas:
+
+* Las credenciales utilizadas para el grupo de almacenamiento en la nube no tienen permiso de lectura para el depósito.
+* El depósito utilizado para el grupo de almacenamiento en la nube no incluye el `x-ntap-sgws-cloud-pool-uuid` archivo de marcador.
+
+
+Pruebe uno o más de estos pasos para corregir el problema:
+
+* Verifique que el usuario asociado a la clave de acceso configurada tenga los permisos necesarios.
+* Edite el grupo de almacenamiento en la nube con credenciales que tengan los permisos necesarios.
+* Si los permisos son correctos, comuníquese con el soporte.
+
+
+
+
+== Error: No se pudo comprobar el contenido del grupo de almacenamiento en la nube.  Error del punto final
+
+Es posible que encuentre este error cuando intente eliminar un grupo de almacenamiento en la nube.  Este error indica que algún tipo de problema de conectividad o configuración impide que StorageGRID lea el contenido del depósito de Cloud Storage Pool.
+
+Para corregir el problema, revise el mensaje de error del punto final.
+
+
+
+== Error: Ya se han colocado objetos en este depósito
+
+Es posible que encuentre este error cuando intente eliminar un grupo de almacenamiento en la nube.  No puedes eliminar un grupo de almacenamiento en la nube si contiene datos que ILM movió allí, datos que estaban en el depósito antes de configurar el grupo de almacenamiento en la nube o datos que alguna otra fuente colocó en el depósito después de que se creó el grupo de almacenamiento en la nube.
+
+Pruebe uno o más de estos pasos para corregir el problema:
+
+* Siga las instrucciones para mover objetos nuevamente a StorageGRID en "Ciclo de vida de un objeto de grupo de almacenamiento en la nube".
+* Si está seguro de que ILM no colocó los objetos restantes en el grupo de almacenamiento en la nube, elimine manualmente los objetos del depósito.
++
+
+NOTE: Nunca elimine manualmente objetos de un grupo de almacenamiento en la nube que ILM pueda haber colocado allí.  Si posteriormente intenta acceder a un objeto eliminado manualmente desde StorageGRID, no se encontrará el objeto eliminado.
+
+
+
+
+
+== Error: el proxy encontró un error externo al intentar acceder al grupo de almacenamiento en la nube
+
+Es posible que encuentre este error si ha configurado un proxy de almacenamiento no transparente entre los nodos de almacenamiento y el punto final S3 externo utilizado para el grupo de almacenamiento en la nube.  Este error se produce si el servidor proxy externo no puede acceder al punto final del grupo de almacenamiento en la nube.  Por ejemplo, es posible que el servidor DNS no pueda resolver el nombre de host o que haya un problema de red externa.
+
+Pruebe uno o más de estos pasos para corregir el problema:
+
+* Verifique la configuración del grupo de almacenamiento en la nube (*ILM* > *Grupos de almacenamiento*).
+* Verifique la configuración de red del servidor proxy de almacenamiento.
+
+
+
+
+== Error: el certificado X.509 está fuera del período de validez
+
+Es posible que encuentre este error cuando intente eliminar un grupo de almacenamiento en la nube.  Este error ocurre cuando la autenticación requiere un certificado X.509 para garantizar que se valide el grupo de almacenamiento en la nube externo correcto y el grupo externo está vacío antes de que se elimine la configuración del grupo de almacenamiento en la nube.
+
+Pruebe estos pasos para corregir el problema:
+
+* Actualice el certificado configurado para la autenticación en el grupo de almacenamiento en la nube.
+* Asegúrese de que se haya resuelto cualquier alerta de vencimiento de certificado en este grupo de almacenamiento en la nube.
+
+
+.Información relacionada
+link:lifecycle-of-cloud-storage-pool-object.html["Ciclo de vida de un objeto de grupo de almacenamiento en la nube"]

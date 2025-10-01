@@ -1,0 +1,62 @@
+---
+permalink: ilm/advantages-disadvantages-and-requirements-for-ec.html 
+sidebar: sidebar 
+keywords: erasure coding advantages, disadvantages, EC requirements 
+summary: Antes de decidir si utilizar la codificación de borrado o replicación para proteger los datos de los objetos contra pérdidas, debe comprender las ventajas, desventajas y los requisitos de la codificación de borrado. 
+---
+= Ventajas, desventajas y requisitos de la codificación de borrado
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de decidir si utilizar la codificación de borrado o replicación para proteger los datos de los objetos contra pérdidas, debe comprender las ventajas, desventajas y los requisitos de la codificación de borrado.
+
+
+
+== Ventajas de la codificación de borrado
+
+En comparación con la replicación, la codificación de borrado ofrece mayor confiabilidad, disponibilidad y eficiencia de almacenamiento.
+
+* *Confiabilidad*: La confiabilidad se mide en términos de tolerancia a fallas, es decir, la cantidad de fallas simultáneas que pueden mantenerse sin pérdida de datos.  Con la replicación, se almacenan múltiples copias idénticas en diferentes nodos y en distintos sitios.  Con la codificación de borrado, un objeto se codifica en fragmentos de datos y paridad y se distribuye entre muchos nodos y sitios. Esta dispersión proporciona protección contra fallas tanto del sitio como del nodo.  En comparación con la replicación, la codificación de borrado proporciona una confiabilidad mejorada a costos de almacenamiento comparables.
+* *Disponibilidad*: La disponibilidad se puede definir como la capacidad de recuperar objetos si los nodos de almacenamiento fallan o se vuelven inaccesibles. En comparación con la replicación, la codificación de borrado proporciona una mayor disponibilidad a costos de almacenamiento comparables.
+* *Eficiencia de almacenamiento*: para niveles similares de disponibilidad y confiabilidad, los objetos protegidos mediante codificación de borrado consumen menos espacio en disco que los mismos objetos si estuvieran protegidos mediante replicación. Por ejemplo, un objeto de 10 MB que se replica en dos sitios consume 20 MB de espacio en disco (dos copias), mientras que un objeto que tiene un código de borrado en tres sitios con un esquema de codificación de borrado 6+3 solo consume 15 MB de espacio en disco.
++
+
+NOTE: El espacio en disco para objetos con código de borrado se calcula como el tamaño del objeto más la sobrecarga de almacenamiento.  El porcentaje de sobrecarga de almacenamiento es la cantidad de fragmentos de paridad dividida por la cantidad de fragmentos de datos.
+
+
+
+
+
+== Desventajas de la codificación de borrado
+
+En comparación con la replicación, la codificación de borrado tiene las siguientes desventajas:
+
+* Se recomienda un mayor número de nodos y sitios de almacenamiento, según el esquema de codificación de borrado.  Por el contrario, si replica datos de objetos, solo necesita un nodo de almacenamiento para cada copia. Verlink:what-erasure-coding-schemes-are.html#erasure-coding-schemes-for-storage-pools-containing-three-or-more-sites["Esquemas de codificación de borrado para grupos de almacenamiento que contienen tres o más sitios"] ylink:what-erasure-coding-schemes-are.html#erasure-coding-schemes-for-one-site-storage-pools["Esquemas de codificación de borrado para grupos de almacenamiento de un solo sitio"] .
+* Aumento del coste y la complejidad de las ampliaciones de almacenamiento.  Para expandir una implementación que utiliza replicación, agregue capacidad de almacenamiento en cada ubicación donde se realizan copias de objetos.  Para expandir una implementación que utiliza codificación de borrado, debe considerar tanto el esquema de codificación de borrado en uso como qué tan llenos están los nodos de almacenamiento existentes.  Por ejemplo, si espera hasta que los nodos existentes estén 100% llenos, debe agregar al menos `k+m` Nodos de almacenamiento, pero si se expande cuando los nodos existentes están llenos al 70 %, puede agregar dos nodos por sitio y aún así maximizar la capacidad de almacenamiento utilizable. Para obtener más información, consulte link:../expand/adding-storage-capacity-for-erasure-coded-objects.html["Añadir capacidad de almacenamiento para objetos con código de borrado"] .
+* Hay mayores latencias de recuperación cuando se utiliza codificación de borrado en sitios distribuidos geográficamente.  Los fragmentos de objeto de un objeto codificado para borrado y distribuido en sitios remotos tardan más en recuperarse a través de conexiones WAN que los de un objeto replicado y disponible localmente (el mismo sitio al que se conecta el cliente).
+* Cuando se utiliza codificación de borrado en sitios distribuidos geográficamente, hay un mayor uso de tráfico de red WAN para recuperaciones y reparaciones, especialmente para objetos recuperados con frecuencia o para reparaciones de objetos a través de conexiones de red WAN.
+* Cuando se utiliza codificación de borrado en varios sitios, el rendimiento máximo de objetos disminuye drásticamente a medida que aumenta la latencia de la red entre los sitios. Esta disminución se debe a la disminución correspondiente en el rendimiento de la red TCP, lo que afecta la rapidez con la que el sistema StorageGRID puede almacenar y recuperar fragmentos de objetos.
+* Mayor uso de recursos computacionales.
+
+
+
+
+== Cuándo utilizar la codificación de borrado
+
+La codificación de borrado es la más adecuada para los siguientes requisitos:
+
+* Objetos de tamaño superior a 1 MB.
++
+
+NOTE: La codificación de borrado es más adecuada para objetos de más de 1 MB.  No utilice codificación de borrado para objetos más pequeños que 200 KB para evitar la sobrecarga de administrar fragmentos muy pequeños codificados por borrado.
+
+* Almacenamiento a largo plazo o en frío para contenido que se recupera con poca frecuencia.
+* Alta disponibilidad y confiabilidad de los datos.
+* Protección contra fallas completas del sitio y del nodo.
+* Eficiencia de almacenamiento.
+* Implementaciones de un solo sitio que requieren una protección de datos eficiente con una única copia con código de borrado en lugar de múltiples copias replicadas.
+* Implementaciones de múltiples sitios donde la latencia entre sitios es inferior a 100 ms.
+

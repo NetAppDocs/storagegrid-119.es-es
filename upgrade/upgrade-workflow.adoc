@@ -1,0 +1,52 @@
+---
+permalink: upgrade/upgrade-workflow.html 
+sidebar: sidebar 
+keywords: upgrade workflow 
+summary: Antes de comenzar la actualización, revise el flujo de trabajo general.  La página de actualización de StorageGRID lo guía a través de los pasos de actualización. 
+---
+= Inicio rápido de actualización
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de comenzar la actualización, revise el flujo de trabajo general.  La página de actualización de StorageGRID lo guía a través de cada paso de la actualización.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["1"]Preparar hosts Linux
+[role="quick-margin-para"]
+Si hay nodos StorageGRID implementados en hosts Linux,link:linux-installing-rpm-or-deb-package-on-all-hosts.html["instalar el paquete RPM o DEB en cada host"] antes de comenzar la actualización.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["Dos"]Subir archivos de actualización y revisión
+[role="quick-margin-para"]
+Desde el nodo de administración principal, acceda a la página Actualización de StorageGRID y cargue el archivo de actualización y el archivo de revisión, si es necesario.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["Tres"]Descargar paquete de recuperación
+[role="quick-margin-para"]
+Descargue el paquete de recuperación actual antes de comenzar la actualización.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png["Cuatro"]Ejecutar comprobaciones previas de actualización
+[role="quick-margin-para"]
+Las comprobaciones previas a la actualización le ayudan a detectar problemas para que pueda resolverlos antes de comenzar la actualización real.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-5.png["Cinco"]Iniciar actualización
+[role="quick-margin-para"]
+Cuando se inicia la actualización, las comprobaciones previas se ejecutan nuevamente y el nodo de administración principal se actualiza automáticamente.  No se puede acceder al Administrador de cuadrícula mientras se actualiza el nodo de administración principal.  Los registros de auditoría tampoco estarán disponibles.  Esta actualización puede tardar hasta 30 minutos.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-6.png["Seis"]Descargar paquete de recuperación
+[role="quick-margin-para"]
+Una vez actualizado el nodo de administración principal, descargue un nuevo paquete de recuperación.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-7.png["Siete"]Aprobar nodos
+[role="quick-margin-para"]
+Puede aprobar nodos de cuadrícula individuales, grupos de nodos de cuadrícula o todos los nodos de cuadrícula.
+
+
+CAUTION: No apruebe la actualización de un nodo de la red a menos que esté seguro de que el nodo está listo para detenerse y reiniciarse.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-8.png["Ocho"]Reanudar operaciones
+[role="quick-margin-para"]
+Cuando se hayan actualizado todos los nodos de la red, se habilitarán nuevas funciones y se podrán reanudar las operaciones.  Debe esperar para realizar un procedimiento de desmantelamiento o expansión hasta que se hayan completado la tarea de fondo *Actualizar base de datos* y la tarea *Pasos finales de actualización*.
+
+.Información relacionada
+link:estimating-time-to-complete-upgrade.html["Calcule el tiempo necesario para completar una actualización"]

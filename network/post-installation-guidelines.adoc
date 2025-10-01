@@ -1,0 +1,26 @@
+---
+permalink: network/post-installation-guidelines.html 
+sidebar: sidebar 
+keywords: networking after installation, dhcp networking 
+summary: Después de completar la implementación y configuración del nodo de la red, siga estas pautas para el direccionamiento DHCP y los cambios de configuración de red. 
+---
+= Pautas posteriores a la instalación
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Después de completar la implementación y configuración del nodo de la red, siga estas pautas para el direccionamiento DHCP y los cambios de configuración de red.
+
+* Si se utilizó DHCP para asignar direcciones IP, configure una reserva de DHCP para cada dirección IP en las redes que se utilizan.
++
+Sólo se puede configurar DHCP durante la fase de implementación.  No se puede configurar DHCP durante la configuración.
+
++
+
+CAUTION: Los nodos se reinician cuando la configuración de la red Grid se modifica mediante DHCP, lo que puede provocar interrupciones si un cambio de DHCP afecta a varios nodos al mismo tiempo.
+
+* Debe utilizar los procedimientos de Cambio de IP si desea cambiar direcciones IP, máscaras de subred y puertas de enlace predeterminadas para un nodo de la red. Ver link:../maintain/configuring-ip-addresses.html["Configurar direcciones IP"] .
+* Si realiza cambios en la configuración de red, incluidos cambios de enrutamiento y puerta de enlace, es posible que se pierda la conectividad del cliente con el nodo de administración principal y otros nodos de la red.  Dependiendo de los cambios de red aplicados, es posible que sea necesario restablecer estas conexiones.
+

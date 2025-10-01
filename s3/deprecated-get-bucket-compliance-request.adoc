@@ -1,0 +1,95 @@
+---
+permalink: s3/deprecated-get-bucket-compliance-request.html 
+sidebar: sidebar 
+keywords: S3 REST API, S3 operations, deprecated GET compliance requests 
+summary: La solicitud de cumplimiento de GET Bucket está obsoleta.  Sin embargo, puede seguir usando esta solicitud para determinar las configuraciones de cumplimiento actualmente vigentes para un bucket compatible heredado existente. 
+---
+= Obsoleto: solicitud de cumplimiento de GET Bucket
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La solicitud de cumplimiento de GET Bucket está obsoleta.  Sin embargo, puede seguir usando esta solicitud para determinar las configuraciones de cumplimiento actualmente vigentes para un bucket compatible heredado existente.
+
+[NOTE]
+====
+La función de cumplimiento de StorageGRID que estaba disponible en versiones anteriores de StorageGRID está obsoleta y ha sido reemplazada por S3 Object Lock.  Para más detalles, véase lo siguiente:
+
+* link:../s3/use-s3-api-for-s3-object-lock.html["Utilice la API REST de S3 para configurar el bloqueo de objetos de S3"]
+* https://kb.netapp.com/Advice_and_Troubleshooting/Hybrid_Cloud_Infrastructure/StorageGRID/How_to_manage_legacy_Compliant_buckets_in_StorageGRID_11.5["Base de conocimientos de NetApp : Cómo administrar los buckets compatibles heredados en StorageGRID 11.5"^]
+
+
+====
+Debe tener el permiso s3:GetBucketCompliance o ser la cuenta root para completar esta operación.
+
+
+
+== Ejemplo de solicitud
+
+Esta solicitud de ejemplo le permite determinar la configuración de cumplimiento para el depósito denominado `mybucket` .
+
+[listing, subs="specialcharacters,quotes"]
+----
+GET /mybucket/?x-ntap-sg-compliance HTTP/1.1
+Date: _date_
+Authorization: _authorization string_
+Host: _host_
+----
+
+
+== Ejemplo de respuesta
+
+En el XML de respuesta, `<SGCompliance>` enumera las configuraciones de cumplimiento vigentes para el depósito.  Esta respuesta de ejemplo muestra las configuraciones de cumplimiento para un depósito en el que cada objeto se conservará durante un año (525 600 minutos), a partir del momento en que el objeto se ingiere en la red.  Actualmente no existe ninguna retención legal sobre este depósito.  Cada objeto se eliminará automáticamente después de un año.
+
+[listing, subs="specialcharacters,quotes"]
+----
+HTTP/1.1 200 OK
+Date: _date_
+Connection: _connection_
+Server: StorageGRID/11.1.0
+x-amz-request-id: _request ID_
+Content-Length: _length_
+Content-Type: application/xml
+
+<SGCompliance>
+  <RetentionPeriodMinutes>525600</RetentionPeriodMinutes>
+  <LegalHold>false</LegalHold>
+  <AutoDelete>true</AutoDelete>
+</SGCompliance>
+----
+[cols="1a,2a"]
+|===
+| Nombre | Descripción 
+
+
+ a| 
+Minutos del período de retención
+ a| 
+La duración del período de retención de los objetos agregados a este depósito, en minutos.  El período de retención comienza cuando el objeto se incorpora a la red.
+
+
+
+ a| 
+Retención legal
+ a| 
+* Verdadero: Este depósito se encuentra actualmente bajo retención legal.  Los objetos de este depósito no se pueden eliminar hasta que se levante la retención legal, incluso si su período de retención ha expirado.
+* Falso: este depósito no se encuentra actualmente bajo retención legal.  Los objetos de este depósito se pueden eliminar cuando expire su período de retención.
+
+
+
+
+ a| 
+Eliminación automática
+ a| 
+* Verdadero: Los objetos de este depósito se eliminarán automáticamente cuando expire su período de retención, a menos que el depósito esté bajo una retención legal.
+* Falso: Los objetos de este depósito no se eliminarán automáticamente cuando expire el período de retención.  Debes eliminar estos objetos manualmente si necesitas eliminarlos.
+
+
+|===
+
+
+== Respuestas de error
+
+Si el depósito no se creó para ser compatible, el código de estado HTTP para la respuesta es `404 Not Found` , con un código de error S3 de `XNoSuchBucketCompliance` .

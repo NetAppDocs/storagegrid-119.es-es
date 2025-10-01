@@ -1,0 +1,60 @@
+---
+permalink: ilm/when-to-use-cloud-storage-pools.html 
+sidebar: sidebar 
+keywords: use cloud storage pool, benefits of cloud storage pools 
+summary: Al utilizar grupos de almacenamiento en la nube, puede realizar copias de seguridad o agrupar datos en niveles en una ubicación externa.  Además, puedes realizar copias de seguridad o agrupar datos en más de una nube. 
+---
+= Cuándo utilizar grupos de almacenamiento en la nube
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Al utilizar grupos de almacenamiento en la nube, puede realizar copias de seguridad o agrupar datos en niveles en una ubicación externa.  Además, puedes realizar copias de seguridad o agrupar datos en más de una nube.
+
+
+
+== Realizar una copia de seguridad de los datos de StorageGRID en una ubicación externa
+
+Puede utilizar un grupo de almacenamiento en la nube para realizar copias de seguridad de objetos StorageGRID en una ubicación externa.
+
+Si las copias en StorageGRID son inaccesibles, los datos de los objetos en el grupo de almacenamiento en la nube se pueden usar para atender las solicitudes de los clientes.  Sin embargo, es posible que necesite emitir una solicitud S3 RestoreObject para acceder a la copia del objeto de respaldo en el grupo de almacenamiento en la nube.
+
+Los datos de objetos en un grupo de almacenamiento en la nube también se pueden usar para recuperar datos perdidos de StorageGRID debido a una falla del volumen de almacenamiento o del nodo de almacenamiento.  Si la única copia restante de un objeto está en un grupo de almacenamiento en la nube, StorageGRID restaura temporalmente el objeto y crea una nueva copia en el nodo de almacenamiento recuperado.
+
+Para implementar una solución de respaldo:
+
+. Crear un único grupo de almacenamiento en la nube.
+. Configure una regla ILM que almacene simultáneamente copias de objetos en nodos de almacenamiento (como copias replicadas o codificadas por borrado) y una única copia de objeto en el grupo de almacenamiento en la nube.
+. Añade la regla a tu política ILM.  Luego, simule y active la política.
+
+
+
+
+== Datos de niveles desde StorageGRID a una ubicación externa
+
+Puede utilizar un grupo de almacenamiento en la nube para almacenar objetos fuera del sistema StorageGRID .  Por ejemplo, supongamos que tiene una gran cantidad de objetos que necesita conservar, pero espera acceder a ellos en raras ocasiones, o nunca.  Puede utilizar un grupo de almacenamiento en la nube para organizar los objetos en un almacenamiento de menor costo y liberar espacio en StorageGRID.
+
+Para implementar una solución de niveles:
+
+. Crear un único grupo de almacenamiento en la nube.
+. Configure una regla ILM que mueva objetos rara vez utilizados desde los nodos de almacenamiento al grupo de almacenamiento en la nube.
+. Añade la regla a tu política ILM.  Luego, simule y active la política.
+
+
+
+
+== Mantener múltiples puntos finales en la nube
+
+Puede configurar varios puntos finales de Cloud Storage Pool si desea organizar en niveles o realizar copias de seguridad de datos de objetos en más de una nube.  Los filtros en sus reglas ILM le permiten especificar qué objetos se almacenan en cada grupo de almacenamiento en la nube.  Por ejemplo, es posible que desee almacenar objetos de algunos inquilinos o buckets en Amazon S3 Glacier y objetos de otros inquilinos o buckets en Azure Blob Storage.  O bien, es posible que desee mover datos entre Amazon S3 Glacier y Azure Blob Storage.
+
+
+NOTE: Al utilizar varios puntos finales de un grupo de almacenamiento en la nube, tenga en cuenta que un objeto solo se puede almacenar en un grupo de almacenamiento en la nube a la vez.
+
+Para implementar múltiples puntos finales en la nube:
+
+. Crea hasta 10 grupos de almacenamiento en la nube.
+. Configure las reglas de ILM para almacenar los datos de objetos adecuados en el momento adecuado en cada grupo de almacenamiento en la nube.  Por ejemplo, almacene objetos del depósito A en el grupo de almacenamiento en la nube A y almacene objetos del depósito B en el grupo de almacenamiento en la nube B. O bien, almacene objetos en el grupo de almacenamiento en la nube A durante un período de tiempo y luego muévalos al grupo de almacenamiento en la nube B.
+. Añade las reglas a tu política de ILM.  Luego, simule y active la política.
+

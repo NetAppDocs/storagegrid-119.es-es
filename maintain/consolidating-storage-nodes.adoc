@@ -1,0 +1,23 @@
+---
+permalink: maintain/consolidating-storage-nodes.html 
+sidebar: sidebar 
+keywords: storagegrid, storage node, consolidate storage node, consolidating storage node 
+summary: Puede consolidar nodos de almacenamiento para reducir la cantidad de nodos de almacenamiento de un sitio o una implementación y, al mismo tiempo, aumentar la capacidad de almacenamiento. 
+---
+= Consolidar nodos de almacenamiento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede consolidar nodos de almacenamiento para reducir la cantidad de nodos de almacenamiento de un sitio o una implementación y, al mismo tiempo, aumentar la capacidad de almacenamiento.
+
+Cuando consolida nodos de almacenamiento,link:../expand/index.html["ampliar el sistema StorageGRID"] agregando nodos de almacenamiento nuevos, de mayor capacidad, y luego desmantelando los nodos de almacenamiento antiguos, de menor capacidad.  Durante el procedimiento de desmantelamiento, los objetos se migran de los antiguos nodos de almacenamiento a los nuevos nodos de almacenamiento.
+
+
+NOTE: Si está consolidando electrodomésticos más antiguos y pequeños con modelos nuevos o electrodomésticos de mayor capacidad, considere https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/how-appliance-node-cloning-works.html["clonar el nodo del dispositivo"^] (o utilice la clonación de nodos del dispositivo y el procedimiento de desmantelamiento si no está realizando un reemplazo uno a uno).
+
+Por ejemplo, puede agregar dos nodos de almacenamiento nuevos y de mayor capacidad para reemplazar tres nodos de almacenamiento más antiguos.  Primero deberá utilizar el procedimiento de expansión para agregar los dos nodos de almacenamiento nuevos y más grandes, y luego deberá utilizar el procedimiento de desmantelamiento para eliminar los tres nodos de almacenamiento antiguos y de menor capacidad.
+
+Al agregar nueva capacidad antes de eliminar los nodos de almacenamiento existentes, se garantiza una distribución de datos más equilibrada en todo el sistema StorageGRID .  También reduce la posibilidad de que un nodo de almacenamiento existente pueda ser empujado más allá del nivel de marca de agua de almacenamiento.

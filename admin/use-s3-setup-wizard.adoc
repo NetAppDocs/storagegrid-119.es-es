@@ -1,0 +1,58 @@
+---
+permalink: admin/use-s3-setup-wizard.html 
+sidebar: sidebar 
+keywords: S3, S3 setup wizard 
+summary: Puede utilizar el asistente de configuración de S3 para configurar StorageGRID como el sistema de almacenamiento de objetos para una aplicación S3. 
+---
+= Utilizar el asistente de configuración de S3: Consideraciones y requisitos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede utilizar el asistente de configuración de S3 para configurar StorageGRID como el sistema de almacenamiento de objetos para una aplicación S3.
+
+
+
+== Cuándo utilizar el asistente de configuración de S3
+
+El asistente de configuración de S3 lo guía a través de cada paso de la configuración de StorageGRID para su uso con una aplicación S3.  Como parte de completar el asistente, descargará archivos que puede usar para ingresar valores en la aplicación S3.  Utilice el asistente para configurar su sistema más rápidamente y asegurarse de que sus configuraciones se ajusten a las mejores prácticas de StorageGRID .
+
+Si tienes ellink:admin-group-permissions.html["Permiso de acceso root"] Puede completar el asistente de configuración de S3 cuando comience a utilizar StorageGRID Grid Manager o puede acceder al asistente y completarlo en cualquier momento posterior.  Dependiendo de sus requisitos, también puede configurar algunos o todos los elementos necesarios manualmente y luego usar el asistente para reunir los valores que necesita una aplicación S3.
+
+
+
+== Antes de utilizar el asistente
+
+Antes de utilizar el asistente, confirme que ha completado estos requisitos previos.
+
+Obtener direcciones IP y configurar interfaces VLAN:: Si configura un grupo de alta disponibilidad (HA), sabrá a qué nodos se conectará la aplicación S3 y qué red StorageGRID se utilizará.  También sabe qué valores ingresar para el CIDR de subred, la dirección IP de puerta de enlace y las direcciones IP virtuales (VIP).
++
+--
+Si planea utilizar una LAN virtual para segregar el tráfico de la aplicación S3, ya ha configurado la interfaz VLAN. Ver link:../admin/configure-vlan-interfaces.html["Configurar interfaces VLAN"] .
+
+--
+Configurar la federación de identidades y el SSO:: Si planea utilizar la federación de identidad o el inicio de sesión único (SSO) para su sistema StorageGRID , debe habilitar estas funciones. También sabe qué grupo federado debe tener acceso raíz para la cuenta de inquilino que utilizará la aplicación S3. Verlink:../admin/using-identity-federation.html["Utilizar la federación de identidades"] ylink:../admin/configuring-sso.html["Configurar el inicio de sesión único"] .
+Obtener y configurar nombres de dominio:: Sabe qué nombre de dominio completo (FQDN) utilizar para StorageGRID.  Las entradas del servidor de nombres de dominio (DNS) asignarán este FQDN a las direcciones IP virtuales (VIP) del grupo de alta disponibilidad que cree mediante el asistente.
++
+--
+Si planea utilizar solicitudes alojadas virtuales de estilo S3, debe tenerlink:../admin/configuring-s3-api-endpoint-domain-names.html["nombres de dominio de punto final S3 configurados"] .  Se recomienda utilizar solicitudes de estilo alojado virtual.
+
+--
+Revisar los requisitos del balanceador de carga y del certificado de seguridad:: Si planea utilizar el balanceador de carga StorageGRID , ha revisado las consideraciones generales para el balanceo de carga.  Tienes los certificados que cargarás o los valores que necesitas para generar un certificado.
++
+--
+Si planea utilizar un punto final de balanceador de carga externo (de terceros), debe tener el nombre de dominio completo (FQDN), el puerto y el certificado para ese balanceador de carga.
+
+--
+Configurar cualquier conexión de federación de red:: Si desea permitir que el inquilino de S3 clone datos de cuenta y replique objetos de bucket a otra red mediante una conexión de federación de red, confirme lo siguiente antes de iniciar el asistente:
++
+--
+* Tieneslink:grid-federation-manage-connection.html["configuró la conexión de la federación de red"] .
+* El estado de la conexión es *Conectado*.
+* Tienes permiso de acceso root.
+
+
+--
+

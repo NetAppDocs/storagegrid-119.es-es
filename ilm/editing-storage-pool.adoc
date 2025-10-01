@@ -1,0 +1,46 @@
+---
+permalink: ilm/editing-storage-pool.html 
+sidebar: sidebar 
+keywords: edit storage pool 
+summary: Puede editar un grupo de almacenamiento para cambiar su nombre o actualizar sitios y grados de almacenamiento. 
+---
+= Editar grupo de almacenamiento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede editar un grupo de almacenamiento para cambiar su nombre o actualizar sitios y grados de almacenamiento.
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tieneslink:../admin/admin-group-permissions.html["permisos de acceso específicos"] .
+* Usted ha revisado ellink:guidelines-for-creating-storage-pools.html["Pautas para la creación de grupos de almacenamiento"] .
+* Si planea editar un grupo de almacenamiento que se utiliza en una regla de la política ILM activa, debe considerar cómo sus cambios afectarán la ubicación de los datos de los objetos.
+
+
+.Acerca de esta tarea
+Si está agregando un nuevo sitio o grado de almacenamiento a un grupo de almacenamiento que se utiliza en la política ILM activa, tenga en cuenta que los nodos de almacenamiento en el nuevo sitio o grado de almacenamiento no se utilizarán automáticamente.  Para forzar a StorageGRID a usar un nuevo sitio o grado de almacenamiento, debe activar una nueva política ILM después de guardar el grupo de almacenamiento editado.
+
+.Pasos
+. Seleccione *ILM* > *Grupos de almacenamiento*.
+. Seleccione la casilla de verificación del grupo de almacenamiento que desea editar.
++
+No se puede editar el grupo de almacenamiento Todos los nodos de almacenamiento (StorageGRID 11.6 y anteriores).
+
+. Seleccione *Editar*.
+. Según sea necesario, cambie el nombre del grupo de almacenamiento.
+. Según sea necesario, seleccione otros sitios y grados de almacenamiento.
++
+No se le permite cambiar el sitio o el grado de almacenamiento si el grupo de almacenamiento se utiliza en un perfil de codificación de borrado y el cambio provocaría que el esquema de codificación de borrado se vuelva inválido.  Por ejemplo, si un grupo de almacenamiento utilizado en un perfil de codificación de borrado actualmente incluye un grado de almacenamiento con un solo sitio, no podrá utilizar un grado de almacenamiento con dos sitios porque el cambio haría que el esquema de codificación de borrado no sea válido.
+
++
+
+CAUTION: Agregar o eliminar sitios de un grupo de almacenamiento existente no moverá ningún dato codificado de borrado existente.  Si desea mover los datos existentes del sitio, debe crear un nuevo grupo de almacenamiento y un perfil EC para volver a codificar los datos.
+
+. Seleccione *Guardar*.
+
+
+.Después de terminar
+Si agregó un nuevo sitio o grado de almacenamiento a un grupo de almacenamiento utilizado en la política ILM activa, active una nueva política ILM para forzar a StorageGRID a usar el nuevo sitio o grado de almacenamiento.  Por ejemplo, clone su política ILM existente y luego active el clon. Ver link:working-with-ilm-rules-and-ilm-policies.html["Trabajar con las reglas y políticas de ILM"] .

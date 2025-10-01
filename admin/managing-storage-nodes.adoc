@@ -1,0 +1,22 @@
+---
+permalink: admin/managing-storage-nodes.html 
+sidebar: sidebar 
+keywords: storage nodes, what is a storage node 
+summary: Los nodos de almacenamiento proporcionan capacidad y servicios de almacenamiento en disco.  La administración de nodos de almacenamiento implica monitorear la cantidad de espacio utilizable en cada nodo, usar configuraciones de marca de agua y aplicar configuraciones de nodo de almacenamiento. 
+---
+= Administrar nodos de almacenamiento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los nodos de almacenamiento proporcionan capacidad y servicios de almacenamiento en disco.  La gestión de nodos de almacenamiento implica lo siguiente:
+
+* Administrar las opciones de almacenamiento
+* Comprender qué son las marcas de agua del volumen de almacenamiento y cómo puede usar las anulaciones de marcas de agua para controlar cuándo los nodos de almacenamiento se vuelven de solo lectura
+* Monitoreo y gestión del espacio utilizado para los metadatos de los objetos
+* Configuración de ajustes globales para objetos almacenados
+* Aplicación de la configuración del nodo de almacenamiento
+* Administración de nodos de almacenamiento completos
+

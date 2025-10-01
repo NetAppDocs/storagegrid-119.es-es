@@ -1,0 +1,46 @@
+---
+permalink: admin/configuring-storage-proxy-settings.html 
+sidebar: sidebar 
+keywords: storage proxy, non-transparent proxy, platform service endpoint 
+summary: Si utiliza servicios de plataforma o grupos de almacenamiento en la nube, puede configurar un proxy no transparente entre los nodos de almacenamiento y los puntos finales externos de S3.  Por ejemplo, es posible que necesite un proxy no transparente para permitir que los mensajes de servicios de la plataforma se envíen a puntos finales externos, como un punto final en Internet. 
+---
+= Configurar el proxy de almacenamiento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si utiliza servicios de plataforma o grupos de almacenamiento en la nube, puede configurar un proxy no transparente entre los nodos de almacenamiento y los puntos finales externos de S3.  Por ejemplo, es posible que necesite un proxy no transparente para permitir que los mensajes de servicios de la plataforma se envíen a puntos finales externos, como un punto final en Internet.
+
+
+NOTE: Las configuraciones del proxy de almacenamiento configuradas no se aplican a los puntos finales de los servicios de la plataforma Kafka.
+
+.Antes de empezar
+* Tieneslink:admin-group-permissions.html["permisos de acceso específicos"] .
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+
+
+.Acerca de esta tarea
+Puede configurar los ajustes para un único proxy de almacenamiento.
+
+.Pasos
+. Seleccione *CONFIGURACIÓN* > *Seguridad* > *Configuración de proxy*.
+. En la pestaña *Almacenamiento*, seleccione la casilla de verificación *Habilitar proxy de almacenamiento*.
+. Seleccione el protocolo para el proxy de almacenamiento.
+. Introduzca el nombre de host o la dirección IP del servidor proxy.
+. Opcionalmente, ingrese el puerto utilizado para conectarse al servidor proxy.
++
+Deje este campo en blanco para utilizar el puerto predeterminado para el protocolo: 80 para HTTP o 1080 para SOCKS5.
+
+. Seleccione *Guardar*.
++
+Una vez guardado el proxy de almacenamiento, se pueden configurar y probar nuevos puntos finales para los servicios de la plataforma o los grupos de almacenamiento en la nube.
+
++
+
+NOTE: Los cambios de proxy pueden tardar hasta 10 minutos en surtir efecto.
+
+. Verifique la configuración de su servidor proxy para asegurarse de que los mensajes relacionados con el servicio de la plataforma de StorageGRID no se bloqueen.
+. Si necesita deshabilitar un proxy de almacenamiento, desmarque la casilla de verificación y seleccione *Guardar*.
+

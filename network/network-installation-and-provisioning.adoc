@@ -1,0 +1,36 @@
+---
+permalink: network/network-installation-and-provisioning.html 
+sidebar: sidebar 
+keywords: network install, network provisioning 
+summary: Debe comprender cómo se utilizan la red Grid y las redes de administración y cliente opcionales durante la implementación de nodos y la configuración de la red. 
+---
+= Instalación y aprovisionamiento de redes
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe comprender cómo se utilizan la red Grid y las redes de administración y cliente opcionales durante la implementación de nodos y la configuración de la red.
+
+
+
+== Despliegue inicial de un nodo
+
+Cuando implementa un nodo por primera vez, debe conectarlo a la red Grid y asegurarse de que tenga acceso al nodo de administración principal.  Si la red de cuadrícula está aislada, puede configurar la red de administración en el nodo de administración principal para acceder a la configuración e instalación desde fuera de la red de cuadrícula.
+
+Una red Grid con una puerta de enlace configurada se convierte en la puerta de enlace predeterminada para un nodo durante la implementación.  La puerta de enlace predeterminada permite que los nodos de la red en subredes separadas se comuniquen con el nodo de administración principal antes de que se haya configurado la red.
+
+Si es necesario, las subredes que contienen servidores NTP o que requieren acceso al Administrador de Grid o a la API también se pueden configurar como subredes de grid.
+
+
+
+== Registro automático de nodos con el nodo de administración principal
+
+Una vez implementados los nodos, estos se registran en el nodo de administración principal mediante la red Grid.  Luego puede utilizar el Administrador de cuadrícula, el `configure-storagegrid.py` Script de Python o API de instalación para configurar la red y aprobar los nodos registrados.  Durante la configuración de la red, puede configurar múltiples subredes de red.  Se crearán rutas estáticas a estas subredes a través de la puerta de enlace de la red Grid en cada nodo cuando complete la configuración de la red.
+
+
+
+== Deshabilitar la red de administración o la red de cliente
+
+Si desea deshabilitar la red de administración o la red de clientes, puede eliminar la configuración de estas durante el proceso de aprobación del nodo o puede usar la herramienta Cambiar IP una vez completada la instalación (consultelink:../maintain/configuring-ip-addresses.html["Configurar direcciones IP"] ).

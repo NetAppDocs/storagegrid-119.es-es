@@ -1,0 +1,73 @@
+---
+permalink: ilm/creating-storage-pool.html 
+sidebar: sidebar 
+keywords: create storage pool 
+summary: Crea grupos de almacenamiento para determinar dónde el sistema StorageGRID almacena los datos de los objetos y el tipo de almacenamiento utilizado.  Cada grupo de almacenamiento incluye uno o más sitios y uno o más grados de almacenamiento. 
+---
+= Crear un grupo de almacenamiento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Crea grupos de almacenamiento para determinar dónde el sistema StorageGRID almacena los datos de los objetos y el tipo de almacenamiento utilizado.  Cada grupo de almacenamiento incluye uno o más sitios y uno o más grados de almacenamiento.
+
+
+NOTE: Cuando instala StorageGRID 11.9 en una nueva red, se crean automáticamente grupos de almacenamiento para cada sitio. Sin embargo, si instaló inicialmente StorageGRID 11.6 o una versión anterior, los grupos de almacenamiento no se crean automáticamente para cada sitio.
+
+Si desea crear grupos de almacenamiento en la nube para almacenar datos de objetos fuera de su sistema StorageGRID , consulte lalink:what-cloud-storage-pool-is.html["Información sobre el uso de grupos de almacenamiento en la nube"] .
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tieneslink:../admin/admin-group-permissions.html["permisos de acceso específicos"] .
+* Ha revisado las pautas para crear grupos de almacenamiento.
+
+
+.Acerca de esta tarea
+Los grupos de almacenamiento determinan dónde se almacenan los datos de los objetos.  La cantidad de grupos de almacenamiento que necesita depende de la cantidad de sitios en su red y de los tipos de copias que desea: replicadas o con código de borrado.
+
+* Para la replicación y la codificación de borrado de un solo sitio, cree un grupo de almacenamiento para cada sitio.  Por ejemplo, si desea almacenar copias de objetos replicados en tres sitios, cree tres grupos de almacenamiento.
+* Para la codificación de borrado en tres o más sitios, cree un grupo de almacenamiento que incluya una entrada para cada sitio.  Por ejemplo, si desea borrar objetos de código en tres sitios, cree un grupo de almacenamiento.
++
+
+NOTE: No incluya el sitio Todos los sitios en un grupo de almacenamiento que se utilizará en un perfil de codificación de borrado.  En su lugar, agregue una entrada separada al grupo de almacenamiento para cada sitio que almacenará datos codificados con borrado.  Ver<<entries,este paso>> por ejemplo.
+
+* Si tiene más de un grado de almacenamiento, no cree un grupo de almacenamiento que incluya diferentes grados de almacenamiento en un solo sitio. Ver ellink:guidelines-for-creating-storage-pools.html["Pautas para la creación de grupos de almacenamiento"] .
+
+
+.Pasos
+. Seleccione *ILM* > *Grupos de almacenamiento*.
++
+La pestaña Grupos de almacenamiento enumera todos los grupos de almacenamiento definidos.
+
++
+
+NOTE: Para las nuevas instalaciones de StorageGRID 11.6 o anteriores, el grupo de almacenamiento Todos los nodos de almacenamiento se actualiza automáticamente cada vez que agrega nuevos sitios de centros de datos.  No utilice este grupo en las reglas de ILM.
+
+. Para crear un nuevo grupo de almacenamiento, seleccione *Crear*.
+. Introduzca un nombre único para el grupo de almacenamiento.  Utilice un nombre que sea fácil de identificar cuando configure perfiles de codificación de borrado y reglas ILM.
+. En la lista desplegable *Sitio*, seleccione un sitio para este grupo de almacenamiento.
++
+Cuando selecciona un sitio, la cantidad de nodos de almacenamiento en la tabla se actualiza automáticamente.
+
++
+En general, no utilice el sitio Todos los sitios en ningún grupo de almacenamiento.  Las reglas ILM que utilizan un grupo de almacenamiento de todos los sitios colocan los objetos en cualquier sitio disponible, lo que le brinda menos control sobre la ubicación de los objetos.  Además, un grupo de almacenamiento de todos los sitios utiliza los nodos de almacenamiento en un nuevo sitio de inmediato, lo que podría no ser el comportamiento esperado.
+
+. En la lista desplegable *Grado de almacenamiento*, seleccione el tipo de almacenamiento que se utilizará si una regla ILM usa este grupo de almacenamiento.
++
+El grado de almacenamiento, _incluye todos los grados de almacenamiento_, incluye todos los nodos de almacenamiento en el sitio seleccionado.  Si creó grados de almacenamiento adicionales para los nodos de almacenamiento en su cuadrícula, aparecerán en el menú desplegable.
+
+. [[entradas]]Si desea utilizar el grupo de almacenamiento en un perfil de codificación de borrado de varios sitios, seleccione *Agregar más nodos* para agregar una entrada para cada sitio al grupo de almacenamiento.
++
+
+NOTE: Se le advertirá si agrega más de una entrada con diferentes grados de almacenamiento para un sitio.
+
++
+Para eliminar una entrada, seleccione el icono de eliminarimage:../media/icon-x-to-remove.png["icono de eliminar"] .
+
+. Cuando esté satisfecho con sus selecciones, seleccione *Guardar*.
++
+El nuevo grupo de almacenamiento se agrega a la lista.
+
+

@@ -1,0 +1,123 @@
+---
+permalink: maintain/applying-hotfix.html 
+sidebar: sidebar 
+keywords: storagegrid, hotfix, software update 
+summary: La revisión se aplica primero de forma automática al nodo de administración principal.  Luego, debe aprobar la aplicación de la revisión a otros nodos de la red hasta que todos los nodos ejecuten la misma versión de software.  Puede personalizar la secuencia de aprobación seleccionando aprobar nodos de cuadrícula individuales, grupos de nodos de cuadrícula o todos los nodos de cuadrícula. 
+---
+= Aplicar revisión
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La revisión se aplica primero de forma automática al nodo de administración principal.  Luego, debe aprobar la aplicación de la revisión a otros nodos de la red hasta que todos los nodos ejecuten la misma versión de software.  Puede personalizar la secuencia de aprobación seleccionando aprobar nodos de cuadrícula individuales, grupos de nodos de cuadrícula o todos los nodos de cuadrícula.
+
+.Antes de empezar
+* Usted ha revisado ellink:storagegrid-hotfix-procedure.html["Consideraciones para aplicar una revisión"] .
+* Tienes la contraseña de aprovisionamiento.
+* Tienes acceso Root o permiso de Mantenimiento.
+
+
+.Acerca de esta tarea
+* Puede retrasar la aplicación de una revisión a un nodo, pero el proceso de revisión no estará completo hasta que la aplique a todos los nodos.
+* No puede realizar una actualización del software StorageGRID ni del sistema operativo SANtricity hasta que haya completado el proceso de revisión.
+
+
+.Pasos
+. Sign in en Grid Manager usando unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+. Seleccione *MANTENIMIENTO* > *Sistema* > *Actualización de software*.
++
+Aparece la página de Actualización de software.
+
++
+image::../media/software_update_landing.png[Página de inicio de actualización de software]
+
+. Seleccione *Aplicar revisión*.
++
+Aparece la página de revisión de StorageGRID .
+
++
+image::../media/hotfix_choose_file.png[Revisión rápida Elegir archivo]
+
+. Seleccione el archivo de revisión que descargó del sitio de soporte de NetApp .
++
+.. Seleccione *Explorar*.
+.. Localice y seleccione el archivo.
++
+`hotfix-install-_version_`
+
+.. Seleccione *Abrir*.
++
+El archivo está cargado.  Una vez finalizada la carga, el nombre del archivo se muestra en el campo Detalles.
+
++
+
+NOTE: No cambie el nombre del archivo porque es parte del proceso de verificación.
+
+
+
+. Introduzca la contraseña de aprovisionamiento en el cuadro de texto.
++
+El botón *Inicio* se habilita.
+
+. Seleccione *Inicio*.
++
+Aparece una advertencia indicando que la conexión de su navegador podría perderse temporalmente mientras se reinician los servicios en el nodo de administración principal.
+
+. Seleccione *Aceptar* para comenzar a aplicar la revisión al nodo de administración principal.
++
+Cuando se inicia la revisión:
+
++
+.. Se ejecutan las validaciones de revisión.
++
+
+NOTE: Si se informa algún error, resuélvalo, vuelva a cargar el archivo de revisión y seleccione *Iniciar* nuevamente.
+
+.. Aparece la tabla de progreso de instalación de la revisión.
++
+Esta tabla muestra todos los nodos de su red y la etapa actual de la instalación de la revisión para cada nodo.  Los nodos de la tabla están agrupados por tipo (nodos de administración, nodos de puerta de enlace y nodos de almacenamiento).
+
+.. La barra de progreso llega al final y luego el nodo de administración principal se muestra como "Completado".
++
+image::../media/hotfix_progress_table.png[Tabla de progreso de revisiones]
+
+
+
+. Opcionalmente, ordene las listas de nodos en cada agrupación en orden ascendente o descendente por *Sitio*, *Nombre*, *Progreso*, *Etapa* o *Detalles*.  O ingrese un término en el cuadro *Buscar* para buscar nodos específicos.
+. Aprobar los nodos de la red que están listos para ser actualizados.  Los nodos aprobados del mismo tipo se actualizan uno a la vez.
++
+
+CAUTION: No apruebe la revisión de un nodo a menos que esté seguro de que el nodo está listo para actualizarse.  Cuando se aplica la revisión a un nodo de la red, es posible que se reinicien algunos servicios de ese nodo.  Estas operaciones podrían provocar interrupciones del servicio para los clientes que se comunican con el nodo.
+
++
+** Seleccione uno o más botones *Aprobar* para agregar uno o más nodos individuales a la cola de revisiones.
+** Seleccione el botón *Aprobar todo* dentro de cada agrupación para agregar todos los nodos del mismo tipo a la cola de revisiones.  Si ha ingresado criterios de búsqueda en el cuadro *Buscar*, el botón *Aprobar todo* se aplica a todos los nodos seleccionados por los criterios de búsqueda.
++
+
+NOTE: El botón *Aprobar todo* en la parte superior de la página aprueba todos los nodos enumerados en la página, mientras que el botón *Aprobar todo* en la parte superior de una agrupación de tablas solo aprueba todos los nodos de ese grupo.  Si el orden en que se actualizan los nodos es importante, apruebe los nodos o grupos de nodos uno a la vez y espere hasta que se complete la actualización en cada nodo antes de aprobar el siguiente nodo o los siguientes nodos.
+
+** Seleccione el botón de nivel superior *Aprobar todo* en la parte superior de la página para agregar todos los nodos de la cuadrícula a la cola de revisiones.
++
+
+NOTE: Debe completar la revisión de StorageGRID antes de poder iniciar una actualización de software diferente.  Si no puede completar la revisión, comuníquese con el soporte técnico.
+
+** Seleccione *Eliminar* o *Eliminar todo* para eliminar un nodo o todos los nodos de la cola de revisiones.
++
+Cuando la etapa avanza más allá de "En cola", el botón *Eliminar* se oculta y ya no se puede eliminar el nodo del proceso de revisión.
+
++
+image::../media/approve_all_progresstable.png[Progreso de la revisión con el botón Eliminar]
+
+
+
+. Espere mientras se aplica la revisión a cada nodo de la red aprobado.
++
+Cuando la revisión se haya instalado correctamente en todos los nodos, se cerrará la tabla Progreso de instalación de la revisión.  Un banner verde muestra la fecha y la hora en que se completó la revisión.
+
+. Si no se pudo aplicar la revisión a ningún nodo, revise el error de cada nodo, resuelva el problema y repita estos pasos.
++
+El procedimiento no estará completo hasta que la revisión se haya aplicado exitosamente a todos los nodos.  Puede volver a intentar de forma segura el proceso de revisión tantas veces como sea necesario hasta que se complete.
+
+

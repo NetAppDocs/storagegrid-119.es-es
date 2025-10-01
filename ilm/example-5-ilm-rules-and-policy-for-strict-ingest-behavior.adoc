@@ -1,0 +1,166 @@
+---
+permalink: ilm/example-5-ilm-rules-and-policy-for-strict-ingest-behavior.html 
+sidebar: sidebar 
+keywords: strict ingest example, example ILM rule, information lifecycle rule examples 
+summary: Puede utilizar un filtro de ubicación y el comportamiento de ingesta estricta en una regla para evitar que los objetos se guarden en una ubicación de centro de datos en particular. 
+---
+= Ejemplo 5: Reglas y políticas de ILM para el comportamiento de ingesta estricto
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede utilizar un filtro de ubicación y el comportamiento de ingesta estricta en una regla para evitar que los objetos se guarden en una ubicación de centro de datos en particular.
+
+En este ejemplo, un inquilino con sede en París no quiere almacenar algunos objetos fuera de la UE debido a cuestiones regulatorias.  Otros objetos, incluidos todos los objetos de otras cuentas de inquilinos, se pueden almacenar en el centro de datos de París o en el centro de datos de EE. UU.
+
+
+CAUTION: Las siguientes reglas y políticas de ILM son solo ejemplos.  Hay muchas formas de configurar las reglas ILM.  Antes de activar una nueva política, simulérela para confirmar que funcionará como está previsto para proteger el contenido contra pérdidas.
+
+.Información relacionada
+* link:data-protection-options-for-ingest.html["Opciones de ingesta"]
+* link:create-ilm-rule-select-ingest-behavior.html["Crear regla de ILM: Seleccionar comportamiento de ingesta"]
+
+
+
+
+== Regla 1 de ILM, por ejemplo 5: Ingesta estricta para garantizar el centro de datos de París
+
+Esta regla ILM de ejemplo utiliza el comportamiento de ingesta estricta para garantizar que los objetos guardados por un inquilino con sede en París en depósitos S3 con la región configurada en eu-west-3 (París) nunca se almacenen en el centro de datos de EE. UU.
+
+Esta regla se aplica a los objetos que pertenecen al inquilino de París y que tienen la región de depósito S3 establecida en eu-west-3 (París).
+
+[cols="1a,2a"]
+|===
+| Definición de regla | Valor de ejemplo 
+
+
+ a| 
+Cuenta de inquilino
+ a| 
+inquilino de París
+
+
+
+ a| 
+Filtro avanzado
+ a| 
+La restricción de ubicación es igual a eu-west-3
+
+
+
+ a| 
+Pools de almacenamiento
+ a| 
+Sitio 1 (París)
+
+
+
+ a| 
+Nombre de la regla
+ a| 
+Ingesta estricta para garantizar el centro de datos de París
+
+
+
+ a| 
+Tiempo de referencia
+ a| 
+Tiempo de ingesta
+
+
+
+ a| 
+Colocaciones
+ a| 
+El día 0, conserve dos copias replicadas para siempre en el Sitio 1 (París)
+
+
+
+ a| 
+Comportamiento de ingesta
+ a| 
+Estricto.  Utilice siempre las ubicaciones de esta regla al ingerir.  La ingesta falla si no es posible almacenar dos copias del objeto en el centro de datos de París.
+
+|===
+image::../media/ilm_rule_1_example_5_strict_ingest.png[Ejemplo 5 de la regla 1 de ILM: Ingesta estricta]
+
+
+
+== Regla 2 de ILM, por ejemplo 5: Ingesta equilibrada para otros objetos
+
+Esta regla ILM de ejemplo utiliza el comportamiento de ingesta equilibrada para proporcionar una eficiencia ILM óptima para cualquier objeto que no coincida con la primera regla.  Se almacenarán dos copias de todos los objetos que coincidan con esta regla: una en el centro de datos de EE. UU. y otra en el centro de datos de París.  Si la regla no puede cumplirse inmediatamente, se almacenan copias provisionales en cualquier ubicación disponible.
+
+Esta regla se aplica a los objetos que pertenecen a cualquier inquilino y a cualquier región.
+
+[cols="1a,2a"]
+|===
+| Definición de regla | Valor de ejemplo 
+
+
+ a| 
+Cuenta de inquilino
+ a| 
+Ignorar
+
+
+
+ a| 
+Filtro avanzado
+ a| 
+_No especificado_
+
+
+
+ a| 
+Pools de almacenamiento
+ a| 
+Sitio 1 (París) y Sitio 2 (EE. UU.)
+
+
+
+ a| 
+Nombre de la regla
+ a| 
+2 copias 2 centros de datos
+
+
+
+ a| 
+Tiempo de referencia
+ a| 
+Tiempo de ingesta
+
+
+
+ a| 
+Colocaciones
+ a| 
+El día 0, mantenga dos copias replicadas para siempre en dos centros de datos
+
+
+
+ a| 
+Comportamiento de ingesta
+ a| 
+Equilibrado.  Los objetos que coinciden con esta regla se colocan de acuerdo con las instrucciones de ubicación de la regla, si es posible.  De lo contrario, se realizan copias provisionales en cualquier lugar disponible.
+
+|===
+
+
+== Política ILM para el ejemplo 5: Combinación de comportamientos de ingesta
+
+La política ILM de ejemplo incluye dos reglas que tienen diferentes comportamientos de ingesta.
+
+Una política ILM que utiliza dos comportamientos de ingesta diferentes podría incluir reglas ILM como las siguientes:
+
+* Almacene los objetos que pertenecen al inquilino de París y que tienen la región de depósito S3 configurada en eu-west-3 (París) solo en el centro de datos de París.  Error en la ingesta si el centro de datos de París no está disponible.
+* Almacene todos los demás objetos (incluidos aquellos que pertenecen al inquilino de París pero que tienen una región de depósito diferente) tanto en el centro de datos de EE. UU. como en el centro de datos de París.  Haga copias provisionales en cualquier ubicación disponible si no se puede cumplir con las instrucciones de ubicación.
+
+
+Al simular la política de ejemplo, espera que los objetos de prueba se evalúen de la siguiente manera:
+
+* Todos los objetos que pertenecen al inquilino de París y que tienen la región de bucket S3 establecida en eu-west-3 coinciden con la primera regla y se almacenan en el centro de datos de París.  Debido a que la primera regla utiliza ingesta estricta, estos objetos nunca se almacenan en el centro de datos de EE. UU.  Si los nodos de almacenamiento en el centro de datos de París no están disponibles, la ingesta falla.
+* Todos los demás objetos coinciden con la segunda regla, incluidos los objetos que pertenecen al inquilino de París y que no tienen la región de depósito S3 establecida en eu-west-3.  Se guarda una copia de cada objeto en cada centro de datos.  Sin embargo, debido a que la segunda regla utiliza ingesta equilibrada, si un centro de datos no está disponible, se guardan dos copias provisionales en cualquier ubicación disponible.
+

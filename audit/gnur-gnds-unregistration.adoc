@@ -1,0 +1,42 @@
+---
+permalink: audit/gnur-gnds-unregistration.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, GNUR, GNDS Unregistration 
+summary: El servicio CMN genera este mensaje de auditoría cuando un servicio no ha registrado información sobre sí mismo en el sistema StorageGRID . 
+---
+= GNUR: Anulación del registro de GNDS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El servicio CMN genera este mensaje de auditoría cuando un servicio no ha registrado información sobre sí mismo en el sistema StorageGRID .
+
+[cols="1a,1a,4a"]
+|===
+| Código | Campo | Descripción 
+
+
+ a| 
+RSLT
+ a| 
+Resultado
+ a| 
+El resultado de la solicitud de actualización:
+
+* SUCS: Exitoso
+* SUNV: Servicio no disponible
+* GERR: Otro fracaso
+
+
+
+
+ a| 
+GNID
+ a| 
+Nodo ID
+ a| 
+El ID del nodo del servicio que inició la solicitud de actualización.
+
+|===

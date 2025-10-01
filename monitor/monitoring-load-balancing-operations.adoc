@@ -1,0 +1,54 @@
+---
+permalink: monitor/monitoring-load-balancing-operations.html 
+sidebar: sidebar 
+keywords: load balancing, monitoring 
+summary: Si está utilizando un equilibrador de carga para administrar las conexiones de clientes a StorageGRID, debe supervisar las operaciones de equilibrio de carga después de configurar el sistema inicialmente y después de realizar cualquier cambio de configuración o realizar una expansión. 
+---
+= Supervisar las operaciones de equilibrio de carga
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si está utilizando un equilibrador de carga para administrar las conexiones de clientes a StorageGRID, debe supervisar las operaciones de equilibrio de carga después de configurar el sistema inicialmente y después de realizar cualquier cambio de configuración o realizar una expansión.
+
+.Acerca de esta tarea
+Puede utilizar el servicio Load Balancer en nodos de administración o nodos de puerta de enlace o un balanceador de carga externo de terceros para distribuir solicitudes de clientes entre múltiples nodos de almacenamiento.
+
+Después de configurar el equilibrio de carga, debe confirmar que las operaciones de ingesta y recuperación de objetos se distribuyan de manera uniforme entre los nodos de almacenamiento.  Las solicitudes distribuidas uniformemente garantizan que StorageGRID siga respondiendo a las solicitudes de los clientes bajo carga y pueden ayudar a mantener el rendimiento del cliente.
+
+Si configuró un grupo de alta disponibilidad (HA) de nodos de puerta de enlace o nodos de administración en modo de respaldo activo, solo un nodo del grupo distribuye activamente las solicitudes de los clientes.
+
+Para obtener más información, consulte link:../admin/configuring-client-connections.html["Configurar conexiones de cliente S3"] .
+
+.Pasos
+. Si los clientes S3 se conectan mediante el servicio Load Balancer, verifique que los nodos de administración o los nodos de puerta de enlace estén distribuyendo el tráfico de forma activa como espera:
++
+.. Seleccione *NODOS*.
+.. Seleccione un nodo de puerta de enlace o un nodo de administración.
+.. En la pestaña *Descripción general*, verifique si una interfaz de nodo está en un grupo de alta disponibilidad y si la interfaz de nodo tiene el rol de Principal.
++
+Los nodos con el rol de principal y los nodos que no están en un grupo de alta disponibilidad deben distribuir activamente solicitudes a los clientes.
+
+.. Para cada nodo que debería estar distribuyendo activamente solicitudes de clientes, seleccione ellink:viewing-load-balancer-tab.html["Pestaña Balanceador de carga"] .
+.. Revise el gráfico del tráfico de solicitudes del balanceador de carga de la última semana para asegurarse de que el nodo haya estado distribuyendo solicitudes de forma activa.
++
+Los nodos de un grupo de alta disponibilidad con respaldo activo pueden asumir el rol de respaldo de vez en cuando.  Durante ese tiempo los nodos no distribuyen solicitudes de clientes.
+
+.. Revise el gráfico de la tasa de solicitudes entrantes del balanceador de carga de la última semana para revisar el rendimiento de objetos del nodo.
+.. Repita estos pasos para cada nodo de administración o nodo de puerta de enlace en el sistema StorageGRID .
+.. Opcionalmente, utilice políticas de clasificación de tráfico para ver un análisis más detallado del tráfico atendido por el servicio Load Balancer.
+
+
+. Verifique que estas solicitudes se distribuyan uniformemente entre los nodos de almacenamiento.
++
+.. Seleccione *_Nodo de almacenamiento_* > *LDR* > *HTTP*.
+.. Revise el número de *Sesiones entrantes establecidas actualmente*.
+.. Repita este procedimiento para cada nodo de almacenamiento en la cuadrícula.
++
+La cantidad de sesiones debe ser aproximadamente igual en todos los nodos de almacenamiento.
+
+
+
+

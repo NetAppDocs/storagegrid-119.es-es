@@ -1,0 +1,6 @@
+= 
+:allow-uri-read: 
+
+
+
+NOTE: Puede habilitar o deshabilitar el acceso IPMI remoto para todos los dispositivos que contengan un BMC. La interfaz IPMI remota permite el acceso de hardware de bajo nivel a sus dispositivos StorageGRID por parte de cualquier persona con una cuenta y contraseña de BMC . Si no necesita acceso IPMI remoto al BMC, deshabilite esta opción utilizando uno de los siguientes métodos: + En Grid Manager, vaya a *CONFIGURACIÓN* > *Seguridad* > *Configuración de seguridad* > *Dispositivos* y desmarque la casilla de verificación *Habilitar acceso IPMI remoto*. + En la API de administración de Grid, use el punto final privado: `PUT /private/bmc` .

@@ -1,0 +1,97 @@
+---
+permalink: monitor/monitoring-network-connections-and-performance.html 
+sidebar: sidebar 
+keywords: monitoring, monitoring network connections, network, network performance 
+summary: La integridad y el ancho de banda de la red entre nodos y sitios, y el uso de recursos por parte de los nodos individuales de la red, son fundamentales para operaciones eficientes. 
+---
+= Supervisar la red y los recursos del sistema
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La integridad y el ancho de banda de la red entre nodos y sitios, y el uso de recursos por parte de los nodos individuales de la red, son fundamentales para operaciones eficientes.
+
+
+
+== Supervisar las conexiones y el rendimiento de la red
+
+La conectividad de la red y el ancho de banda son especialmente importantes si su política de gestión del ciclo de vida de la información (ILM) copia objetos replicados entre sitios o almacena objetos con código de borrado utilizando un esquema que proporciona protección contra pérdida de sitios.  Si la red entre sitios no está disponible, la latencia de la red es demasiado alta o el ancho de banda de la red es insuficiente, es posible que algunas reglas ILM no puedan colocar objetos donde se espera.  Esto puede provocar fallas de ingesta (cuando se selecciona la opción Ingesta estricta para las reglas de ILM) o un rendimiento de ingesta deficiente y retrasos en ILM.
+
+Utilice Grid Manager para supervisar la conectividad y el rendimiento de la red, de modo que pueda solucionar cualquier problema rápidamente.
+
+Además, considerelink:../admin/managing-traffic-classification-policies.html["Creación de políticas de clasificación del tráfico de red"] para que pueda supervisar el tráfico relacionado con inquilinos, depósitos, subredes o puntos finales del balanceador de carga específicos.  Puede establecer políticas de limitación de tráfico según sea necesario.
+
+.Pasos
+. Seleccione *NODOS*.
++
+Aparece la página Nodos.  Cada nodo de la cuadrícula aparece enumerado en formato de tabla.
+
++
+image::../media/nodes_menu.png[Menú de nodos]
+
+. Seleccione el nombre de la red, un sitio de centro de datos específico o un nodo de la red y luego seleccione la pestaña *Red*.
++
+El gráfico de tráfico de red proporciona un resumen del tráfico de red general para la red en su conjunto, el sitio del centro de datos o el nodo.
+
++
+image::../media/nodes_page_network_traffic_graph.png[Gráfico de tráfico de red de la página de nodos]
+
++
+.. Si seleccionó un nodo de cuadrícula, desplácese hacia abajo para revisar la sección *Interfaces de red* de la página.
++
+image::../media/nodes_page_network_interfaces.png[Interfaces de red de la página de nodos]
+
+.. Para los nodos de la red, desplácese hacia abajo para revisar la sección *Comunicación de red* de la página.
++
+Las tablas de recepción y transmisión muestran cuántos bytes y paquetes se han recibido y enviado a través de cada red, así como otras métricas de recepción y transmisión.
+
++
+image::../media/nodes_page_network_communication.png[Página de nodos Red Comm]
+
+
+
+. Utilice las métricas asociadas a sus políticas de clasificación de tráfico para monitorear el tráfico de red.
++
+.. Seleccione *CONFIGURACIÓN* > *Red* > *Clasificación de tráfico*.
++
+Aparece la página Políticas de clasificación de tráfico y las políticas existentes se enumeran en la tabla.
+
++
+image::../media/traffic_classification_policies_main_screen_w_examples.png[Política de tráfico para el ejemplo gráfico]
+
+.. Para ver gráficos que muestran las métricas de red asociadas con una política, seleccione el botón de opción a la izquierda de la política y luego haga clic en *Métricas*.
+.. Revise los gráficos para comprender el tráfico de red asociado con la política.
++
+Si una política de clasificación de tráfico está diseñada para limitar el tráfico de la red, analice con qué frecuencia se limita el tráfico y decida si la política continúa satisfaciendo sus necesidades.  De vez en cuando,link:../admin/managing-traffic-classification-policies.html["Ajustar cada política de clasificación de tráfico según sea necesario"] .
+
+
+
+
+
+.Información relacionada
+* link:viewing-network-tab.html["Ver la pestaña Red"]
+* link:monitoring-system-health.html#monitor-node-connection-states["Supervisar los estados de conexión de los nodos"]
+
+
+
+
+== Supervisar los recursos a nivel de nodo
+
+Supervise los nodos individuales de la red para verificar sus niveles de uso de recursos.  Si los nodos están constantemente sobrecargados, podrían requerirse más nodos para realizar operaciones eficientes.
+
+.Pasos
+. Desde la página *NODOS*, seleccione el nodo.
+. Seleccione la pestaña *Hardware* para mostrar gráficos de utilización de CPU y uso de memoria.
++
+image::../media/nodes_page_hardware_tab_graphs.png[Página Nodos Pestaña Hardware]
+
+. Para mostrar un intervalo de tiempo diferente, seleccione uno de los controles sobre el gráfico.  Puede mostrar la información disponible para intervalos de 1 hora, 1 día, 1 semana o 1 mes.  También puede establecer un intervalo personalizado, que le permite especificar rangos de fecha y hora.
+. Si el nodo está alojado en un dispositivo de almacenamiento o un dispositivo de servicios, desplácese hacia abajo para ver las tablas de componentes.  El estado de todos los componentes debe ser "Nominal".  Investigar componentes que tengan cualquier otro estado.
+
+
+.Información relacionada
+* link:viewing-hardware-tab.html#view-information-about-appliance-storage-nodes["Ver información sobre los nodos de almacenamiento del dispositivo"]
+* link:viewing-hardware-tab.html#view-information-about-appliance-admin-nodes-and-gateway-nodes["Ver información sobre los nodos de administración y los nodos de puerta de enlace del dispositivo"]
+

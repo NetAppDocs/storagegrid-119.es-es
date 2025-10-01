@@ -1,0 +1,51 @@
+---
+indexpage:
+  title: Supervisar y solucionar problemas de un sistema StorageGRID
+  summary: Cuando su sistema esté en funcionamiento, debe supervisar sus actividades
+    periódicamente y solucionar problemas y resolver cualquier alerta.  Es posible
+    que también desee configurar un servidor syslog externo, utilizar la monitorización
+    SNMP o recopilar datos adicionales.
+  keywords: monitor, troubleshoot
+  lead: Cuando su sistema esté en funcionamiento, debe supervisar sus actividades
+    periódicamente y solucionar problemas y resolver cualquier alerta.  Es posible
+    que también desee configurar un servidor syslog externo, utilizar la monitorización
+    SNMP o recopilar datos adicionales.
+  tiles:
+  - title: Monitorea tu sistema
+    links:
+    - title: Administrar el panel de control
+      url: "../monitor/viewing-dashboard.html"
+    - title: Ver página de nodos
+      url: "../monitor/viewing-nodes-page.html"
+    - title: Monitorear la salud del sistema
+      url: "../monitor/monitoring-system-health.html"
+    - title: Supervisar la capacidad de almacenamiento
+      url: "../monitor/monitoring-storage-capacity.html"
+  - title: Administrar alertas y notificaciones
+    links:
+    - title: Administrar alertas
+      url: "../monitor/managing-alerts.html"
+    - title: Crear alertas personalizadas
+      url: "../monitor/creating-custom-alert-rules.html"
+    - title: Administrar correos electrónicos de alerta
+      url: "../monitor/email-alert-notifications.html"
+    - title: Utilice la monitorización SNMP
+      url: "../monitor/using-snmp-monitoring.html"
+  - title: Utilice mensajes de auditoría y otros registros
+    links:
+    - title: Configurar mensajes de auditoría
+      url: "../monitor/configure-audit-messages.html"
+    - title: Utilizar un servidor syslog externo
+      url: "../monitor/considerations-for-external-syslog-server.html"
+    - title: Revisar los registros de auditoría
+      url: "../audit/index.html"
+    - title: Referencia de archivos de registro
+      url: "../monitor/logs-files-reference.html"
+  - title: Diagnosticar y solucionar problemas
+    links:
+    - title: Revisar las métricas de soporte
+      url: "../monitor/reviewing-support-metrics.html"
+    - title: Ejecutar diagnósticos
+      url: "../monitor/running-diagnostics.html"
+    - title: Solucionar problemas comunes
+      url: "../troubleshoot/index.html"

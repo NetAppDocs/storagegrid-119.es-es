@@ -1,0 +1,17 @@
+---
+section: harden
+title: Endurecimiento del sistema
+entries:
+- title: Consideraciones generales
+  pdf-filename: Fortalecimiento del sistema StorageGRID
+  url: "/harden/index.html"
+- title: Pautas de endurecimiento para las actualizaciones
+  url: "/harden/hardening-guidelines-for-software-upgrades.html"
+- title: Directrices de endurecimiento de redes
+  url: "/harden/hardening-guidelines-for-storagegrid-networks.html"
+- title: Pautas de endurecimiento para nodos
+  url: "/harden/hardening-guidelines-for-storagegrid-nodes.html"
+- title: Pautas de refuerzo para TLS y SSH
+  url: "/harden/hardening-guideline-for-server-certificates.html"
+- title: Otras pautas de endurecimiento
+  url: "/harden/other-hardening-guidelines.html"

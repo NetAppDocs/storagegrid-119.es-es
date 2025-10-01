@@ -1,0 +1,326 @@
+---
+permalink: rhel/storage-and-performance-requirements.html 
+sidebar: sidebar 
+keywords: red hat linux storage requirements, performance requirements host storage, host volumes, netapp ontap, fabricpool 
+summary: Debe comprender los requisitos de almacenamiento para los nodos StorageGRID , de modo que pueda proporcionar suficiente espacio para soportar la configuración inicial y la futura expansión del almacenamiento. 
+---
+= Requisitos de almacenamiento y rendimiento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe comprender los requisitos de almacenamiento para los nodos StorageGRID , de modo que pueda proporcionar suficiente espacio para soportar la configuración inicial y la futura expansión del almacenamiento.
+
+Los nodos StorageGRID requieren tres categorías lógicas de almacenamiento:
+
+* *Grupo de contenedores*: almacenamiento de nivel de rendimiento (SAS o SSD de 10 000 GB) para los contenedores de nodos, que se asignará al controlador de almacenamiento del motor de contenedores cuando instale y configure el motor de contenedores en los hosts que soportarán sus nodos StorageGRID .
+* *Datos del sistema* – Almacenamiento de nivel de rendimiento (SAS o SSD de 10 000 rpm) para almacenamiento persistente por nodo de datos del sistema y registros de transacciones, que los servicios de host de StorageGRID consumirán y asignarán a nodos individuales.
+* *Datos de objetos*: almacenamiento de nivel de rendimiento (SAS o SSD de 10 000 rpm) y almacenamiento masivo de nivel de capacidad (NL-SAS/SATA) para el almacenamiento persistente de datos de objetos y metadatos de objetos.
+
+
+Debe utilizar dispositivos de bloque respaldados por RAID para todas las categorías de almacenamiento.  No se admiten discos no redundantes, SSD ni JBOD.  Puede utilizar almacenamiento RAID local o compartido para cualquiera de las categorías de almacenamiento; sin embargo, si desea utilizar la capacidad de migración de nodos en StorageGRID, debe almacenar los datos del sistema y los datos de los objetos en el almacenamiento compartido. Para obtener más información, consulte link:node-container-migration-requirements.html["Requisitos de migración del contenedor de nodos"] .
+
+
+
+== Requisitos de rendimiento
+
+El rendimiento de los volúmenes utilizados para el grupo de contenedores, los datos del sistema y los metadatos de los objetos afecta significativamente el rendimiento general del sistema.  Debe utilizar almacenamiento de nivel de rendimiento (SAS o SSD de 10K) para estos volúmenes a fin de garantizar un rendimiento de disco adecuado en términos de latencia, operaciones de entrada/salida por segundo (IOPS) y rendimiento.  Puede utilizar almacenamiento de nivel de capacidad (NL-SAS/SATA) para el almacenamiento persistente de datos de objetos.
+
+Los volúmenes utilizados para el grupo de contenedores, los datos del sistema y los datos de objetos deben tener habilitado el almacenamiento en caché de escritura diferida.  La caché debe estar en un medio protegido o persistente.
+
+
+
+== Requisitos para los hosts que utilizan almacenamiento NetApp ONTAP
+
+Si el nodo StorageGRID usa almacenamiento asignado desde un sistema NetApp ONTAP , confirme que el volumen no tenga habilitada una política de niveles de FabricPool .  Deshabilitar la organización en niveles de FabricPool para los volúmenes utilizados con nodos StorageGRID simplifica la resolución de problemas y las operaciones de almacenamiento.
+
+
+NOTE: Nunca use FabricPool para agrupar datos relacionados con StorageGRID en StorageGRID mismo.  La organización de los datos de StorageGRID en niveles en StorageGRID aumenta la resolución de problemas y la complejidad operativa.
+
+
+
+== Número de hosts necesarios
+
+Cada sitio de StorageGRID requiere un mínimo de tres nodos de almacenamiento.
+
+
+NOTE: En una implementación de producción, no ejecute más de un nodo de almacenamiento en un solo host físico o virtual.  El uso de un host dedicado para cada nodo de almacenamiento proporciona un dominio de falla aislado.
+
+Se pueden implementar otros tipos de nodos, como nodos de administración o nodos de puerta de enlace, en los mismos hosts o en sus propios hosts dedicados según sea necesario.
+
+
+
+== Número de volúmenes de almacenamiento para cada host
+
+La siguiente tabla muestra la cantidad de volúmenes de almacenamiento (LUN) necesarios para cada host y el tamaño mínimo requerido para cada LUN, en función de los nodos que se implementarán en ese host.
+
+El tamaño máximo de LUN probado es 39 TB.
+
+
+NOTE: Estos números son para cada host, no para toda la red.
+
+|===
+| Propósito del LUN | Categoría de almacenamiento | Número de LUN | Tamaño mínimo/LUN 
+
+
+ a| 
+Piscina de almacenamiento de motores de contenedores
+ a| 
+Pool de contenedores
+ a| 
+1
+ a| 
+Número total de nodos × 100 GB
+
+
+
+ a| 
+`/var/local`volumen
+ a| 
+Datos del sistema
+ a| 
+1 para cada nodo en este host
+ a| 
+90 GB
+
+
+
+ a| 
+Nodo de almacenamiento
+ a| 
+Datos de objeto
+ a| 
+3 para cada nodo de almacenamiento en este host
+
+*Nota:* Un nodo de almacenamiento basado en software puede tener de 1 a 48 volúmenes de almacenamiento; se recomiendan al menos 3 volúmenes de almacenamiento.
+ a| 
+12 TB (4 TB/LUN) Ver<<storage_req_SN,Requisitos de almacenamiento para nodos de almacenamiento>> Para más información.
+
+
+
+ a| 
+Nodo de almacenamiento (solo metadatos)
+ a| 
+Metadatos de objetos
+ a| 
+1
+ a| 
+4 TB Ver<<storage_req_SN,Requisitos de almacenamiento para nodos de almacenamiento>> Para más información.
+
+*Nota*: Solo se requiere una rangedb para los nodos de almacenamiento de solo metadatos.
+
+
+
+ a| 
+Registros de auditoría del nodo de administración
+ a| 
+Datos del sistema
+ a| 
+1 para cada nodo de administración en este host
+ a| 
+200 GB
+
+
+
+ a| 
+Tablas del nodo de administración
+ a| 
+Datos del sistema
+ a| 
+1 para cada nodo de administración en este host
+ a| 
+200 GB
+
+|===
+
+NOTE: Según el nivel de auditoría configurado, el tamaño de las entradas del usuario, como el nombre de la clave del objeto S3, y la cantidad de datos del registro de auditoría que necesita conservar, es posible que deba aumentar el tamaño del LUN del registro de auditoría en cada nodo de administración. Generalmente, una cuadrícula genera aproximadamente 1 KB de datos de auditoría por operación S3, lo que significaría que un LUN de 200 GB admitiría 70 millones de operaciones por día u 800 operaciones por segundo durante dos o tres días.
+
+
+
+== Espacio mínimo de almacenamiento para un host
+
+La siguiente tabla muestra el espacio de almacenamiento mínimo requerido para cada tipo de nodo.  Puede utilizar esta tabla para determinar la cantidad mínima de almacenamiento que debe proporcionar al host en cada categoría de almacenamiento, en función de qué nodos se implementarán en ese host.
+
+
+NOTE: Las instantáneas de disco no se pueden usar para restaurar nodos de la red.  En su lugar, consulte lalink:../maintain/warnings-and-considerations-for-grid-node-recovery.html["recuperación del nodo de la red"] procedimientos para cada tipo de nodo.
+
+|===
+| Tipo de nodo | Pool de contenedores | Datos del sistema | Datos de objeto 
+
+
+| Nodo de almacenamiento  a| 
+100 GB
+ a| 
+90 GB
+ a| 
+4.000 GB
+
+
+
+ a| 
+Nodo de administración
+ a| 
+100 GB
+ a| 
+490 GB (3 LUN)
+ a| 
+_no aplicable_
+
+
+
+ a| 
+Nodo de puerta de enlace
+ a| 
+100 GB
+ a| 
+90 GB
+ a| 
+_no aplicable_
+
+|===
+
+
+== Ejemplo: Cálculo de los requisitos de almacenamiento para un host
+
+Supongamos que planea implementar tres nodos en el mismo host: un nodo de almacenamiento, un nodo de administración y un nodo de puerta de enlace. Debe proporcionar un mínimo de nueve volúmenes de almacenamiento al host. Necesitará un mínimo de 300 GB de almacenamiento de nivel de rendimiento para los contenedores de nodos, 670 GB de almacenamiento de nivel de rendimiento para datos del sistema y registros de transacciones, y 12 TB de almacenamiento de nivel de capacidad para datos de objetos.
+
+|===
+| Tipo de nodo | Propósito del LUN | Número de LUN | Tamaño de LUN 
+
+
+| Nodo de almacenamiento  a| 
+Piscina de almacenamiento de motores de contenedores
+ a| 
+1
+ a| 
+300 GB (100 GB/nodo)
+
+
+
+ a| 
+Nodo de almacenamiento
+ a| 
+`/var/local`volumen
+ a| 
+1
+ a| 
+90 GB
+
+
+
+| Nodo de almacenamiento  a| 
+Datos de objeto
+ a| 
+3
+ a| 
+12 TB (4 TB/LUN)
+
+
+
+ a| 
+Nodo de administración
+ a| 
+`/var/local`volumen
+ a| 
+1
+ a| 
+90 GB
+
+
+
+| Nodo de administración  a| 
+Registros de auditoría del nodo de administración
+ a| 
+1
+ a| 
+200 GB
+
+
+
+| Nodo de administración  a| 
+Tablas del nodo de administración
+ a| 
+1
+ a| 
+200 GB
+
+
+
+ a| 
+Nodo de puerta de enlace
+ a| 
+`/var/local`volumen
+ a| 
+1
+ a| 
+90 GB
+
+
+
+ a| 
+*Total*
+ a| 
+ a| 
+*9*
+ a| 
+*Grupo de contenedores:* 300 GB
+
+*Datos del sistema:* 670 GB
+
+*Datos del objeto:* 12.000 GB
+
+|===
+
+
+== Requisitos de almacenamiento para nodos de almacenamiento
+
+Un nodo de almacenamiento basado en software puede tener de 1 a 48 volúmenes de almacenamiento; se recomiendan 3 o más volúmenes de almacenamiento. Cada volumen de almacenamiento debe ser de 4 TB o más.
+
+
+NOTE: Un nodo de almacenamiento de dispositivo también puede tener hasta 48 volúmenes de almacenamiento.
+
+Como se muestra en la figura, StorageGRID reserva espacio para los metadatos de objetos en el volumen de almacenamiento 0 de cada nodo de almacenamiento.  Cualquier espacio restante en el volumen de almacenamiento 0 y cualquier otro volumen de almacenamiento en el nodo de almacenamiento se utilizan exclusivamente para datos de objetos.
+
+image::../media/metadata_space_storage_node.png[Nodo de almacenamiento de espacio de metadatos]
+
+Para proporcionar redundancia y proteger los metadatos de los objetos contra pérdidas, StorageGRID almacena tres copias de los metadatos de todos los objetos del sistema en cada sitio.  Las tres copias de metadatos de objetos se distribuyen uniformemente entre todos los nodos de almacenamiento en cada sitio.
+
+Al instalar una cuadrícula con nodos de almacenamiento solo de metadatos, la cuadrícula también debe contener una cantidad mínima de nodos para el almacenamiento de objetos.  Verlink:../primer/what-storage-node-is.html#types-of-storage-nodes["Tipos de nodos de almacenamiento"] para obtener más información sobre los nodos de almacenamiento de solo metadatos.
+
+* Para una cuadrícula de un solo sitio, se configuran al menos dos nodos de almacenamiento para objetos y metadatos.
+* Para una cuadrícula de varios sitios, se configura al menos un nodo de almacenamiento por sitio para objetos y metadatos.
+
+
+Cuando asigna espacio al volumen 0 de un nuevo nodo de almacenamiento, debe asegurarse de que haya espacio adecuado para la parte de metadatos de objetos de ese nodo.
+
+* Como mínimo, debe asignar al menos 4 TB al volumen 0.
++
+
+NOTE: Si usa solo un volumen de almacenamiento para un nodo de almacenamiento y asigna 4 TB o menos al volumen, el nodo de almacenamiento podría ingresar al estado de solo lectura de almacenamiento al iniciarse y almacenar solo metadatos de objetos.
+
++
+
+NOTE: Si asigna menos de 500 GB al volumen 0 (solo para uso que no sea de producción), el 10 % de la capacidad del volumen de almacenamiento se reserva para metadatos.
+
+* Los recursos de nodo de solo metadatos basados en software deben coincidir con los recursos de los nodos de almacenamiento existentes. Por ejemplo:
++
+** Si el sitio StorageGRID existente utiliza dispositivos SG6000 o SG6100, los nodos de solo metadatos basados ​​en software deben cumplir los siguientes requisitos mínimos:
++
+*** 128 GB de RAM
+*** CPU de 8 núcleos
+*** SSD de 8 TB o almacenamiento equivalente para la base de datos Cassandra (rangedb/0)
+
+
+** Si el sitio StorageGRID existente usa nodos de almacenamiento virtuales con 24 GB de RAM, CPU de 8 núcleos y 3 TB o 4 TB de almacenamiento de metadatos, los nodos solo de metadatos basados ​​en software deben usar recursos similares (24 GB de RAM, CPU de 8 núcleos y 4 TB de almacenamiento de metadatos (rangedb/0).
++
+Al agregar un nuevo sitio StorageGRID , la capacidad total de metadatos del nuevo sitio debe coincidir, como mínimo, con los sitios StorageGRID existentes y los recursos del nuevo sitio deben coincidir con los nodos de almacenamiento de los sitios StorageGRID existentes.
+
+
+
+* Si está instalando un nuevo sistema (StorageGRID 11.6 o superior) y cada nodo de almacenamiento tiene 128 GB o más de RAM, asigne 8 TB o más al volumen 0.  El uso de un valor mayor para el volumen 0 puede aumentar el espacio permitido para los metadatos en cada nodo de almacenamiento.
+* Al configurar diferentes nodos de almacenamiento para un sitio, utilice la misma configuración para el volumen 0 si es posible.  Si un sitio contiene nodos de almacenamiento de diferentes tamaños, el nodo de almacenamiento con el volumen más pequeño (0) determinará la capacidad de metadatos de ese sitio.
+
+
+Para más detalles, visitelink:../admin/managing-object-metadata-storage.html["Administrar el almacenamiento de metadatos de objetos"] .

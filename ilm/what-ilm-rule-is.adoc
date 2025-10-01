@@ -1,0 +1,131 @@
+---
+permalink: ilm/what-ilm-rule-is.html 
+sidebar: sidebar 
+keywords: what is information lifecycle rule, ilm rule 
+summary: 'Para administrar objetos, se crea un conjunto de reglas de administración del ciclo de vida de la información (ILM) y se organizan en una política ILM.' 
+---
+= Utilice reglas ILM para administrar objetos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Para administrar objetos, debe crear un conjunto de reglas de administración del ciclo de vida de la información (ILM) y organizarlas en una política ILM.
+
+Cada objeto ingerido en el sistema se evalúa en función de la política activa.  Cuando una regla en la política coincide con los metadatos de un objeto, las instrucciones en la regla determinan qué acciones realiza StorageGRID para copiar y almacenar ese objeto.
+
+
+NOTE: Los metadatos de los objetos no son administrados por las reglas ILM.  En cambio, los metadatos de los objetos se almacenan en una base de datos de Cassandra en lo que se conoce como un almacén de metadatos.  Se mantienen automáticamente tres copias de los metadatos de los objetos en cada sitio para proteger los datos contra pérdidas.
+
+
+
+== Elementos de una regla ILM
+
+Una regla ILM tiene tres elementos:
+
+* *Criterios de filtrado*: Los filtros básicos y avanzados de una regla definen a qué objetos se aplica la regla.  Si un objeto coincide con todos los filtros, StorageGRID aplica la regla y crea las copias de objetos especificadas en las instrucciones de ubicación de la regla.
+* *Instrucciones de ubicación*: Las instrucciones de ubicación de una regla definen el número, tipo y ubicación de las copias de objetos.  Cada regla puede incluir una secuencia de instrucciones de ubicación para cambiar la cantidad, el tipo y la ubicación de las copias de objetos a lo largo del tiempo.  Cuando expira el plazo para una colocación, las instrucciones de la siguiente colocación se aplican automáticamente en la siguiente evaluación de ILM.
+* *Comportamiento de ingesta*: el comportamiento de ingesta de una regla le permite elegir cómo se protegen los objetos filtrados por la regla a medida que se ingieren (cuando un cliente S3 guarda un objeto en la cuadrícula).
+
+
+
+
+== Filtrado de reglas ILM
+
+Cuando se crea una regla ILM, se especifican filtros para identificar a qué objetos se aplica la regla.
+
+En el caso más simple, es posible que una regla no utilice ningún filtro.  Cualquier regla que no utilice filtros se aplica a todos los objetos, por lo que debe ser la última regla (predeterminada) en una política ILM.  La regla predeterminada proporciona instrucciones de almacenamiento para los objetos que no coinciden con los filtros de otra regla.
+
+* Los filtros básicos le permiten aplicar diferentes reglas a grupos grandes y distintos de objetos.  Estos filtros le permiten aplicar una regla a cuentas de inquilinos específicos, depósitos S3 específicos o ambos.
++
+Los filtros básicos le brindan una forma sencilla de aplicar diferentes reglas a un gran número de objetos.  Por ejemplo, es posible que sea necesario almacenar los registros financieros de su empresa para cumplir con los requisitos reglamentarios, mientras que es posible que sea necesario almacenar los datos del departamento de marketing para facilitar las operaciones diarias.  Después de crear cuentas de inquilinos independientes para cada departamento o después de segregar datos de los diferentes departamentos en grupos S3 separados, puede crear fácilmente una regla que se aplique a todos los registros financieros y una segunda regla que se aplique a todos los datos de marketing.
+
+* Los filtros avanzados le brindan un control granular.  Puede crear filtros para seleccionar objetos según las siguientes propiedades del objeto:
++
+** Tiempo de ingesta
+** Hora del último acceso
+** Todo o parte del nombre del objeto (Clave)
+** Restricción de ubicación (solo S3)
+** Tamaño del objeto
+** Metadatos del usuario
+** Etiqueta de objeto (solo S3)
+
+
+
+
+Puede filtrar objetos según criterios muy específicos.  Por ejemplo, los objetos almacenados por el departamento de imágenes de un hospital pueden usarse con frecuencia cuando tienen menos de 30 días y con poca frecuencia después, mientras que los objetos que contienen información de visitas de pacientes pueden necesitar copiarse al departamento de facturación en la sede central de la red de salud.  Puede crear filtros que identifiquen cada tipo de objeto según el nombre del objeto, el tamaño, las etiquetas de objeto S3 o cualquier otro criterio relevante y luego crear reglas independientes para almacenar cada conjunto de objetos de forma adecuada.
+
+Puede combinar filtros según sea necesario en una sola regla.  Por ejemplo, el departamento de marketing podría querer almacenar archivos de imágenes grandes de forma diferente a sus registros de proveedores, mientras que el departamento de Recursos Humanos podría necesitar almacenar registros de personal en una geografía específica e información de políticas de forma centralizada.  En este caso, puede crear reglas que filtren por cuenta de inquilino para segregar los registros de cada departamento, mientras utiliza filtros en cada regla para identificar el tipo específico de objetos a los que se aplica la regla.
+
+
+
+== Instrucciones de colocación de reglas ILM
+
+Las instrucciones de ubicación determinan dónde, cuándo y cómo se almacenan los datos de los objetos.  Una regla ILM puede incluir una o más instrucciones de ubicación.  Cada instrucción de colocación se aplica a un único período de tiempo.
+
+Al crear instrucciones de ubicación:
+
+* Comienza especificando el tiempo de referencia, que determina cuándo comienzan las instrucciones de colocación.  El tiempo de referencia puede ser cuando se ingiere un objeto, cuando se accede a un objeto, cuando un objeto versionado deja de ser actual o un tiempo definido por el usuario.
+* A continuación, especifica cuándo se aplicará la ubicación, en relación con el tiempo de referencia.  Por ejemplo, una ubicación podría comenzar el día 0 y continuar durante 365 días, en relación con el momento en que se ingirió el objeto.
+* Por último, se especifica el tipo de copias (codificación de replicación o borrado) y la ubicación donde se almacenan las copias.  Por ejemplo, es posible que desee almacenar dos copias replicadas en dos sitios diferentes.
+
+
+Cada regla puede definir múltiples ubicaciones para un solo período de tiempo y diferentes ubicaciones para diferentes períodos de tiempo.
+
+* Para colocar objetos en varias ubicaciones durante un solo período de tiempo, seleccione *Agregar otro tipo o ubicación* para agregar más de una línea para ese período de tiempo.
+* Para colocar objetos en diferentes ubicaciones en diferentes períodos de tiempo, seleccione *Agregar otro período de tiempo* para agregar el siguiente período de tiempo.  Luego, especifique una o más líneas dentro del período de tiempo.
+
+
+El ejemplo muestra dos instrucciones de ubicación en la página Definir ubicaciones del asistente Crear regla de ILM.
+
+image::../media/ilm_rule_multiple_placements_in_single_time_period.png[Pantalla de ubicaciones de ILM desde Grid Manager]
+
+La primera instrucción de colocaciónimage:../media/icon_number_1.png["Icono número 1"] tiene dos líneas para el primer año:
+
+* La primera línea crea dos copias de objetos replicados en dos sitios de centros de datos.
+* La segunda línea crea una copia con código de borrado 6+3 utilizando todos los sitios del centro de datos.
+
+
+La segunda instrucción de colocaciónimage:../media/icon_number_2.png["Icono número 1"] crea dos copias después de un año y conserva esas copias para siempre.
+
+Al definir el conjunto de instrucciones de ubicación para una regla, debe asegurarse de que al menos una instrucción de ubicación comience en el día 0, que no haya espacios entre los períodos de tiempo que haya definido y que la instrucción de ubicación final continúe para siempre o hasta que ya no necesite copias de objetos.
+
+A medida que expira cada período de tiempo de la regla, se aplican las instrucciones de ubicación de contenido para el siguiente período de tiempo.  Se crean nuevas copias de objetos y se eliminan las copias innecesarias.
+
+
+
+== Comportamiento de ingesta de reglas ILM
+
+El comportamiento de ingesta controla si las copias de objetos se colocan inmediatamente de acuerdo con las instrucciones de la regla, o si se realizan copias provisionales y las instrucciones de ubicación se aplican más tarde.  Los siguientes comportamientos de ingesta están disponibles para las reglas ILM:
+
+* *Equilibrado*: StorageGRID intenta realizar todas las copias especificadas en la regla ILM en la ingesta; si esto no es posible, se realizan copias provisionales y se devuelve el resultado exitoso al cliente.  Las copias especificadas en la regla ILM se realizan cuando es posible.
+* *Estricto*: Se deben realizar todas las copias especificadas en la regla ILM antes de devolver el resultado exitoso al cliente.
+* *Confirmación dual*: StorageGRID realiza inmediatamente copias provisionales del objeto y devuelve el éxito al cliente.  Cuando sea posible se realizarán las copias especificadas en la regla ILM.
+
+
+.Información relacionada
+* link:data-protection-options-for-ingest.html["Opciones de ingesta"]
+* link:advantages-disadvantages-of-ingest-options.html["Ventajas, desventajas y limitaciones de las opciones de ingesta"]
+* link:../s3/consistency-controls.html#how-consistency-controls-and-ILM-rules-interact["Cómo interactúan la consistencia y las reglas ILM para afectar la protección de datos"]
+
+
+
+
+== Ejemplo de regla ILM
+
+A modo de ejemplo, una regla ILM podría especificar lo siguiente:
+
+* Aplicar únicamente a los objetos pertenecientes al Inquilino A.
+* Haga dos copias replicadas de esos objetos y almacene cada copia en un sitio diferente.
+* Conserve las dos copias "para siempre", lo que significa que StorageGRID no las eliminará automáticamente.  En su lugar, StorageGRID conservará estos objetos hasta que sean eliminados por una solicitud de eliminación del cliente o hasta que expire el ciclo de vida de un depósito.
+* Utilice la opción Equilibrado para el comportamiento de ingesta: la instrucción de ubicación de dos sitios se aplica tan pronto como el Inquilino A guarda un objeto en StorageGRID, a menos que no sea posible realizar inmediatamente ambas copias requeridas.
++
+Por ejemplo, si no se puede acceder al Sitio 2 cuando el Inquilino A guarda un objeto, StorageGRID hará dos copias provisionales en los Nodos de almacenamiento del Sitio 1.  Tan pronto como el Sitio 2 esté disponible, StorageGRID hará la copia requerida en ese sitio.
+
+
+
+.Información relacionada
+* link:what-storage-pool-is.html["¿Qué es un pool de almacenamiento?"]
+* link:what-cloud-storage-pool-is.html["¿Qué es un pool de almacenamiento en la nube?"]
+

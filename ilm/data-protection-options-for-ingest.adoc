@@ -1,0 +1,59 @@
+---
+permalink: ilm/data-protection-options-for-ingest.html 
+sidebar: sidebar 
+keywords: ingest options, balanced ingest, strict ingest, dual-commit ingest 
+summary: 'Cuando crea una regla ILM, especifica una de tres opciones para proteger objetos durante la ingesta: Confirmación dual, Estricta o Equilibrada.' 
+---
+= Opciones de ingesta
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando crea una regla ILM, especifica una de tres opciones para proteger objetos durante la ingesta: Confirmación dual, Estricta o Equilibrada.
+
+Según su elección, StorageGRID realiza copias provisionales y pone en cola los objetos para una evaluación ILM posterior, o utiliza la ubicación sincrónica y realiza copias inmediatamente para cumplir con los requisitos de ILM.
+
+
+
+== Diagrama de flujo de opciones de ingesta
+
+El diagrama de flujo muestra lo que sucede cuando los objetos coinciden con una regla ILM que utiliza cada una de las tres opciones de ingesta.
+
+image::../media/ingest_object_lifecycle.png[Diagrama que muestra cómo se produce la ingesta de objetos para cada opción de ingesta]
+
+
+
+== Compromiso dual
+
+Cuando selecciona la opción de confirmación dual, StorageGRID realiza inmediatamente copias de objetos provisionales en dos nodos de almacenamiento diferentes y devuelve un mensaje de "ingesta exitosa" al cliente.  El objeto se pone en cola para la evaluación de ILM y luego se realizan copias que cumplen con las instrucciones de ubicación de la regla.  Si la política ILM no se puede procesar inmediatamente después de la confirmación dual, la protección contra pérdida del sitio podría llevar tiempo.
+
+Utilice la opción de confirmación dual en cualquiera de estos casos:
+
+* Está utilizando reglas ILM de múltiples sitios y la latencia de ingesta del cliente es su consideración principal.  Al usar la confirmación dual, debe asegurarse de que su cuadrícula pueda realizar el trabajo adicional de crear y eliminar las copias de confirmación dual si no satisfacen ILM.  Específicamente:
++
+** La carga en la red debe ser lo suficientemente baja para evitar un retraso en la ILM.
+** La red debe tener recursos de hardware excedentes (IOPS, CPU, memoria, ancho de banda de red, etc.).
+
+
+* Está utilizando reglas ILM de varios sitios y la conexión WAN entre los sitios generalmente tiene alta latencia o ancho de banda limitado.  En este escenario, el uso de la opción de confirmación dual puede ayudar a evitar tiempos de espera del cliente.  Antes de elegir la opción de confirmación dual, debe probar la aplicación cliente con cargas de trabajo realistas.
+
+
+
+
+== Equilibrado (predeterminado)
+
+Cuando selecciona la opción Equilibrado, StorageGRID también utiliza la ubicación sincrónica en la ingesta y realiza inmediatamente todas las copias especificadas en las instrucciones de ubicación de la regla.  A diferencia de la opción Estricta, si StorageGRID no puede realizar todas las copias inmediatamente, utiliza la confirmación dual en su lugar.  Si la política ILM utiliza ubicaciones en varios sitios y no se puede lograr una protección inmediata contra pérdida de sitios, se activa la alerta *Ubicación ILM inalcanzable*.
+
+Utilice la opción Equilibrado para lograr la mejor combinación de protección de datos, rendimiento de la red y éxito de ingesta.  Equilibrado es la opción predeterminada en el asistente Crear regla ILM.
+
+
+
+== Estricto
+
+Cuando selecciona la opción Estricto, StorageGRID utiliza la ubicación sincrónica en la ingesta y realiza inmediatamente todas las copias de objetos especificadas en las instrucciones de ubicación de la regla.  La ingesta falla si StorageGRID no puede crear todas las copias, por ejemplo, porque una ubicación de almacenamiento requerida no está disponible temporalmente.  El cliente debe volver a intentar la operación.
+
+Utilice la opción Estricto si tiene un requisito operativo o reglamentario para almacenar inmediatamente objetos solo en las ubicaciones descritas en la regla ILM.  Por ejemplo, para satisfacer un requisito reglamentario, es posible que necesite utilizar la opción Estricto y un filtro avanzado de Restricción de ubicación para garantizar que los objetos nunca se almacenen en determinados centros de datos.
+
+Ver link:example-5-ilm-rules-and-policy-for-strict-ingest-behavior.html["Ejemplo 5: Reglas y políticas de ILM para el comportamiento de ingesta estricto"] .

@@ -1,0 +1,25 @@
+---
+permalink: monitor/viewing-manage-drives-tab.html 
+sidebar: sidebar 
+keywords: Manage drives tab, hardware diagnostics, fail drive, logically replace drive 
+summary: La pestaña Administrar unidades le permite acceder a detalles y realizar tareas de resolución de problemas y mantenimiento en las unidades de los dispositivos que admiten esta función. 
+---
+= Ver la pestaña Administrar unidades
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La pestaña Administrar unidades le permite acceder a detalles y realizar tareas de resolución de problemas y mantenimiento en las unidades de los dispositivos que admiten esta función.
+
+Usando la pestaña Administrar unidades, puede hacer lo siguiente:
+
+* Ver un diseño de las unidades de almacenamiento de datos en el dispositivo
+* Vea una tabla que enumera la ubicación de cada unidad, tipo, estado, versión de firmware y número de serie
+* Realizar funciones de resolución de problemas y mantenimiento en cada unidad
+
+
+Para acceder a la pestaña Administrar unidades, debe tener lalink:../admin/admin-group-permissions.html["Administrador del dispositivo de almacenamiento o permiso de acceso raíz"] .
+
+Para obtener información sobre el uso de la pestaña Administrar unidades, consulte https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/manage-drives-tab.html["Utilice la pestaña Administrar unidades"^] .

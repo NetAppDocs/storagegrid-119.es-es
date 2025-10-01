@@ -1,0 +1,33 @@
+---
+permalink: maintain/checking-systems-condition-before-applying-hotfix.html 
+sidebar: sidebar 
+keywords: storagegrid, hotfix 
+summary: Debe verificar que el sistema esté listo para aceptar la revisión. 
+---
+= Verifique el estado del sistema antes de aplicar la revisión
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe verificar que el sistema esté listo para aceptar la revisión.
+
+. Sign in en Grid Manager usando unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+. Si es posible, asegúrese de que el sistema esté funcionando normalmente y que todos los nodos de la red estén conectados a la red.
++
+Los nodos conectados tienen marcas de verificación verdesimage:../media/icon_alert_green_checkmark.png["Icono de alerta de marca de verificación verde"] en la página Nodos.
+
+. Verifique y resuelva cualquier alerta actual, si es posible.
+. Asegúrese de que no haya otros procedimientos de mantenimiento en curso, como una actualización, recuperación, expansión o desmantelamiento.
++
+Debe esperar a que se complete cualquier procedimiento de mantenimiento activo antes de aplicar una revisión.
+
++
+No se puede aplicar una revisión de StorageGRID cuando se está ejecutando otro procedimiento de mantenimiento.  Por ejemplo, no se puede aplicar una revisión mientras se ejecuta un procedimiento de desmantelamiento, expansión o recuperación.
+
++
+
+NOTE: Si un nodo o sitiolink:pausing-and-resuming-decommission-process-for-storage-nodes.html["El procedimiento de desmantelamiento está en pausa"] , puedes aplicar una revisión de forma segura.  Además, es posible que pueda aplicar una revisión durante las etapas finales de un procedimiento de actualización de StorageGRID . Vea las instrucciones paralink:../upgrade/index.html["actualización del software StorageGRID"] .
+
+

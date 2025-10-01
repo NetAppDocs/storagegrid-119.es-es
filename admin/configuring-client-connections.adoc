@@ -1,0 +1,174 @@
+---
+permalink: admin/configuring-client-connections.html 
+sidebar: sidebar 
+keywords: s3 connection, connect to storagegrid, s3 setup wizard 
+summary: Como administrador de la red, usted administra las opciones de configuración que controlan cómo las aplicaciones cliente S3 se conectan a su sistema StorageGRID para almacenar y recuperar datos. 
+---
+= Configurar conexiones de cliente S3
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Como administrador de la red, usted administra las opciones de configuración que controlan cómo las aplicaciones cliente S3 se conectan a su sistema StorageGRID para almacenar y recuperar datos.
+
+
+TIP: Se han eliminado los detalles rápidos de esta versión del sitio de documentación. Ver https://docs.netapp.com/us-en/storagegrid-118/admin/configuring-client-connections.html["StorageGRID 11.8: Configurar conexiones de cliente S3 y Swift"^] .
+
+
+
+== Tareas de configuración
+
+. Realice tareas previas requeridas en StorageGRID, según cómo la aplicación cliente se conectará a StorageGRID.
+
+
+[role="tabbed-block"]
+====
+.Tareas requeridas
+--
+Debes obtener:
+
+* Direcciones IP
+* Nombres de dominio
+* Certificado SSL
+
+
+--
+.Tareas opcionales
+--
+Opcionalmente, configure:
+
+* Federación de identidades
+* SSO
+
+
+--
+====
+. Utilice StorageGRID para obtener los valores que la aplicación necesita para conectarse a la red.  Puede utilizar el asistente de configuración de S3 o configurar cada entidad StorageGRID manualmente. +
+
+
+[role="tabbed-block"]
+====
+.Utilice el asistente de configuración de S3
+--
+Siga los pasos del asistente de configuración de S3.
+
+--
+.Configurar manualmente
+--
+. Crear un grupo de alta disponibilidad
+. Crear un punto final del balanceador de carga
+. Crear una cuenta de inquilino
+. Crear bucket y claves de acceso
+. Configurar reglas y políticas de ILM
+
+
+--
+====
+. Utilice la aplicación S3 para completar la conexión a StorageGRID.  Cree entradas DNS para asociar direcciones IP a cualquier nombre de dominio que planee utilizar.
++
+Según sea necesario, realice configuraciones adicionales de la aplicación.
+
+. Realice tareas continuas en la aplicación y en StorageGRID para administrar y monitorear el almacenamiento de objetos a lo largo del tiempo.
+
+
+
+
+== Información necesaria para adjuntar StorageGRID a una aplicación cliente
+
+Antes de poder conectar StorageGRID a una aplicación cliente S3, debe realizar pasos de configuración en StorageGRID y obtener cierto valor.
+
+
+
+=== ¿Qué valores necesito?
+
+La siguiente tabla muestra los valores que debe configurar en StorageGRID y dónde la aplicación S3 y el servidor DNS utilizan esos valores.
+
+[cols="1a,1a,1a"]
+|===
+| Valor | Donde se configura el valor | Dónde se utiliza el valor 
+
+
+ a| 
+Direcciones IP virtuales (VIP)
+ a| 
+StorageGRID > Grupo de alta disponibilidad
+ a| 
+Entrada DNS
+
+
+
+ a| 
+Puerto
+ a| 
+StorageGRID > Punto final del balanceador de carga
+ a| 
+Aplicación cliente
+
+
+
+ a| 
+Certificado SSL
+ a| 
+StorageGRID > Punto final del balanceador de carga
+ a| 
+Aplicación cliente
+
+
+
+ a| 
+Nombre del servidor (FQDN)
+ a| 
+StorageGRID > Punto final del balanceador de carga
+ a| 
+* Aplicación cliente
+* Entrada DNS
+
+
+
+
+ a| 
+ID de clave de acceso S3 y clave de acceso secreta
+ a| 
+StorageGRID > Inquilino y depósito
+ a| 
+Aplicación cliente
+
+
+
+ a| 
+Nombre del cubo/contenedor
+ a| 
+StorageGRID > Inquilino y depósito
+ a| 
+Aplicación cliente
+
+|===
+
+
+=== ¿Cómo obtengo estos valores?
+
+Dependiendo de sus necesidades, puede realizar cualquiera de las siguientes acciones para obtener la información que necesita:
+
+* *Utilice ellink:use-s3-setup-wizard.html["Asistente de configuración de S3"] *.  El asistente de configuración de S3 le ayuda a configurar rápidamente los valores necesarios en StorageGRID y genera uno o dos archivos que puede usar al configurar la aplicación S3.  El asistente lo guía a través de los pasos necesarios y lo ayuda a garantizar que su configuración se ajuste a las mejores prácticas de StorageGRID .
++
+
+NOTE: Si está configurando una aplicación S3, se recomienda utilizar el asistente de configuración S3 a menos que sepa que tiene requisitos especiales o que su implementación requerirá una personalización significativa.
+
+* *Utilice ellink:../fabricpool/use-fabricpool-setup-wizard.html["Asistente de configuración de FabricPool"] *.  Similar al asistente de configuración de S3, el asistente de configuración de FabricPool lo ayuda a configurar rápidamente los valores requeridos y genera un archivo que puede usar cuando configura un nivel de nube de FabricPool en ONTAP.
++
+
+NOTE: Si planea utilizar StorageGRID como sistema de almacenamiento de objetos para un nivel de nube de FabricPool , se recomienda utilizar el asistente de configuración de FabricPool a menos que sepa que tiene requisitos especiales o que su implementación requerirá una personalización significativa.
+
+* *Configurar elementos manualmente*.  Si se conecta a una aplicación S3 y prefiere no utilizar el asistente de configuración S3, puede obtener los valores necesarios realizando la configuración manualmente. Siga estos pasos:
++
+.. Configure el grupo de alta disponibilidad (HA) que desea utilizar para la aplicación S3. Ver link:configure-high-availability-group.html["Configurar grupos de alta disponibilidad"] .
+.. Cree el punto final del equilibrador de carga que utilizará la aplicación S3. Ver link:configuring-load-balancer-endpoints.html["Configurar los puntos finales del balanceador de carga"] .
+.. Cree la cuenta de inquilino que utilizará la aplicación S3. Ver link:creating-tenant-account.html["Crear una cuenta de inquilino"] .
+.. Para un inquilino S3, inicie sesión en la cuenta del inquilino y genere una ID de clave de acceso y una clave de acceso secreta para cada usuario que accederá a la aplicación. Ver link:../tenant/creating-your-own-s3-access-keys.html["Crea tus propias claves de acceso"] .
+.. Cree uno o más depósitos S3 dentro de la cuenta del inquilino.  Para S3, consultelink:../tenant/creating-s3-bucket.html["Crear un depósito S3"] .
+.. Para agregar instrucciones de ubicación específicas para los objetos que pertenecen al nuevo inquilino o contenedor, cree una nueva regla ILM y active una nueva política ILM para usar esa regla. Verlink:../ilm/access-create-ilm-rule-wizard.html["Crear regla ILM"] ylink:../ilm/creating-ilm-policy.html["Crear una política ILM"] .
+
+
+

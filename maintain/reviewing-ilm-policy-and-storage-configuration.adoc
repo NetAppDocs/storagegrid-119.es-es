@@ -1,0 +1,65 @@
+---
+permalink: maintain/reviewing-ilm-policy-and-storage-configuration.html 
+sidebar: sidebar 
+keywords: storagegrid, restore, ilm policy, storage configuration 
+summary: Si planea desmantelar un nodo de almacenamiento, debe revisar la política ILM de su sistema StorageGRID antes de comenzar el proceso de desmantelamiento. 
+---
+= Revisar la política de ILM y la configuración de almacenamiento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si planea desmantelar un nodo de almacenamiento, debe revisar la política ILM de su sistema StorageGRID antes de comenzar el proceso de desmantelamiento.
+
+Durante el desmantelamiento, todos los datos de los objetos se migran desde el nodo de almacenamiento desmantelado a otros nodos de almacenamiento.
+
+
+NOTE: La política ILM que tenga _durante_ la baja será la que utilice _después_ de la baja.  Debe asegurarse de que esta política cumpla con sus requisitos de datos tanto antes de comenzar el desmantelamiento como después de que este se complete.
+
+Debes revisar las reglas en cada unolink:../ilm/creating-ilm-policy.html["política ILM activa"] para garantizar que el sistema StorageGRID seguirá teniendo suficiente capacidad del tipo correcto y en las ubicaciones correctas para acomodar el desmantelamiento de un nodo de almacenamiento.
+
+Considere lo siguiente:
+
+* ¿Será posible que los servicios de evaluación de ILM copien datos de objetos de manera que se cumplan las reglas de ILM?
+* ¿Qué sucede si un sitio deja de estar disponible temporalmente mientras se lleva a cabo el desmantelamiento?  ¿Se pueden realizar copias adicionales en una ubicación alternativa?
+* ¿Cómo afectará el proceso de desmantelamiento a la distribución final de contenidos?  Como se describe enlink:consolidating-storage-nodes.html["Consolidar nodos de almacenamiento"] , deberíalink:../expand/index.html["agregar nuevos nodos de almacenamiento"] Antes de desmantelar los antiguos.  Si agrega un nodo de almacenamiento de reemplazo más grande después de desmantelar un nodo de almacenamiento más pequeño, los nodos de almacenamiento antiguos podrían estar cerca de su capacidad máxima y el nuevo nodo de almacenamiento podría no tener casi contenido.  La mayoría de las operaciones de escritura de nuevos datos de objetos se dirigirían al nuevo nodo de almacenamiento, lo que reduciría la eficiencia general de las operaciones del sistema.
+* ¿El sistema incluirá en todo momento suficientes nodos de almacenamiento para satisfacer las políticas ILM activas?
++
+
+NOTE: Una política ILM que no se pueda cumplir generará retrasos y alertas y podría detener el funcionamiento del sistema StorageGRID .
+
+
+
+Verifique que la topología propuesta que resultará del proceso de desmantelamiento satisfaga la política ILM evaluando las áreas enumeradas en la tabla.
+
+[cols="1a,2a"]
+|===
+| Área a evaluar | Qué tener en cuenta 
+
+
+ a| 
+Capacidad disponible
+ a| 
+¿Habrá suficiente capacidad de almacenamiento para acomodar todos los datos de objetos almacenados en el sistema StorageGRID , incluidas las copias permanentes de los datos de objetos actualmente almacenados en el nodo de almacenamiento que se desmantelarán?
+
+¿Habrá suficiente capacidad para manejar el crecimiento previsto en los datos de objetos almacenados durante un intervalo de tiempo razonable una vez que se complete el desmantelamiento?
+
+
+
+ a| 
+Ubicación del almacenamiento
+ a| 
+Si queda suficiente capacidad en el sistema StorageGRID en su conjunto, ¿está la capacidad en las ubicaciones correctas para satisfacer las reglas comerciales del sistema StorageGRID ?
+
+
+
+ a| 
+Tipo de almacenamiento
+ a| 
+¿Habrá suficiente almacenamiento del tipo apropiado una vez completado el desmantelamiento?
+
+Por ejemplo, las reglas ILM podrían mover contenido de un tipo de almacenamiento a otro a medida que el contenido envejece.  En este caso, debe asegurarse de que haya suficiente almacenamiento del tipo apropiado disponible en la configuración final del sistema StorageGRID .
+
+|===

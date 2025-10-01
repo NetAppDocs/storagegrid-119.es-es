@@ -1,0 +1,78 @@
+---
+permalink: audit/object-delete-transactions.html 
+sidebar: sidebar 
+keywords: object delete transaction, S3 delete, SDEL, WDEL 
+summary: Puede identificar transacciones de eliminación de objetos en el registro de auditoría ubicando los mensajes de auditoría específicos de la API de S3. 
+---
+= Transacciones de eliminación de objetos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede identificar transacciones de eliminación de objetos en el registro de auditoría ubicando los mensajes de auditoría específicos de la API de S3.
+
+No todos los mensajes de auditoría generados durante una transacción de eliminación aparecen en las siguientes tablas.  Sólo se incluyen los mensajes necesarios para rastrear la transacción de eliminación.
+
+
+
+== Mensajes de auditoría de eliminación de S3
+
+[cols="1a,1a,2a,1a,2a"]
+|===
+| Código | Nombre | Descripción | Rastro | Ver 
+
+
+ a| 
+SDEL
+ a| 
+S3 Eliminar
+ a| 
+Solicitud realizada para eliminar el objeto de un depósito.
+ a| 
+CBD, S3KY
+ a| 
+link:sdel-s3-delete.html["SDEL: S3 ELIMINAR"]
+
+|===
+
+
+== Eliminar mensajes de auditoría de Swift
+
+[cols="1a,1a,2a,1a,2a"]
+|===
+| Código | Nombre | Descripción | Rastro | Ver 
+
+
+ a| 
+WDEL
+ a| 
+Eliminación rápida
+ a| 
+Solicitud realizada para eliminar el objeto de un contenedor, o el contenedor.
+ a| 
+CBDI, WOBJ
+ a| 
+link:wdel-swift-delete.html["WDEL: Eliminación rápida"]
+
+|===
+
+
+== Ejemplo: eliminación de objetos S3
+
+Cuando un cliente S3 elimina un objeto de un nodo de almacenamiento (servicio LDR), se genera un mensaje de auditoría y se guarda en el registro de auditoría.
+
+
+NOTE: No todos los mensajes de auditoría generados durante una transacción de eliminación se enumeran en el siguiente ejemplo.  Solo se enumeran aquellos relacionados con la transacción de eliminación S3 (SDEL).
+
+
+
+=== SDEL: S3 Eliminar
+
+La eliminación de objetos comienza cuando el cliente envía una solicitud DeleteObject a un servicio LDR.  El mensaje contiene el depósito desde el cual eliminar el objeto y la clave S3 del objeto, que se utiliza para identificarlo.
+
+[listing, subs="specialcharacters,quotes"]
+----
+2017-07-17T21:17:58.959669[AUDT:[RSLT(FC32):SUCS][TIME(UI64):14316][SAIP(IPAD):"10.96.112.29"][S3AI(CSTR):"70899244468554783528"][SACC(CSTR):"test"][S3AK(CSTR):"SGKHyalRU_5cLflqajtaFmxJn946lAWRJfBF33gAOg=="][SUSR(CSTR):"urn:sgws:identity::70899244468554783528:root"][SBAI(CSTR):"70899244468554783528"][SBAC(CSTR):"test"]\[S3BK\(CSTR\):"example"\]\[S3KY\(CSTR\):"testobject-0-7"\][CBID\(UI64\):0x339F21C5A6964D89][CSIZ(UI64):30720][AVER(UI32):10][ATIM(UI64):150032627859669][ATYP\(FC32\):SDEL][ANID(UI32):12086324][AMID(FC32):S3RQ][ATID(UI64):4727861330952970593]]
+----

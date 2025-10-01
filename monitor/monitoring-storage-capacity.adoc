@@ -1,0 +1,205 @@
+---
+permalink: monitor/monitoring-storage-capacity.html 
+sidebar: sidebar 
+keywords: how to monitor storage capacity 
+summary: Supervise el espacio total utilizable disponible para garantizar que el sistema StorageGRID no se quede sin espacio de almacenamiento para objetos o metadatos de objetos. 
+---
+= Supervisar la capacidad de almacenamiento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Supervise el espacio total utilizable disponible para garantizar que el sistema StorageGRID no se quede sin espacio de almacenamiento para objetos o metadatos de objetos.
+
+StorageGRID almacena datos de objetos y metadatos de objetos por separado, y reserva una cantidad específica de espacio para una base de datos Cassandra distribuida que contiene metadatos de objetos.  Supervise la cantidad total de espacio consumido por los objetos y por los metadatos de los objetos, así como las tendencias en la cantidad de espacio consumido para cada uno.  Esto le permitirá planificar con anticipación la incorporación de nodos y evitar interrupciones del servicio.
+
+Puedelink:viewing-storage-tab.html["ver información sobre la capacidad de almacenamiento"] para toda la red, para cada sitio y para cada nodo de almacenamiento en su sistema StorageGRID .
+
+
+
+== Monitorizar la capacidad de almacenamiento de toda la red
+
+Supervise la capacidad de almacenamiento general de su red para garantizar que quede suficiente espacio libre para los datos de los objetos y los metadatos de los objetos.  Comprender cómo cambia la capacidad de almacenamiento con el tiempo puede ayudarle a planificar la adición de nodos de almacenamiento o volúmenes de almacenamiento antes de que se consuma la capacidad de almacenamiento utilizable de la red.
+
+El panel de control de Grid Manager le permite evaluar rápidamente cuánto almacenamiento está disponible para toda la red y para cada centro de datos.  La página Nodos proporciona valores más detallados para los datos y metadatos de los objetos.
+
+.Pasos
+. Evalúe la cantidad de almacenamiento disponible para toda la red y para cada centro de datos.
++
+.. Seleccione *Panel de control > Descripción general*.
+.. Tenga en cuenta los valores en las tarjetas Desglose del uso del espacio de datos y Desglose del uso del espacio permitido de metadatos.  Cada tarjeta enumera un porcentaje de uso de almacenamiento, la capacidad de espacio utilizado y el espacio total disponible o permitido por sitio.
++
+
+NOTE: El resumen no incluye medios de archivo.
+
++
+image::../media/dashboard_data_and_metadata_space_usage_breakdown.png[Desglose del uso del espacio de datos y metadatos]
+
+.. Tenga en cuenta el gráfico en la tarjeta de almacenamiento a lo largo del tiempo.  Utilice el menú desplegable del período de tiempo para ayudarle a determinar qué tan rápido se consume el almacenamiento.
++
+image::../media/dashboard_storage_over_time.png[Gráfico de almacenamiento a lo largo del tiempo]
+
+
+
+. Utilice la página Nodos para obtener detalles adicionales sobre cuánto almacenamiento se ha utilizado y cuánto almacenamiento queda disponible en la red para datos de objetos y metadatos de objetos.
++
+.. Seleccione *NODOS*.
+.. Seleccione *_grid_* > *Almacenamiento*.
++
+image::../media/nodes_deployment_storage_tab.png[Pestaña Almacenamiento de implementación de nodos]
+
+.. Coloque el cursor sobre los gráficos *Almacenamiento utilizado - datos de objeto* y *Almacenamiento utilizado - metadatos de objeto* para ver cuánto almacenamiento de objeto y almacenamiento de metadatos de objeto está disponible para toda la cuadrícula, y cuánto se ha utilizado a lo largo del tiempo.
++
+
+NOTE: Los valores totales de un sitio o de la red no incluyen los nodos que no han informado métricas durante al menos cinco minutos, como los nodos fuera de línea.
+
+
+
+. Planifique realizar una expansión para agregar nodos de almacenamiento o volúmenes de almacenamiento antes de que se consuma la capacidad de almacenamiento utilizable de la red.
++
+Al planificar el momento de una expansión, considere cuánto tiempo llevará adquirir e instalar almacenamiento adicional.
+
++
+
+NOTE: Si su política ILM utiliza codificación de borrado, es posible que prefiera expandirse cuando los nodos de almacenamiento existentes estén aproximadamente al 70 % de su capacidad para reducir la cantidad de nodos que se deben agregar.
+
++
+Para obtener más información sobre la planificación de una expansión de almacenamiento, consulte lalink:../expand/index.html["Instrucciones para expandir StorageGRID"] .
+
+
+
+
+
+== Supervisar la capacidad de almacenamiento de cada nodo de almacenamiento
+
+Supervise el espacio total utilizable de cada nodo de almacenamiento para garantizar que el nodo tenga suficiente espacio para nuevos datos de objetos.
+
+.Acerca de esta tarea
+El espacio utilizable es la cantidad de espacio de almacenamiento disponible para guardar objetos.  El espacio total utilizable de un nodo de almacenamiento se calcula sumando el espacio disponible en todos los almacenes de objetos dentro del nodo.
+
+image::../media/calculating_watermarks.gif[Dibujo conceptual del espacio total utilizable]
+
+.Pasos
+. Seleccione *NODOS* > *_Nodo de almacenamiento_* > *Almacenamiento*.
++
+Aparecen los gráficos y tablas del nodo.
+
+. Coloque el cursor sobre el gráfico Almacenamiento utilizado - datos del objeto.
++
+Se muestran los siguientes valores:
+
++
+** *Usado (%)*: El porcentaje del espacio utilizable total que se ha utilizado para los datos del objeto.
+** *Usado*: La cantidad de espacio total utilizable que se ha utilizado para los datos del objeto.
+** *Datos replicados*: una estimación de la cantidad de datos de objetos replicados en este nodo, sitio o cuadrícula.
+** *Datos codificados por borrado*: una estimación de la cantidad de datos de objetos codificados por borrado en este nodo, sitio o cuadrícula.
+** *Total*: La cantidad total de espacio utilizable en este nodo, sitio o cuadrícula.  El valor utilizado es el `storagegrid_storage_utilization_data_bytes` métrico.
++
+image::../media/nodes_page_storage_used_object_data.png[Almacenamiento de páginas de nodos Datos de objetos utilizados]
+
+
+
+. Revise los valores disponibles en las tablas Volúmenes y Almacenes de objetos, debajo de los gráficos.
++
+
+NOTE: Para ver gráficos de estos valores, haga clic en los íconos de gráficosimage:../media/icon_chart_new_for_11_5.png["Icono de gráfico"] en las columnas Disponibles.
+
++
+image::../media/nodes_page_storage_tables.png[Tablas de tiendas de objetos]
+
+. Monitoree los valores a lo largo del tiempo para estimar la velocidad a la que se consume el espacio de almacenamiento utilizable.
+. Para mantener las operaciones normales del sistema, agregue nodos de almacenamiento, agregue volúmenes de almacenamiento o archive datos de objetos antes de que se consuma el espacio utilizable.
++
+Al planificar el momento de una expansión, considere cuánto tiempo llevará adquirir e instalar almacenamiento adicional.
+
++
+
+NOTE: Si su política ILM utiliza codificación de borrado, es posible que prefiera expandirse cuando los nodos de almacenamiento existentes estén aproximadamente al 70 % de su capacidad para reducir la cantidad de nodos que se deben agregar.
+
++
+Para obtener más información sobre la planificación de una expansión de almacenamiento, consulte lalink:../expand/index.html["Instrucciones para expandir StorageGRID"] .
+
++
+Ellink:../troubleshoot/troubleshooting-low-object-data-storage-alert.html["Almacenamiento de datos de objetos reducido"] La alerta se activa cuando no queda suficiente espacio para almacenar datos de objetos en un nodo de almacenamiento.
+
+
+
+
+
+== Supervisar la capacidad de metadatos de objetos para cada nodo de almacenamiento
+
+Supervise el uso de metadatos para cada nodo de almacenamiento para garantizar que haya suficiente espacio disponible para las operaciones esenciales de la base de datos.  Debe agregar nuevos nodos de almacenamiento en cada sitio antes de que los metadatos del objeto excedan el 100 % del espacio de metadatos permitido.
+
+.Acerca de esta tarea
+StorageGRID mantiene tres copias de metadatos de objetos en cada sitio para proporcionar redundancia y proteger los metadatos de objetos contra pérdidas.  Las tres copias se distribuyen uniformemente entre todos los nodos de almacenamiento en cada sitio utilizando el espacio reservado para metadatos en el volumen de almacenamiento 0 de cada nodo de almacenamiento.
+
+En algunos casos, la capacidad de metadatos de objetos de la red podría consumirse más rápido que su capacidad de almacenamiento de objetos.  Por ejemplo, si normalmente ingieres grandes cantidades de objetos pequeños, es posible que necesites agregar nodos de almacenamiento para aumentar la capacidad de metadatos incluso aunque todavía quede suficiente capacidad de almacenamiento de objetos.
+
+Algunos de los factores que pueden aumentar el uso de metadatos incluyen el tamaño y la cantidad de metadatos y etiquetas del usuario, la cantidad total de partes en una carga multiparte y la frecuencia de los cambios en las ubicaciones de almacenamiento de ILM.
+
+.Pasos
+. Seleccione *NODOS* > *_Nodo de almacenamiento_* > *Almacenamiento*.
+. Coloque el cursor sobre el gráfico de metadatos del objeto Almacenamiento utilizado para ver los valores de un tiempo específico.
++
+image::../media/storage_used_object_metadata.png[Almacenamiento utilizado: metadatos de objetos]
+
++
+Usado (%):: El porcentaje del espacio de metadatos permitido que se ha utilizado en este nodo de almacenamiento.
++
+--
+Métricas de Prometeo: `storagegrid_storage_utilization_metadata_bytes` y `storagegrid_storage_utilization_metadata_allowed_bytes`
+
+--
+Usado:: Los bytes del espacio de metadatos permitido que se han utilizado en este nodo de almacenamiento.
++
+--
+Métrica de Prometeo: `storagegrid_storage_utilization_metadata_bytes`
+
+--
+Permitido:: El espacio permitido para los metadatos de objetos en este nodo de almacenamiento.  Para saber cómo se determina este valor para cada nodo de almacenamiento, consulte lalink:../admin/managing-object-metadata-storage.html#allowed-metadata-space["Descripción completa del espacio de metadatos permitido"] .
++
+--
+Métrica de Prometeo: `storagegrid_storage_utilization_metadata_allowed_bytes`
+
+--
+Reservado actual:: El espacio real reservado para metadatos en este nodo de almacenamiento.  Incluye el espacio permitido y el espacio requerido para operaciones de metadatos esenciales.  Para saber cómo se calcula este valor para cada nodo de almacenamiento, consulte lalink:../admin/managing-object-metadata-storage.html#actual-reserved-space-for-metadata["Descripción completa del espacio reservado real para metadatos"] .
++
+--
+_La métrica Prometheus se agregará en una versión futura._
+
+--
+
+
++
+
+NOTE: Los valores totales de un sitio o de la red no incluyen los nodos que no han informado métricas durante al menos cinco minutos, como los nodos fuera de línea.
+
+. Si el valor *Usado (%)* es 70% o superior, expanda su sistema StorageGRID agregando nodos de almacenamiento a cada sitio.
++
+
+CAUTION: La alerta *Almacenamiento de metadatos bajo* se activa cuando el valor *Usado (%)* alcanza ciertos umbrales.  Pueden producirse resultados no deseados si los metadatos del objeto utilizan más del 100% del espacio permitido.
+
++
+Cuando agrega nuevos nodos, el sistema reequilibra automáticamente los metadatos de los objetos en todos los nodos de almacenamiento dentro del sitio. Ver ellink:../expand/index.html["Instrucciones para expandir un sistema StorageGRID"] .
+
+
+
+
+
+== Monitorear las previsiones de uso del espacio
+
+Monitoree los pronósticos de uso del espacio para los datos de usuario y metadatos para estimar cuándo los necesitará.link:../expand/index.html["expandir una cuadrícula"] .
+
+Si observa que la tasa de consumo cambia con el tiempo, seleccione un rango más corto en el menú desplegable *Promedio sobre* para reflejar solo los patrones de ingesta más recientes.  Si observa patrones estacionales, seleccione un rango más largo.
+
+Si tiene una nueva instalación de StorageGRID , permita que los datos y metadatos se acumulen antes de evaluar los pronósticos de uso del espacio.
+
+.Pasos
+. En el panel de control, seleccione *Almacenamiento*.
+. Vea las tarjetas del panel, el pronóstico del uso de datos por grupo de almacenamiento y el pronóstico del uso de metadatos por sitio.
+. Utilice estos valores para estimar cuándo necesitará agregar nuevos nodos de almacenamiento para el almacenamiento de datos y metadatos.
+
+
+image::../media/forecast-metadata-usage.png[Pronóstico del uso de metadatos por sitio]

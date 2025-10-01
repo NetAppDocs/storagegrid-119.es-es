@@ -1,0 +1,21 @@
+---
+permalink: admin/kms-configuring.html 
+sidebar: sidebar 
+keywords: configure kms, key management server, kmip, Key Management Interoperability Protocol 
+summary: 'Un servidor de administración de claves (KMS) es un sistema externo de terceros que proporciona claves de cifrado a los nodos del dispositivo StorageGRID en el sitio StorageGRID asociado mediante el Protocolo de interoperabilidad de administración de claves (KMIP).' 
+---
+= ¿Qué es un servidor de administración de claves (KMS)?
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Un servidor de administración de claves (KMS) es un sistema externo de terceros que proporciona claves de cifrado a los nodos del dispositivo StorageGRID en el sitio StorageGRID asociado mediante el Protocolo de interoperabilidad de administración de claves (KMIP).
+
+StorageGRID solo admite ciertos servidores de administración de claves.  Para obtener una lista de productos y versiones compatibles, utilice el https://imt.netapp.com/matrix/#welcome["Herramienta de matriz de interoperabilidad de NetApp (IMT)"^] .
+
+Puede utilizar uno o más servidores de administración de claves para administrar las claves de cifrado de nodo para cualquier nodo del dispositivo StorageGRID que tenga la configuración *Cifrado de nodo* habilitada durante la instalación.  El uso de servidores de administración de claves con estos nodos de dispositivos le permite proteger sus datos incluso si se quita un dispositivo del centro de datos.  Una vez cifrados los volúmenes del dispositivo, no podrá acceder a ningún dato del dispositivo a menos que el nodo pueda comunicarse con el KMS.
+
+
+CAUTION: StorageGRID no crea ni administra las claves externas que se utilizan para cifrar y descifrar los nodos del dispositivo.  Si planea utilizar un servidor de administración de claves externo para proteger los datos de StorageGRID , debe comprender cómo configurar ese servidor y cómo administrar las claves de cifrado.  La realización de tareas de gestión de claves queda fuera del alcance de estas instrucciones.  Si necesita ayuda, consulte la documentación de su servidor de administración de claves o comuníquese con el soporte técnico.

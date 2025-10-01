@@ -1,0 +1,103 @@
+---
+permalink: maintain/updating-subnets-for-grid-network.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, subnet, grid network, update subnets 
+summary: 'StorageGRID mantiene una lista de las subredes de red utilizadas para comunicarse entre los nodos de la red en la red de red (eth0).  Estas entradas incluyen las subredes utilizadas para la red Grid por cada sitio en su sistema StorageGRID , así como también cualquier subred utilizada para NTP, DNS, LDAP u otros servidores externos a los que se accede a través de la puerta de enlace de la red Grid.  Cuando agrega nodos de cuadrícula o un nuevo sitio en una expansión, es posible que necesite actualizar o agregar subredes a la red de cuadrícula.' 
+---
+= Actualizar subredes para la red Grid
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRID mantiene una lista de las subredes de red utilizadas para comunicarse entre los nodos de la red en la red Grid (eth0).  Estas entradas incluyen las subredes utilizadas para la red Grid por cada sitio en su sistema StorageGRID , así como también cualquier subred utilizada para NTP, DNS, LDAP u otros servidores externos a los que se accede a través de la puerta de enlace de la red Grid.  Cuando agrega nodos de cuadrícula o un nuevo sitio en una expansión, es posible que necesite actualizar o agregar subredes a la red de cuadrícula.
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tú tienes ellink:../admin/admin-group-permissions.html["Permiso de mantenimiento o acceso root"] .
+* Tienes la contraseña de aprovisionamiento.
+* Tienes las direcciones de red, en notación CIDR, de las subredes que quieres configurar.
+
+
+.Acerca de esta tarea
+Si está realizando una actividad de expansión que incluye agregar una nueva subred, debe agregar una nueva subred a la lista de subredes de la red Grid antes de comenzar el procedimiento de expansión.  De lo contrario, tendrá que cancelar la expansión, agregar la nueva subred y comenzar la expansión nuevamente.
+
+[NOTE]
+====
+No utilice subredes que contengan las siguientes direcciones IPv4 para la red de cuadrícula, la red de administración o la red de cliente de ningún nodo:
+
+* 192.168.130.101
+* 192.168.131.101
+* 192.168.130.102
+* 192.168.131.102
+* 198.51.100.2
+* 198.51.100.4
+
+
+Por ejemplo, no utilice los siguientes rangos de subred para la red de cuadrícula, la red de administración o la red de cliente de ningún nodo:
+
+* 192.168.130.0/24 porque este rango de subred contiene las direcciones IP 192.168.130.101 y 192.168.130.102
+* 192.168.131.0/24 porque este rango de subred contiene las direcciones IP 192.168.131.101 y 192.168.131.102
+* 198.51.100.0/24 porque este rango de subred contiene las direcciones IP 198.51.100.2 y 198.51.100.4
+
+
+====
+
+
+== Agregar una subred
+
+.Pasos
+. Seleccione *MANTENIMIENTO* > *Red* > *Red de cuadrícula*.
+. Seleccione *Agregar otra subred* para agregar una nueva subred en notación CIDR.
++
+Por ejemplo, introduzca `10.96.104.0/22` .
+
+. Ingrese la contraseña de aprovisionamiento y seleccione *Guardar*.
+. Espere hasta que se apliquen los cambios y luego descargue un nuevo paquete de recuperación.
++
+.. Seleccione *MANTENIMIENTO* > *Sistema* > *Paquete de recuperación*.
+.. Introduzca la *contraseña de aprovisionamiento*.
++
+
+CAUTION: El archivo del paquete de recuperación debe estar protegido porque contiene claves de cifrado y contraseñas que se pueden utilizar para obtener datos del sistema StorageGRID . También se utiliza para recuperar el nodo de administración principal.
+
+
+
+
+
+Las subredes que ha especificado se configuran automáticamente para su sistema StorageGRID .
+
+
+
+== Editar una subred
+
+.Pasos
+. Seleccione *MANTENIMIENTO* > *Red* > *Red de cuadrícula*.
+. Seleccione la subred que desea editar y realice los cambios necesarios.
+. Ingrese la contraseña de aprovisionamiento y seleccione *Guardar*.
+. Seleccione *Sí* en el cuadro de diálogo de confirmación.
+. Espere hasta que se apliquen los cambios y luego descargue un nuevo paquete de recuperación.
++
+.. Seleccione *MANTENIMIENTO* > *Sistema* > *Paquete de recuperación*.
+.. Introduzca la *contraseña de aprovisionamiento*.
+
+
+
+
+
+
+== Eliminar una subred
+
+.Pasos
+. Seleccione *MANTENIMIENTO* > *Red* > *Red de cuadrícula*.
+. Seleccione el icono de eliminarimage:../media/icon-x-to-remove.png["icono de eliminar"] al lado de la subred.
+. Ingrese la contraseña de aprovisionamiento y seleccione *Guardar*.
+. Seleccione *Sí* en el cuadro de diálogo de confirmación.
+. Espere hasta que se apliquen los cambios y luego descargue un nuevo paquete de recuperación.
++
+.. Seleccione *MANTENIMIENTO* > *Sistema* > *Paquete de recuperación*.
+.. Introduzca la *contraseña de aprovisionamiento*.
+
+
+

@@ -1,0 +1,41 @@
+---
+permalink: monitor/viewing-grid-topology-tree.html 
+sidebar: sidebar 
+keywords: how to view the Grid Topology tree 
+summary: El árbol de topología de cuadrícula proporciona acceso a información detallada sobre los elementos del sistema StorageGRID , incluidos sitios, nodos de cuadrícula, servicios y componentes.  En la mayoría de los casos, solo necesita acceder al árbol de topología de la cuadrícula cuando se lo indique la documentación o cuando trabaje con soporte técnico. 
+---
+= Ver el árbol de topología de la cuadrícula
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+El árbol de topología de cuadrícula proporciona acceso a información detallada sobre los elementos del sistema StorageGRID , incluidos sitios, nodos de cuadrícula, servicios y componentes.  En la mayoría de los casos, solo necesita acceder al árbol de topología de la cuadrícula cuando se lo indique la documentación o cuando trabaje con soporte técnico.
+
+Para acceder al árbol de topología de cuadrícula, seleccione *SOPORTE* > *Herramientas* > *Topología de cuadrícula*.
+
+image::../media/grid_topology_tree.gif[Partes del árbol de topología de la cuadrícula]
+
+Para expandir o contraer el árbol de topología de cuadrícula, haga clic enimage:../media/nms_tree_expand.gif["icono de signo más"] oimage:../media/nms_tree_collapse.gif["icono de signo menos"] en el nivel de sitio, nodo o servicio.  Para expandir o contraer todos los elementos en todo el sitio o en cada nodo, mantenga presionada la tecla *<Ctrl>* y haga clic.
+
+
+
+== Atributos de StorageGRID
+
+Los atributos informan valores y estados para muchas de las funciones del sistema StorageGRID .  Los valores de los atributos están disponibles para cada nodo de la cuadrícula, cada sitio y toda la cuadrícula.
+
+Los atributos StorageGRID se utilizan en varios lugares del Administrador de cuadrícula:
+
+* *Página Nodos*: Muchos de los valores que se muestran en la página Nodos son atributos de StorageGRID .  (Las métricas de Prometheus también se muestran en las páginas de Nodos).
+* *Árbol de topología de cuadrícula*: los valores de los atributos se muestran en el árbol de topología de cuadrícula (*SOPORTE* > *Herramientas* > *Topología de cuadrícula*).
+* *Eventos*: Los eventos del sistema ocurren cuando ciertos atributos registran un error o una condición de falla para un nodo, incluidos errores como errores de red.
+
+
+
+
+=== Valores de los atributos
+
+Los atributos se informan según el método del máximo esfuerzo y son aproximadamente correctos.  Las actualizaciones de atributos se pueden perder en algunas circunstancias, como por ejemplo, si se produce un fallo de un servicio o si falla y se vuelve a crear un nodo de la red.
+
+Además, los retrasos en la propagación podrían ralentizar la notificación de atributos.  Los valores actualizados de la mayoría de los atributos se envían al sistema StorageGRID a intervalos fijos.  Pueden pasar varios minutos antes de que una actualización sea visible en el sistema, y ​​dos atributos que cambian más o menos simultáneamente pueden informarse en momentos ligeramente diferentes.

@@ -1,0 +1,14 @@
+---
+permalink: harden/system-hardening-guidelines.html 
+sidebar: sidebar 
+keywords: security,system hardening 
+summary: A medida que instala y configura StorageGRID, puede utilizar estas pautas para ayudarlo a cumplir con los objetivos de seguridad prescritos para la confidencialidad, integridad y disponibilidad del sistema de información. 
+---
+= Pautas para el fortalecimiento del sistema
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+A medida que instala y configura StorageGRID, puede utilizar estas pautas para ayudarlo a cumplir con los objetivos de seguridad prescritos para la confidencialidad, integridad y disponibilidad del sistema de información.

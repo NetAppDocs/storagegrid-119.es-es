@@ -1,0 +1,166 @@
+---
+permalink: upgrade/troubleshooting-upgrade-issues.html 
+sidebar: sidebar 
+keywords: upgrade, troubleshoot, troubleshooting, errors, upgrade precheck 
+summary: Si algo sale mal al realizar una actualización, es posible que pueda resolver el problema usted mismo.  Si no puede resolver un problema, reúna toda la información que pueda y luego comuníquese con el soporte técnico. 
+---
+= Solucionar problemas de actualización
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si algo sale mal al realizar una actualización, es posible que pueda resolver el problema usted mismo.  Si no puede resolver un problema, reúna toda la información que pueda y luego comuníquese con el soporte técnico.
+
+
+
+== La actualización no se completa
+
+Las siguientes secciones describen cómo recuperarse de situaciones en las que la actualización ha fallado parcialmente.
+
+
+
+=== Errores de comprobación previa de la actualización
+
+Para detectar y resolver problemas, puede ejecutar manualmente las comprobaciones previas a la actualización antes de comenzar la actualización real.  La mayoría de los errores de verificación previa brindan información sobre cómo resolver el problema.
+
+
+
+=== Fallos de aprovisionamiento
+
+Si el proceso de aprovisionamiento automático falla, comuníquese con el soporte técnico.
+
+
+
+=== El nodo de la red se bloquea o no se inicia
+
+Si un nodo de la red falla durante el proceso de actualización o no puede iniciarse exitosamente una vez finalizada la actualización, comuníquese con el soporte técnico para investigar y corregir cualquier problema subyacente.
+
+
+
+=== Se interrumpe la ingesta o recuperación de datos
+
+Si la ingesta o recuperación de datos se interrumpe inesperadamente cuando no está actualizando un nodo de la red, comuníquese con el soporte técnico.
+
+
+
+=== Errores de actualización de la base de datos
+
+Si la actualización de la base de datos falla con un error, vuelva a intentar la actualización.  Si vuelve a fallar, contacte con el soporte técnico.
+
+.Información relacionada
+link:checking-systems-condition-before-upgrading-software.html["Comprobación del estado del sistema antes de actualizar el software"]
+
+
+
+== Problemas de interfaz de usuario
+
+Es posible que experimente problemas con el Administrador de red o el Administrador de inquilinos durante o después de la actualización.
+
+
+
+=== Grid Manager muestra varios mensajes de error durante la actualización
+
+Si actualiza su navegador o navega a otra página de Grid Manager mientras se actualiza el nodo de administración principal, es posible que vea varios mensajes "503: Servicio no disponible" y "Problema para conectarse al servidor".  Puede ignorar estos mensajes con seguridad: dejarán de aparecer tan pronto como se actualice el nodo.
+
+Si estos mensajes aparecen durante más de una hora después de iniciar la actualización, es posible que haya ocurrido algo que impidió que se actualizara el nodo de administración principal.  Si no puede resolver el problema por su cuenta, comuníquese con el soporte técnico.
+
+
+
+=== La interfaz web no responde como se esperaba
+
+Es posible que el administrador de red o el administrador de inquilinos no respondan como se espera después de actualizar el software StorageGRID .
+
+Si experimenta problemas con la interfaz web:
+
+* Asegúrese de estar utilizando unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
++
+
+NOTE: La compatibilidad del navegador generalmente cambia para cada versión de StorageGRID .
+
+* Limpia el caché de tu navegador web.
++
+Al borrar la memoria caché se eliminan los recursos obsoletos utilizados por la versión anterior del software StorageGRID y se permite que la interfaz de usuario vuelva a funcionar correctamente.  Para obtener instrucciones, consulte la documentación de su navegador web.
+
+
+
+
+
+== Mensajes de error de "Comprobación de disponibilidad de imágenes de Docker"
+
+Al intentar iniciar el proceso de actualización, es posible que reciba un mensaje de error que indique "Los siguientes problemas fueron identificados por el conjunto de validación de verificación de disponibilidad de imágenes de Docker".  Todos los problemas deben resolverse antes de poder completar la actualización.
+
+Comuníquese con el soporte técnico si no está seguro de los cambios necesarios para resolver los problemas identificados.
+
+[cols="1a,1a,1a"]
+|===
+| Mensaje | Causa | Solución 
+
+
+ a| 
+No se puede determinar la versión de actualización.  Archivo de información de la versión de actualización `{file_path}` No coincidió con el formato esperado.
+ a| 
+El paquete de actualización está dañado.
+ a| 
+Vuelva a cargar el paquete de actualización e inténtelo nuevamente.  Si el problema persiste, contacte con el soporte técnico.
+
+
+
+ a| 
+Archivo de información de la versión de actualización `{file_path}` No fue encontrado.  No se puede determinar la versión de actualización.
+ a| 
+El paquete de actualización está dañado.
+ a| 
+Vuelva a cargar el paquete de actualización e inténtelo nuevamente.  Si el problema persiste, contacte con el soporte técnico.
+
+
+
+ a| 
+No se puede determinar la versión de lanzamiento instalada actualmente en `{node_name}` .
+ a| 
+Un archivo crítico en el nodo está dañado.
+ a| 
+Póngase en contacto con el soporte técnico.
+
+
+
+ a| 
+Error de conexión al intentar listar versiones en `{node_name}`
+ a| 
+El nodo está fuera de línea o la conexión fue interrumpida.
+ a| 
+Verifique que todos los nodos estén en línea y sean accesibles desde el nodo de administración principal, e inténtelo nuevamente.
+
+
+
+ a| 
+El host del nodo `{node_name}` no tiene StorageGRID `{upgrade_version}` imagen cargada.  Las imágenes y los servicios deben estar instalados en el host antes de que pueda continuar la actualización.
+ a| 
+Los paquetes RPM o DEB para la actualización no se han instalado en el host donde se ejecuta el nodo, o las imágenes aún están en proceso de importación.
+
+*Nota:* Este error solo se aplica a los nodos que se ejecutan como contenedores en Linux.
+ a| 
+Verifique que los paquetes RPM o DEB se hayan instalado en todos los hosts Linux donde se ejecutan los nodos.  Asegúrese de que la versión sea correcta tanto para el servicio como para el archivo de imágenes.  Espere unos minutos y vuelva a intentarlo.
+
+Ver link:../upgrade/linux-installing-rpm-or-deb-package-on-all-hosts.html["Linux: Instalar paquete RPM o DEB en todos los hosts"] .
+
+
+
+ a| 
+Error al comprobar el nodo `{node_name}`
+ a| 
+Se produjo un error inesperado.
+ a| 
+Espere unos minutos y vuelva a intentarlo.
+
+
+
+ a| 
+Error no detectado al ejecutar comprobaciones previas. `{error_string}`
+ a| 
+Se produjo un error inesperado.
+ a| 
+Espere unos minutos y vuelva a intentarlo.
+
+|===

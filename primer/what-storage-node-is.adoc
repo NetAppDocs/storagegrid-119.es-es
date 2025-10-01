@@ -1,0 +1,231 @@
+---
+permalink: primer/what-storage-node-is.html 
+sidebar: sidebar 
+keywords: what is a storage node, how many storage nodes 
+summary: Los nodos de almacenamiento administran y almacenan datos de objetos y metadatos.  Los nodos de almacenamiento incluyen los servicios y procesos necesarios para almacenar, mover, verificar y recuperar datos de objetos y metadatos en el disco. 
+---
+= ¿Qué es un nodo de almacenamiento?
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los nodos de almacenamiento administran y almacenan datos de objetos y metadatos.  Los nodos de almacenamiento incluyen los servicios y procesos necesarios para almacenar, mover, verificar y recuperar datos de objetos y metadatos en el disco.
+
+Cada sitio de su sistema StorageGRID debe tener al menos tres nodos de almacenamiento.
+
+
+
+== Tipos de nodos de almacenamiento
+
+Durante la instalación, puede seleccionar el tipo de nodo de almacenamiento que desea instalar.  Estos tipos están disponibles para nodos de almacenamiento basados en software y para nodos de almacenamiento basados en dispositivos que admiten la función:
+
+* Nodo de almacenamiento de datos y metadatos combinados
+* Nodo de almacenamiento solo de metadatos
+* Nodo de almacenamiento de solo datos
+
+
+Puede seleccionar el tipo de nodo de almacenamiento en estas situaciones:
+
+* Al instalar inicialmente un nodo de almacenamiento
+* Cuando agrega un nodo de almacenamiento durante la expansión del sistema StorageGRID
+
+
+
+NOTE: No es posible cambiar el tipo una vez finalizada la instalación del nodo de almacenamiento.
+
+Nodo de almacenamiento de datos y metadatos (combinado):: De forma predeterminada, todos los nodos de almacenamiento nuevos almacenarán datos de objetos y metadatos.  Este tipo de nodo de almacenamiento se denomina nodo de almacenamiento _combinado_.
+Nodo de almacenamiento solo de metadatos:: Usar un nodo de almacenamiento exclusivamente para metadatos puede tener sentido si su red almacena una gran cantidad de objetos pequeños.  La instalación de capacidad de metadatos dedicada proporciona un mejor equilibrio entre el espacio necesario para una gran cantidad de objetos pequeños y el espacio necesario para los metadatos de esos objetos.  Además, los nodos de almacenamiento de solo metadatos alojados en dispositivos de alto rendimiento pueden aumentar el rendimiento.
+
+
+Los nodos de almacenamiento de solo metadatos tienen requisitos de hardware específicos:
+
+* Al utilizar dispositivos StorageGRID , los nodos de solo metadatos se pueden configurar únicamente en dispositivos SGF6112 con doce unidades de 1,9 TB o doce unidades de 3,8 TB.
+* Al utilizar nodos basados en software, los recursos de nodo de solo metadatos deben coincidir con los recursos de los nodos de almacenamiento existentes. Por ejemplo:
++
+** Si el sitio StorageGRID existente utiliza dispositivos SG6000 o SG6100, los nodos de solo metadatos basados ​​en software deben cumplir los siguientes requisitos mínimos:
++
+*** 128 GB de RAM
+*** CPU de 8 núcleos
+*** SSD de 8 TB o almacenamiento equivalente para la base de datos Cassandra (rangedb/0)
+
+
+** Si el sitio StorageGRID existente usa nodos de almacenamiento virtuales con 24 GB de RAM, CPU de 8 núcleos y 3 TB o 4 TB de almacenamiento de metadatos, los nodos solo de metadatos basados ​​en software deben usar recursos similares (24 GB de RAM, CPU de 8 núcleos y 4 TB de almacenamiento de metadatos (rangedb/0).
+
+
+* Al agregar un nuevo sitio StorageGRID , la capacidad total de metadatos del nuevo sitio debe coincidir, como mínimo, con los sitios StorageGRID existentes y los recursos del nuevo sitio deben coincidir con los nodos de almacenamiento de los sitios StorageGRID existentes.
+
+
+Al instalar nodos de solo metadatos, la cuadrícula también debe contener una cantidad mínima de nodos para el almacenamiento de datos:
+
+* Para una cuadrícula de un solo sitio, configure al menos dos nodos de almacenamiento combinados o de solo datos.
+* Para una cuadrícula de varios sitios, configure al menos un nodo de almacenamiento combinado o de solo datos _por sitio_.
+
+
+
+NOTE: Aunque los nodos de almacenamiento de solo metadatos contienen<<ldr-service,Servicio LDR>> y puede procesar solicitudes de clientes S3, es posible que el rendimiento de StorageGRID no aumente.
+
+Nodo de almacenamiento de solo datos:: Usar un nodo de almacenamiento exclusivamente para datos puede tener sentido si sus nodos de almacenamiento tienen diferentes características de rendimiento.  Por ejemplo, para aumentar potencialmente el rendimiento, podría tener nodos de almacenamiento de disco giratorio de alta capacidad y solo datos acompañados de nodos de almacenamiento de alto rendimiento y solo metadatos.
+
+
+Al instalar nodos de solo datos, la cuadrícula debe contener lo siguiente:
+
+* Un mínimo de dos nodos de almacenamiento combinados o de solo datos _por red_
+* Al menos un nodo de almacenamiento combinado o de solo datos _por sitio_
+* Un mínimo de tres nodos de almacenamiento combinados o de solo metadatos _por sitio_
+
+
+
+
+== Servicios principales para nodos de almacenamiento
+
+La siguiente tabla muestra los servicios principales para los nodos de almacenamiento; sin embargo, esta tabla no enumera todos los servicios de los nodos.
+
+
+NOTE: Algunos servicios, como el servicio ADC y el servicio RSM, normalmente existen solo en tres nodos de almacenamiento en cada sitio.
+
+[cols="1a,3a"]
+|===
+| Servicio | Función de tecla 
+
+
+ a| 
+Cuenta (acct)
+ a| 
+Administra las cuentas de los inquilinos.
+
+
+
+ a| 
+Controlador de dominio administrativo (ADC)
+ a| 
+Mantiene la topología y la configuración de toda la red.
+
+*Nota*: Los nodos de almacenamiento de solo datos no alojan el servicio ADC.
+
+.Detalles
+[%collapsible]
+====
+El servicio del controlador de dominio administrativo (ADC) autentica los nodos de la red y sus conexiones entre sí.  El servicio ADC está alojado en un mínimo de tres nodos de almacenamiento en un sitio.
+
+El servicio ADC mantiene información de topología, incluida la ubicación y la disponibilidad de los servicios.  Cuando un nodo de la red requiere información de otro nodo de la red o que otro nodo de la red realice una acción, se comunica con un servicio ADC para encontrar el mejor nodo de la red para procesar su solicitud.  Además, el servicio ADC conserva una copia de los paquetes de configuración de la implementación de StorageGRID , lo que permite que cualquier nodo de la red recupere la información de configuración actual.
+
+Para facilitar las operaciones distribuidas e aisladas, cada servicio ADC sincroniza certificados, paquetes de configuración e información sobre servicios y topología con los demás servicios ADC en el sistema StorageGRID .
+
+En general, todos los nodos de la red mantienen una conexión a al menos un servicio ADC.  Esto garantiza que los nodos de la red siempre tengan acceso a la información más reciente.  Cuando los nodos de la red se conectan, almacenan en caché los certificados de otros nodos de la red, lo que permite que los sistemas sigan funcionando con los nodos de la red conocidos incluso cuando un servicio ADC no está disponible.  Los nuevos nodos de la red solo pueden establecer conexiones mediante un servicio ADC.
+
+La conexión de cada nodo de la red permite que el servicio ADC recopile información de topología.  Esta información del nodo de la red incluye la carga de la CPU, el espacio en disco disponible (si tiene almacenamiento), los servicios admitidos y el ID del sitio del nodo de la red.  Otros servicios solicitan al servicio ADC información de topología a través de consultas de topología.  El servicio ADC responde a cada consulta con la última información recibida del sistema StorageGRID .
+
+====
+
+
+ a| 
+Casandra
+ a| 
+Almacena y protege los metadatos de los objetos.
+
+*Nota*: Los nodos de almacenamiento de solo datos no alojan el servicio Cassandra.
+
+
+
+ a| 
+Cassandra Reaper
+ a| 
+Realiza reparaciones automáticas de metadatos de objetos.
+
+*Nota*: Los nodos de almacenamiento de solo datos no alojan el servicio Cassandra Reaper.
+
+
+
+ a| 
+Pedazo
+ a| 
+Gestiona datos codificados por borrado y fragmentos de paridad.
+
+
+
+ a| 
+Transportador de datos (dmv)
+ a| 
+Mueve datos a grupos de almacenamiento en la nube.
+
+
+
+ a| 
+Almacén de datos distribuidos (DDS)
+ a| 
+Supervisa el almacenamiento de metadatos de objetos.
+
+.Detalles
+[%collapsible]
+====
+Cada nodo de almacenamiento incluye el servicio de almacén de datos distribuidos (DDS).  Este servicio interactúa con la base de datos Cassandra para realizar tareas en segundo plano en los metadatos de objetos almacenados en el sistema StorageGRID .
+
+El servicio DDS rastrea la cantidad total de objetos ingeridos en el sistema StorageGRID , así como la cantidad total de objetos ingeridos a través de cada una de las interfaces compatibles del sistema (S3).
+
+====
+
+
+ a| 
+Identidad (idnt)
+ a| 
+Federa identidades de usuarios de LDAP y Active Directory.
+
+
+
+ a| 
+[[ldr-service]]Enrutador de distribución local (LDR)
+ a| 
+Procesa solicitudes de protocolo de almacenamiento de objetos y administra datos de objetos en el disco.
+
+.Detalles
+[%collapsible]
+====
+Cada nodo de almacenamiento _combinado_, _solo de datos_ y _solo de metadatos_ incluye el servicio de enrutador de distribución local (LDR).  Este servicio maneja funciones de transporte de contenido, incluido el almacenamiento de datos, el enrutamiento y el manejo de solicitudes.  El servicio LDR realiza la mayor parte del trabajo pesado del sistema StorageGRID al manejar las cargas de transferencia de datos y las funciones de tráfico de datos.
+
+El servicio LDR gestiona las siguientes tareas:
+
+* Consultas
+* Actividad de gestión del ciclo de vida de la información (ILM)
+* Eliminación de objetos
+* Almacenamiento de datos de objetos
+* Transferencias de datos de objetos desde otro servicio LDR (nodo de almacenamiento)
+* Gestión del almacenamiento de datos
+* Interfaz del protocolo S3
+
+
+El servicio LDR también asigna cada objeto S3 a su UUID único.
+
+Almacenes de objetos:: El almacenamiento de datos subyacente de un servicio LDR se divide en una cantidad fija de almacenes de objetos (también conocidos como volúmenes de almacenamiento).  Cada almacén de objetos es un punto de montaje independiente.
++
+--
+Los objetos almacenados en un nodo de almacenamiento se identifican mediante un número hexadecimal de 0000 a 002F, conocido como ID de volumen.  Se reserva espacio en el primer almacén de objetos (volumen 0) para metadatos de objetos en una base de datos Cassandra; cualquier espacio restante en ese volumen se utiliza para datos de objetos.  Todos los demás almacenes de objetos se utilizan exclusivamente para datos de objetos, que incluyen copias replicadas y fragmentos codificados con borrado.
+
+Para garantizar un uso uniforme del espacio para las copias replicadas, los datos de objetos de un objeto determinado se almacenan en un almacén de objetos en función del espacio de almacenamiento disponible.  Cuando un almacén de objetos se llena hasta su capacidad máxima, los almacenes de objetos restantes continúan almacenando objetos hasta que no haya más espacio en el nodo de almacenamiento.
+
+--
+Protección de metadatos:: StorageGRID almacena metadatos de objetos en una base de datos Cassandra, que interactúa con el servicio LDR.
++
+--
+Para garantizar la redundancia y, por tanto, la protección contra pérdidas, se mantienen tres copias de los metadatos de los objetos en cada sitio.  Esta replicación no es configurable y se realiza automáticamente. Para obtener más información, consulte link:../admin/managing-object-metadata-storage.html["Administrar el almacenamiento de metadatos de objetos"] .
+
+--
+
+
+====
+
+
+ a| 
+Máquina de estados replicada (RSM)
+ a| 
+Garantiza que las solicitudes de servicios de la plataforma S3 se envíen a sus respectivos puntos finales.
+
+
+
+ a| 
+Monitor de estado del servidor (SSM)
+ a| 
+Supervisa el sistema operativo y el hardware subyacente.
+
+|===

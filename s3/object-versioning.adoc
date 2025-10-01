@@ -1,0 +1,39 @@
+---
+permalink: s3/object-versioning.html 
+sidebar: sidebar 
+keywords: object version, object versioning 
+summary: Puede establecer el estado de control de versiones de un depósito si desea conservar varias versiones de un objeto.  Habilitar el control de versiones de un bucket puede ayudar a proteger contra la eliminación accidental de objetos y le permite recuperar y restaurar versiones anteriores de un objeto. 
+---
+= Control de versiones de objetos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede establecer el estado de control de versiones de un depósito si desea conservar varias versiones de cada objeto.  Habilitar el control de versiones de un bucket puede ayudar a proteger contra la eliminación accidental de objetos y le permite recuperar y restaurar versiones anteriores de un objeto.
+
+El sistema StorageGRID implementa control de versiones con soporte para la mayoría de las funciones y con algunas limitaciones.  StorageGRID admite hasta 10 000 versiones de cada objeto.
+
+El control de versiones de objetos se puede combinar con la gestión del ciclo de vida de la información (ILM) de StorageGRID o con la configuración del ciclo de vida del bucket S3.  Debe habilitar explícitamente el control de versiones para cada depósito.  Cuando se habilita el control de versiones para un depósito, a cada objeto agregado al depósito se le asigna un ID de versión, que es generado por el sistema StorageGRID .
+
+No se admite el uso de MFA (autenticación multifactor).
+
+
+NOTE: El control de versiones solo se puede habilitar en depósitos creados con StorageGRID versión 10.3 o posterior.
+
+
+
+== ILM y control de versiones
+
+Las políticas ILM se aplican a cada versión de un objeto.  Un proceso de escaneo ILM escanea continuamente todos los objetos y los reevalúa en función de la política ILM actual.  Cualquier cambio que realice en las políticas de ILM se aplicará a todos los objetos ingeridos previamente.  Esto incluye versiones ingeridas previamente si el control de versiones está habilitado.  El escaneo ILM aplica nuevos cambios ILM a objetos ingeridos previamente.
+
+Para los objetos S3 en depósitos habilitados para control de versiones, la compatibilidad con control de versiones le permite crear reglas ILM que usan "Hora no actual" como Hora de referencia (seleccione *Sí* para la pregunta "¿Aplicar esta regla solo a versiones de objetos anteriores?" enlink:../ilm/create-ilm-rule-enter-details.html["Paso 1 del asistente para crear una regla de ILM"] ).  Cuando se actualiza un objeto, sus versiones anteriores dejan de ser actuales.  El uso de un filtro de "Tiempo no actual" le permite crear políticas que reducen el impacto del almacenamiento de versiones anteriores de los objetos.
+
+
+NOTE: Cuando se carga una nueva versión de un objeto mediante una operación de carga multiparte, el tiempo no actual de la versión original del objeto refleja cuándo se creó la carga multiparte para la nueva versión, no cuándo se completó la carga multiparte.  En casos limitados, la hora no actual de la versión original puede ser horas o días anterior a la hora de la versión actual.
+
+.Información relacionada
+* link:../ilm/how-objects-are-deleted.html#delete-s3-versioned-objects["Cómo se eliminan los objetos versionados de S3"]
+* link:../ilm/example-4-ilm-rules-and-policy-for-s3-versioned-objects.html["Reglas y políticas de ILM para objetos versionados de S3 (Ejemplo 4)"] .
+

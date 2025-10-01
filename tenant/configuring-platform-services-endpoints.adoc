@@ -1,0 +1,53 @@
+---
+permalink: tenant/configuring-platform-services-endpoints.html 
+sidebar: sidebar 
+keywords: how to configure platform services endpoint 
+summary: Antes de poder configurar un servicio de plataforma para un bucket, debe configurar al menos un punto final para que sea el destino del servicio de plataforma. 
+---
+= Configurar puntos finales de servicios de la plataforma
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de poder configurar un servicio de plataforma para un bucket, debe configurar al menos un punto final para que sea el destino del servicio de plataforma.
+
+El acceso a los servicios de la plataforma lo habilita un administrador de StorageGRID por inquilino.  Para crear o usar un punto final de servicios de plataforma, debe ser un usuario inquilino con permiso de acceso Administrar puntos finales o Raíz, en una red cuya red haya sido configurada para permitir que los nodos de almacenamiento accedan a recursos de puntos finales externos.  Para un solo inquilino, puede configurar un máximo de 500 puntos finales de servicios de plataforma.  Comuníquese con su administrador de StorageGRID para obtener más información.
+
+
+
+== ¿Qué es un punto final de servicios de plataforma?
+
+Un punto final de servicios de plataforma especifica la información que StorageGRID necesita para acceder al destino externo.
+
+Por ejemplo, si desea replicar objetos de un bucket de StorageGRID a un bucket de Amazon S3, debe crear un punto final de servicios de plataforma que incluya la información y las credenciales que StorageGRID necesita para acceder al bucket de destino en Amazon.
+
+Cada tipo de servicio de plataforma requiere su propio punto final, por lo que debe configurar al menos un punto final para cada servicio de plataforma que planea utilizar.  Después de definir un punto final de servicios de plataforma, utilice el URN del punto final como destino en el XML de configuración utilizado para habilitar el servicio.
+
+Puede utilizar el mismo punto final como destino para más de un depósito de origen.  Por ejemplo, puede configurar varios depósitos de origen para enviar metadatos de objetos al mismo punto final de integración de búsqueda para poder realizar búsquedas en varios depósitos.  También puede configurar un bucket de origen para usar más de un punto final como destino, lo que le permite hacer cosas como enviar notificaciones sobre la creación de objetos a un tema de Amazon Simple Notification Service (Amazon SNS) y notificaciones sobre la eliminación de objetos a un segundo tema de Amazon SNS.
+
+
+
+== Puntos finales para la replicación de CloudMirror
+
+StorageGRID admite puntos finales de replicación que representan depósitos S3.  Estos depósitos pueden estar alojados en Amazon Web Services, en el mismo StorageGRID o en una implementación remota del mismo, o en otro servicio.
+
+
+
+== Puntos finales para notificaciones
+
+StorageGRID admite puntos finales de Amazon SNS y Kafka. No se admiten los puntos finales de Simple Queue Service (SQS) ni de AWS Lambda.
+
+Para los puntos finales de Kafka, no se admite TLS mutuo. Como resultado, si tienes `ssl.client.auth` empezar a `required` en la configuración de su agente de Kafka, podría causar problemas de configuración del punto final de Kafka.
+
+
+
+== Puntos finales para el servicio de integración de búsqueda
+
+StorageGRID admite puntos finales de integración de búsqueda que representan clústeres de Elasticsearch.  Estos clústeres de Elasticsearch pueden estar en un centro de datos local o alojados en una nube de AWS o en otro lugar.
+
+El punto final de integración de búsqueda hace referencia a un índice y tipo de Elasticsearch específicos.  Debe crear el índice en Elasticsearch antes de crear el punto final en StorageGRID, de lo contrario la creación del punto final fallará.  No es necesario crear el tipo antes de crear el punto final.  StorageGRID creará el tipo si es necesario cuando envíe metadatos del objeto al punto final.
+
+.Información relacionada
+link:../admin/index.html["Administrar StorageGRID"]

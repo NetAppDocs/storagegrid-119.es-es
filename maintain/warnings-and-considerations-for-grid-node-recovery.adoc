@@ -1,0 +1,57 @@
+---
+permalink: maintain/warnings-and-considerations-for-grid-node-recovery.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, warning 
+summary: Si un nodo de la red falla, debes recuperarlo lo antes posible.  Debe revisar todas las advertencias y consideraciones para la recuperación del nodo antes de comenzar. 
+---
+= Advertencias y consideraciones para la recuperación del nodo de la red
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si un nodo de la red falla, debes recuperarlo lo antes posible.  Debe revisar todas las advertencias y consideraciones para la recuperación del nodo antes de comenzar.
+
+
+CAUTION: StorageGRID es un sistema distribuido compuesto por múltiples nodos que trabajan entre sí.  No utilice instantáneas de disco para restaurar nodos de la red.  En su lugar, consulte los procedimientos de recuperación y mantenimiento para cada tipo de nodo.
+
+
+NOTE: Si un sitio completo de StorageGRID ha fallado, comuníquese con el soporte técnico. El soporte técnico trabajará con usted para desarrollar y ejecutar un plan de recuperación del sitio que maximice la cantidad de datos recuperados y cumpla con sus objetivos comerciales. Ver link:how-site-recovery-is-performed-by-technical-support.html["Cómo el soporte técnico recupera un sitio"] .
+
+Algunas de las razones para recuperar un nodo de red fallido lo antes posible incluyen las siguientes:
+
+* Un nodo de red fallido puede reducir la redundancia de los datos del sistema y de los objetos, dejándolo vulnerable al riesgo de pérdida permanente de datos si otro nodo falla.
+* Un nodo de red fallido puede afectar la eficiencia de las operaciones diarias.
+* Un nodo de red fallido puede reducir su capacidad para monitorear las operaciones del sistema.
+* Un nodo de red fallido puede provocar un error interno del servidor 500 si se aplican reglas ILM estrictas.
+* Si un nodo de la red no se recupera rápidamente, los tiempos de recuperación podrían aumentar.  Por ejemplo, podrían formarse colas que sea necesario eliminar antes de que se complete la recuperación.
+
+
+Siga siempre el procedimiento de recuperación para el tipo específico de nodo de red que está recuperando.  Los procedimientos de recuperación varían para los nodos de administración primarios o no primarios, los nodos de puerta de enlace, los nodos de dispositivo y los nodos de almacenamiento.
+
+
+
+== Condiciones previas para la recuperación de nodos de la red
+
+Al recuperar nodos de la red se asumen todas las siguientes condiciones:
+
+* Se ha reemplazado y configurado el hardware físico o virtual fallado.
+* La versión del instalador del dispositivo StorageGRID en el dispositivo de reemplazo coincide con la versión del software de su sistema StorageGRID , como se describe en https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/verifying-and-upgrading-storagegrid-appliance-installer-version.html["Verificar y actualizar la versión del instalador del dispositivo StorageGRID"^] .
+* Si está recuperando un nodo de red que no sea el nodo de administración principal, existe conectividad entre el nodo de red que se está recuperando y el nodo de administración principal.
+* Si está recuperando un nodo de almacenamiento del dispositivo, debe especificar el mismo tipo de almacenamiento que el dispositivo original (combinado, solo metadatos o solo datos) durante la instalación del dispositivo. Si especifica un tipo de almacenamiento diferente, la recuperación fallará y será necesario reinstalar el dispositivo con el tipo de almacenamiento correcto especificado.
+
+
+
+
+== Orden de recuperación de nodos si falla un servidor que aloja más de un nodo de red
+
+Si falla un servidor que aloja más de un nodo de red, puede recuperar los nodos en cualquier orden. Sin embargo, si el servidor fallido aloja el nodo de administración principal, primero deberá recuperar ese nodo. Recuperar primero el nodo de administración principal evita que otras recuperaciones de nodos se detengan mientras esperan comunicarse con el nodo de administración principal.
+
+
+
+== Direcciones IP de los nodos recuperados
+
+No intente recuperar un nodo utilizando una dirección IP que esté actualmente asignada a cualquier otro nodo.  Al implementar el nuevo nodo, utilice la dirección IP actual del nodo fallido o una dirección IP no utilizada.
+
+Si utiliza una nueva dirección IP para implementar el nuevo nodo y luego recupera el nodo, la nueva dirección IP seguirá utilizándose para el nodo recuperado.  Si desea volver a la dirección IP original, utilice la herramienta Cambiar IP una vez completada la recuperación.

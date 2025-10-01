@@ -1,0 +1,158 @@
+---
+permalink: monitor/commonly-used-prometheus-metrics.html 
+sidebar: sidebar 
+keywords: prometheus, Prometheus metrics, metrics 
+summary: Consulte esta lista de métricas de Prometheus comúnmente utilizadas para comprender mejor las condiciones en las reglas de alerta predeterminadas o para construir las condiciones para reglas de alerta personalizadas. 
+---
+= Métricas de Prometheus de uso común
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Consulte esta lista de métricas de Prometheus comúnmente utilizadas para comprender mejor las condiciones en las reglas de alerta predeterminadas o para construir las condiciones para reglas de alerta personalizadas.
+
+También puedes <<obtain-all-metrics,obtener una lista completa de todas las métricas>> .
+
+Para obtener detalles sobre la sintaxis de las consultas de Prometheus, consulte https://prometheus.io/docs/prometheus/latest/querying/basics/["Consultando a Prometeo"^] .
+
+
+
+== ¿Qué son las métricas de Prometheus?
+
+Las métricas de Prometheus son mediciones de series de tiempo.  El servicio Prometheus en los nodos de administración recopila estas métricas de los servicios en todos los nodos.  Las métricas se almacenan en cada nodo de administración hasta que se llena el espacio reservado para los datos de Prometheus.  Cuando el `/var/local/mysql_ibdata/` Cuando el volumen alcanza su capacidad máxima, las métricas más antiguas se eliminan primero.
+
+
+
+== ¿Dónde se utilizan las métricas de Prometheus?
+
+Las métricas recopiladas por Prometheus se utilizan en varios lugares del Administrador de cuadrícula:
+
+* *Página de Nodos*: Los gráficos y cuadros en las pestañas disponibles en la página de Nodos utilizan la herramienta de visualización Grafana para mostrar las métricas de series de tiempo recopiladas por Prometheus.  Grafana muestra datos de series temporales en formatos de gráficos y diagramas, mientras que Prometheus sirve como fuente de datos de back-end.
++
+image::../media/nodes_page_network_traffic_graph.png[Gráfico de Prometeo]
+
+* *Alertas*: Las alertas se activan en niveles de gravedad específicos cuando las condiciones de las reglas de alerta que utilizan métricas de Prometheus se evalúan como verdaderas.
+* *API de administración de red*: puede usar las métricas de Prometheus en reglas de alerta personalizadas o con herramientas de automatización externas para monitorear su sistema StorageGRID .  Una lista completa de las métricas de Prometheus está disponible en la API de administración de cuadrícula.  (Desde la parte superior del Administrador de cuadrícula, seleccione el ícono de ayuda y seleccione *Documentación de API* > *métricas*).  Si bien hay más de mil métricas disponibles, solo se requiere una cantidad relativamente pequeña para monitorear las operaciones más críticas de StorageGRID .
++
+
+NOTE: Las métricas que incluyen _private_ en sus nombres están destinadas únicamente para uso interno y están sujetas a cambios entre versiones de StorageGRID sin previo aviso.
+
+* La página *SOPORTE* > *Herramientas* > *Diagnóstico* y la página *SOPORTE* > *Herramientas* > *Métricas*: estas páginas, que están destinadas principalmente para ser utilizadas por el soporte técnico, proporcionan varias herramientas y gráficos que utilizan los valores de las métricas de Prometheus.
++
+
+NOTE: Algunas funciones y elementos del menú dentro de la página Métricas no son funcionales intencionalmente y están sujetos a cambios.
+
+
+
+
+
+== Lista de métricas más comunes
+
+La siguiente lista contiene las métricas de Prometheus más utilizadas.
+
+
+NOTE: Las métricas que incluyen _private_ en sus nombres son solo para uso interno y están sujetas a cambios sin previo aviso entre versiones de StorageGRID .
+
+total de notificaciones fallidas del administrador de alertas:: El número total de notificaciones de alerta fallidas.
+bytes disponibles del sistema de archivos del nodo:: La cantidad de espacio del sistema de archivos disponible para usuarios no root en bytes.
+memoria_del_nodo_bytes_de_memoria_disponibles:: Campo de información de memoria MemAvailable_bytes.
+operador de red de nodo:: Valor portador de `/sys/class/net/_iface_` .
+total de errores de recepción de red de nodos:: Estadísticas del dispositivo de red `receive_errs` .
+total de errores de transmisión de la red de nodos:: Estadísticas del dispositivo de red `transmit_errs` .
+storagegrid_administrativamente_inactivo:: El nodo no está conectado a la red por una razón esperada.  Por ejemplo, el nodo, o los servicios en el nodo, se han apagado correctamente, el nodo se está reiniciando o se está actualizando el software.
+estado del hardware del controlador de cómputo del dispositivo de la red de almacenamiento:: El estado del hardware del controlador de cómputo en un dispositivo.
+discos fallidos del dispositivo storagegrid:: Para el controlador de almacenamiento de un dispositivo, la cantidad de unidades que no son óptimas.
+estado del hardware del controlador de almacenamiento del dispositivo storagegrid:: El estado general del hardware del controlador de almacenamiento en un dispositivo.
+cubos y contenedores de contenido de la red de almacenamiento:: La cantidad total de depósitos S3 y contenedores Swift conocidos por este nodo de almacenamiento.
+objetos de contenido de la cuadrícula de almacenamiento:: La cantidad total de objetos de datos S3 y Swift conocidos por este nodo de almacenamiento. El recuento solo es válido para objetos de datos creados por aplicaciones cliente que interactúan con el sistema a través de S3.
+objetos de contenido de la red de almacenamiento perdidos:: La cantidad total de objetos que este servicio detecta como faltantes en el sistema StorageGRID .  Se deben tomar medidas para determinar la causa de la pérdida y si es posible la recuperación.
++
+--
+link:../troubleshoot/troubleshooting-lost-and-missing-object-data.html["Solucionar problemas de datos de objetos perdidos o faltantes"]
+
+--
+storagegrid_sesiones http_iniciadas_intentadas:: El número total de sesiones HTTP que se han intentado en un nodo de almacenamiento.
+storagegrid_http_sesiones_entrantes_actualmente_establecidas:: La cantidad de sesiones HTTP que están actualmente activas (abiertas) en el nodo de almacenamiento.
+storagegrid_http_sessions_incoming_failed:: El número total de sesiones HTTP que no pudieron completarse exitosamente, ya sea debido a una solicitud HTTP mal formada o a un error durante el procesamiento de una operación.
+storagegrid_http_sesiones_entrantes_exitosas:: El número total de sesiones HTTP que se han completado correctamente.
+storagegrid_ilm_en espera de objetos de fondo:: El número total de objetos en este nodo que esperan la evaluación ILM del escaneo.
+storagegrid_ilm_en espera de objetos de evaluación del cliente por segundo:: La velocidad actual a la que se evalúan los objetos según la política ILM en este nodo.
+storagegrid_ilm_en espera de objetos de cliente:: La cantidad total de objetos en este nodo que esperan la evaluación de ILM de las operaciones del cliente (por ejemplo, ingesta).
+storagegrid_ilm_en espera del total de objetos:: El número total de objetos en espera de evaluación ILM.
+storagegrid_ilm_scan_objetos_por_segundo:: La velocidad a la que los objetos propiedad de este nodo se escanean y se ponen en cola para ILM.
+período de escaneo de película de la cuadrícula de almacenamiento, minutos estimados:: El tiempo estimado para completar un escaneo ILM completo en este nodo.
++
+--
+*Nota:* Un escaneo completo no garantiza que ILM se haya aplicado a todos los objetos propiedad de este nodo.
+
+--
+tiempo de caducidad del certificado del punto final del equilibrador de carga de la red de almacenamiento:: El tiempo de expiración del certificado del punto final del balanceador de carga en segundos desde la época.
+consultas_de_metadatos_de_la_red_de_almacenamiento_latencia_promedio_milisegundos:: El tiempo promedio necesario para ejecutar una consulta en el almacén de metadatos a través de este servicio.
+red de almacenamiento_grid_bytes_recibidos:: La cantidad total de datos recibidos desde la instalación.
+bytes transmitidos por la red de almacenamiento:: La cantidad total de datos enviados desde la instalación.
+porcentaje de utilización de CPU del nodo de la red de almacenamiento:: El porcentaje de tiempo de CPU disponible que actualmente utiliza este servicio.  Indica qué tan ocupado está el servicio.  La cantidad de tiempo de CPU disponible depende de la cantidad de CPU del servidor.
+desplazamiento de origen de tiempo elegido por la red de almacenamiento ntp en milisegundos:: Desplazamiento sistemático del tiempo proporcionado por una fuente de tiempo elegida.  El desplazamiento se introduce cuando el retraso para llegar a una fuente de tiempo no es igual al tiempo requerido para que la fuente de tiempo llegue al cliente NTP.
+red de almacenamiento_ntp_bloqueada:: El nodo no está bloqueado a un servidor de Protocolo de tiempo de red (NTP).
+storagegrid_s3_data_transfers_bytes_ingested:: La cantidad total de datos ingeridos desde los clientes S3 a este nodo de almacenamiento desde que se restableció el atributo por última vez.
+storagegrid_s3_data_transfers_bytes_retrieved:: La cantidad total de datos recuperados por los clientes S3 de este nodo de almacenamiento desde que se restableció el atributo por última vez.
+storagegrid_s3_operations_failed:: El número total de operaciones S3 fallidas (códigos de estado HTTP 4xx y 5xx), excluidas aquellas causadas por fallas de autorización S3.
+storagegrid_s3_operations_successful:: El número total de operaciones S3 exitosas (código de estado HTTP 2xx).
+storagegrid_s3_operations_unauthorized:: El número total de operaciones S3 fallidas que son el resultado de una falla de autorización.
+días de vencimiento del certificado de la interfaz de gestión de certificados del servidor de StorageGrid:: El número de días antes de que caduque el certificado de la interfaz de administración.
+días de vencimiento del certificado de los puntos finales de la API de almacenamiento del certificado de servidor de la red de almacenamiento:: La cantidad de días antes de que caduque el certificado de la API de almacenamiento de objetos.
+segundos de CPU del servicio de red de almacenamiento:: La cantidad acumulada de tiempo que este servicio ha utilizado la CPU desde su instalación.
+uso de memoria del servicio de red de almacenamiento en bytes:: La cantidad de memoria (RAM) actualmente en uso por este servicio.  Este valor es idéntico al que muestra la utilidad superior de Linux como RES.
+red de servicio de almacenamiento_red_bytes_recibidos:: La cantidad total de datos recibidos por este servicio desde su instalación.
+red de servicio de almacenamiento_red_bytes_transmitidos:: La cantidad total de datos enviados por este servicio.
+reinicios del servicio de storagegrid:: El número total de veces que se ha reiniciado el servicio.
+segundos de tiempo de ejecución del servicio de la red de almacenamiento:: La cantidad total de tiempo que el servicio ha estado ejecutándose desde la instalación.
+tiempo de actividad del servicio de la red de almacenamiento en segundos:: La cantidad total de tiempo que el servicio ha estado ejecutándose desde que se reinició por última vez.
+estado_de_almacenamiento_actual_de_la_red_de_almacenamiento:: El estado actual de los servicios de almacenamiento.  Los valores de los atributos son:
++
+--
+* 10 = Desconectado
+* 15 = Mantenimiento
+* 20 = Solo lectura
+* 30 = En línea
+
+
+--
+estado de almacenamiento de la red de almacenamiento:: El estado actual de los servicios de almacenamiento.  Los valores de los atributos son:
++
+--
+* 0 = Sin errores
+* 10 = En transición
+* 20 = Espacio libre insuficiente
+* 30 = Volumen(es) no disponible(s)
+* 40 = Error
+
+
+--
+datos_de_utilización_de_almacenamiento_en_la_red_de_almacenamiento_en_bytes:: Una estimación del tamaño total de los datos de objetos replicados y codificados por borrado en el nodo de almacenamiento.
+metadatos de utilización de almacenamiento de la red de almacenamiento permitidos:: El espacio total en el volumen 0 de cada nodo de almacenamiento que está permitido para los metadatos de objetos.  Este valor siempre es menor que el espacio real reservado para metadatos en un nodo, porque una parte del espacio reservado es necesaria para operaciones esenciales de la base de datos (como compactación y reparación) y futuras actualizaciones de hardware y software. El espacio permitido para metadatos de objetos controla la capacidad general de los objetos.
+metadatos_bytes_de_utilización_de_almacenamiento_en_la_red_de_almacenamiento:: La cantidad de metadatos del objeto en el volumen de almacenamiento 0, en bytes.
+Utilización de almacenamiento en la red de almacenamiento, espacio total en bytes:: La cantidad total de espacio de almacenamiento asignada a todos los almacenes de objetos.
+Utilización de almacenamiento en la red de almacenamiento, espacio utilizable en bytes:: La cantidad total de espacio de almacenamiento de objetos restante.  Se calcula sumando la cantidad de espacio disponible para todos los almacenes de objetos en el nodo de almacenamiento.
+transferencias de datos de storagegrid_swift_bytes_ingeridos:: La cantidad total de datos ingresados desde los clientes Swift a este nodo de almacenamiento desde que se restableció el atributo por última vez.
+transferencias de datos de storagegrid_swift_bytes_recuperados:: La cantidad total de datos recuperados por los clientes Swift de este nodo de almacenamiento desde que se restableció el atributo por última vez.
+operaciones de storagegrid_swift_fallidas:: El número total de operaciones Swift fallidas (códigos de estado HTTP 4xx y 5xx), excluidas aquellas causadas por fallas de autorización Swift.
+operaciones de storagegrid_swift_exitosas:: El número total de operaciones Swift exitosas (código de estado HTTP 2xx).
+operaciones de storagegrid_swift_no autorizadas:: El número total de operaciones Swift fallidas que son el resultado de una falla de autorización (códigos de estado HTTP 401, 403, 405).
+bytes de datos de uso del inquilino de la red de almacenamiento:: El tamaño lógico de todos los objetos para el inquilino.
+recuento de objetos de uso de inquilinos de la red de almacenamiento:: El número de objetos para el inquilino.
+cuota_de_bytes_de_uso_de_inquilinos_de_la_red_de_almacenamiento:: La cantidad máxima de espacio lógico disponible para los objetos del inquilino.  Si no se proporciona una métrica de cuota, hay una cantidad ilimitada de espacio disponible.
+
+
+
+
+== Obtenga una lista de todas las métricas
+
+[[obtain-all-metrics]]Para obtener la lista completa de métricas, utilice la API de administración de cuadrícula.
+
+. Desde la parte superior del Administrador de cuadrícula, seleccione el ícono de ayuda y seleccione *Documentación de API*.
+. Localice las operaciones *métricas*.
+. Ejecutar el `GET /grid/metric-names` operación.
+. Descargar los resultados.
+

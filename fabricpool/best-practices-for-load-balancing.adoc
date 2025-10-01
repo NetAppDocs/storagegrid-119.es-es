@@ -1,0 +1,61 @@
+---
+permalink: fabricpool/best-practices-for-load-balancing.html 
+sidebar: sidebar 
+keywords: fabricPool, load balancer endpoint, load balancing, Layer 7, best practices, certificate, CA, certificate authority, tls, ssl 
+summary: Antes de adjuntar StorageGRID como un nivel de nube de FabricPool , revise las mejores prácticas para usar balanceadores de carga con FabricPool. 
+---
+= Mejores prácticas para el equilibrio de carga para FabricPool
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de adjuntar StorageGRID como un nivel de nube de FabricPool , revise las mejores prácticas para usar balanceadores de carga con FabricPool.
+
+Para obtener información general sobre el balanceador de carga StorageGRID y el certificado del balanceador de carga, consultelink:../admin/managing-load-balancing.html["Consideraciones para el equilibrio de carga"] .
+
+
+
+== Prácticas recomendadas para el acceso de los inquilinos al punto final del balanceador de carga utilizado para FabricPool
+
+Puede controlar qué inquilinos pueden usar un punto final de balanceador de carga específico para acceder a sus depósitos.  Puede permitir a todos los inquilinos, permitir a algunos inquilinos o bloquear a algunos inquilinos.  Al crear un punto final de equilibrio de carga para el uso de FabricPool , seleccione *Permitir todos los inquilinos*.  ONTAP cifra los datos que se colocan en los depósitos StorageGRID , por lo que esta capa de seguridad adicional proporcionaría poca seguridad adicional.
+
+
+
+== Mejores prácticas para el certificado de seguridad
+
+Cuando crea un punto final de balanceador de carga StorageGRID para uso de FabricPool , proporciona el certificado de seguridad que permitirá que ONTAP se autentique con StorageGRID.
+
+En la mayoría de los casos, la conexión entre ONTAP y StorageGRID debe utilizar el cifrado de seguridad de la capa de transporte (TLS).  Se admite el uso de FabricPool sin cifrado TLS, pero no se recomienda.  Cuando seleccione el protocolo de red para el punto final del balanceador de carga StorageGRID , seleccione *HTTPS*.  Luego proporcione el certificado de seguridad que permitirá que ONTAP se autentique con StorageGRID.
+
+Para obtener más información sobre el certificado de servidor para un punto final de equilibrio de carga:
+
+* link:../admin/using-storagegrid-security-certificates.html["Administrar certificados de seguridad"]
+* link:../admin/managing-load-balancing.html["Consideraciones para el equilibrio de carga"]
+* link:../harden/hardening-guideline-for-server-certificates.html["Pautas de refuerzo para certificados de servidor"]
+
+
+
+
+=== Agregar certificado a ONTAP
+
+Cuando agrega StorageGRID como un nivel de nube de FabricPool , debe instalar el mismo certificado en el clúster de ONTAP , incluidos los certificados raíz y cualquier certificado de autoridad de certificación (CA) subordinada.
+
+
+
+=== Administrar la expiración del certificado
+
+
+CAUTION: Si el certificado utilizado para proteger la conexión entre ONTAP y StorageGRID caduca, FabricPool dejará de funcionar temporalmente y ONTAP perderá temporalmente el acceso a los datos almacenados en StorageGRID.
+
+Para evitar problemas de vencimiento de certificados, siga estas prácticas recomendadas:
+
+* Supervise atentamente cualquier alerta que advierta sobre fechas de vencimiento de certificados próximas, como las alertas *Vencimiento del certificado del punto final del equilibrador de carga* y *Vencimiento del certificado del servidor global para la API de S3*.
+* Mantenga siempre sincronizadas las versiones StorageGRID y ONTAP del certificado.  Si reemplaza o renueva el certificado utilizado para un punto final del balanceador de carga, debe reemplazar o renovar el certificado equivalente utilizado por ONTAP para el nivel de nube.
+* Utilice un certificado CA firmado públicamente.  Si utiliza un certificado firmado por una CA, puede utilizar la API de administración de Grid para automatizar la rotación de certificados.  Esto le permite reemplazar certificados que están a punto de vencer sin interrupciones.
+* Si ha generado un certificado StorageGRID autofirmado y ese certificado está a punto de caducar, debe reemplazarlo manualmente tanto en StorageGRID como en ONTAP antes de que caduque el certificado existente.  Si un certificado autofirmado ya ha expirado, desactive la validación del certificado en ONTAP para evitar la pérdida de acceso.
++
+Ver https://kb.netapp.com/Advice_and_Troubleshooting/Hybrid_Cloud_Infrastructure/StorageGRID/How_to_configure_a_new_StorageGRID_self-signed_server_certificate_on_an_existing_ONTAP_FabricPool_deployment["Base de conocimientos de NetApp : Cómo configurar un nuevo certificado de servidor autofirmado de StorageGRID en una implementación existente de ONTAP FabricPool"^] para obtener instrucciones.
+
+

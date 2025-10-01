@@ -1,0 +1,174 @@
+---
+permalink: maintain/decommissioning-disconnected-grid-nodes.html 
+sidebar: sidebar 
+keywords: storagegrid, disconnected nodes, decommission node 
+summary: 'Es posible que necesites desmantelar un nodo que no esté conectado actualmente a la red (uno cuyo estado de salud sea desconocido o esté administrativamente inactivo).' 
+---
+= Desmantelar nodos de red desconectados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible que necesites desmantelar un nodo que actualmente no esté conectado a la red (uno cuyo estado de salud sea desconocido o esté administrativamente inactivo).
+
+.Antes de empezar
+* Entiendes las consideraciones para el desmantelamientolink:considerations-for-decommissioning-admin-or-gateway-nodes.html["Nodos de administración y de puerta de enlace"] y las consideraciones para el desmantelamientolink:considerations-for-decommissioning-storage-nodes.html["Nodos de almacenamiento"] .
+* Has obtenido todos los elementos necesarios.
+* Se ha asegurado de que no haya trabajos de reparación de datos activos. Ver link:checking-data-repair-jobs.html["Comprobar trabajos de reparación de datos"] .
+* Ha confirmado que la recuperación del nodo de almacenamiento no está en progreso en ningún lugar de la red.  Si es así, deberá esperar hasta que se complete la reconstrucción de Cassandra realizada como parte de la recuperación.  Luego puedes proceder al desmantelamiento.
+* Se ha asegurado de que no se ejecutarán otros procedimientos de mantenimiento mientras se ejecuta el procedimiento de desmantelamiento del nodo, a menos que dicho procedimiento esté en pausa.
+* La columna *Posible desmantelamiento* para el nodo o los nodos desconectados que desea desmantelar incluye una marca de verificación verde.
+* Tienes la contraseña de aprovisionamiento.
+
+
+.Acerca de esta tarea
+Puede identificar los nodos desconectados buscando el ícono azul Desconocidoimage:../media/icon_alarm_blue_unknown.png["Icono desconocido"] o el icono gris Administrativamente inactivoimage:../media/icon_alarm_gray_administratively_down.png["Icono Administrativamente caído"] en la columna *Salud*.
+
+Antes de desmantelar cualquier nodo desconectado, tenga en cuenta lo siguiente:
+
+* Este procedimiento está destinado principalmente a eliminar un solo nodo desconectado.  Si su red contiene varios nodos desconectados, el software requiere que los desactive todos al mismo tiempo, lo que aumenta la posibilidad de que se produzcan resultados inesperados.
++
+
+CAUTION: Podría producirse una pérdida de datos si desconecta más de un nodo de almacenamiento desconectado a la vez. Ver link:considerations-for-decommissioning-storage-nodes.html#considerations-disconnected-storage-nodes["Consideraciones para nodos de almacenamiento desconectados"] .
+
++
+
+CAUTION: Tenga cuidado al desmantelar nodos de almacenamiento en una red que contenga nodos solo de metadatos basados en software.  Si desmantela todos los nodos configurados para almacenar _tanto_ objetos como metadatos, se elimina la capacidad de almacenar objetos de la red.  Verlink:../primer/what-storage-node-is.html#types-of-storage-nodes["Tipos de nodos de almacenamiento"] para obtener más información sobre los nodos de almacenamiento de solo metadatos.
+
+* Si no se puede eliminar un nodo desconectado (por ejemplo, un nodo de almacenamiento que se requiere para el quórum de ADC), no se podrá eliminar ningún otro nodo desconectado.
+
+
+.Pasos
+. A menos que esté desmantelando un nodo de archivo (que debe estar desconectado), intente volver a poner en línea todos los nodos de red desconectados o recuperarlos.
++
+Verlink:warnings-and-considerations-for-grid-node-recovery.html["Procedimientos de recuperación de nodos de red"] para obtener instrucciones.
+
+. Si no puede recuperar un nodo de red desconectado y desea desmantelarlo mientras está desconectado, seleccione la casilla de verificación de ese nodo.
++
+
+NOTE: Si su red contiene varios nodos desconectados, el software requiere que los desactive todos al mismo tiempo, lo que aumenta la posibilidad de que se produzcan resultados inesperados.
+
++
+
+CAUTION: Tenga cuidado al elegir desmantelar más de un nodo de red desconectado a la vez, especialmente si está seleccionando varios nodos de almacenamiento desconectados.  Si tiene más de un nodo de almacenamiento desconectado que no puede recuperar, comuníquese con el soporte técnico para determinar el mejor curso de acción.
+
+. Introduzca la contraseña de aprovisionamiento.
++
+El botón *Iniciar desmantelamiento* está habilitado.
+
+. Haga clic en *Iniciar desmantelamiento*.
++
+Aparece una advertencia que indica que ha seleccionado un nodo desconectado y que los datos del objeto se perderán si el nodo tiene la única copia de un objeto.
+
+. Revise la lista de nodos y haga clic en *Aceptar*.
++
+Se inicia el procedimiento de desmantelamiento y se muestra el progreso para cada nodo. Durante el procedimiento, se genera un nuevo paquete de recuperación que contiene el cambio de configuración de la red.
+
+. Tan pronto como el nuevo paquete de recuperación esté disponible, haga clic en el enlace o seleccione *MANTENIMIENTO* > *Sistema* > *Paquete de recuperación* para acceder a la página del paquete de recuperación. Luego, descargue el `.zip` archivo.
++
+Vea las instrucciones paralink:downloading-recovery-package.html["descargando el paquete de recuperación"] .
+
++
+
+NOTE: Descargue el paquete de recuperación lo antes posible para asegurarse de poder recuperar su red si algo sale mal durante el procedimiento de desmantelamiento.
+
++
+
+CAUTION: El archivo del paquete de recuperación debe estar protegido porque contiene claves de cifrado y contraseñas que se pueden utilizar para obtener datos del sistema StorageGRID .
+
+. Supervise periódicamente la página de Desmantelamiento para asegurarse de que todos los nodos seleccionados se desmantelen correctamente.
++
+Los nodos de almacenamiento pueden tardar días o semanas en desmantelarse.  Cuando se completan todas las tareas, la lista de selección de nodos se vuelve a mostrar con un mensaje de éxito.  Si desactivó un nodo de almacenamiento desconectado, un mensaje de información indica que se han iniciado los trabajos de reparación.
+
+. Una vez que los nodos se hayan apagado automáticamente como parte del procedimiento de desmantelamiento, elimine cualquier máquina virtual u otros recursos restantes que estén asociados con el nodo desmantelado.
++
+
+CAUTION: No realice este paso hasta que los nodos se hayan apagado automáticamente.
+
+. Si está desmantelando un nodo de almacenamiento, supervise el estado de los trabajos de reparación de *datos replicados* y *datos codificados por borrado (EC)* que se inician automáticamente durante el proceso de desmantelamiento.
+
+
+[role="tabbed-block"]
+====
+.Datos replicados
+--
+* Para obtener un porcentaje estimado de finalización de la reparación replicada, agregue el `show-replicated-repair-status` Opción para el comando reparar-datos.
++
+`repair-data show-replicated-repair-status`
+
+* Para determinar si las reparaciones están completas:
++
+.. Seleccione *NODOS* > *_Nodo de almacenamiento en reparación_* > *ILM*.
+.. Revise los atributos en la sección Evaluación.  Cuando se completan las reparaciones, el atributo *En espera - Todo* indica 0 objetos.
+
+
+* Para supervisar la reparación con más detalle:
++
+.. Seleccione *SOPORTE* > *Herramientas* > *Topología de cuadrícula*.
+.. Seleccione *_grid_* > *_Nodo de almacenamiento en reparación_* > *LDR* > *Almacén de datos*.
+.. Utilice una combinación de los siguientes atributos para determinar, lo mejor posible, si las reparaciones replicadas están completas.
++
+
+NOTE: Pueden existir inconsistencias en Cassandra y no se realiza un seguimiento de las reparaciones fallidas.
+
++
+*** *Reparaciones intentadas (XRPA)*: utilice este atributo para rastrear el progreso de las reparaciones replicadas.  Este atributo aumenta cada vez que un nodo de almacenamiento intenta reparar un objeto de alto riesgo.  Cuando este atributo no aumenta durante un período más largo que el período de escaneo actual (proporcionado por el atributo *Período de escaneo – Estimado*), significa que el escaneo ILM no encontró objetos de alto riesgo que necesiten reparación en ningún nodo.
++
+
+NOTE: Los objetos de alto riesgo son objetos que corren el riesgo de perderse por completo.  Esto no incluye objetos que no satisfacen su configuración ILM.
+
+*** *Período de escaneo estimado (XSCM)*: utilice este atributo para estimar cuándo se aplicará un cambio de política a los objetos ingeridos previamente.  Si el atributo *Reparaciones intentadas* no aumenta durante un período más largo que el período de escaneo actual, es probable que se realicen reparaciones replicadas.  Tenga en cuenta que el período de escaneo puede cambiar.  El atributo *Período de escaneo estimado (XSCM)* se aplica a toda la cuadrícula y es el máximo de todos los períodos de escaneo de nodos.  Puede consultar el historial de atributos *Período de escaneo – Estimado* de la cuadrícula para determinar un período de tiempo apropiado.
+
+
+
+
+
+
+--
+.Datos codificados por borrado (EC)
+--
+Para supervisar la reparación de datos codificados por borrado y volver a intentar cualquier solicitud que pueda haber fallado:
+
+. Determinar el estado de las reparaciones de datos codificados por borrado:
++
+** Seleccione *SOPORTE* > *Herramientas* > *Métricas* para ver el tiempo estimado de finalización y el porcentaje de finalización del trabajo actual. Luego, seleccione *Descripción general de EC* en la sección Grafana. Consulte los paneles *Tiempo estimado de finalización del trabajo de Grid EC* y *Porcentaje de trabajo de Grid EC completado*.
+** Utilice este comando para ver el estado de un elemento específico. `repair-data` operación:
++
+`repair-data show-ec-repair-status --repair-id repair ID`
+
+** Utilice este comando para enumerar todas las reparaciones:
++
+`repair-data show-ec-repair-status`
+
++
+La salida enumera información, incluyendo `repair ID` , para todas las reparaciones realizadas anteriormente y actualmente en curso.
+
+
+
+. Si la salida muestra que la operación de reparación falló, utilice el `--repair-id` Opción para reintentar la reparación.
++
+Este comando vuelve a intentar una reparación de nodo fallida, utilizando el ID de reparación 6949309319275667690:
+
++
+`repair-data start-ec-node-repair --repair-id 6949309319275667690`
+
++
+Este comando vuelve a intentar una reparación de volumen fallida, utilizando el ID de reparación 6949309319275667690:
+
++
+`repair-data start-ec-volume-repair --repair-id 6949309319275667690`
+
+
+
+--
+====
+.Después de terminar
+Una vez que se hayan desconectado los nodos y se hayan completado todos los trabajos de reparación de datos, puede desconectas cualquier nodo de red conectado según sea necesario.
+
+Luego, complete estos pasos después de completar el procedimiento de desmantelamiento:
+
+* Asegúrese de que las unidades del nodo de red fuera de servicio estén limpias.  Utilice una herramienta o servicio de borrado de datos disponible comercialmente para eliminar datos de las unidades de forma permanente y segura.
+* Si desactivó un nodo del dispositivo y los datos del dispositivo estaban protegidos mediante el cifrado del nodo, utilice el instalador del dispositivo StorageGRID para borrar la configuración del servidor de administración de claves (Borrar KMS).  Debe borrar la configuración de KMS si desea agregar el dispositivo a otra red. Para obtener instrucciones, consulte https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/monitoring-node-encryption-in-maintenance-mode.html["Monitorizar el cifrado del nodo en modo de mantenimiento"^] .
+

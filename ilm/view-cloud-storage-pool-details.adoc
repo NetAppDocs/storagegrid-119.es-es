@@ -1,0 +1,43 @@
+---
+permalink: ilm/view-cloud-storage-pool-details.html 
+sidebar: sidebar 
+keywords: view cloud storage pool 
+summary: Puede ver los detalles de un grupo de almacenamiento en la nube para determinar dónde se utiliza y ver qué nodos y grados de almacenamiento están incluidos. 
+---
+= Ver detalles del grupo de almacenamiento en la nube
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede ver los detalles de un grupo de almacenamiento en la nube para determinar dónde se utiliza y ver qué nodos y grados de almacenamiento están incluidos.
+
+.Antes de empezar
+* Ha iniciado sesión en Grid Manager mediante unlink:../admin/web-browser-requirements.html["navegador web compatible"] .
+* Tieneslink:../admin/admin-group-permissions.html["permisos de acceso específicos"] .
+
+
+.Pasos
+. Seleccione *ILM* > *Grupos de almacenamiento* > *Grupos de almacenamiento en la nube*.
++
+La tabla de grupos de almacenamiento en la nube incluye la siguiente información para cada grupo de almacenamiento en la nube que incluye nodos de almacenamiento:
+
++
+** *Nombre*: el nombre para mostrar único del grupo.
+** *URI*: El identificador uniforme de recursos del grupo de almacenamiento en la nube.
+** *Tipo de proveedor*: ¿Qué proveedor de nube se utiliza para este grupo de almacenamiento en la nube?
+** *Contenedor*: el nombre del depósito utilizado para el grupo de almacenamiento en la nube.
+** *Uso de ILM*: cómo se utiliza actualmente el pool.  Es posible que un grupo de almacenamiento en la nube no se utilice o que se utilice en una o más reglas ILM, perfiles de codificación de borrado o ambos.
+** *Último error*: el último error detectado durante una verificación del estado de este grupo de almacenamiento en la nube.
+
+
+. Para ver los detalles de un grupo de almacenamiento en la nube específico, seleccione su nombre.
++
+Aparece la página de detalles del grupo.
+
+. Consulte la pestaña *Autenticación* para obtener información sobre el tipo de autenticación para este grupo de almacenamiento en la nube y para editar los detalles de autenticación.
+. Vea la pestaña *Verificación del servidor* para obtener información sobre los detalles de verificación, editar la verificación, descargar un nuevo certificado o copiar el certificado PEM.
+. Vea la pestaña *Uso de ILM* para determinar si el grupo de almacenamiento en la nube se está utilizando actualmente en alguna regla de ILM o perfil de codificación de borrado.
+. Opcionalmente, vaya a la *página de reglas de ILM* paralink:working-with-ilm-rules-and-ilm-policies.html["Conozca y administre cualquier regla"] que utilizan el grupo de almacenamiento en la nube.
+

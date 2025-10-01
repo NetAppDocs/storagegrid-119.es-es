@@ -1,0 +1,123 @@
+---
+permalink: maintain/shutting-down-grid-node.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, node shutdown, shut down node, node shut down 
+summary: Puede apagar un nodo de la red desde el shell de comandos del nodo. 
+---
+= Apagar el nodo de la red
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede apagar un nodo de la red desde el shell de comandos del nodo.
+
+.Antes de empezar
+* Tú tienes el `Passwords.txt` archivo.
+
+
+.Acerca de esta tarea
+Antes de realizar este procedimiento, revise estas consideraciones:
+
+* En general, no debe apagar más de un nodo a la vez para evitar interrupciones.
+* No apague un nodo durante un procedimiento de mantenimiento a menos que la documentación o el soporte técnico lo indiquen explícitamente.
+* El proceso de apagado depende de dónde esté instalado el nodo, de la siguiente manera:
++
+** Al apagar un nodo VMware se apaga la máquina virtual.
+** Al apagar un nodo Linux se apaga el contenedor.
+** Al apagar un nodo del dispositivo StorageGRID se apaga el controlador de cómputo.
+
+
+* Si planea apagar más de un nodo de almacenamiento en un sitio, deje de ingerir objetos en ese sitio durante aproximadamente una hora antes de apagar los nodos.
++
+Si alguna regla de ILM usa la opción de ingesta de *Confirmación dual* (o si una regla usa la opción *Equilibrada* y no se pueden crear inmediatamente todas las copias requeridas), StorageGRID confirma inmediatamente cualquier objeto recién ingerido en dos nodos de almacenamiento en el mismo sitio y evalúa ILM más tarde.  Si se apaga más de un nodo de almacenamiento en un sitio, es posible que no pueda acceder a los objetos recién ingeridos mientras dure el apagado.  Las operaciones de escritura también pueden fallar si quedan muy pocos nodos de almacenamiento disponibles en el sitio. Ver link:../ilm/index.html["Administrar objetos con ILM"] .
+
+
+
+.Pasos
+. Inicie sesión en el nodo de la red:
++
+.. Introduzca el siguiente comando: `ssh admin@_grid_node_IP_`
+.. Introduzca la contraseña que aparece en el `Passwords.txt` archivo.
+.. Introduzca el siguiente comando para cambiar a root: `su -`
+.. Introduzca la contraseña que aparece en el `Passwords.txt` archivo.
+
+
++
+Cuando inicia sesión como root, el mensaje cambia de `$` a `#` .
+
+. Detener todos los servicios: `service servermanager stop`
++
+Los servicios pueden tardar hasta 15 minutos en apagarse, y es posible que desees iniciar sesión en el sistema de forma remota para supervisar el proceso de apagado.
+
+. Si el nodo se ejecuta en una máquina virtual VMware o es un nodo de dispositivo, emita el comando de apagado: `shutdown -h now`
++
+Realice este paso independientemente del resultado de la `service servermanager stop` dominio.
+
++
+
+NOTE: Después de emitir el `shutdown -h now` comando en un nodo del dispositivo, debe apagar y encender el dispositivo para reiniciar el nodo.
+
++
+Para el dispositivo, este comando apaga el controlador, pero el dispositivo permanece encendido.  Debes completar el siguiente paso.
+
+. Si está apagando un nodo del dispositivo, siga los pasos correspondientes a su dispositivo.
++
+[role="tabbed-block"]
+====
+.SG6160
+--
+.. Apague el controlador de almacenamiento SG6100-CN.
+.. Espere a que el LED de encendido azul del controlador de almacenamiento SG6100-CN se apague.
+
+
+--
+.SGF6112
+--
+.. Apague el aparato.
+.. Espere a que el LED de encendido azul se apague.
+
+
+--
+.SG6000
+--
+.. Espere a que el LED verde de caché activa en la parte posterior de los controladores de almacenamiento se apague.
++
+Este LED se enciende cuando es necesario escribir datos almacenados en caché en las unidades.  Debe esperar a que este LED se apague antes de apagar el dispositivo.
+
+.. Apague el aparato y espere hasta que el LED de encendido azul se apague.
+
+
+--
+.SG5800
+--
+.. Espere a que el LED verde de caché activa en la parte posterior del controlador de almacenamiento se apague.
++
+Este LED se enciende cuando es necesario escribir datos almacenados en caché en las unidades.  Debe esperar a que este LED se apague antes de apagar el dispositivo.
+
+.. Desde la página de inicio de SANtricity System Manager, seleccione *Ver operaciones en progreso*.
+.. Confirme que todas las operaciones se hayan completado antes de continuar con el siguiente paso.
+.. Apague ambos interruptores de encendido en el estante del controlador y espere a que todos los LED en el estante del controlador se apaguen.
+
+
+--
+.SG5700
+--
+.. Espere a que el LED verde de caché activa en la parte posterior del controlador de almacenamiento se apague.
++
+Este LED se enciende cuando es necesario escribir datos almacenados en caché en las unidades.  Debe esperar a que este LED se apague antes de apagar el dispositivo.
+
+.. Apague el aparato y espere a que se detenga toda actividad del LED y de la pantalla de siete segmentos.
+
+
+--
+.SG100 o SG1000
+--
+.. Apague el aparato.
+.. Espere a que el LED de encendido azul se apague.
+
+
+--
+====
+

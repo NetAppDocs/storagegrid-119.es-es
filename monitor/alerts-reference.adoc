@@ -1,0 +1,1382 @@
+---
+permalink: monitor/alerts-reference.html 
+sidebar: sidebar 
+keywords: alerts reference 
+summary: Esta referencia enumera las alertas predeterminadas que aparecen en el Administrador de cuadrícula.  Las acciones recomendadas están en el mensaje de alerta que recibe. 
+---
+= Referencia de alertas
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Esta referencia enumera las alertas predeterminadas que aparecen en el Administrador de cuadrícula.  Las acciones recomendadas están en el mensaje de alerta que recibe.
+
+Según sea necesario, puede crear reglas de alerta personalizadas que se adapten a su enfoque de gestión del sistema.
+
+Algunas de las alertas predeterminadas utilizanlink:commonly-used-prometheus-metrics.html["Métricas de Prometeo"] .
+
+
+
+== Alertas de electrodomésticos
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+La batería del aparato está caducada
+ a| 
+La batería del controlador de almacenamiento del aparato ha expirado.
+
+
+
+ a| 
+La batería del aparato falló
+ a| 
+La batería del controlador de almacenamiento del aparato ha fallado.
+
+
+
+ a| 
+La batería del aparato tiene capacidad de aprendizaje insuficiente
+ a| 
+La batería del controlador de almacenamiento del aparato no tiene suficiente capacidad de aprendizaje.
+
+
+
+ a| 
+La batería del electrodoméstico está a punto de caducar
+ a| 
+La batería del controlador de almacenamiento del aparato está próxima a agotarse.
+
+
+
+ a| 
+Batería del aparato retirada
+ a| 
+Falta la batería en el controlador de almacenamiento del aparato.
+
+
+
+ a| 
+La batería del aparato está demasiado caliente
+ a| 
+La batería del controlador de almacenamiento del aparato está sobrecalentada.
+
+
+
+ a| 
+Error de comunicación del BMC del dispositivo
+ a| 
+Se ha perdido la comunicación con el controlador de administración de la placa base (BMC).
+
+
+
+ a| 
+Se detectó un fallo en el dispositivo de arranque del dispositivo
+ a| 
+Se detectó un problema con el dispositivo de arranque en el dispositivo.
+
+
+
+ a| 
+Falló el dispositivo de copia de seguridad de caché del dispositivo
+ a| 
+Ha fallado un dispositivo de copia de seguridad de caché persistente.
+
+
+
+ a| 
+Capacidad insuficiente del dispositivo de copia de seguridad de caché del dispositivo
+ a| 
+No hay suficiente capacidad en el dispositivo de copia de seguridad de caché.
+
+
+
+ a| 
+Dispositivo de copia de seguridad de caché del dispositivo protegido contra escritura
+ a| 
+Un dispositivo de copia de seguridad de caché está protegido contra escritura.
+
+
+
+ a| 
+Desajuste del tamaño de la memoria caché del dispositivo
+ a| 
+Los dos controladores del dispositivo tienen diferentes tamaños de caché.
+
+
+
+ a| 
+Fallo de la batería CMOS del dispositivo
+ a| 
+Se detectó un problema con la batería CMOS del dispositivo.
+
+
+
+ a| 
+La temperatura del chasis del controlador de cómputo del dispositivo es demasiado alta
+ a| 
+La temperatura del controlador de cómputo en un dispositivo StorageGRID ha superado un umbral nominal.
+
+
+
+ a| 
+La temperatura de la CPU del controlador de cómputo del dispositivo es demasiado alta
+ a| 
+La temperatura de la CPU en el controlador de cómputo de un dispositivo StorageGRID ha superado un umbral nominal.
+
+
+
+ a| 
+El controlador de cómputo del dispositivo necesita atención
+ a| 
+Se ha detectado una falla de hardware en el controlador de cómputo de un dispositivo StorageGRID .
+
+
+
+ a| 
+La fuente de alimentación del controlador de cómputo del dispositivo A tiene un problema
+ a| 
+La fuente de alimentación A en el controlador de cálculo tiene un problema.
+
+
+
+ a| 
+La fuente de alimentación del controlador de cómputo del dispositivo B tiene un problema
+ a| 
+La fuente de alimentación B en el controlador de cálculo tiene un problema.
+
+
+
+ a| 
+El servicio de monitorización del hardware de cómputo del dispositivo se ha detenido
+ a| 
+El servicio que supervisa el estado del hardware de almacenamiento se ha estancado.
+
+
+
+ a| 
+La unidad DAS del dispositivo excede el límite de datos escritos por día
+ a| 
+Se escribe una cantidad excesiva de datos en una unidad cada día, lo que podría anular su garantía.
+
+
+
+ a| 
+Se detectó un fallo en la unidad DAS del dispositivo
+ a| 
+Se detectó un problema con una unidad de almacenamiento conectada directamente (DAS) en el dispositivo.
+
+
+
+ a| 
+Luz de localización de la unidad DAS del dispositivo encendida
+ a| 
+La luz localizadora de unidad para una o más unidades de almacenamiento de conexión directa (DAS) en un nodo de almacenamiento del dispositivo está encendida.
+
+
+
+ a| 
+Reconstrucción de la unidad DAS del dispositivo
+ a| 
+Se está reconstruyendo una unidad de almacenamiento conectada directamente (DAS).  Esto es lo esperado si fue reemplazado o quitado/reinsertado recientemente.
+
+
+
+ a| 
+Se detectó una falla en el ventilador del aparato
+ a| 
+Se detectó un problema con una unidad de ventilador en el aparato.
+
+
+
+ a| 
+Se detectó un fallo en el canal de fibra del dispositivo
+ a| 
+Se ha detectado un problema de enlace de canal de fibra entre el controlador de almacenamiento del dispositivo y el controlador de cómputo
+
+
+
+ a| 
+Falla del puerto HBA del canal de fibra del dispositivo
+ a| 
+Un puerto HBA de canal de fibra está fallando o ha fallado.
+
+
+
+ a| 
+Las unidades de caché flash del dispositivo no son óptimas
+ a| 
+Las unidades utilizadas para la caché SSD no son óptimas.
+
+
+
+ a| 
+Interconexión del aparato/recipiente de batería retirado
+ a| 
+Falta el recipiente de interconexión/batería.
+
+
+
+ a| 
+Falta el puerto LACP del dispositivo
+ a| 
+Un puerto en un dispositivo StorageGRID no participa en el enlace LACP.
+
+
+
+ a| 
+Se detectó un fallo en la NIC del dispositivo
+ a| 
+Se detectó un problema con una tarjeta de interfaz de red (NIC) en el dispositivo.
+
+
+
+ a| 
+La fuente de alimentación general del aparato se degradó
+ a| 
+La energía de un dispositivo StorageGRID se ha desviado del voltaje operativo recomendado.
+
+
+
+ a| 
+Advertencia crítica del SSD del dispositivo
+ a| 
+Un dispositivo SSD informa una advertencia crítica.
+
+
+
+ a| 
+Fallo del controlador de almacenamiento del dispositivo A
+ a| 
+El controlador de almacenamiento A en un dispositivo StorageGRID ha fallado.
+
+
+
+ a| 
+Fallo del controlador de almacenamiento del dispositivo B
+ a| 
+El controlador de almacenamiento B en un dispositivo StorageGRID ha fallado.
+
+
+
+ a| 
+Falla de la unidad del controlador de almacenamiento del dispositivo
+ a| 
+Una o más unidades en un dispositivo StorageGRID han fallado o no están en condiciones óptimas.
+
+
+
+ a| 
+Problema de hardware del controlador de almacenamiento del dispositivo
+ a| 
+El software SANtricity informa "Requiere atención" para un componente en un dispositivo StorageGRID .
+
+
+
+ a| 
+Falla en la fuente de alimentación del controlador de almacenamiento del dispositivo A
+ a| 
+La fuente de alimentación A en un dispositivo StorageGRID se ha desviado del voltaje operativo recomendado.
+
+
+
+ a| 
+Falla de la fuente de alimentación B del controlador de almacenamiento del dispositivo
+ a| 
+La fuente de alimentación B en un dispositivo StorageGRID se ha desviado del voltaje operativo recomendado.
+
+
+
+ a| 
+El servicio de monitorización del hardware de almacenamiento del dispositivo se ha estancado
+ a| 
+El servicio que supervisa el estado del hardware de almacenamiento se ha estancado.
+
+
+
+ a| 
+Estantes de almacenamiento de electrodomésticos degradados
+ a| 
+El estado de uno de los componentes en el estante de almacenamiento de un dispositivo de almacenamiento está degradado.
+
+
+
+ a| 
+Se excedió la temperatura del aparato
+ a| 
+Se ha excedido la temperatura nominal o máxima del controlador de almacenamiento del aparato.
+
+
+
+ a| 
+Sensor de temperatura del aparato retirado
+ a| 
+Se ha quitado un sensor de temperatura.
+
+
+
+ a| 
+Error de arranque seguro UEFI del dispositivo
+ a| 
+Un dispositivo no se ha iniciado de forma segura.
+
+
+
+ a| 
+La E/S del disco es muy lenta
+ a| 
+Una entrada/salida de disco muy lenta podría estar afectando el rendimiento de la red.
+
+
+
+ a| 
+Se detectó una falla en el ventilador del dispositivo de almacenamiento
+ a| 
+Se detectó un problema con una unidad de ventilador en el controlador de almacenamiento de un dispositivo.
+
+
+
+ a| 
+La conectividad del dispositivo de almacenamiento se ha degradado
+ a| 
+Hay un problema con una o más conexiones entre el controlador de cómputo y el controlador de almacenamiento.
+
+
+
+ a| 
+Dispositivo de almacenamiento inaccesible
+ a| 
+No se puede acceder a un dispositivo de almacenamiento.
+
+|===
+
+
+== Alertas de auditoría y syslog
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+Los registros de auditoría se están agregando a la cola en memoria
+ a| 
+El nodo no puede enviar registros al servidor syslog local y la cola en memoria se está llenando.
+
+
+
+ a| 
+Error de reenvío del servidor syslog externo
+ a| 
+El nodo no puede reenviar registros al servidor syslog externo.
+
+
+
+ a| 
+Gran cola de auditoría
+ a| 
+La cola de disco para mensajes de auditoría está llena. Si no se aborda esta condición, las operaciones de S3 o Swift podrían fallar.
+
+
+
+ a| 
+Los registros se están agregando a la cola en el disco
+ a| 
+El nodo no puede reenviar registros al servidor syslog externo y la cola en el disco se está llenando.
+
+|===
+
+
+== Alertas de cubo
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+El depósito FabricPool tiene una configuración de consistencia de depósito no compatible
+ a| 
+Un bucket de FabricPool utiliza el nivel de consistencia de sitio disponible o fuerte, que no es compatible.
+
+
+
+ a| 
+El bucket FabricPool tiene una configuración de versiones no compatible
+ a| 
+Un bucket de FabricPool tiene habilitado el control de versiones o el bloqueo de objetos S3, que no son compatibles.
+
+|===
+
+
+== Alertas de Cassandra
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+Error del autocompactador Cassandra
+ a| 
+El autocompactador Cassandra ha experimentado un error.
+
+
+
+ a| 
+Las métricas del autocompactador Cassandra están desactualizadas
+ a| 
+Las métricas que describen el autocompactador Cassandra están desactualizadas.
+
+
+
+ a| 
+Error de comunicación de Cassandra
+ a| 
+Los nodos que ejecutan el servicio Cassandra tienen problemas para comunicarse entre sí.
+
+
+
+ a| 
+Compactaciones de Cassandra sobrecargadas
+ a| 
+El proceso de compactación de Cassandra está sobrecargado.
+
+
+
+ a| 
+Error de escritura de gran tamaño en Cassandra
+ a| 
+Un proceso interno de StorageGRID envió una solicitud de escritura a Cassandra que era demasiado grande.
+
+
+
+ a| 
+Las métricas de reparación de Cassandra están desactualizadas
+ a| 
+Las métricas que describen los trabajos de reparación de Cassandra están desactualizadas.
+
+
+
+ a| 
+El progreso de la reparación de Cassandra es lento
+ a| 
+El progreso de las reparaciones de la base de datos de Cassandra es lento.
+
+
+
+ a| 
+Servicio de reparación de Cassandra no disponible
+ a| 
+El servicio de reparación de Cassandra no está disponible.
+
+
+
+ a| 
+Corrupción en la tabla de Cassandra
+ a| 
+Cassandra ha detectado corrupción en la tabla.  Cassandra se reinicia automáticamente si detecta corrupción en la tabla.
+
+|===
+
+
+== Alertas del grupo de almacenamiento en la nube
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+Error de conectividad del grupo de almacenamiento en la nube
+ a| 
+La comprobación del estado de los grupos de almacenamiento en la nube detectó uno o más errores nuevos.
+
+
+
+ a| 
+Vencimiento de la certificación de entidad final de IAM Roles Anywhere
+ a| 
+El certificado de entidad final de IAM Roles Anywhere está a punto de expirar.
+
+|===
+
+
+== Alertas de replicación entre redes
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+Fallo permanente de replicación entre redes
+ a| 
+Se produjo un error de replicación entre redes que requiere la intervención del usuario para resolverlo.
+
+
+
+ a| 
+Recursos de replicación entre redes no disponibles
+ a| 
+Las solicitudes de replicación entre redes están pendientes porque un recurso no está disponible.
+
+|===
+
+
+== alertas DHCP
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+La concesión DHCP ha expirado
+ a| 
+La concesión DHCP en una interfaz de red ha expirado.
+
+
+
+ a| 
+La concesión de DHCP expirará pronto
+ a| 
+La concesión DHCP en una interfaz de red expirará pronto.
+
+
+
+ a| 
+Servidor DHCP no disponible
+ a| 
+El servidor DHCP no está disponible.
+
+|===
+
+
+== Alertas de depuración y seguimiento
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+Impacto en el rendimiento de la depuración
+ a| 
+Cuando el modo de depuración está habilitado, el rendimiento del sistema podría verse afectado negativamente.
+
+
+
+ a| 
+Configuración de seguimiento habilitada
+ a| 
+Cuando la configuración de seguimiento está habilitada, el rendimiento del sistema podría verse afectado negativamente.
+
+|===
+
+
+== Alertas por correo electrónico y AutoSupport
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+El mensaje de AutoSupport no se pudo enviar
+ a| 
+No se pudo enviar el mensaje de AutoSupport más reciente.
+
+
+
+ a| 
+Error en la resolución del nombre de dominio
+ a| 
+El nodo StorageGRID no ha podido resolver los nombres de dominio.
+
+
+
+ a| 
+Error en la notificación por correo electrónico
+ a| 
+No se pudo enviar la notificación por correo electrónico para una alerta.
+
+
+
+ a| 
+Errores de información de SNMP
+ a| 
+Errores al enviar notificaciones de información SNMP a un destino de trampa.
+
+
+
+ a| 
+Se detectó inicio de sesión SSH o de consola
+ a| 
+En las últimas 24 horas, un usuario inició sesión con la consola web o SSH.
+
+|===
+
+
+== Alertas de codificación de borrado (EC)
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+Fallo de reequilibrio de la CE
+ a| 
+El procedimiento de reequilibrio de la CE ha fallado o se ha detenido.
+
+
+
+ a| 
+Fallo de reparación de CE
+ a| 
+Un trabajo de reparación de datos de EC ha fallado o se ha detenido.
+
+
+
+ a| 
+Reparación de CE estancada
+ a| 
+Un trabajo de reparación de datos de la CE se ha estancado.
+
+
+
+ a| 
+Error de verificación del fragmento codificado por borrado
+ a| 
+Los fragmentos codificados por borrado ya no se pueden verificar.  Es posible que los fragmentos corruptos no puedan repararse.
+
+|===
+
+
+== Alertas de vencimiento de certificados
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+Vencimiento del certificado de CA del proxy de administración
+ a| 
+Uno o más certificados en el paquete CA del servidor proxy de administración están a punto de expirar.
+
+
+
+ a| 
+Caducidad del certificado de cliente
+ a| 
+Uno o más certificados de cliente están a punto de caducar.
+
+
+
+ a| 
+Vencimiento del certificado de servidor global para S3 y Swift
+ a| 
+El certificado de servidor global para S3 y Swift está a punto de expirar.
+
+
+
+ a| 
+Vencimiento del certificado del punto final del balanceador de carga
+ a| 
+Uno o más certificados de punto final del equilibrador de carga están a punto de caducar.
+
+
+
+ a| 
+Caducidad del certificado del servidor para la interfaz de administración
+ a| 
+El certificado del servidor utilizado para la interfaz de administración está a punto de caducar.
+
+
+
+ a| 
+Vencimiento del certificado de CA de syslog externo
+ a| 
+El certificado de la autoridad de certificación (CA) utilizado para firmar el certificado del servidor syslog externo está a punto de caducar.
+
+
+
+ a| 
+Caducidad del certificado del cliente de syslog externo
+ a| 
+El certificado de cliente para un servidor syslog externo está a punto de caducar.
+
+
+
+ a| 
+Caducidad del certificado del servidor syslog externo
+ a| 
+El certificado de servidor presentado por el servidor syslog externo está a punto de expirar.
+
+|===
+
+
+== Alertas de red Grid
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+Desajuste de MTU de la red de cuadrícula
+ a| 
+La configuración de MTU para la interfaz de red de cuadrícula (eth0) difiere significativamente entre los nodos de la cuadrícula.
+
+|===
+
+
+== Alertas de federación de red
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+Vencimiento del certificado de federación de red
+ a| 
+Uno o más certificados de federación de red están a punto de expirar.
+
+
+
+ a| 
+Error de conexión de la federación de red
+ a| 
+La conexión de la federación de red entre la red local y la red remota no funciona.
+
+|===
+
+
+== Alertas de alto uso o alta latencia
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+Alto uso del montón de Java
+ a| 
+Se está utilizando un alto porcentaje del espacio del montón de Java.
+
+
+
+ a| 
+Alta latencia para consultas de metadatos
+ a| 
+El tiempo promedio para las consultas de metadatos de Cassandra es demasiado largo.
+
+|===
+
+
+== Alertas de federación de identidad
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+Error de sincronización de la federación de identidad
+ a| 
+No se pueden sincronizar grupos y usuarios federados desde la fuente de identidad.
+
+
+
+ a| 
+Error de sincronización de la federación de identidades para un inquilino
+ a| 
+No se pueden sincronizar grupos y usuarios federados desde la fuente de identidad configurada por un inquilino.
+
+|===
+
+
+== Alertas de gestión del ciclo de vida de la información (ILM)
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+La colocación del ILM es inalcanzable
+ a| 
+No se puede lograr una instrucción de ubicación en una regla ILM para ciertos objetos.
+
+
+
+ a| 
+Tasa de escaneo ILM baja
+ a| 
+La velocidad de escaneo ILM está establecida en menos de 100 objetos/segundo.
+
+|===
+
+
+== Alertas del servidor de administración de claves (KMS)
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+Vencimiento del certificado de CA de KMS
+ a| 
+El certificado de la autoridad de certificación (CA) utilizado para firmar el certificado del servidor de administración de claves (KMS) está a punto de caducar.
+
+
+
+ a| 
+Caducidad del certificado del cliente KMS
+ a| 
+El certificado de cliente para un servidor de administración de claves está a punto de caducar
+
+
+
+ a| 
+La configuración de KMS no se pudo cargar
+ a| 
+La configuración del servidor de administración de claves existe, pero no se pudo cargar.
+
+
+
+ a| 
+Error de conectividad KMS
+ a| 
+Un nodo del dispositivo no pudo conectarse al servidor de administración de claves de su sitio.
+
+
+
+ a| 
+No se encontró el nombre de la clave de cifrado KMS
+ a| 
+El servidor de administración de claves configurado no tiene una clave de cifrado que coincida con el nombre proporcionado.
+
+
+
+ a| 
+Error en la rotación de la clave de cifrado KMS
+ a| 
+Todos los volúmenes del dispositivo se descifraron correctamente, pero uno o más volúmenes no pudieron rotar a la clave más reciente.
+
+
+
+ a| 
+KMS no está configurado
+ a| 
+No existe ningún servidor de administración de claves para este sitio.
+
+
+
+ a| 
+La clave KMS no pudo descifrar un volumen del dispositivo
+ a| 
+No se pudieron descifrar uno o más volúmenes de un dispositivo con cifrado de nodo habilitado con la clave KMS actual.
+
+
+
+ a| 
+Caducidad del certificado del servidor KMS
+ a| 
+El certificado de servidor utilizado por el servidor de administración de claves (KMS) está a punto de caducar.
+
+
+
+ a| 
+Fallo de conectividad del servidor KMS
+ a| 
+Un nodo del dispositivo no pudo conectarse a uno o más servidores en el clúster de servidores de administración de claves de su sitio.
+
+|===
+
+
+== Alertas del balanceador de carga
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+Conexiones elevadas de balanceador de carga de solicitud cero
+ a| 
+Un porcentaje elevado de conexiones a puntos finales del balanceador de carga se desconectaron sin realizar solicitudes.
+
+|===
+
+
+== Alertas de desfase del reloj local
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+Gran desplazamiento horario del reloj local
+ a| 
+El desfase entre el reloj local y la hora del Protocolo de tiempo de red (NTP) es demasiado grande.
+
+|===
+
+
+== Alertas de poca memoria o poco espacio
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+Baja capacidad del disco de registro de auditoría
+ a| 
+El espacio disponible para los registros de auditoría es bajo. Si no se aborda esta condición, las operaciones de S3 o Swift podrían fallar.
+
+
+
+ a| 
+Memoria de nodo baja disponible
+ a| 
+La cantidad de RAM disponible en un nodo es baja.
+
+
+
+ a| 
+Poco espacio libre para almacenamiento de piscina
+ a| 
+El espacio disponible para almacenar datos de objetos en el nodo de almacenamiento es bajo.
+
+
+
+ a| 
+Poca memoria de nodo instalada
+ a| 
+La cantidad de memoria instalada en un nodo es baja.
+
+
+
+ a| 
+Almacenamiento de metadatos bajo
+ a| 
+El espacio disponible para almacenar metadatos de objetos es bajo.
+
+
+
+ a| 
+Capacidad de disco de métricas bajas
+ a| 
+El espacio disponible para la base de datos de métricas es bajo.
+
+
+
+ a| 
+Almacenamiento de datos de objetos reducido
+ a| 
+El espacio disponible para almacenar datos de objetos es bajo.
+
+
+
+ a| 
+Anulación de marca de agua de solo lectura baja
+ a| 
+La anulación de la marca de agua de solo lectura suave del volumen de almacenamiento es menor que la marca de agua mínima optimizada para un nodo de almacenamiento.
+
+
+
+ a| 
+Baja capacidad del disco raíz
+ a| 
+El espacio disponible en el disco raíz es bajo.
+
+
+
+ a| 
+Baja capacidad de datos del sistema
+ a| 
+El espacio disponible para /var/local es bajo. Si no se aborda esta condición, las operaciones de S3 o Swift podrían fallar.
+
+
+
+ a| 
+Poco espacio libre en el directorio temporal
+ a| 
+El espacio disponible en el directorio /tmp es bajo.
+
+|===
+
+
+== Alertas de nodo o red de nodos
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+Uso de recepción de red de administración
+ a| 
+El uso de recepción en la red de administración es alto.
+
+
+
+ a| 
+Uso de transmisión de la red de administración
+ a| 
+El uso de transmisión en la red de administración es alto.
+
+
+
+ a| 
+Error en la configuración del firewall
+ a| 
+No se pudo aplicar la configuración del firewall.
+
+
+
+ a| 
+Puntos finales de la interfaz de administración en modo de respaldo
+ a| 
+Todos los puntos finales de la interfaz de administración han estado recurriendo a los puertos predeterminados durante demasiado tiempo.
+
+
+
+ a| 
+Error de conectividad de red del nodo
+ a| 
+Se han producido errores al transferir datos entre nodos.
+
+
+
+ a| 
+Error de trama de recepción de red de nodo
+ a| 
+Un alto porcentaje de los marcos de red recibidos por un nodo tenían errores.
+
+
+
+ a| 
+El nodo no está sincronizado con el servidor NTP
+ a| 
+El nodo no está sincronizado con el servidor de protocolo de tiempo de red (NTP).
+
+
+
+ a| 
+Nodo no bloqueado con el servidor NTP
+ a| 
+El nodo no está bloqueado a un servidor de protocolo de tiempo de red (NTP).
+
+
+
+ a| 
+Red de nodos que no son dispositivos inactiva
+ a| 
+Uno o más dispositivos de red están inactivos o desconectados.
+
+
+
+ a| 
+El enlace del dispositivo de servicios está inactivo en la red de administración
+ a| 
+La interfaz del dispositivo a la red de administración (eth1) está inactiva o desconectada.
+
+
+
+ a| 
+El enlace del dispositivo de servicios no funciona en el puerto 1 de la red de administración
+ a| 
+El puerto de red de administración 1 del dispositivo está inactivo o desconectado.
+
+
+
+ a| 
+El enlace del dispositivo de servicios está inactivo en la red del cliente
+ a| 
+La interfaz del dispositivo a la red del cliente (eth2) está inactiva o desconectada.
+
+
+
+ a| 
+Enlace del dispositivo de servicios inactivo en el puerto de red 1
+ a| 
+El puerto de red 1 del dispositivo está inactivo o desconectado.
+
+
+
+ a| 
+Enlace del dispositivo de servicios inactivo en el puerto de red 2
+ a| 
+El puerto de red 2 del dispositivo está inactivo o desconectado.
+
+
+
+ a| 
+Enlace del dispositivo de servicios inactivo en el puerto de red 3
+ a| 
+El puerto de red 3 del dispositivo está inactivo o desconectado.
+
+
+
+ a| 
+Enlace del dispositivo de servicios inactivo en el puerto de red 4
+ a| 
+El puerto de red 4 del dispositivo está inactivo o desconectado.
+
+
+
+ a| 
+El enlace del dispositivo de almacenamiento está inactivo en la red de administración
+ a| 
+La interfaz del dispositivo a la red de administración (eth1) está inactiva o desconectada.
+
+
+
+ a| 
+Enlace del dispositivo de almacenamiento inactivo en el puerto 1 de la red de administración
+ a| 
+El puerto de red de administración 1 del dispositivo está inactivo o desconectado.
+
+
+
+ a| 
+Enlace del dispositivo de almacenamiento inactivo en la red del cliente
+ a| 
+La interfaz del dispositivo a la red del cliente (eth2) está inactiva o desconectada.
+
+
+
+ a| 
+Enlace del dispositivo de almacenamiento inactivo en el puerto de red 1
+ a| 
+El puerto de red 1 del dispositivo está inactivo o desconectado.
+
+
+
+ a| 
+Enlace del dispositivo de almacenamiento inactivo en el puerto de red 2
+ a| 
+El puerto de red 2 del dispositivo está inactivo o desconectado.
+
+
+
+ a| 
+Enlace del dispositivo de almacenamiento inactivo en el puerto de red 3
+ a| 
+El puerto de red 3 del dispositivo está inactivo o desconectado.
+
+
+
+ a| 
+Enlace del dispositivo de almacenamiento inactivo en el puerto de red 4
+ a| 
+El puerto de red 4 del dispositivo está inactivo o desconectado.
+
+
+
+ a| 
+El nodo de almacenamiento no se encuentra en el estado de almacenamiento deseado
+ a| 
+El servicio LDR en un nodo de almacenamiento no puede pasar al estado deseado debido a un error interno o un problema relacionado con el volumen
+
+
+
+ a| 
+Uso de la conexión TCP
+ a| 
+La cantidad de conexiones TCP en este nodo se está acercando al número máximo que se puede rastrear.
+
+
+
+ a| 
+No se puede comunicar con el nodo
+ a| 
+Uno o más servicios no responden o no se puede acceder al nodo.
+
+
+
+ a| 
+Reinicio inesperado del nodo
+ a| 
+Un nodo se reinició inesperadamente en las últimas 24 horas.
+
+|===
+
+
+== Alertas de objetos
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+Falló la comprobación de existencia del objeto
+ a| 
+La tarea de verificación de existencia del objeto ha fallado.
+
+
+
+ a| 
+La comprobación de existencia del objeto se ha estancado
+ a| 
+El trabajo de verificación de existencia del objeto se ha estancado.
+
+
+
+ a| 
+Objetos perdidos
+ a| 
+Se han perdido uno o más objetos de la cuadrícula.
+
+
+
+ a| 
+El tamaño del objeto S3 PUT es demasiado grande
+ a| 
+Un cliente está intentando realizar una operación PUT de objeto que excede los límites de tamaño de S3.
+
+
+
+ a| 
+Se detectó un objeto corrupto no identificado
+ a| 
+Se encontró un archivo en el almacenamiento de objetos replicados que no se pudo identificar como un objeto replicado.
+
+|===
+
+
+== Alertas de servicios de la plataforma
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+Servicios de la Plataforma con capacidad de solicitudes pendientes baja
+ a| 
+El número de solicitudes pendientes de Servicios de Plataforma se está acercando a su capacidad.
+
+
+
+ a| 
+Servicios de plataforma no disponibles
+ a| 
+Hay muy pocos nodos de almacenamiento con el servicio RSM en ejecución o disponibles en un sitio.
+
+|===
+
+
+== Alertas de volumen de almacenamiento
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+El volumen de almacenamiento necesita atención
+ a| 
+Un volumen de almacenamiento está fuera de línea y necesita atención.
+
+
+
+ a| 
+Es necesario restaurar el volumen de almacenamiento
+ a| 
+Se ha recuperado un volumen de almacenamiento y es necesario restaurarlo.
+
+
+
+ a| 
+Volumen de almacenamiento sin conexión
+ a| 
+Un volumen de almacenamiento ha estado fuera de línea durante más de 5 minutos.
+
+
+
+ a| 
+Se intentó volver a montar el volumen de almacenamiento
+ a| 
+Un volumen de almacenamiento estaba fuera de línea y activó un remontaje automático.  Esto podría indicar un problema con la unidad o errores del sistema de archivos.
+
+
+
+ a| 
+La restauración de volumen no pudo iniciar la reparación de datos replicados
+ a| 
+No se pudo iniciar automáticamente la reparación de datos replicados para un volumen reparado.
+
+|===
+
+
+== Alertas de servicios de StorageGRID
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+Servicio nginx que utiliza la configuración de respaldo
+ a| 
+La configuración del servicio nginx no es válida.  Ahora se utiliza la configuración anterior.
+
+
+
+ a| 
+Servicio nginx-gw que utiliza la configuración de respaldo
+ a| 
+La configuración del servicio nginx-gw no es válida.  Ahora se utiliza la configuración anterior.
+
+
+
+ a| 
+Es necesario reiniciar para deshabilitar FIPS
+ a| 
+La política de seguridad no requiere el modo FIPS, pero el módulo de seguridad criptográfica de NetApp está habilitado.
+
+
+
+ a| 
+Es necesario reiniciar para habilitar FIPS
+ a| 
+La política de seguridad requiere el modo FIPS, pero el módulo de seguridad criptográfica de NetApp está deshabilitado.
+
+
+
+ a| 
+Servicio SSH que utiliza la configuración de respaldo
+ a| 
+La configuración del servicio SSH no es válida.  Ahora se utiliza la configuración anterior.
+
+|===
+
+
+== Alertas para inquilinos
+
+[cols="1a,2a"]
+|===
+| Nombre de la alerta | Descripción 
+
+
+ a| 
+Alto uso de la cuota de inquilinos
+ a| 
+Se está utilizando un alto porcentaje del espacio de cuota.  Esta regla está deshabilitada de forma predeterminada porque podría generar demasiadas notificaciones.
+
+|===
