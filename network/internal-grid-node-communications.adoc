@@ -234,6 +234,19 @@ Tráfico interno de metadatos.
 
 
  a| 
+5353
+ a| 
+UDP
+ a| 
+Todos los nodos
+ a| 
+Todos los nodos
+ a| 
+Proporciona el servicio DNS de multidifusión (mDNS) utilizado para cambios de IP de red completa y para el descubrimiento del nodo de administración principal durante la instalación, expansión y recuperación.
+
+
+
+ a| 
 7001
  a| 
 TCP
@@ -407,11 +420,11 @@ Tráfico interno del servicio Data Mover para grupos de almacenamiento en la nub
  a| 
 TCP
  a| 
-Nodos de almacenamiento
+Todos los nodos
  a| 
-Nodos de almacenamiento
+Todos los nodos
  a| 
-Servicio de fragmentos de tráfico interno para codificación de borrado.
+Servicio de fragmentos de tráfico interno para codificación de borrado y replicación
 
 
 
@@ -446,9 +459,9 @@ Tráfico interno relacionado con Swift.
  a| 
 TCP
  a| 
-Todos los nodos de la red
+Todos los nodos
  a| 
-Todos los nodos de almacenamiento
+Nodos de almacenamiento
  a| 
 Tráfico interno relacionado con el servicio LDR.
 
