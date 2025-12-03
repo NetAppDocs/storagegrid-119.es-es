@@ -2,7 +2,7 @@
 permalink: troubleshoot/troubleshooting-low-object-data-storage-alert.html 
 sidebar: sidebar 
 keywords: how to troubleshoot the Low object data storage alert 
-summary: La alerta *Almacenamiento de datos de objetos bajo* monitorea cuánto espacio está disponible para almacenar datos de objetos en cada nodo de almacenamiento. 
+summary: La alerta de almacenamiento de datos de objetos bajos monitorea cuánto espacio está disponible para almacenar datos de objetos en cada nodo de almacenamiento. 
 ---
 = Solucionar la alerta de almacenamiento de datos de objetos bajos
 :allow-uri-read: 
