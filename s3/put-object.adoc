@@ -141,6 +141,14 @@ Ver<<Encabezados de solicitud para el cifrado del lado del servidor>>
 
 Los siguientes encabezados de solicitud no son compatibles:
 
+* `If-Match`
++
+El `If-Match header` es aceptado pero no funciona.
+
+* `If-None-Match`
++
+El `If-None-Match header` es aceptado pero no funciona.
+
 * `x-amz-acl`
 * `x-amz-sdk-checksum-algorithm`
 * `x-amz-trailer`

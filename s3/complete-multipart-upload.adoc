@@ -59,6 +59,14 @@ NOTE: El `ETag` El valor devuelto no es una suma MD5 de los datos, sino que sigu
 
 Los siguientes encabezados de solicitud no son compatibles:
 
+* `If-Match`
++
+El `If-Match header` es aceptado pero no funciona.
+
+* `If-None-Match`
++
+El `If-None-Match header` es aceptado pero no funciona.
+
 * `x-amz-sdk-checksum-algorithm`
 * `x-amz-trailer`
 
