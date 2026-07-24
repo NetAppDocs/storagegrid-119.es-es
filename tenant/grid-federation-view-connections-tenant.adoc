@@ -55,6 +55,7 @@ Para cada conexión de federación de red, el error más reciente que ocurrió, 
 
 
 
+[[clear-last-errorclear-the-last-error]]
 == [[clear-last-error]]Borrar el último error
 
 Podría aparecer un error en la columna *Último error* por uno de estos motivos:

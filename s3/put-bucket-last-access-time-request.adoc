@@ -28,6 +28,7 @@ Si las actualizaciones del último tiempo de acceso están deshabilitadas para u
 
 
 
+[[request-examples]]
 == Solicitar ejemplos
 
 Este ejemplo habilita el último tiempo de acceso para un bucket.

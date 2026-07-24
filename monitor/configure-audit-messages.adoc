@@ -26,6 +26,7 @@ Opcionalmente, puede configurar un servidor syslog externo para guardar la infor
 
 
 
+[[change-audit-message-levels]]
 == Cambiar los niveles de los mensajes de auditoría
 
 Puede establecer un nivel de auditoría diferente para cada una de las siguientes categorías de mensajes en el registro de auditoría:
@@ -154,6 +155,7 @@ Un banner verde indica que su configuración ha sido guardada.
 
 
 
+[[define-http-request-headers]]
 == Definir encabezados de solicitud HTTP
 
 Opcionalmente, puede definir cualquier encabezado de solicitud HTTP que desee incluir en los mensajes de auditoría de lectura y escritura del cliente. Estos encabezados de protocolo se aplican únicamente a solicitudes S3.
@@ -179,6 +181,7 @@ Un banner verde indica que su configuración ha sido guardada.
 
 
 
+[[use-external-syslog-serveruse-an-external-syslog-server]]
 == [[use-external-syslog-server]]Utilice un servidor syslog externo
 
 Opcionalmente, puede configurar un servidor syslog externo para guardar registros de auditoría, registros de aplicaciones y registros de eventos de seguridad en una ubicación fuera de su red.
@@ -191,6 +194,7 @@ TIP: Si las opciones de configuración disponibles en este procedimiento no son 
 
 
 
+[[enter-syslog-information]]
 === Ingresar información de syslog
 
 Acceda al asistente Configurar servidor syslog externo y proporcione la información que StorageGRID necesita para acceder al servidor syslog externo.
@@ -229,6 +233,7 @@ Aparece una marca de verificación verde junto al nombre del certificado o del a
 
 
 
+[[manage-syslog-content]]
 === Administrar el contenido de syslog
 
 Puede seleccionar qué información enviar al servidor syslog externo.
@@ -542,6 +547,7 @@ local7
 
 
 
+[[send-test-messages]]
 === Enviar mensajes de prueba
 
 Antes de comenzar a utilizar un servidor syslog externo, debe solicitar que todos los nodos de su red envíen mensajes de prueba al servidor syslog externo.  Debe utilizar estos mensajes de prueba para ayudarlo a validar toda su infraestructura de recopilación de registros antes de comprometerse a enviar datos al servidor syslog externo.
@@ -580,6 +586,7 @@ NOTE: La información de auditoría de StorageGRID no se envía al servidor sysl
 
 
 
+[[select-audit-information-destinations]]
 == Seleccionar destinos de información de auditoría
 
 Puede especificar dónde se guardan los registros de auditoría, los registros de eventos de seguridad ylink:../monitor/storagegrid-software-logs.html["Registros del software StorageGRID"] se envían.

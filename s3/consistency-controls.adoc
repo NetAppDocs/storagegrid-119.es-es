@@ -33,6 +33,7 @@ NOTE: Un cambio en la consistencia de toda la cuadrícula se aplica solo a los d
 
 
 
+[[consistency-values]]
 == Valores de consistencia
 
 La consistencia afecta cómo se distribuyen los metadatos que StorageGRID utiliza para rastrear objetos entre los nodos y, por lo tanto, la disponibilidad de los objetos para las solicitudes de los clientes.
@@ -48,6 +49,7 @@ Puede establecer la consistencia de un depósito o una operación de API en uno 
 
 
 
+[[use-read-after-new-write-and-available-consistency]]
 == Utilice la consistencia "Lectura después de nueva escritura" y "Disponible"
 
 Cuando una operación HEAD o GET utiliza la consistencia "Lectura después de nueva escritura", StorageGRID realiza la búsqueda en varios pasos, de la siguiente manera:
@@ -62,6 +64,7 @@ A menos que necesite garantías de consistencia similares a Amazon S3, puede evi
 
 
 
+[[api-operation-consistency-controlspecify-consistency-for-api-operation]]
 == [[api-operation-consistency-control]]Especificar la consistencia para la operación de la API
 
 Para establecer la consistencia de una operación de API individual, los valores de consistencia deben ser compatibles con la operación y debe especificar la consistencia en el encabezado de la solicitud.  Este ejemplo establece la consistencia en "Strong-site" para una operación GetObject.
@@ -79,6 +82,7 @@ NOTE: Debe utilizar la misma consistencia para las operaciones PutObject y GetOb
 
 
 
+[[bucket-consistency-controlspecify-consistency-for-bucket]]
 == [[bucket-consistency-control]]Especificar la consistencia para el depósito
 
 Para establecer la consistencia del bucket, puede utilizar StorageGRIDlink:put-bucket-consistency-request.html["Consistencia del depósito PUT"] pedido.  O puedeslink:../tenant/manage-bucket-consistency.html#change-bucket-consistency["cambiar la consistencia de un cubo"] del administrador de inquilinos.
@@ -92,6 +96,7 @@ Al configurar la consistencia de un depósito, tenga en cuenta lo siguiente:
 
 
 
+[[how-consistency-controls-and-ilm-rules-interacthow-consistency-and-ilm-rules-interact-to-affect-data-protection]]
 == [[cómo-interactúan-los-controles-de-coherencia-y-las-reglas-ILM]]Cómo interactúan los controles de consistencia y las reglas ILM para afectar la protección de datos
 
 Tanto su elección de consistencia como su regla ILM afectan cómo se protegen los objetos.  Estas configuraciones pueden interactuar.
@@ -107,6 +112,7 @@ Equilibrado:: StorageGRID intenta hacer todas las copias especificadas en la reg
 
 
 
+[[example-of-how-the-consistency-and-ilm-rule-can-interact]]
 == Ejemplo de cómo la consistencia y la regla ILM pueden interactuar
 
 Supongamos que tiene una cuadrícula de dos sitios con la siguiente regla ILM y la siguiente consistencia:

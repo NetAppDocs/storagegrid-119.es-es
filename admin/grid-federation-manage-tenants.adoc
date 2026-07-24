@@ -23,6 +23,7 @@ Puede permitir que las cuentas de inquilinos de S3 utilicen una conexión de fed
 
 
 
+[[create-a-permitted-tenant]]
 == Crear un inquilino permitido
 
 Si desea permitir que una cuenta de inquilino nueva o existente utilice una conexión de federación de red para la clonación de cuentas y la replicación entre redes, siga las instrucciones generales paralink:creating-tenant-account.html["crear un nuevo inquilino S3"] olink:editing-tenant-account.html["editar una cuenta de inquilino"] y tenga en cuenta lo siguiente:
@@ -47,6 +48,7 @@ TIP: Antes de que un usuario raíz local pueda iniciar sesión en el inquilino r
 
 
 
+[[view-a-permitted-tenant]]
 == Ver un inquilino permitido
 
 Puede ver los detalles de un inquilino que tiene permiso para utilizar una conexión de federación de red.
@@ -65,6 +67,7 @@ image::../media/grid-federation-tenant-detail.png[Pestaña de federación de red
 
 
 
+[[edit-a-permitted-tenant]]
 == Editar un inquilino permitido
 
 Si necesita editar un inquilino que tiene el permiso *Usar conexión de federación de red*, siga las instrucciones generales paralink:editing-tenant-account.html["editar una cuenta de inquilino"] y tenga en cuenta lo siguiente:
@@ -76,6 +79,7 @@ Si necesita editar un inquilino que tiene el permiso *Usar conexión de federaci
 
 
 
+[[delete-a-permitted-tenant]]
 == Eliminar un inquilino permitido
 
 Si necesita eliminar un inquilino que tiene el permiso *Usar conexión de federación de red*, siga las instrucciones generales paralink:deleting-tenant-account.html["eliminar una cuenta de inquilino"] y tenga en cuenta lo siguiente:
@@ -92,6 +96,7 @@ Para evitar estos errores, elimine el permiso del inquilino para usar la conexi�
 
 
 
+[[remove-grid-federation-connection-permissionremove-use-grid-federation-connection-permission]]
 == [[remove-grid-federation-connection-permission]]Eliminar el permiso de conexión de federación de red
 
 Para evitar que un inquilino utilice una conexión de federación de red, debe eliminar el permiso *Usar conexión de federación de red*.
@@ -115,6 +120,7 @@ NOTE: Al volver a habilitar el permiso *Usar conexión de federación de red*, l
 
 
 
+[[disable-replication-for-tenant-buckets]]
 === Deshabilitar la replicación para los depósitos de inquilinos
 
 Como primer paso, deshabilite la replicación entre redes para todos los grupos de inquilinos.
@@ -133,6 +139,7 @@ TIP: No puedes eliminar el permiso *Usar conexión de federación de red* si alg
 
 
 
+[[remove-permission-for-tenant]]
 === Quitar el permiso al inquilino
 
 Una vez deshabilitada la replicación entre redes para los depósitos de inquilinos, puede eliminar el permiso del inquilino para usar la conexión de federación de red.
@@ -184,6 +191,7 @@ Puede realizar cualquiera de las siguientes acciones:
 
 
 
+[[forceremovepermissionremove-the-permission-by-force]]
 == [[force_remove_permission]]Eliminar el permiso por la fuerza
 
 Si es necesario, puede forzar la eliminación del permiso de un inquilino para usar una conexión de federación de red incluso si los depósitos de inquilinos tienen habilitada la replicación entre redes.

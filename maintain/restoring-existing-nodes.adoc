@@ -22,6 +22,8 @@ Si se conservaron volúmenes de almacenamiento en bloque del host anterior, es p
 
 
 
+[[restore-and-validate-grid-nodes]]
+[[restore-validate-grid-nodes]]
 == Restaurar y validar nodos de la red
 
 Debe restaurar los archivos de configuración de la red para cualquier nodo de red fallido y luego validar los archivos de configuración de la red y resolver cualquier error.
@@ -105,6 +107,7 @@ Debe abordar cualquier error o advertencia antes de iniciar el servicio de host 
 
 
 
+[[fix-missing-network-interface-errors]]
 === Corregir errores de interfaz de red faltante
 
 Si la red del host no está configurada correctamente o un nombre está mal escrito, se produce un error cuando StorageGRID verifica la asignación especificada en el `/etc/storagegrid/nodes/_node-name_.conf` archivo.
@@ -127,6 +130,8 @@ Asegúrese de que la interfaz del host proporcione acceso al puerto de red físi
 
 
 
+[[fix-missing-block-device-errors]]
+[[fix-block-errors]]
 === Corregir errores de dispositivos de bloque faltantes
 
 El sistema verifica que cada nodo recuperado se asigne a un archivo especial de dispositivo de bloque válido o a un enlace simbólico válido a un archivo especial de dispositivo de bloque.  Si StorageGRID encuentra una asignación no válida en el `/etc/storagegrid/nodes/_node-name_.conf` archivo, se muestra un error de dispositivo de bloque faltante.
@@ -169,6 +174,7 @@ Ejecute el siguiente comando solo para nuevos dispositivos de almacenamiento en 
 ====
 
 
+[[start-storagegrid-host-service]]
 == Iniciar el servicio de host de StorageGRID
 
 Para iniciar los nodos StorageGRID y garantizar que se reinicien después de un reinicio del host, debe habilitar e iniciar el servicio de host StorageGRID .
@@ -203,6 +209,8 @@ sudo systemctl reload-or-restart storagegrid
 
 
 
+[[recover-nodes-that-fail-to-start-normally]]
+[[recover-nodes-fail-start]]
 == Recuperar nodos que no se inician normalmente
 
 Si un nodo StorageGRID no se reincorpora a la red normalmente y no aparece como recuperable, es posible que esté dañado.  Puedes forzar el nodo al modo de recuperación.

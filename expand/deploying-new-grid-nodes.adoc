@@ -17,6 +17,7 @@ Al expandir una cuadrícula, los nodos que agregue no tienen que coincidir con l
 
 
 
+[[vmware-deploy-grid-nodes]]
 == VMware: Implementar nodos de red
 
 Debe implementar una máquina virtual en VMware vSphere para cada nodo VMware que desee agregar en la expansión.
@@ -31,6 +32,7 @@ Al implementar el nodo, puede opcionalmente reasignar los puertos del nodo o aum
 
 
 
+[[linux-deploy-grid-nodes]]
 == Linux: Implementar nodos de red
 
 Puede implementar nodos de red en nuevos hosts Linux o en hosts Linux existentes.  Si necesita hosts Linux adicionales para soportar los requisitos de CPU, RAM y almacenamiento de los nodos StorageGRID que desea agregar a su red, debe prepararlos de la misma manera que preparó los hosts cuando los instaló por primera vez.  Luego, implementa los nodos de expansión de la misma manera que implementaste los nodos de la red durante la instalación.
@@ -64,6 +66,7 @@ Después de implementar todos los nuevos nodos de la red, puedelink:performing-e
 
 
 
+[[appliances-deploying-storage-gateway-or-non-primary-admin-nodes]]
 == Dispositivos: Implementación de almacenamiento, puerta de enlace o nodos de administración no principales
 
 Para instalar el software StorageGRID en un nodo de dispositivo, utilice el instalador de dispositivo StorageGRID , que está incluido en el dispositivo.  En una expansión, cada dispositivo de almacenamiento funciona como un único nodo de almacenamiento y cada dispositivo de servicios funciona como un único nodo de puerta de enlace o un nodo de administración no principal.  Cualquier dispositivo puede conectarse a la red de red, a la red de administración y a la red de cliente.

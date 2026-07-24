@@ -27,6 +27,7 @@ Se admiten los siguientes parámetros de solicitud:
 
 
 
+[[versioning]]
 == Control de versiones
 
 La carga multiparte consta de operaciones separadas para iniciar la carga, enumerar las cargas, cargar partes, ensamblar las partes cargadas y completar la carga.  Los objetos se crean (y se versionan si corresponde) cuando se realiza la operación CompleteMultipartUpload.

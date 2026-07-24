@@ -17,6 +17,7 @@ Según su elección, StorageGRID realiza copias provisionales y pone en cola los
 
 
 
+[[flowchart-of-ingest-options]]
 == Diagrama de flujo de opciones de ingesta
 
 El diagrama de flujo muestra lo que sucede cuando los objetos coinciden con una regla ILM que utiliza cada una de las tres opciones de ingesta.
@@ -25,6 +26,7 @@ image::../media/ingest_object_lifecycle.png[Diagrama que muestra cómo se produc
 
 
 
+[[dual-commit]]
 == Compromiso dual
 
 Cuando selecciona la opción de confirmación dual, StorageGRID realiza inmediatamente copias de objetos provisionales en dos nodos de almacenamiento diferentes y devuelve un mensaje de "ingesta exitosa" al cliente.  El objeto se pone en cola para la evaluación de ILM y luego se realizan copias que cumplen con las instrucciones de ubicación de la regla.  Si la política ILM no se puede procesar inmediatamente después de la confirmación dual, la protección contra pérdida del sitio podría llevar tiempo.
@@ -42,6 +44,7 @@ Utilice la opción de confirmación dual en cualquiera de estos casos:
 
 
 
+[[balanced-default]]
 == Equilibrado (predeterminado)
 
 Cuando selecciona la opción Equilibrado, StorageGRID también utiliza la ubicación sincrónica en la ingesta y realiza inmediatamente todas las copias especificadas en las instrucciones de ubicación de la regla.  A diferencia de la opción Estricta, si StorageGRID no puede realizar todas las copias inmediatamente, utiliza la confirmación dual en su lugar.  Si la política ILM utiliza ubicaciones en varios sitios y no se puede lograr una protección inmediata contra pérdida de sitios, se activa la alerta *Ubicación ILM inalcanzable*.
@@ -50,6 +53,7 @@ Utilice la opción Equilibrado para lograr la mejor combinación de protección 
 
 
 
+[[strict]]
 == Estricto
 
 Cuando selecciona la opción Estricto, StorageGRID utiliza la ubicación sincrónica en la ingesta y realiza inmediatamente todas las copias de objetos especificadas en las instrucciones de ubicación de la regla.  La ingesta falla si StorageGRID no puede crear todas las copias, por ejemplo, porque una ubicación de almacenamiento requerida no está disponible temporalmente.  El cliente debe volver a intentar la operación.

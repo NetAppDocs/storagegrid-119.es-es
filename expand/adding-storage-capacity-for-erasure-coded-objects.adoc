@@ -19,6 +19,7 @@ La cantidad de nodos que necesita agregar también depende de qué tan llenos es
 
 
 
+[[general-recommendation-for-adding-storage-capacity-for-erasure-coded-objects]]
 == Recomendación general para agregar capacidad de almacenamiento para objetos con código de borrado
 
 Si desea evitar cálculos detallados, puede agregar dos nodos de almacenamiento por sitio cuando los nodos de almacenamiento existentes alcancen el 70 % de su capacidad.

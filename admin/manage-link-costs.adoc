@@ -15,6 +15,7 @@ Los costos de enlace le permiten priorizar qué sitio del centro de datos propor
 
 
 
+[[what-are-link-costs]]
 == ¿Qué son los costos de enlace?
 
 * Los costos de enlace se utilizan para priorizar qué copia de objeto se utiliza para completar las recuperaciones de objetos.
@@ -62,6 +63,7 @@ Centros de datos lógicos en el mismo edificio físico o campus conectados por u
 |===
 
 
+[[update-link-costs]]
 == Costos de actualización de enlaces
 
 Puede actualizar los costos de enlace entre los sitios de los centros de datos para reflejar la latencia entre sitios.

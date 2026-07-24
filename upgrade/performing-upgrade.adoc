@@ -18,6 +18,7 @@ Ha revisado todas las consideraciones y completado todos los pasos de planificac
 
 
 
+[[access-storagegrid-upgrade-page]]
 == Acceda a la página de actualización de StorageGRID
 
 Como primer paso, acceda a la página Actualización de StorageGRID en el Administrador de Grid.
@@ -30,6 +31,7 @@ Como primer paso, acceda a la página Actualización de StorageGRID en el Admini
 
 
 
+[[select-files]]
 == Seleccionar archivos
 
 La ruta de actualización en la página Actualización de StorageGRID indica qué versiones principales (por ejemplo, 11.9.0) y revisiones (por ejemplo, 11.9.0.1) debe instalar para llegar a la última versión de StorageGRID . Debe instalar las versiones y revisiones recomendadas en el orden que se muestra.
@@ -57,6 +59,7 @@ Cuando finaliza el proceso de carga y validación, aparece una marca de verifica
 
 
 
+[[run-prechecks]]
 == Ejecutar comprobaciones previas
 
 La ejecución de comprobaciones previas le permite detectar y resolver cualquier problema de actualización antes de comenzar a actualizar su red.
@@ -90,6 +93,7 @@ Si se han resuelto todos los errores, se le solicitará que inicie la actualizac
 
 
 
+[[start-upgrade-and-upgrade-primary-admin-node]]
 == Iniciar actualización y actualizar el nodo de administración principal
 
 Cuando se inicia la actualización, se ejecutan nuevamente las comprobaciones previas de actualización y el nodo de administración principal se actualiza automáticamente.  Esta parte de la actualización puede tardar hasta 30 minutos.
@@ -116,6 +120,7 @@ Si la red tiene otro nodo de administración que está en línea y listo, puede 
 
 
 
+[[upgrade-other-nodes]]
 == Actualizar otros nodos
 
 Debe actualizar todos los nodos de la red, pero puede realizar múltiples sesiones de actualización y personalizar la secuencia de actualización.  Por ejemplo, es posible que prefiera actualizar los nodos del sitio A en una sesión y luego actualizar los nodos del sitio B en una sesión posterior.  Si decide realizar la actualización en más de una sesión, tenga en cuenta que no podrá comenzar a usar las nuevas funciones hasta que se hayan actualizado todos los nodos.
@@ -234,6 +239,7 @@ NOTE: Algunos modelos de dispositivos podrían reiniciarse varias veces para act
 
 
 
+[[complete-upgrade]]
 == Actualización completa
 
 Cuando todos los nodos de la red hayan completado las etapas de actualización, la tarea *Actualizar otros nodos de la red* se mostrará como Completada.  Las tareas de actualización restantes se realizan automáticamente en segundo plano.

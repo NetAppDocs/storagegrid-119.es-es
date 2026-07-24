@@ -27,6 +27,7 @@ Para acceder a la documentación de Swagger para la API de administración de in
 
 
 
+[[api-operations]]
 == Operaciones de API
 
 La API de administración de inquilinos organiza las operaciones de API disponibles en las siguientes secciones:
@@ -59,6 +60,7 @@ NOTE: Si el inicio de sesión único (SSO) está habilitado para el sistema Stor
 
 
 
+[[operation-details]]
 == Detalles de la operación
 
 Al expandir cada operación de API, puede ver su acción HTTP, la URL del punto final, una lista de parámetros obligatorios u opcionales, un ejemplo del cuerpo de la solicitud (cuando sea necesario) y las posibles respuestas.
@@ -67,6 +69,7 @@ image::../media/tenant_api_swagger_example.gif[Ejemplo que muestra la operación
 
 
 
+[[issue-api-requests]]
 == Emitir solicitudes de API
 
 

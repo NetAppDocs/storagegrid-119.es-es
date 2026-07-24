@@ -20,6 +20,7 @@ Puede eliminar un grupo de almacenamiento en la nube si no se utiliza en una reg
 
 
 
+[[if-needed-use-ilm-to-move-object-data]]
 == Si es necesario, utilice ILM para mover datos de objetos
 
 Si el grupo de almacenamiento en la nube que desea eliminar contiene datos de objetos, debe usar ILM para mover los datos a una ubicación diferente.  Por ejemplo, puede mover los datos a nodos de almacenamiento en su red o a un grupo de almacenamiento en la nube diferente.
@@ -47,6 +48,7 @@ Para el paso 2 del asistente para crear reglas de ILM, seleccione la nueva ubica
 
 
 
+[[delete-cloud-storage-pool]]
 == Eliminar grupo de almacenamiento en la nube
 
 Cuando el grupo de almacenamiento en la nube esté vacío y no se utilice en ninguna regla de ILM, puedes eliminarlo.

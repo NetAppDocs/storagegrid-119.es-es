@@ -15,6 +15,7 @@ Antes de desmantelar un nodo de almacenamiento, considere si puede clonar el nod
 
 
 
+[[when-to-clone-a-node-instead-of-decommissioning-it]]
 == Cuándo clonar un nodo en lugar de desmantelarlo
 
 Si desea reemplazar un nodo de almacenamiento de un dispositivo antiguo por un dispositivo más nuevo o más grande, considere clonar el nodo del dispositivo en lugar de agregar un nuevo dispositivo en una expansión y luego desmantelar el dispositivo antiguo.
@@ -33,6 +34,7 @@ Ver https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/how-appl
 
 
 
+[[considerations-for-connected-storage-nodes]]
 == Consideraciones para los nodos de almacenamiento conectados
 
 Revise las consideraciones para el desmantelamiento de un nodo de almacenamiento conectado.
@@ -57,6 +59,8 @@ NOTE: El botón *Pausa* se habilita solo cuando se alcanzan las etapas de evalua
 
 
 
+[[considerations-for-disconnected-storage-nodes]]
+[[considerations-disconnected-storage-nodes]]
 == Consideraciones para nodos de almacenamiento desconectados
 
 Revise las consideraciones para dar de baja un nodo de almacenamiento desconectado.

@@ -17,6 +17,7 @@ La alerta *Error permanente de replicación entre cuadrículas* indica que los o
 
 
 
+[[determine-if-any-objects-failed-to-be-replicated]]
 == Determinar si algún objeto no se pudo replicar
 
 Para determinar si algún objeto o marcador de eliminación no se ha replicado en la otra cuadrícula, puede buscar en el registro de auditoríalink:../audit/cgrr-cross-grid-replication-request.html["CGRR (Solicitud de replicación entre redes)"] mensajes.  Este mensaje se agrega al registro cuando StorageGRID no puede replicar un objeto, un objeto multiparte o un marcador de eliminación en el depósito de destino.
@@ -116,6 +117,7 @@ El tipo de error.  Si la replicación entre redes falla, el error es "Error gene
 
 
 
+[[retry-failed-replications]]
 == Reintentar replicaciones fallidas
 
 Después de generar una lista de objetos y eliminar marcadores que no se replicaron en el depósito de destino y resolver los problemas subyacentes, puede volver a intentar la replicación de una de estas dos maneras:
@@ -150,6 +152,7 @@ NOTE: Pendiente significa que la solicitud de replicación entre redes se ha agr
 
 
 
+[[monitor-replication-retries]]
 == Monitorear reintentos de replicación
 
 Debe supervisar las operaciones de reintento de replicación para asegurarse de que se completen.

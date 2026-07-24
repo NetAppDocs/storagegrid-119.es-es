@@ -20,6 +20,7 @@ Administre sus grupos de inquilinos según sea necesario para ver, editar o dupl
 
 
 
+[[view-or-edit-group]]
 == Ver o editar grupo
 
 Puede ver y editar la información básica y los detalles de cada grupo.
@@ -106,6 +107,7 @@ Aparece un mensaje de éxito en la parte superior derecha.
 
 
 
+[[duplicate-group]]
 == Grupo duplicado
 
 Puede duplicar un grupo existente para crear nuevos grupos más rápidamente.
@@ -123,6 +125,7 @@ NOTE: Si su cuenta de inquilino tiene el permiso *Usar conexión de federación 
 
 
 
+[[clone-groupsretry-group-clone]]
 == [[grupos de clones]]Reintentar clonar grupo
 
 Para volver a intentar una clonación que falló:
@@ -136,6 +139,7 @@ Para obtener información adicional, consultelink:grid-federation-account-clone.
 
 
 
+[[delete-one-or-more-groups]]
 == Eliminar uno o más grupos
 
 Puedes eliminar uno o más grupos.  Cualquier usuario que pertenezca únicamente a un grupo eliminado ya no podrá iniciar sesión en el Administrador de inquilinos ni usar la cuenta de inquilino.

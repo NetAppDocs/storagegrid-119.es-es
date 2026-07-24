@@ -4,6 +4,7 @@
 
 
 
+[[which-procedure-should-i-use]]
 == ¿Qué procedimiento debo utilizar?
 
 Siempre que sea posible, restaure los datos de los objetos utilizando la página *Restauración de volumen* en el Administrador de cuadrícula.
@@ -20,6 +21,7 @@ NOTE: El script de reparación de datos está obsoleto y se eliminará en una ve
 
 
 
+[[use-the-repair-data-script-to-restore-object-data]]
 == Utilice el `repair-data` script para restaurar datos de objetos
 
 .Antes de empezar
@@ -37,6 +39,7 @@ Tenga en cuenta lo siguiente:
 
 
 
+[[about-the-repair-data-script]]
 == Acerca de `repair-data` guion
 
 Para restaurar los datos del objeto, ejecute el `repair-data` guion.  Este script inicia el proceso de restauración de datos de objetos y trabaja con el escaneo ILM para garantizar que se cumplan las reglas ILM.

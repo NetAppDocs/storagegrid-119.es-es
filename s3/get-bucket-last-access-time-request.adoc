@@ -17,6 +17,7 @@ Debe tener el permiso s3:GetBucketLastAccessTime o ser root de la cuenta para co
 
 
 
+[[request-example]]
 == Ejemplo de solicitud
 
 [listing, subs="specialcharacters,quotes"]
@@ -28,6 +29,7 @@ Host: _host_
 ----
 
 
+[[response-example]]
 == Ejemplo de respuesta
 
 Este ejemplo muestra que las actualizaciones del último tiempo de acceso están habilitadas para el depósito.

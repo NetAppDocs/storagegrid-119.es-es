@@ -15,6 +15,7 @@ Puede ampliar la capacidad de almacenamiento de objetos de su sistema StorageGRI
 
 
 
+[[guidelines-for-adding-storage-volumes]]
 == Pautas para agregar volúmenes de almacenamiento
 
 Antes de agregar volúmenes de almacenamiento a los nodos de almacenamiento existentes, revise las siguientes pautas y limitaciones:
@@ -38,6 +39,7 @@ Una vez que haya decidido agregar volúmenes de almacenamiento y haya determinad
 
 
 
+[[guidelines-for-adding-storage-nodes]]
 == Pautas para agregar nodos de almacenamiento
 
 Antes de agregar nodos de almacenamiento a sitios existentes, revise las siguientes pautas y limitaciones:
@@ -52,6 +54,7 @@ Antes de agregar nodos de almacenamiento a sitios existentes, revise las siguien
 
 
 
+[[guidelines-for-adc-service-on-storage-nodes]]
 == Directrices para el servicio ADC en nodos de almacenamiento
 
 Al configurar la expansión, debe elegir si desea incluir el servicio del Controlador de dominio administrativo (ADC) en cada nuevo Nodo de almacenamiento. El servicio ADC realiza un seguimiento de la ubicación y la disponibilidad de los servicios de la red.

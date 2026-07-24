@@ -24,6 +24,7 @@ CAUTION: Al configurar su implementación de StorageGRID para la protección con
 
 
 
+[[replication-example]]
 == Ejemplo de replicación
 
 De forma predeterminada, se crea un grupo de almacenamiento para cada sitio durante la instalación de StorageGRID .  Tener grupos de almacenamiento que constan de un solo sitio le permite configurar reglas ILM que utilizan la replicación para la protección contra pérdida del sitio. En este ejemplo:
@@ -48,6 +49,7 @@ Si se pierde un sitio, hay copias de los objetos disponibles en el otro sitio.
 
 
 
+[[erasure-coding-example]]
 == Ejemplo de codificación de borrado
 
 Tener grupos de almacenamiento que constan de más de un sitio por grupo de almacenamiento le permite configurar reglas ILM que utilizan codificación de borrado para la protección contra pérdida de sitios. En este ejemplo:

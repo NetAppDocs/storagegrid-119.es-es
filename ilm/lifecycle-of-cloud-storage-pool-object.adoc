@@ -15,6 +15,7 @@ Antes de implementar grupos de almacenamiento en la nube, revise el ciclo de vid
 
 
 
+[[s3-lifecycle-of-a-cloud-storage-pool-object]]
 == S3: Ciclo de vida de un objeto de grupo de almacenamiento en la nube
 
 Los pasos describen las etapas del ciclo de vida de un objeto almacenado en un grupo de almacenamiento en la nube S3.
@@ -61,6 +62,7 @@ Una vez que se ha restaurado un objeto, la aplicación cliente puede emitir una 
 
 
 
+[[azure-lifecycle-of-a-cloud-storage-pool-object]]
 == Azure: ciclo de vida de un objeto de grupo de almacenamiento en la nube
 
 Los pasos describen las etapas del ciclo de vida de un objeto almacenado en un grupo de almacenamiento en la nube de Azure.

@@ -27,6 +27,7 @@ Para obtener más información, consulte lo siguiente:
 
 
 
+[[guidelines-for-increasing-metadata-capacity]]
 == Directrices para aumentar la capacidad de metadatos
 
 Antes de agregar nodos de almacenamiento para aumentar la capacidad de metadatos, revise las siguientes pautas y limitaciones:
@@ -62,6 +63,7 @@ Ver ellink:../admin/managing-object-metadata-storage.html["Descripción de qué 
 
 
 
+[[how-metadata-is-redistributed-when-you-add-storage-nodes]]
 == Cómo se redistribuyen los metadatos al agregar nodos de almacenamiento
 
 Cuando agrega nodos de almacenamiento en una expansión, StorageGRID redistribuye los metadatos de los objetos existentes a los nuevos nodos en cada sitio, lo que aumenta la capacidad general de metadatos de la red.  No se requiere ninguna acción del usuario.

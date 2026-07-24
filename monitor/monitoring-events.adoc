@@ -44,6 +44,7 @@ image::../media/events_report.gif[Página de eventos]
 
 
 
+[[create-custom-syslog-events]]
 == Crear eventos de syslog personalizados
 
 Los eventos personalizados le permiten rastrear todos los eventos de usuario de nivel crítico, error, daemon y kernel registrados en el servidor syslog.  Un evento personalizado puede ser útil para monitorear la ocurrencia de mensajes de registro del sistema (y, por lo tanto, eventos de seguridad de red y fallas de hardware).
@@ -83,6 +84,7 @@ image::../media/custom_events_count.png[SSM > Eventos > Página de descripción 
 
 
 
+[[reset-the-count-of-custom-events-to-zero]]
 == Restablecer el recuento de eventos personalizados a cero
 
 Si desea restablecer el contador solo para eventos personalizados, debe utilizar la página Topología de cuadrícula en el menú Soporte.

@@ -15,6 +15,7 @@ Puede utilizar el equilibrio de carga para gestionar cargas de trabajo de ingest
 
 
 
+[[what-is-load-balancing]]
 == ¿Qué es el equilibrio de carga?
 
 Cuando una aplicación cliente guarda o recupera datos de un sistema StorageGRID , StorageGRID utiliza un equilibrador de carga para administrar la carga de trabajo de ingesta y recuperación.  El equilibrio de carga maximiza la velocidad y la capacidad de conexión al distribuir la carga de trabajo entre múltiples nodos de almacenamiento.
@@ -28,12 +29,14 @@ NOTE: Aunque el servicio StorageGRID Load Balancer es el mecanismo de equilibrio
 
 
 
+[[how-many-load-balancing-nodes-do-i-need]]
 == ¿Cuántos nodos de equilibrio de carga necesito?
 
 Como práctica recomendada general, cada sitio en su sistema StorageGRID debe incluir dos o más nodos con el servicio Load Balancer.  Por ejemplo, un sitio puede incluir dos nodos de puerta de enlace o un nodo de administración y un nodo de puerta de enlace.  Asegúrese de que haya una infraestructura de red, hardware o virtualización adecuada para cada nodo de equilibrio de carga, independientemente de que utilice dispositivos de servicios, nodos físicos o nodos basados ​​en máquinas virtuales (VM).
 
 
 
+[[what-is-a-load-balancer-endpoint]]
 == ¿Qué es un punto final de balanceador de carga?
 
 Un punto final del balanceador de carga define el puerto y el protocolo de red (HTTPS o HTTP) que las solicitudes de aplicaciones cliente entrantes y salientes utilizarán para acceder a aquellos nodos que contienen el servicio del balanceador de carga.  El punto final también define el tipo de cliente (S3), el modo de enlace y, opcionalmente, una lista de inquilinos permitidos o bloqueados.
@@ -47,6 +50,7 @@ Para crear un punto final del balanceador de carga, seleccione *CONFIGURACIÓN* 
 
 
 
+[[considerations-for-the-port]]
 === Consideraciones para el puerto
 
 El puerto para un punto final del balanceador de carga tiene como valor predeterminado 10433 para el primer punto final que cree, pero puede especificar cualquier puerto externo no utilizado entre 1 y 65535.  Si usa el puerto 80 o 443, el punto final utilizará el servicio Load Balancer solo en los nodos de puerta de enlace.  Estos puertos están reservados en los nodos de administración.  Si utiliza el mismo puerto para más de un punto final, debe especificar un modo de enlace diferente para cada punto final.
@@ -55,12 +59,14 @@ No se permiten puertos utilizados por otros servicios de la red. Ver ellink:../n
 
 
 
+[[considerations-for-the-network-protocol]]
 === Consideraciones para el protocolo de red
 
 En la mayoría de los casos, las conexiones entre las aplicaciones cliente y StorageGRID deben utilizar el cifrado de seguridad de la capa de transporte (TLS).  Se admite la conexión a StorageGRID sin cifrado TLS, pero no se recomienda, especialmente en entornos de producción.  Al seleccionar el protocolo de red para el punto final del balanceador de carga StorageGRID , debe seleccionar *HTTPS*.
 
 
 
+[[considerations-for-load-balancer-endpoint-certificates]]
 === Consideraciones sobre los certificados de punto final del equilibrador de carga
 
 Si selecciona *HTTPS* como protocolo de red para el punto final del balanceador de carga, deberá proporcionar un certificado de seguridad.  Puede utilizar cualquiera de estas tres opciones al crear el punto final del equilibrador de carga:
@@ -121,6 +127,7 @@ Para evitar problemas de vencimiento de certificados, siga estas prácticas reco
 
 
 
+[[considerations-for-the-binding-mode]]
 === Consideraciones para el modo de enlace
 
 El modo de enlace le permite controlar qué direcciones IP se pueden usar para acceder a un punto final del balanceador de carga.  Si un punto final utiliza un modo de enlace, las aplicaciones cliente solo pueden acceder al punto final si usan una dirección IP permitida o su nombre de dominio completo (FQDN) correspondiente.  Las aplicaciones cliente que utilicen cualquier otra dirección IP o FQDN no pueden acceder al punto final.
@@ -135,6 +142,7 @@ Puede especificar cualquiera de los siguientes modos de enlace:
 
 
 
+[[considerations-for-tenant-access]]
 === Consideraciones para el acceso de los inquilinos
 
 El acceso de inquilinos es una función de seguridad opcional que le permite controlar qué cuentas de inquilinos de StorageGRID pueden usar un punto final del balanceador de carga para acceder a sus buckets.  Puede permitir que todos los inquilinos accedan a un punto final (predeterminado) o puede especificar una lista de inquilinos permitidos o bloqueados para cada punto final.
@@ -163,6 +171,7 @@ Para acceder a la `top-secret.pdf` , un usuario en el inquilino *Top secret* pue
 
 
 
+[[cpu-availability]]
 == Disponibilidad de CPU
 
 El servicio Load Balancer en cada nodo de administración y nodo de puerta de enlace funciona de forma independiente al reenviar tráfico S3 a los nodos de almacenamiento.  A través de un proceso de ponderación, el servicio Load Balancer dirige más solicitudes a los nodos de almacenamiento con mayor disponibilidad de CPU.  La información de carga de la CPU del nodo se actualiza cada pocos minutos, pero la ponderación podría actualizarse con mayor frecuencia.  A todos los nodos de almacenamiento se les asigna un valor de peso base mínimo, incluso si un nodo informa una utilización del 100 % o no informa su utilización.

@@ -21,6 +21,7 @@ Para expandir o contraer el árbol de topología de cuadrícula, haga clic enima
 
 
 
+[[storagegrid-attributes]]
 == Atributos de StorageGRID
 
 Los atributos informan valores y estados para muchas de las funciones del sistema StorageGRID .  Los valores de los atributos están disponibles para cada nodo de la cuadrícula, cada sitio y toda la cuadrícula.
@@ -34,6 +35,7 @@ Los atributos StorageGRID se utilizan en varios lugares del Administrador de cua
 
 
 
+[[attribute-values]]
 === Valores de los atributos
 
 Los atributos se informan según el método del máximo esfuerzo y son aproximadamente correctos.  Las actualizaciones de atributos se pueden perder en algunas circunstancias, como por ejemplo, si se produce un fallo de un servicio o si falla y se vuelve a crear un nodo de la red.

@@ -27,6 +27,7 @@ De forma predeterminada, cualquier usuario que pertenezca a un grupo que tenga a
 
 
 
+[[interaction-between-permissions-and-access-mode]]
 == Interacción entre permisos y modo de acceso
 
 Para todos los permisos, la configuración *Modo de acceso* del grupo determina si los usuarios pueden cambiar configuraciones y realizar operaciones o si solo pueden ver las configuraciones y funciones relacionadas.  Si un usuario pertenece a varios grupos y alguno de ellos está configurado como *Solo lectura*, el usuario tendrá acceso de solo lectura a todas las configuraciones y funciones seleccionadas.
@@ -35,12 +36,14 @@ Las siguientes secciones describen los permisos que puede asignar al crear o edi
 
 
 
+[[root-access]]
 == Acceso root
 
 Este permiso proporciona acceso a todas las funciones de administración de la red.
 
 
 
+[[change-tenant-root-password]]
 == Cambiar la contraseña raíz del inquilino
 
 Este permiso proporciona acceso a la opción *Cambiar contraseña root* en la página Inquilinos, lo que le permite controlar quién puede cambiar la contraseña del usuario root local del inquilino.  Este permiso también se utiliza para migrar claves S3 cuando la función de importación de claves S3 está habilitada.  Los usuarios que no tienen este permiso no pueden ver la opción *Cambiar contraseña root*.
@@ -50,6 +53,7 @@ NOTE: Para otorgar acceso a la página Inquilinos, que contiene la opción *Camb
 
 
 
+[[grid-topology-page-configuration]]
 == Configuración de la página de topología de cuadrícula
 
 Este permiso proporciona acceso a las pestañas de Configuración en la página *SOPORTE* > *Herramientas* > *Topología de cuadrícula*.
@@ -59,6 +63,7 @@ NOTE: La página de topología de cuadrícula ha quedado obsoleta y se eliminar�
 
 
 
+[[ilm]]
 == ILM
 
 Este permiso proporciona acceso a las siguientes opciones del menú *ILM*:
@@ -77,6 +82,7 @@ NOTE: Los usuarios deben tener los permisos *Otra configuración de red* y *Conf
 
 
 
+[[maintenance]]
 == Mantenimiento
 
 Los usuarios deben tener el permiso de Mantenimiento para utilizar estas opciones:
@@ -145,12 +151,14 @@ Los usuarios que no tienen el permiso de Mantenimiento pueden ver, pero no edita
 
 
 
+[[manage-alerts]]
 == Administrar alertas
 
 Este permiso proporciona acceso a opciones para administrar alertas.  Los usuarios deben tener este permiso para administrar silencios, notificaciones de alerta y reglas de alerta.
 
 
 
+[[metrics-query]]
 == Consulta de métricas
 
 Este permiso proporciona acceso a:
@@ -162,12 +170,14 @@ Este permiso proporciona acceso a:
 
 
 
+[[object-metadata-lookup]]
 == Búsqueda de metadatos de objetos
 
 Este permiso proporciona acceso a la página *ILM* > *Búsqueda de metadatos de objetos*.
 
 
 
+[[other-grid-configuration]]
 == Otra configuración de red
 
 Este permiso proporciona acceso a opciones de configuración de cuadrícula adicionales.
@@ -190,6 +200,7 @@ TIP: Para ver estas opciones adicionales, los usuarios también deben tener el p
 
 
 
+[[storage-appliance-administrator]]
 == Administrador de dispositivos de almacenamiento
 
 Este permiso proporciona:
@@ -200,6 +211,7 @@ Este permiso proporciona:
 
 
 
+[[tenant-accounts]]
 == Cuentas de inquilinos
 
 Este permiso proporciona la capacidad de:

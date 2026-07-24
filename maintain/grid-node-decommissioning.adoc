@@ -15,6 +15,7 @@ Puede utilizar el procedimiento de desmantelamiento de nodos para eliminar uno o
 
 
 
+[[when-to-decommission-a-node]]
 == Cuándo desmantelar un nodo
 
 Utilice el procedimiento de desmantelamiento de nodo cuando se cumpla alguna de las siguientes condiciones:
@@ -33,6 +34,7 @@ TIP: Si desea reemplazar un electrodoméstico antiguo por uno más nuevo, consid
 
 
 
+[[how-to-decommission-a-node]]
 == Cómo desmantelar un nodo
 
 Puede desmantelar nodos de red conectados o desconectados.
@@ -53,6 +55,7 @@ Para obtener instrucciones, consultelink:decommissioning-disconnected-grid-nodes
 
 
 
+[[what-to-consider-before-decommissioning-a-node]]
 == Qué tener en cuenta antes de desmantelar un nodo
 
 Antes de realizar cualquiera de los procedimientos, revise las consideraciones para cada tipo de nodo:

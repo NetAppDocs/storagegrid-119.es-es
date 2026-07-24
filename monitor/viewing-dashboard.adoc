@@ -22,6 +22,7 @@ image::../media/grid_manager_dashboard.png[Panel de control de Grid Manager]
 
 
 
+[[view-the-dashboard]]
 == Ver el panel de control
 
 El panel de control consta de pestañas que contienen información específica sobre el sistema StorageGRID .  Cada pestaña contiene categorías de información que se muestran en las tarjetas.
@@ -73,6 +74,7 @@ Algunas de las tarjetas se pueden maximizar para facilitar su visualización.  S
 
 
 
+[[manage-dashboards]]
 == Administrar paneles de control
 
 Si tiene acceso root (verlink:../admin/admin-group-permissions.html["Permisos del grupo de administradores"] ), puede realizar las siguientes tareas de administración de paneles:
@@ -95,6 +97,7 @@ image::../media/dashboard_manage.png[Administrar paneles de control]
 
 
 
+[[configure-dashboards]]
 == Configurar paneles de control
 
 Para crear un nuevo panel clonando el panel activo, seleccione *Acciones* > *Clonar panel activo*.

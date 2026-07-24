@@ -15,6 +15,7 @@ Debe comprender cómo se verá afectado su sistema StorageGRID cuando aplique un
 
 
 
+[[storagegrid-hotfixes-are-non-disruptive]]
 == Las revisiones de StorageGRID no son disruptivas
 
 El sistema StorageGRID puede ingerir y recuperar datos de las aplicaciones cliente durante todo el proceso de revisión.  Si aprueba que se realicen revisiones en todos los nodos del mismo tipo (por ejemplo, nodos de almacenamiento), los nodos se desactivan uno a la vez, por lo que no hay ningún momento en el que todos los nodos de la red o todos los nodos de la red de un determinado tipo no estén disponibles.
@@ -29,6 +30,7 @@ Para permitir la disponibilidad continua, asegúrese de que su política ILM con
 
 
 
+[[client-applications-might-experience-short-term-disruptions]]
 == Las aplicaciones cliente podrían experimentar interrupciones a corto plazo
 
 El sistema StorageGRID puede ingerir y recuperar datos de las aplicaciones cliente durante todo el proceso de revisión; sin embargo, las conexiones de los clientes a los nodos de puerta de enlace o nodos de almacenamiento individuales pueden interrumpirse temporalmente si la revisión necesita reiniciar los servicios en esos nodos.  La conectividad se restablecerá una vez que se complete el proceso de revisión y se reanuden los servicios en los nodos individuales.
@@ -40,12 +42,14 @@ NOTE: Puede utilizar varias puertas de enlace y grupos de alta disponibilidad (H
 
 
 
+[[alerts-and-snmp-notifications-might-be-triggered]]
 == Es posible que se activen alertas y notificaciones SNMP
 
 Es posible que se activen alertas y notificaciones SNMP cuando se reinician los servicios y cuando el sistema StorageGRID está funcionando como un entorno de versión mixta (algunos nodos de la red ejecutan una versión anterior, mientras que otros se han actualizado a una versión posterior).  En general, estas alertas y notificaciones desaparecerán cuando se complete la revisión.
 
 
 
+[[configuration-changes-are-restricted]]
 == Los cambios de configuración están restringidos
 
 Al aplicar una revisión a StorageGRID:

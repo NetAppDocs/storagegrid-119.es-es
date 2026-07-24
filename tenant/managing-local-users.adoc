@@ -24,6 +24,7 @@ NOTE: Si el inicio de sesión único (SSO) está habilitado para su sistema Stor
 
 
 
+[[create-usercreate-a-local-user]]
 == [[create-user]]Crear un usuario local
 
 Puede crear un usuario local y asignarlo a uno o más grupos locales para controlar sus permisos de acceso.
@@ -34,6 +35,7 @@ Los usuarios de Swift que no pertenecen a ningún grupo no tienen permisos de ad
 
 
 
+[[access-the-create-user-wizard]]
 === Acceder al asistente para crear usuarios
 
 .Pasos
@@ -49,6 +51,7 @@ image::../media/grid-federation-tenant-user-banner.png[Imagen de banner azul en 
 
 
 
+[[enter-credentials]]
 === Ingresar credenciales
 
 .Pasos
@@ -95,6 +98,7 @@ Por ejemplo, seleccione *Sí* para suspender temporalmente la capacidad de un us
 
 
 
+[[assign-to-groups]]
 === Asignar a grupos
 
 .Pasos
@@ -114,6 +118,7 @@ Si su cuenta de inquilino tiene el permiso *Usar conexión de federación de red
 
 
 
+[[view-or-edit-local-user]]
 == Ver o editar usuario local
 
 .Pasos
@@ -174,6 +179,7 @@ No puedes cambiar el nombre de usuario.
 
 
 
+[[duplicate-local-user]]
 == Usuario local duplicado
 
 Puede duplicar un usuario local para crear un nuevo usuario más rápidamente.
@@ -191,6 +197,7 @@ NOTE: Si su cuenta de inquilino tiene el permiso *Usar conexión de federación 
 
 
 
+[[clone-usersretry-user-clone]]
 == [[clone-users]]Reintentar clonar usuario
 
 Para volver a intentar una clonación que falló:
@@ -204,6 +211,7 @@ Para obtener información adicional, consultelink:grid-federation-account-clone.
 
 
 
+[[delete-one-or-more-local-users]]
 == Eliminar uno o más usuarios locales
 
 Puede eliminar de forma permanente uno o más usuarios locales que ya no necesiten acceder a la cuenta de inquilino de StorageGRID .

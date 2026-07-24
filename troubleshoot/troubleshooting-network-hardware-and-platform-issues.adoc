@@ -15,6 +15,7 @@ Hay varias tareas que puede realizar para ayudar a determinar el origen de los p
 
 
 
+[[422-unprocessable-entity-errors]]
 == Errores "422: Entidad no procesable"
 
 El error 422: Entidad no procesable puede ocurrir por diferentes motivos.  Verifique el mensaje de error para determinar qué causó el problema.
@@ -77,6 +78,7 @@ Verifique los cifrados que ofrece el sistema externo.  El sistema debe utilizar 
 |===
 
 
+[[troubleshootmtualertgrid-network-mtu-mismatch-alert]]
 == [[troubleshoot_MTU_alert]]Alerta de discrepancia de MTU de la red Grid
 
 La alerta *Desajuste de MTU de red de cuadrícula* se activa cuando la configuración de la unidad de transmisión máxima (MTU) para la interfaz de red de cuadrícula (eth0) difiere significativamente entre los nodos de la cuadrícula.
@@ -152,6 +154,7 @@ El nodo.  El valor predeterminado es el nodo local.
 
 
 
+[[node-network-reception-frame-error-alert]]
 == Alerta de error en la recepción de trama de la red del nodo
 
 Las alertas de *Error de trama de recepción de red de nodo* pueden deberse a problemas de conectividad entre StorageGRID y el hardware de su red.  Esta alerta desaparece por sí sola una vez que se soluciona el problema subyacente.
@@ -238,6 +241,7 @@ El búfer de anillo puede saturarse cuando el sistema StorageGRID está sobrecar
 
 
 
+[[time-synchronization-errors]]
 == Errores de sincronización horaria
 
 Es posible que experimente problemas con la sincronización horaria en su red.
@@ -249,12 +253,14 @@ NOTE: Cuandolink:../maintain/configuring-ntp-servers.html["especificando la fuen
 
 
 
+[[linux-network-connectivity-issues]]
 == Linux: Problemas de conectividad de red
 
 Es posible que experimente problemas con la conectividad de red para los nodos StorageGRID alojados en hosts Linux.
 
 
 
+[[mac-address-cloning]]
 === Clonación de direcciones MAC
 
 En algunos casos, los problemas de red se pueden resolver mediante la clonación de direcciones MAC. Si está utilizando hosts virtuales, configure el valor de la clave de clonación de dirección MAC para cada una de sus redes en "verdadero" en su archivo de configuración de nodo. Esta configuración hace que la dirección MAC del contenedor StorageGRID utilice la dirección MAC del host. Para crear archivos de configuración de nodo, consulte las instrucciones paralink:../rhel/creating-node-configuration-files.html["Red Hat Enterprise Linux"] olink:../ubuntu/creating-node-configuration-files.html["Ubuntu o Debian"] .
@@ -266,6 +272,7 @@ Para obtener más información sobre cómo habilitar la clonación de MAC, consu
 
 
 
+[[promiscuous-mode]]
 === Modo promiscuo
 
 Si no desea utilizar la clonación de direcciones MAC y prefiere permitir que todas las interfaces reciban y transmitan datos para direcciones MAC distintas de las asignadas por el hipervisor, asegúrese de que las propiedades de seguridad en los niveles de conmutador virtual y grupo de puertos estén configuradas en *Aceptar* para Modo promiscuo, Cambios de dirección MAC y Transmisiones falsificadas.  Los valores establecidos en el conmutador virtual pueden ser anulados por los valores a nivel del grupo de puertos, así que asegúrese de que las configuraciones sean las mismas en ambos lugares.
@@ -274,6 +281,7 @@ Para obtener más información sobre el uso del modo promiscuo, consulte las ins
 
 
 
+[[linux-node-status-is-orphaned]]
 == Linux: El estado del nodo es "huérfano"
 
 Un nodo Linux en estado huérfano generalmente indica que el servicio StorageGrid o el demonio del nodo StorageGRID que controla el contenedor del nodo murió inesperadamente.
@@ -320,6 +328,7 @@ storagegrid node start DC1-S1-172-16-1-172
 
 
 
+[[linux-troubleshoot-ipv6-support]]
 == Linux: Solución de problemas de compatibilidad con IPv6
 
 Es posible que necesite habilitar la compatibilidad con IPv6 en el kernel si ha instalado nodos StorageGRID en hosts Linux y observa que las direcciones IPv6 no se han asignado a los contenedores de nodos como se esperaba.

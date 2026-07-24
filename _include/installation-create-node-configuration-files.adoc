@@ -4,6 +4,7 @@
 
 
 
+[[location-for-node-configuration-files]]
 == Ubicación de los archivos de configuración del nodo
 
 Coloque el archivo de configuración para cada nodo StorageGRID en el `/etc/storagegrid/nodes` directorio en el host donde se ejecutará el nodo.  Por ejemplo, si planea ejecutar un nodo de administración, un nodo de puerta de enlace y un nodo de almacenamiento en HostA, debe colocar tres archivos de configuración de nodo en `/etc/storagegrid/nodes` en HostA.
@@ -12,6 +13,7 @@ Puede crear los archivos de configuración directamente en cada host utilizando 
 
 
 
+[[naming-of-node-configuration-files]]
 == Nomenclatura de los archivos de configuración de nodos
 
 Los nombres de los archivos de configuración son significativos.  El formato es `node-name.conf` , dónde `node-name` Es un nombre que le asignas al nodo.  Este nombre aparece en el instalador de StorageGRID y se utiliza para operaciones de mantenimiento de nodos, como la migración de nodos.
@@ -36,6 +38,7 @@ Por ejemplo, podrías utilizar `dc1-adm1.conf` para el primer nodo de administra
 
 
 
+[[contents-of-a-node-configuration-file]]
 == Contenido de un archivo de configuración de nodo
 
 Un archivo de configuración contiene pares clave/valor, con una clave y un valor por línea.  Para cada par clave/valor, siga estas reglas:
@@ -55,6 +58,7 @@ La siguiente tabla define los valores para todas las claves admitidas.  Cada tec
 
 
 
+[[admin-network-keys]]
 === Claves de red de administración
 
 
@@ -307,6 +311,7 @@ Opcional en caso contrario.
 |===
 
 
+[[block-device-keys]]
 === Bloquear teclas del dispositivo
 
 
@@ -443,6 +448,7 @@ Requerido
 |===
 
 
+[[client-network-keys]]
 === Claves de red del cliente
 
 
@@ -650,6 +656,7 @@ Mejores prácticas
 |===
 
 
+[[grid-network-keys]]
 === Claves de red de cuadrícula
 
 
@@ -845,6 +852,7 @@ Mejores prácticas
 |===
 
 
+[[installation-password-key-temporary]]
 === Clave de contraseña de instalación (temporal)
 
 
@@ -874,6 +882,7 @@ Mejores prácticas
 |===
 
 
+[[interfaces-key]]
 === Interfaces clave
 
 
@@ -901,6 +910,7 @@ Opcional
 |===
 
 
+[[maximum-ram-key]]
 === Clave de RAM máxima
 
 
@@ -932,6 +942,7 @@ Opcional
 |===
 
 
+[[node-type-keys]]
 === Claves de tipo de nodo
 
 
@@ -979,6 +990,7 @@ Opcional
 |===
 
 
+[[port-remap-keys]]
 === Claves de reasignación de puertos
 
 

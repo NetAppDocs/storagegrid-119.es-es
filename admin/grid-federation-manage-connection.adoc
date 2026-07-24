@@ -20,6 +20,7 @@ La administración de las conexiones de federación de red entre sistemas Storag
 
 
 
+[[editgridfedconnectionedit-a-grid-federation-connection]]
 == [[edit_grid_fed_connection]]Editar una conexión de federación de red
 
 Puede editar una conexión de federación de red iniciando sesión en el nodo de administración principal en cualquiera de las redes de la conexión.  Después de realizar cambios en la primera cuadrícula, deberá descargar un nuevo archivo de verificación y cargarlo en la otra cuadrícula.
@@ -29,6 +30,7 @@ NOTE: Mientras se edita la conexión, las solicitudes de clonación de cuenta o 
 
 
 
+[[start-editing-the-connection]]
 === Comience a editar la conexión
 
 .Pasos
@@ -85,6 +87,7 @@ NOTE: Si el estado de la conexión era distinto de *Conectado* cuando comenzó a
 
 
 
+[[finish-editing-the-connection]]
 === Terminar de editar la conexión
 
 Termine de editar la conexión cargando el archivo de verificación en la otra cuadrícula.
@@ -107,6 +110,7 @@ Si se puede establecer la conexión utilizando los valores editados, aparecerá 
 
 
 
+[[testgridfedconnectiontest-a-grid-federation-connection]]
 == [[test_grid_fed_connection]]Pruebe una conexión de federación de red
 
 .Pasos
@@ -177,6 +181,7 @@ La conexión está en un estado desconocido, posiblemente debido a un problema d
 
 
 
+[[rotategridfedcertificatesrotate-connection-certificates]]
 == [[rotate_grid_fed_certificates]]Rotar certificados de conexión
 
 Cada conexión de federación de red utiliza cuatro certificados SSL generados automáticamente para proteger la conexión.  Cuando los dos certificados de cada red se acercan a su fecha de vencimiento, la alerta *Vencimiento del certificado de federación de red* le recuerda que debe rotar los certificados.
@@ -201,6 +206,7 @@ En general, utilice la misma cantidad de días para los certificados en ambos la
 
 
 
+[[removegridfedconnectionremove-a-grid-federation-connection]]
 == [[remove_grid_fed_connection]]Eliminar una conexión de federación de red
 
 Puede eliminar una conexión de federación de red de cualquiera de las redes en la conexión.  Como se muestra en la figura, debe realizar los pasos previos necesarios en ambas redes para confirmar que ningún inquilino en ninguna de las redes esté utilizando la conexión.
@@ -215,6 +221,7 @@ Antes de eliminar una conexión, tenga en cuenta lo siguiente:
 
 
 
+[[disable-replication-for-all-tenant-buckets]]
 === Deshabilitar la replicación para todos los depósitos de inquilinos
 
 .Pasos
@@ -231,6 +238,7 @@ TIP: No puedes eliminar el permiso *Usar conexión de federación de red* si alg
 
 
 
+[[remove-permission-for-each-tenant]]
 === Eliminar el permiso para cada inquilino
 
 Una vez que se haya deshabilitado la replicación entre redes para todos los grupos de inquilinos, elimine el *permiso de uso de federación de red* de todos los inquilinos en ambas redes.
@@ -244,6 +252,7 @@ Una vez que se haya deshabilitado la replicación entre redes para todos los gru
 
 
 
+[[remove-connection]]
 === Eliminar conexión
 
 .Pasos
@@ -263,6 +272,7 @@ Una vez que se haya deshabilitado la replicación entre redes para todos los gru
 
 
 
+[[force-removegridfedconnectionremove-a-grid-federation-connection-by-force]]
 == [[force-remove_grid_fed_connection]]Eliminar una conexión de federación de red por la fuerza
 
 Si es necesario, puede forzar la eliminación de una conexión que no tenga el estado *Conectado*.

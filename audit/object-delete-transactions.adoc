@@ -17,6 +17,7 @@ No todos los mensajes de auditoría generados durante una transacción de elimin
 
 
 
+[[s3-delete-audit-messages]]
 == Mensajes de auditoría de eliminación de S3
 
 [cols="1a,1a,2a,1a,2a"]
@@ -38,6 +39,7 @@ link:sdel-s3-delete.html["SDEL: S3 ELIMINAR"]
 |===
 
 
+[[swift-delete-audit-messages]]
 == Eliminar mensajes de auditoría de Swift
 
 [cols="1a,1a,2a,1a,2a"]
@@ -59,6 +61,7 @@ link:wdel-swift-delete.html["WDEL: Eliminación rápida"]
 |===
 
 
+[[example-s3-object-deletion]]
 == Ejemplo: eliminación de objetos S3
 
 Cuando un cliente S3 elimina un objeto de un nodo de almacenamiento (servicio LDR), se genera un mensaje de auditoría y se guarda en el registro de auditoría.
@@ -68,6 +71,7 @@ NOTE: No todos los mensajes de auditoría generados durante una transacción de 
 
 
 
+[[sdel-s3-delete]]
 === SDEL: S3 Eliminar
 
 La eliminación de objetos comienza cuando el cliente envía una solicitud DeleteObject a un servicio LDR.  El mensaje contiene el depósito desde el cual eliminar el objeto y la clave S3 del objeto, que se utiliza para identificarlo.

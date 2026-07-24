@@ -22,6 +22,7 @@ Puede agregar, actualizar o eliminar servidores de Protocolo de tiempo de red (N
 
 
 
+[[how-storagegrid-uses-ntp]]
 == Cómo StorageGRID utiliza NTP
 
 El sistema StorageGRID utiliza el Protocolo de tiempo de red (NTP) para sincronizar el tiempo entre todos los nodos de la red.
@@ -32,6 +33,7 @@ Los servidores NTP externos se conectan a los nodos a los que previamente asign�
 
 
 
+[[ntp-server-guidelines]]
 == Directrices del servidor NTP
 
 Siga estas pautas para protegerse contra problemas de sincronización:
@@ -46,6 +48,7 @@ NOTE: Al especificar la fuente NTP externa para una instalación de StorageGRID 
 
 
 
+[[configure-ntp-servers]]
 == Configurar servidores NTP
 
 Siga estos pasos para agregar, actualizar o eliminar servidores NTP.
@@ -68,6 +71,7 @@ NOTE: Si todos sus servidores NTP no pasan la prueba de conexión después de gu
 
 
 
+[[resolve-ntp-server-issues]]
 == Resolver problemas del servidor NTP
 
 Si encuentra problemas con la estabilidad o disponibilidad de los servidores NTP especificados originalmente durante la instalación, puede actualizar la lista de fuentes NTP externas que utiliza el sistema StorageGRID agregando servidores adicionales o actualizando o eliminando servidores existentes.

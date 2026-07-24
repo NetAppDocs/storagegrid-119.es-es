@@ -47,12 +47,14 @@ Cuando reinicia el nodo de administración principal, su navegador pierde tempor
 
 
 
+[[perform-a-rolling-reboot]]
 == Realizar un reinicio continuo
 
 Selecciona los nodos que desea reiniciar, revisa sus selecciones, inicia el procedimiento de reinicio y supervisa el progreso.
 
 
 
+[[select-nodes]]
 === Seleccionar nodos
 
 Como primer paso, acceda a la página de reinicio continuo y seleccione los nodos que desea reiniciar.
@@ -79,6 +81,7 @@ Puede utilizar las opciones de filtro de la tabla para ver subconjuntos de nodos
 
 
 
+[[review-selection]]
 === Selección de reseñas
 
 En este paso, puede determinar cuánto tiempo puede tardar el procedimiento de reinicio total y confirmar que seleccionó los nodos correctos.
@@ -96,6 +99,7 @@ NOTE: El nodo de administración principal será el último nodo en reiniciarse.
 
 
 
+[[monitor-a-rolling-reboot]]
 === Monitorear un reinicio continuo
 
 Mientras se ejecuta el procedimiento de reinicio continuo, puedes supervisarlo desde el nodo de administración principal.
@@ -124,6 +128,7 @@ Las tablas proporcionan una barra de progreso de la operación en cada nodo y mu
 
 
 
+[[stop-the-rolling-reboot-procedure]]
 == Detener el procedimiento de reinicio continuo
 
 Puede detener el procedimiento de reinicio continuo desde el nodo de administración principal.  Al detener el procedimiento, cualquier nodo que tenga el estado "Deteniendo servicios", "Reiniciando sistema" o "Iniciando servicios" completará la operación de reinicio.  Sin embargo, estos nodos ya no serán rastreados como parte del procedimiento.

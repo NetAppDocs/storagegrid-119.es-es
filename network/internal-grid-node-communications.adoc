@@ -20,6 +20,7 @@ Además de ICMP y los puertos enumerados en la tabla, StorageGRID utiliza el Pro
 
 
 
+[[guidelines-for-linux-based-nodes]]
 == Directrices para nodos basados en Linux
 
 Si las políticas de red empresarial restringen el acceso a cualquiera de estos puertos, puede reasignar los puertos en el momento de la implementación utilizando un parámetro de configuración de implementación. Para obtener más información sobre la reasignación de puertos y los parámetros de configuración de implementación, consulte:
@@ -30,6 +31,7 @@ Si las políticas de red empresarial restringen el acceso a cualquiera de estos 
 
 
 
+[[guidelines-for-vmware-based-nodes]]
 == Directrices para nodos basados en VMware
 
 Configure los siguientes puertos solo si necesita definir restricciones de firewall que sean externas a la red de VMware.
@@ -38,12 +40,14 @@ Si las políticas de red empresarial restringen el acceso a cualquiera de estos 
 
 
 
+[[guidelines-for-appliance-nodes]]
 == Directrices para los nodos de dispositivos
 
 Si las políticas de red empresarial restringen el acceso a cualquiera de estos puertos, puede reasignar los puertos mediante el instalador del dispositivo StorageGRID . Ver https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/optional-remapping-network-ports-for-appliance.html["Opcional: Reasignar los puertos de red para el dispositivo"^] .
 
 
 
+[[storagegrid-internal-ports]]
 == Puertos internos de StorageGRID
 
 [cols="1a,1a,1a,1a,4a"]

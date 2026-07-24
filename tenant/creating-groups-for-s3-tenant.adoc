@@ -22,6 +22,7 @@ Puede administrar permisos para grupos de usuarios de S3 importando grupos feder
 
 
 
+[[access-the-create-group-wizard]]
 == Acceder al asistente para crear grupos
 
 Como primer paso, acceda al asistente para crear grupos.
@@ -37,6 +38,7 @@ image::../media/grid-federation-tenant-group-banner.png[Imagen de un banner azul
 
 
 
+[[choose-a-group-type]]
 == Elija un tipo de grupo
 
 Puede crear un grupo local o importar un grupo federado.
@@ -61,6 +63,7 @@ NOTE: Si su cuenta de inquilino tiene el permiso *Usar conexión de federación 
 
 
 
+[[manage-group-permissions]]
 == Administrar permisos de grupo
 
 Los permisos de grupo controlan qué tareas pueden realizar los usuarios en el Administrador de inquilinos y la API de administración de inquilinos.
@@ -85,6 +88,7 @@ Ver link:../tenant/tenant-management-permissions.html["Permisos de gestión de i
 
 
 
+[[set-s3-group-policy]]
 == Establecer la política de grupo de S3
 
 La política de grupo determina qué permisos de acceso a S3 tendrán los usuarios.
@@ -142,6 +146,7 @@ Para obtener información detallada sobre las políticas de grupo, incluida la s
 
 
 
+[[add-users-local-groups-only]]
 == Agregar usuarios (solo grupos locales)
 
 Puede guardar el grupo sin agregar usuarios o, opcionalmente, puede agregar cualquier usuario local que ya exista.

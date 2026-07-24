@@ -15,6 +15,7 @@ Si se produce un error cuando StorageGRID intenta comunicarse con un punto final
 
 
 
+[[determine-if-error-has-occurred]]
 == Determinar si se ha producido un error
 
 Si se produjo algún error en los puntos finales de los servicios de la plataforma en los últimos 7 días, el panel del Administrador de inquilinos muestra un mensaje de alerta.  Puede ir a la página de puntos finales de servicios de la plataforma para ver más detalles sobre el error.
@@ -30,6 +31,7 @@ El mismo error que aparece en el panel también aparece en la parte superior de 
 
 
 
+[[check-if-error-is-still-current]]
 == Comprobar si el error sigue vigente
 
 Es posible que algunos errores sigan apareciendo en la columna *Último error* incluso después de que se hayan resuelto.  Para ver si hay un error actual o para forzar la eliminación de un error resuelto de la tabla:
@@ -46,6 +48,7 @@ Al seleccionar *Probar conexión*, StorageGRID valida que el punto final de serv
 
 
 
+[[resolve-endpoint-errors]]
 == Resolver errores de puntos finales
 
 Puede utilizar el mensaje *Último error* en la página de detalles del punto final para ayudar a determinar qué está causando el error.  Algunos errores podrían requerir que edites el punto final para resolver el problema.  Por ejemplo, puede ocurrir un error de CloudMirroring si StorageGRID no puede acceder al bucket S3 de destino porque no tiene los permisos de acceso correctos o la clave de acceso ha expirado.  El mensaje es "Es necesario actualizar las credenciales del punto final o el acceso al destino" y los detalles son "Acceso denegado" o "InvalidAccessKeyId".
@@ -61,6 +64,7 @@ Si necesita editar el punto final para resolver un error, seleccionar *Probar y 
 
 
 
+[[endpoint-credentials-with-insufficient-permissions]]
 == Credenciales de punto final con permisos insuficientes
 
 Cuando StorageGRID valida un punto final de servicios de plataforma, confirma que las credenciales del punto final se pueden usar para contactar al recurso de destino y realiza una verificación de permisos básica.  Sin embargo, StorageGRID no valida todos los permisos necesarios para ciertas operaciones de servicios de la plataforma.  Por este motivo, si recibe un error al intentar utilizar un servicio de la plataforma (como "403 Prohibido"), verifique los permisos asociados con las credenciales del punto final.

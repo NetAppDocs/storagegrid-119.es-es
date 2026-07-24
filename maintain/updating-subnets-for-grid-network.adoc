@@ -45,6 +45,7 @@ Por ejemplo, no utilice los siguientes rangos de subred para la red de cuadrícu
 ====
 
 
+[[add-a-subnet]]
 == Agregar una subred
 
 .Pasos
@@ -70,6 +71,7 @@ Las subredes que ha especificado se configuran automáticamente para su sistema 
 
 
 
+[[edit-a-subnet]]
 == Editar una subred
 
 .Pasos
@@ -87,6 +89,7 @@ Las subredes que ha especificado se configuran automáticamente para su sistema 
 
 
 
+[[delete-a-subnet]]
 == Eliminar una subred
 
 .Pasos

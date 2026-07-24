@@ -19,6 +19,7 @@ Si desea supervisar StorageGRID mediante el Protocolo simple de administración 
 
 
 
+[[capabilities]]
 == Capacidades
 
 Cada nodo StorageGRID ejecuta un agente SNMP, o demonio, que proporciona una MIB.  La MIB de StorageGRID contiene definiciones de tablas y notificaciones para alertas.  La MIB también contiene información de descripción del sistema, como la plataforma y el número de modelo de cada nodo.  Cada nodo StorageGRID también admite un subconjunto de objetos MIB-II.
@@ -54,6 +55,7 @@ Cada alerta se asigna a uno de tres tipos de trampa según el nivel de gravedad 
 
 
 
+[[snmp-version-support]]
 == Compatibilidad con versiones SNMP
 
 La tabla proporciona un resumen de alto nivel de lo que se admite para cada versión de SNMP.
@@ -112,6 +114,7 @@ Usuario USM para cada destino de trampa
 |===
 
 
+[[limitations]]
 == Limitaciones
 
 * StorageGRID admite acceso MIB de solo lectura.  No se admite el acceso de lectura y escritura.

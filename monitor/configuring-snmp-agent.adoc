@@ -25,6 +25,7 @@ Todos los nodos de la red utilizan la misma configuración SNMP.
 
 
 
+[[specify-basic-configuration]]
 == Especificar la configuración básica
 
 Como primer paso, habilite el agente SMNP de StorageGRID y proporcione información básica.
@@ -79,6 +80,7 @@ Si se selecciona, el agente SNMP de StorageGRID envía trampas de autenticación
 
 
 
+[[enter-community-strings]]
 == Introduzca cadenas de la comunidad
 
 Si utiliza SNMPv1 o SNMPv2c, complete la sección Cadenas de comunidad.
@@ -102,6 +104,7 @@ Se permiten hasta cinco cuerdas.
 
 
 
+[[selecttrapdestinationcreate-trap-destinations]]
 == [[select_trap_destination]]Crear destinos de trampa
 
 Utilice la pestaña Destinos de trampa en la sección Otras configuraciones para definir uno o más destinos para las notificaciones de trampa o información de StorageGRID .  Cuando habilita el agente SNMP y selecciona *Guardar*, StorageGRID envía notificaciones a cada destino definido cuando se activan alertas.  También se envían notificaciones estándar para las entidades MIB-II compatibles (por ejemplo, ifDown y coldStart).
@@ -277,6 +280,7 @@ Se crea el destino de la trampa y se agrega a la tabla.
 
 
 
+[[create-agent-addresses]]
 == Crear direcciones de agentes
 
 Opcionalmente, utilice la pestaña Direcciones del agente en la sección Otras configuraciones para especificar una o más "direcciones de escucha".  Estas son las direcciones StorageGRID en las que el agente SNMP puede recibir consultas.
@@ -344,6 +348,7 @@ Se crea la dirección del agente y se agrega a la tabla.
 
 
 
+[[create-usm-userscreate-usm-users]]
 == [[create-usm-users]]Crear usuarios USM
 
 Si está utilizando SNMPv3, utilice la pestaña Usuarios USM en la sección Otras configuraciones para definir los usuarios USM que están autorizados a consultar la MIB o a recibir trampas e informes.

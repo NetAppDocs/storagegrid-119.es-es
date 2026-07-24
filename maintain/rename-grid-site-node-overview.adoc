@@ -15,6 +15,7 @@ Según sea necesario, puede cambiar los nombres para mostrar que se muestran en 
 
 
 
+[[what-is-the-rename-procedure]]
 == ¿Cuál es el procedimiento de cambio de nombre?
 
 Cuando instala StorageGRID inicialmente, especifica un nombre para la red, cada sitio y cada nodo.  Estos nombres iniciales se conocen como _nombres del sistema_ y son los nombres que se muestran inicialmente en StorageGRID.
@@ -25,6 +26,7 @@ Utilice el procedimiento de cambio de nombre para corregir errores tipográficos
 
 
 
+[[where-do-system-and-display-names-appear]]
 == ¿Dónde aparecen los nombres del sistema y de la pantalla?
 
 La siguiente tabla resume dónde se muestran los nombres del sistema y los nombres para mostrar en la interfaz de usuario de StorageGRID y en los archivos de StorageGRID .
@@ -130,12 +132,14 @@ Vacío a menos que se hayan cambiado el nombre de los elementos; de lo contrario
 |===
 
 
+[[display-name-requirements]]
 == Requisitos del nombre para mostrar
 
 Antes de utilizar este procedimiento, revise los requisitos para los nombres para mostrar.
 
 
 
+[[display-names-for-nodes]]
 === Nombres para mostrar de los nodos
 
 Los nombres para mostrar de los nodos deben seguir estas reglas:
@@ -153,6 +157,7 @@ Puede cambiar el nombre de un nodo con un nombre para mostrar que haya sido util
 
 
 
+[[display-names-for-grid-and-sites]]
 === Nombres para mostrar en la cuadrícula y los sitios
 
 Los nombres para mostrar de la cuadrícula y los sitios siguen las mismas reglas con estas excepciones:
@@ -165,6 +170,7 @@ Los nombres para mostrar de la cuadrícula y los sitios siguen las mismas reglas
 
 
 
+[[display-name-best-practices]]
 == Prácticas recomendadas para nombres para mostrar
 
 Si planea cambiar el nombre de varios elementos, documente su esquema de nombres general antes de utilizar este procedimiento.  Piense en un sistema que garantice que los nombres sean únicos, consistentes y fáciles de entender a simple vista.
@@ -180,6 +186,7 @@ Piénselo dos veces antes de agregar detalles específicos a los nombres que pro
 
 
 
+[[example-display-names]]
 === Ejemplos de nombres para mostrar
 
 Supongamos que su sistema StorageGRID tiene tres centros de datos y nodos de diferentes tipos en cada centro de datos.  Tus nombres para mostrar podrían ser tan simples como estos:

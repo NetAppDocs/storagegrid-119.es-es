@@ -17,6 +17,7 @@ Cuando crea o edita una regla ILM, selecciona un esquema de codificación de bor
 
 
 
+[[data-protection]]
 == Protección de datos
 
 El sistema StorageGRID utiliza el algoritmo de codificación de borrado Reed-Solomon.  El algoritmo divide un objeto en `k` fragmentos de datos y cálculos `m` fragmentos de paridad.
@@ -31,6 +32,7 @@ La mejor protección de datos la proporciona el esquema de codificación de borr
 
 
 
+[[storage-overhead]]
 == Gastos generales de almacenamiento
 
 La sobrecarga de almacenamiento de un esquema de codificación de borrado se calcula dividiendo el número de fragmentos de paridad(`m` ) por el número de fragmentos de datos(`k` ).  Puede utilizar la sobrecarga de almacenamiento para calcular cuánto espacio en disco requiere cada objeto con código de borrado:
@@ -48,6 +50,7 @@ Seleccione el esquema de codificación de borrado con el valor total más bajo d
 
 
 
+[[guidelines-for-storage-pools]]
 == Directrices para los pools de almacenamiento
 
 Al seleccionar el grupo de almacenamiento que se utilizará para una regla que creará una copia con código de borrado, utilice las siguientes pautas para los grupos de almacenamiento:
@@ -75,6 +78,7 @@ El número mínimo de nodos de almacenamiento requeridos es `k+m` .  Sin embargo
 
 
 
+[[erasure-coding-schemes-for-storage-pools-containing-three-or-more-sites]]
 == Esquemas de codificación de borrado para grupos de almacenamiento que contienen tres o más sitios
 
 La siguiente tabla describe los esquemas de codificación de borrado actualmente admitidos por StorageGRID para grupos de almacenamiento que incluyen tres o más sitios.  Todos estos esquemas brindan protección contra pérdida de sitio.  Se puede perder un sitio y el objeto seguirá siendo accesible.
@@ -238,6 +242,7 @@ NOTE: Si no está seguro de qué esquema utilizar, seleccione 4+2 o 6+3, o comun
 
 
 
+[[erasure-coding-schemes-for-one-site-storage-pools]]
 == Esquemas de codificación de borrado para grupos de almacenamiento de un solo sitio
 
 Un grupo de almacenamiento de un solo sitio admite todos los esquemas de codificación de borrado definidos para tres o más sitios, siempre que el sitio tenga suficientes nodos de almacenamiento.

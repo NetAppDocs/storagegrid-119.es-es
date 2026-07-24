@@ -36,6 +36,7 @@ Se pueden implementar otros tipos de nodos, como nodos de administración o nodo
 ====
 
 
+[[export-node-from-source-host]]
 == Nodo de exportación desde el host de origen
 
 Como primer paso, apague el nodo de la red y expórtelo desde el host Linux de origen.
@@ -96,6 +97,7 @@ Ejecutará este comando en el host de destino en el siguiente paso.
 
 
 
+[[import-node-on-target-host]]
 == Importar nodo en el host de destino
 
 Después de exportar el nodo desde el host de origen, importe y valide el nodo en el host de destino.  La validación confirma que el nodo tiene acceso a los mismos dispositivos de interfaz de red y almacenamiento en bloque que tenía en el host de origen.
@@ -143,6 +145,7 @@ Para obtener información sobre solución de problemas, consulte las instruccion
 
 
 
+[[start-migrated-node]]
 == Iniciar el nodo migrado
 
 Después de validar el nodo migrado, inicie el nodo ejecutando un comando en el _host de destino_.

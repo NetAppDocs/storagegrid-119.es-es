@@ -17,6 +17,7 @@ Las políticas de clasificación de tráfico se aplican a los puntos finales en 
 
 
 
+[[matching-rules]]
 == Reglas de coincidencia
 
 Cada política de clasificación de tráfico contiene una o más reglas de coincidencia para identificar el tráfico de red relacionado con una o más de las siguientes entidades:
@@ -31,6 +32,7 @@ StorageGRID monitorea el tráfico que coincide con cualquier regla dentro de la 
 
 
 
+[[traffic-limiting]]
 == Limitación del tráfico
 
 Opcionalmente, puede agregar los siguientes tipos de límites a una política:
@@ -52,6 +54,7 @@ En el Administrador de cuadrícula, puede ver gráficos de tráfico y verificar 
 
 
 
+[[use-traffic-classification-policies-with-slas]]
 == Utilice políticas de clasificación de tráfico con SLA
 
 Puede utilizar políticas de clasificación de tráfico junto con límites de capacidad y protección de datos para aplicar acuerdos de nivel de servicio (SLA) que proporcionen detalles específicos sobre la capacidad, la protección de datos y el rendimiento.

@@ -15,6 +15,7 @@ StorageGRID utiliza el lenguaje de políticas de Amazon Web Services (AWS) para 
 
 
 
+[[access-policy-overview]]
 == Descripción general de la política de acceso
 
 StorageGRID admite dos tipos de políticas de acceso.
@@ -136,6 +137,7 @@ La política de depósito tiene un límite de tamaño de 20 480 bytes y la polí
 
 
 
+[[consistency-for-policies]]
 == Coherencia de las políticas
 
 De forma predeterminada, cualquier actualización que realice en las políticas de grupo será coherente en el futuro.  Cuando una política de grupo se vuelve consistente, los cambios pueden tardar 15 minutos adicionales en surtir efecto, debido al almacenamiento en caché de la política.  De forma predeterminada, todas las actualizaciones que realice en las políticas de depósito serán muy coherentes.
@@ -149,6 +151,7 @@ NOTE: Si establece la consistencia en un valor diferente para solucionar una sit
 
 
 
+[[use-arn-in-policy-statements]]
 == Utilice ARN en declaraciones de políticas
 
 En las declaraciones de políticas, el ARN se utiliza en los elementos Principal y Recurso.
@@ -186,6 +189,7 @@ El cuerpo de la solicitud HTTP para la operación PutBucketPolicy debe estar cod
 
 
 
+[[specify-resources-in-a-policy]]
 == Especificar recursos en una política
 
 En las declaraciones de políticas, puede utilizar el elemento Recurso para especificar el depósito o el objeto para el cual se permiten o deniegan permisos.
@@ -208,6 +212,7 @@ En las declaraciones de políticas, puede utilizar el elemento Recurso para espe
 
 
 
+[[specify-principals-in-a-policy]]
 == Especificar los principales en una política
 
 Utilice el elemento Principal para identificar el usuario, grupo o cuenta de inquilino a quien se le permite o deniega el acceso al recurso mediante la declaración de política.
@@ -265,6 +270,7 @@ Por ejemplo, supongamos que Alex abandona la organización y el nombre de usuari
 
 
 
+[[specify-permissions-in-a-policy]]
 == Especificar permisos en una política
 
 En una política, el elemento Acción se utiliza para permitir o denegar permisos a un recurso.  Hay un conjunto de permisos que puedes especificar en una política, que se indican con el elemento "Acción" o, alternativamente, "No acción" para la exclusión.  Cada uno de estos elementos se asigna a operaciones específicas de la API REST de S3.
@@ -279,6 +285,7 @@ NOTE: Se realiza una eliminación cuando se utiliza una operación put para sobr
 
 
 
+[[permissions-that-apply-to-buckets]]
 === Permisos que se aplican a los buckets
 
 [cols="2a,2a,1a"]
@@ -617,6 +624,7 @@ Sí, permisos separados para PUT y DELETE
 |===
 
 
+[[permissions-that-apply-to-objects]]
 === Permisos que se aplican a los objetos
 
 [cols="2a,2a,1a"]
@@ -818,6 +826,7 @@ Restaurar objeto
 |===
 
 
+[[use-putoverwriteobject-permission]]
 == Utilice el permiso PutOverwriteObject
 
 El permiso s3:PutOverwriteObject es un permiso de StorageGRID personalizado que se aplica a las operaciones que crean o actualizan objetos.  La configuración de este permiso determina si el cliente puede sobrescribir los datos de un objeto, los metadatos definidos por el usuario o el etiquetado de objetos S3.
@@ -845,6 +854,7 @@ NOTE: Si la política S3 actual permite sobrescribir y el permiso PutOverwriteOb
 
 
 
+[[specify-conditions-in-a-policy]]
 == Especificar condiciones en una póliza
 
 Las condiciones definen cuándo entrará en vigor una política.  Las condiciones constan de operadores y pares clave-valor.
@@ -870,6 +880,7 @@ En el siguiente ejemplo, la condición IpAddress utiliza la clave de condición 
 ----
 
 
+[[supported-condition-operators]]
 === Operadores de condición admitidos
 
 Los operadores de condición se clasifican de la siguiente manera:
@@ -999,6 +1010,7 @@ Comprueba si una clave de condición está presente en el contexto de solicitud 
 |===
 
 
+[[supported-condition-keys]]
 === Claves de condición admitidas
 
 [cols="1a,1a,2a"]
@@ -1129,6 +1141,7 @@ Requerirá una clave y un valor de etiqueta específicos cuando la solicitud de 
 |===
 
 
+[[specify-variables-in-a-policy]]
 == Especificar variables en una política
 
 Puede utilizar variables en las políticas para completar la información de políticas cuando esté disponible.  Puede utilizar variables de política en el `Resource` elemento y en comparaciones de cadenas en el `Condition` elemento.
@@ -1205,6 +1218,7 @@ Carácter especial.  Utiliza el carácter como un carácter literal $.
 |===
 
 
+[[create-policies-requiring-special-handling]]
 == Crear políticas que requieran un manejo especial
 
 A veces, una política puede otorgar permisos que son peligrosos para la seguridad o para las operaciones continuas, como bloquear al usuario raíz de la cuenta.  La implementación de la API REST S3 de StorageGRID es menos restrictiva durante la validación de políticas que Amazon, pero igualmente estricta durante la evaluación de políticas.
@@ -1325,6 +1339,7 @@ Válido.  Los objetos son propiedad de la cuenta del propietario del depósito. 
 |===
 
 
+[[write-once-read-many-worm-protection]]
 == Protección de escritura única y lectura múltiple (WORM)
 
 Puede crear depósitos de escritura única y lectura múltiple (WORM) para proteger datos, metadatos de objetos definidos por el usuario y etiquetado de objetos S3.  Configura los depósitos WORM para permitir la creación de nuevos objetos y evitar sobrescrituras o eliminaciones de contenido existente.  Utilice uno de los enfoques descritos aquí.

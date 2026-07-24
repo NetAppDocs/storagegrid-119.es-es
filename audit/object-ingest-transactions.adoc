@@ -17,6 +17,7 @@ No todos los mensajes de auditoría generados durante una transacción de ingest
 
 
 
+[[s3-ingest-audit-messages]]
 == Mensajes de auditoría de ingesta de S3
 
 [cols="1a,1a,2a,1a,2a"]
@@ -51,6 +52,7 @@ link:orlm-object-rules-met.html["ORLM: Se cumplen las reglas de objeto"]
 |===
 
 
+[[swift-ingest-audit-messages]]
 == Mensajes de auditoría de ingesta de Swift
 
 [cols="1a,1a,2a,1a,2a"]
@@ -85,6 +87,7 @@ link:orlm-object-rules-met.html["ORLM: Se cumplen las reglas de objeto"]
 |===
 
 
+[[example-s3-object-ingest]]
 == Ejemplo: ingesta de objetos S3
 
 La serie de mensajes de auditoría a continuación es un ejemplo de los mensajes de auditoría generados y guardados en el registro de auditoría cuando un cliente S3 ingiere un objeto en un nodo de almacenamiento (servicio LDR).
@@ -98,6 +101,7 @@ Este ejemplo supone que previamente se ha creado un bucket S3.
 
 
 
+[[sput-s3-put]]
 === SPUT: S3 PONER
 
 El mensaje SPUT se genera para indicar que se ha emitido una transacción S3 PUT para crear un objeto en un depósito específico.
@@ -108,6 +112,7 @@ El mensaje SPUT se genera para indicar que se ha emitido una transacción S3 PUT
 ----
 
 
+[[orlm-object-rules-met]]
 === ORLM: Se cumplen las reglas de objeto
 
 El mensaje ORLM indica que se ha cumplido la política ILM para este objeto.  El mensaje incluye el CBID del objeto y el nombre de la regla ILM que se aplicó.

@@ -15,6 +15,7 @@ El componente básico de un sistema StorageGRID es el nodo de la red.  Los nodos
 
 
 
+[[types-of-grid-nodes]]
 == Tipos de nodos de la red
 
 El sistema StorageGRID utiliza cuatro tipos de nodos de red:
@@ -43,12 +44,14 @@ Verlink:what-gateway-node-is.html["¿Qué es un nodo de enlace?"]
 
 
 
+[[hardware-and-software-nodes]]
 == Nodos de hardware y software
 
 Los nodos StorageGRID se pueden implementar como nodos de dispositivo StorageGRID o como nodos basados ​​en software.
 
 
 
+[[storagegrid-appliance-nodes]]
 === Nodos de dispositivos StorageGRID
 
 Los dispositivos de hardware StorageGRID están diseñados especialmente para su uso en un sistema StorageGRID .  Algunos dispositivos pueden utilizarse como nodos de almacenamiento.  Se pueden utilizar otros dispositivos como nodos de administración o nodos de puerta de enlace.  Puede combinar nodos de dispositivos con nodos basados ​​en software o implementar redes de dispositivos completamente diseñadas que no dependan de hipervisores externos, almacenamiento o hardware de cómputo.
@@ -61,6 +64,7 @@ Consulte lo siguiente para obtener información sobre los electrodomésticos dis
 
 
 
+[[software-based-nodes]]
 === Nodos basados en software
 
 Los nodos de red basados en software se pueden implementar como máquinas virtuales VMware o dentro de motores de contenedores en un host Linux.
@@ -76,6 +80,7 @@ Durante la instalación inicial de un nuevo nodo de almacenamiento basado en sof
 
 
 
+[[storagegrid-services]]
 == Servicios de StorageGRID
 
 La siguiente es una lista completa de los servicios de StorageGRID .

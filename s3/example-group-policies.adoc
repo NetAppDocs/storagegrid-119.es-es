@@ -17,6 +17,7 @@ Las políticas de grupo especifican los permisos de acceso para el grupo al que 
 
 
 
+[[example-set-group-policy-using-tenant-manager]]
 == Ejemplo: Establecer una política de grupo mediante el Administrador de inquilinos
 
 Cuando agrega o edita un grupo en el Administrador de inquilinos, puede seleccionar una política de grupo para determinar qué permisos de acceso a S3 tendrán los miembros de este grupo. Ver link:../tenant/creating-groups-for-s3-tenant.html["Crear grupos para un inquilino de S3"] .
@@ -33,6 +34,7 @@ Los usuarios del administrador de inquilinos que tienen el permiso Administrar t
 
 
 
+[[example-allow-group-full-access-to-all-buckets]]
 == Ejemplo: Permitir al grupo acceso completo a todos los depósitos
 
 En este ejemplo, a todos los miembros del grupo se les permite acceso total a todos los depósitos propiedad de la cuenta del inquilino, a menos que la política del depósito lo deniegue explícitamente.
@@ -51,6 +53,7 @@ En este ejemplo, a todos los miembros del grupo se les permite acceso total a to
 ----
 
 
+[[example-allow-group-read-only-access-to-all-buckets]]
 == Ejemplo: Permitir acceso de solo lectura al grupo a todos los depósitos
 
 En este ejemplo, todos los miembros del grupo tienen acceso de solo lectura a los recursos de S3, a menos que la política del bucket lo niegue explícitamente.  Por ejemplo, los usuarios de este grupo pueden enumerar objetos y leer datos de objetos, metadatos y etiquetas.
@@ -78,6 +81,7 @@ En este ejemplo, todos los miembros del grupo tienen acceso de solo lectura a lo
 ----
 
 
+[[example-allow-group-members-full-access-to-only-their-folder-in-a-bucket]]
 == Ejemplo: Permitir a los miembros del grupo acceso completo únicamente a su "carpeta" en un depósito
 
 En este ejemplo, a los miembros del grupo solo se les permite enumerar y acceder a su carpeta específica (prefijo de clave) en el depósito especificado.  Tenga en cuenta que los permisos de acceso de otras políticas de grupo y la política de depósito deben considerarse al determinar la privacidad de estas carpetas.

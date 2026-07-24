@@ -19,6 +19,7 @@ Puedelink:viewing-storage-tab.html["ver información sobre la capacidad de almac
 
 
 
+[[monitor-storage-capacity-for-the-entire-grid]]
 == Monitorizar la capacidad de almacenamiento de toda la red
 
 Supervise la capacidad de almacenamiento general de su red para garantizar que quede suficiente espacio libre para los datos de los objetos y los metadatos de los objetos.  Comprender cómo cambia la capacidad de almacenamiento con el tiempo puede ayudarle a planificar la adición de nodos de almacenamiento o volúmenes de almacenamiento antes de que se consuma la capacidad de almacenamiento utilizable de la red.
@@ -72,6 +73,7 @@ Para obtener más información sobre la planificación de una expansión de alma
 
 
 
+[[monitor-storage-capacity-for-each-storage-node]]
 == Supervisar la capacidad de almacenamiento de cada nodo de almacenamiento
 
 Supervise el espacio total utilizable de cada nodo de almacenamiento para garantizar que el nodo tenga suficiente espacio para nuevos datos de objetos.
@@ -128,6 +130,7 @@ Ellink:../troubleshoot/troubleshooting-low-object-data-storage-alert.html["Almac
 
 
 
+[[monitor-object-metadata-capacity-for-each-storage-node]]
 == Supervisar la capacidad de metadatos de objetos para cada nodo de almacenamiento
 
 Supervise el uso de metadatos para cada nodo de almacenamiento para garantizar que haya suficiente espacio disponible para las operaciones esenciales de la base de datos.  Debe agregar nuevos nodos de almacenamiento en cada sitio antes de que los metadatos del objeto excedan el 100 % del espacio de metadatos permitido.
@@ -188,6 +191,7 @@ Cuando agrega nuevos nodos, el sistema reequilibra automáticamente los metadato
 
 
 
+[[monitor-space-usage-forecasts]]
 == Monitorear las previsiones de uso del espacio
 
 Monitoree los pronósticos de uso del espacio para los datos de usuario y metadatos para estimar cuándo los necesitará.link:../expand/index.html["expandir una cuadrícula"] .

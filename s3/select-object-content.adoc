@@ -38,6 +38,7 @@ Para más información véase https://docs.aws.amazon.com/AmazonS3/latest/API/AP
 
 
 
+[[csv-request-syntax-example]]
 == Ejemplo de sintaxis de solicitud CSV
 
 [source, asciidoc]
@@ -81,6 +82,7 @@ x-amz-expected-bucket-owner: ExpectedBucketOwner
 ----
 
 
+[[parquet-request-syntax-example]]
 == Ejemplo de sintaxis de solicitud de Parquet
 
 [source, asciidoc]
@@ -117,6 +119,7 @@ x-amz-expected-bucket-owner: ExpectedBucketOwner
 ----
 
 
+[[sql-query-example]]
 == Ejemplo de consulta SQL
 
 Esta consulta obtiene el nombre del estado, las poblaciones de 2010, las poblaciones estimadas de 2015 y el porcentaje de cambio de los datos del censo de EE. UU.  Los registros del archivo que no son estados se ignoran.
@@ -144,6 +147,7 @@ POPESTIMATE2020
 ----
 
 
+[[aws-cli-usage-example-csv]]
 == Ejemplo de uso de AWS-CLI (CSV)
 
 [listing]
@@ -163,6 +167,7 @@ Colorado,5029196,5454328,8.4532796097030221132761578590295546246
 ----
 
 
+[[aws-cli-usage-example-parquet]]
 == Ejemplo de uso de AWS-CLI (Parquet)
 
 [listing]

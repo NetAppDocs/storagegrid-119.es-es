@@ -20,6 +20,7 @@ Puede ver los detalles de la etiqueta de política de ILM, editar una etiqueta o
 
 
 
+[[view-ilm-policy-tag-details]]
 == Ver detalles de la etiqueta de política de ILM
 
 Para ver los detalles de una etiqueta:
@@ -32,6 +33,7 @@ Para ver los detalles de una etiqueta:
 
 
 
+[[edit-ilm-policy-tag]]
 == Editar la etiqueta de política de ILM
 
 
@@ -50,6 +52,7 @@ Alternativamente, seleccione el nombre de la etiqueta.  Aparecerá la página de
 
 
 
+[[remove-ilm-policy-tag]]
 == Eliminar la etiqueta de política de ILM
 
 Cuando se elimina una etiqueta de política, a todos los depósitos que tengan asignada esa etiqueta se les aplicará la política predeterminada.

@@ -15,6 +15,7 @@ Debe reemplazar los certificados predeterminados creados durante la instalación
 
 
 
+[[hardening-guidelines-for-certificates]]
 == Directrices de endurecimiento de los certificados
 
 Debe reemplazar los certificados predeterminados creados durante la instalación con sus propios certificados personalizados.
@@ -44,6 +45,7 @@ Además, los clientes deben utilizar una verificación estricta del nombre de ho
 
 
 
+[[hardening-guidelines-for-tls-and-ssh-policy]]
 == Directrices de endurecimiento de las políticas TLS y SSH
 
 Puede seleccionar una política de seguridad para determinar qué protocolos y cifrados se utilizan para establecer conexiones TLS seguras con aplicaciones cliente y conexiones SSH seguras con servicios internos de StorageGRID .

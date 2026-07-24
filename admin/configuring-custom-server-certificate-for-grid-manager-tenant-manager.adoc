@@ -34,6 +34,7 @@ Si accede al Administrador de red o al Administrador de inquilinos mediante un n
 ====
 
 
+[[add-a-custom-management-interface-certificate]]
 == Agregar un certificado de interfaz de administración personalizado
 
 Para agregar un certificado de interfaz de administración personalizado, puede proporcionar su propio certificado o generar uno utilizando Grid Manager.
@@ -161,6 +162,7 @@ NOTE: Después de cargar o generar un nuevo certificado, espere hasta un día pa
 
 
 
+[[restore-the-default-management-interface-certificate]]
 == Restaurar el certificado de interfaz de administración predeterminado
 
 Puede volver a utilizar el certificado de interfaz de administración predeterminado para las conexiones de Grid Manager y Tenant Manager.
@@ -177,6 +179,7 @@ Cuando restaura el certificado de interfaz de administración predeterminado, lo
 
 
 
+[[use-a-script-to-generate-a-new-self-signed-management-interface-certificate]]
 == Utilice un script para generar un nuevo certificado de interfaz de administración autofirmado
 
 Si se requiere una validación estricta del nombre de host, puede utilizar un script para generar el certificado de interfaz de administración.
@@ -238,6 +241,7 @@ Incluya las etiquetas BEGIN y END en su selección.
 
 
 
+[[download-or-copy-the-management-interface-certificate]]
 == Descargue o copie el certificado de interfaz de administración
 
 Puede guardar o copiar el contenido del certificado de la interfaz de administración para usarlo en otro lugar.

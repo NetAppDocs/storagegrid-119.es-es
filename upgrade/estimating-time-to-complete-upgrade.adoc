@@ -121,6 +121,7 @@ Como regla general, los nodos de dispositivos tardan más en actualizarse que lo
 
 
 
+[[example-estimated-time-to-upgrade-to-storagegrid-11-9]]
 == Ejemplo: Tiempo estimado para actualizar a StorageGRID 11.9
 
 Supongamos que su sistema tiene 14 nodos de red, de los cuales 8 son nodos Linux.

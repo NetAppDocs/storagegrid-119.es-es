@@ -24,6 +24,7 @@ NOTE: El control de versiones solo se puede habilitar en depósitos creados con 
 
 
 
+[[ilm-and-versioning]]
 == ILM y control de versiones
 
 Las políticas ILM se aplican a cada versión de un objeto.  Un proceso de escaneo ILM escanea continuamente todos los objetos y los reevalúa en función de la política ILM actual.  Cualquier cambio que realice en las políticas de ILM se aplicará a todos los objetos ingeridos previamente.  Esto incluye versiones ingeridas previamente si el control de versiones está habilitado.  El escaneo ILM aplica nuevos cambios ILM a objetos ingeridos previamente.

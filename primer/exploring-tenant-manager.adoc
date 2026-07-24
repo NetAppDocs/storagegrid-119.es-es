@@ -20,6 +20,7 @@ Cuando los usuarios inquilinos inician sesión en el Administrador de inquilinos
 
 
 
+[[tenant-manager-dashboard]]
 == Panel de control del administrador de inquilinos
 
 Después de que un administrador de red crea una cuenta de inquilino mediante el Administrador de red o la API de administración de red, los usuarios inquilinos pueden iniciar sesión en el Administrador de inquilinos.
@@ -32,12 +33,14 @@ image::../media/tenant_dashboard_with_buckets.png[Panel de control del administr
 
 
 
+[[storage-menu-s3]]
 == Menú de almacenamiento (S3)
 
 El menú Almacenamiento está disponible únicamente para cuentas de inquilinos de S3.  Este menú permite a los usuarios de S3 administrar claves de acceso; crear, administrar y eliminar depósitos; administrar puntos finales de servicios de la plataforma y ver cualquier conexión de federación de red que tengan permitido usar.
 
 
 
+[[my-access-keys]]
 === Mis teclas de acceso
 
 Los usuarios inquilinos de S3 pueden administrar las claves de acceso de la siguiente manera:
@@ -52,6 +55,7 @@ NOTE: La gestión de las claves de acceso de otros usuarios se realiza desde el 
 
 
 
+[[buckets]]
 === Cubos
 
 Los usuarios inquilinos de S3 con los permisos adecuados pueden realizar las siguientes tareas para sus buckets:
@@ -77,18 +81,21 @@ Si un administrador de red ha habilitado el uso de servicios de plataforma para 
 
 
 
+[[platform-services-endpoints]]
 === Puntos finales de servicios de plataforma
 
 Si un administrador de red ha habilitado el uso de servicios de plataforma para la cuenta de inquilino, un usuario de inquilino S3 con el permiso Administrar puntos finales puede configurar un punto final de destino para cada servicio de plataforma.
 
 
 
+[[grid-federation-connections]]
 === Conexiones de federación de red
 
 Si un administrador de red ha habilitado el uso de una conexión de federación de red para la cuenta de inquilino, un usuario de inquilino S3 que tenga permiso de acceso raíz puede ver el nombre de la conexión, acceder a la página de detalles del depósito para cada depósito que tenga habilitada la replicación entre redes y ver el error más reciente que ocurrió cuando los datos del depósito se estaban replicando a la otra red en la conexión. Ver link:../tenant/grid-federation-view-connections-tenant.html["Ver las conexiones de la federación de red"] .
 
 
 
+[[access-management-menu]]
 == Menú de gestión de acceso
 
 El menú Administración de acceso permite a los inquilinos de StorageGRID importar grupos de usuarios desde una fuente de identidad federada y asignar permisos de administración.  Los inquilinos también pueden administrar grupos de inquilinos y usuarios locales, a menos que el inicio de sesión único (SSO) esté vigente para todo el sistema StorageGRID .

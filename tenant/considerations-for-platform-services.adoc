@@ -17,6 +17,7 @@ Para obtener información sobre S3, consultelink:../s3/index.html["Utilice la AP
 
 
 
+[[overview-of-platform-services]]
 == Descripción general de los servicios de la plataforma
 
 Los servicios de la plataforma StorageGRID pueden ayudarlo a implementar una estrategia de nube híbrida al permitirle enviar notificaciones de eventos y copias de objetos S3 y metadatos de objetos a destinos externos.
@@ -30,6 +31,7 @@ TIP: El uso de los servicios de la plataforma debe ser habilitado para cada cuen
 
 
 
+[[how-platform-services-are-configured]]
 == Cómo se configuran los servicios de la plataforma
 
 Los servicios de plataforma se comunican con puntos finales externos que usted configura mediante ellink:configuring-platform-services-endpoints.html["Administrador de inquilinos"] o ellink:understanding-tenant-management-api.html["API de gestión de inquilinos"] . Cada punto final representa un destino externo, como un bucket S3 de StorageGRID , un bucket de Amazon Web Services, un tema de Amazon SNS o un clúster de Elasticsearch alojado localmente, en AWS o en otro lugar.
@@ -90,6 +92,7 @@ Integración de búsqueda
 |===
 
 
+[[considerations-for-using-platform-services]]
 == Consideraciones para el uso de servicios de plataforma
 
 [cols="1a,3a"]
@@ -150,6 +153,7 @@ La autenticación de los puntos finales de Kafka utiliza los siguientes tipos de
 |===
 
 
+[[considerations-for-using-cloudmirror-replication-service]]
 == Consideraciones para utilizar el servicio de replicación CloudMirror
 
 [cols="1a,3a"]

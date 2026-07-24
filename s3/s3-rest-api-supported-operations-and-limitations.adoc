@@ -17,6 +17,7 @@ El sistema StorageGRID admite solicitudes de estilo alojado virtual y solicitude
 
 
 
+[[date-handling]]
 == Manejo de fechas
 
 La implementación de StorageGRID de la API REST S3 solo admite formatos de fecha HTTP válidos.
@@ -25,6 +26,7 @@ El sistema StorageGRID solo admite formatos de fecha HTTP válidos para cualquie
 
 
 
+[[common-request-headers]]
 == Encabezados de solicitud comunes
 
 El sistema StorageGRID admite los encabezados de solicitud comunes definidos por https://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonRequestHeaders.html["Referencia de la API de Amazon Simple Storage Service: encabezados de solicitud comunes"^] , con una excepción.
@@ -54,6 +56,7 @@ No implementado.  Devoluciones `XNotImplemented` .
 |===
 
 
+[[common-response-headers]]
 == Encabezados de respuesta comunes
 
 El sistema StorageGRID admite todos los encabezados de respuesta comunes definidos por la _Referencia de API del servicio de almacenamiento simple_, con una excepción.

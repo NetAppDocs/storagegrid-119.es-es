@@ -15,6 +15,7 @@ Utilice estas pautas para obtener información sobre la arquitectura y las topol
 
 
 
+[[about-these-instructions]]
 == Acerca de estas instrucciones
 
 Estas pautas proporcionan información que puede utilizar para crear la infraestructura de red de StorageGRID antes de implementar y configurar los nodos de StorageGRID .  Utilice estas pautas para ayudar a garantizar que la comunicación pueda ocurrir entre todos los nodos de la red y entre la red y los clientes y servicios externos.
@@ -38,6 +39,7 @@ La red StorageGRID debe configurarse adecuadamente para manejar el tráfico para
 
 
 
+[[before-you-begin]]
 == Antes de empezar
 
 La configuración de la red para un sistema StorageGRID requiere un alto nivel de experiencia con conmutación Ethernet, redes TCP/IP, subredes, enrutamiento de red y firewalls.

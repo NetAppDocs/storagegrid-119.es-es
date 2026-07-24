@@ -22,6 +22,7 @@ image::../media/tenant_dashboard_with_buckets.png[Panel de control - Lista de de
 
 
 
+[[tenant-account-information]]
 == Información de la cuenta del inquilino
 
 En la parte superior del panel se muestra la cantidad de depósitos o contenedores, grupos y usuarios configurados.  También muestra el número de puntos finales de servicios de la plataforma, si se ha configurado alguno.  Seleccione los enlaces para ver los detalles.
@@ -30,6 +31,7 @@ Dependiendo de lalink:tenant-management-permissions.html["permisos de gestión d
 
 
 
+[[storage-and-quota-usage]]
 == Uso de almacenamiento y cuotas
 
 El panel de uso de almacenamiento contiene la siguiente información:
@@ -64,6 +66,7 @@ NOTE: Para cambiar las unidades de los valores de almacenamiento que se muestran
 
 
 
+[[quota-usage-alerts]]
 == Alertas de uso de cuota
 
 Si se han habilitado las alertas de uso de cuota en el Administrador de red, estas alertas aparecerán en el Administrador de inquilinos cuando la cuota sea baja o se exceda, de la siguiente manera:
@@ -77,6 +80,7 @@ Considere pedirle a su administrador de red que aumente la cuota.
 
 
 
+[[bucket-capacity-usagecapacity-limit-usage]]
 == [[bucket-capacity-usage]]Uso del límite de capacidad
 
 Si ha establecido un límite de capacidad para sus grupos, el panel del Administrador de inquilinos muestra una lista de los grupos principales según el uso del límite de capacidad.
@@ -85,6 +89,7 @@ Si no se establece ningún límite para un depósito, su capacidad es ilimitada.
 
 
 
+[[endpoint-errors]]
 == Errores de punto final
 
 Si ha utilizado Grid Manager para configurar uno o más puntos finales para su uso con servicios de plataforma, el panel de Tenant Manager muestra una alerta si se ha producido algún error en los puntos finales en los últimos siete días.

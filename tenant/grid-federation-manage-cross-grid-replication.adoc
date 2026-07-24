@@ -15,6 +15,7 @@ Si a su cuenta de inquilino se le asignó el permiso *Usar conexión de federaci
 
 
 
+[[workflow-for-cross-grid-replication]]
 == Flujo de trabajo para la replicación entre redes
 
 El diagrama de flujo de trabajo resume los pasos que realizará para configurar la replicación entre cuadrículas entre depósitos en dos cuadrículas.  Estos pasos se describen con más detalle a continuación.
@@ -23,6 +24,7 @@ image::../media/grid-federation-cgr-workflow.png[Flujo de trabajo de replicació
 
 
 
+[[configure-cross-grid-replication]]
 == Configurar la replicación entre redes
 
 Antes de poder utilizar la replicación entre redes, debe iniciar sesión en las cuentas de inquilino correspondientes en cada red y crear grupos idénticos. Luego, puedes habilitar la replicación entre redes en uno o ambos depósitos.
@@ -37,6 +39,7 @@ Antes de poder utilizar la replicación entre redes, debe iniciar sesión en las
 
 
 
+[[create-two-identical-buckets]]
 === Crea dos cubos idénticos
 
 Como primer paso, inicie sesión en las cuentas de inquilino correspondientes en cada red y cree grupos idénticos.
@@ -65,6 +68,7 @@ TIP: Según sea necesario, cada bucket puede utilizar una región diferente.
 
 
 
+[[enable-cross-grid-replication]]
 === Habilitar la replicación entre redes
 
 Debes realizar estos pasos antes de agregar cualquier objeto a cualquiera de los depósitos.
@@ -112,6 +116,7 @@ Después de unos momentos, aparece un mensaje de éxito. Los objetos agregados a
 
 
 
+[[test-replication-between-grids]]
 == Prueba de replicación entre redes
 
 Si la replicación entre redes está habilitada para un depósito, es posible que deba verificar que la conexión y la replicación entre redes funcionen correctamente y que los depósitos de origen y destino aún cumplan con todos los requisitos (por ejemplo, el control de versiones aún esté habilitado).
@@ -135,6 +140,7 @@ Si la conexión es saludable, aparece un banner de éxito. De lo contrario, apar
 
 
 
+[[disable-cross-grid-replication]]
 == Deshabilitar la replicación entre redes
 
 Puede detener permanentemente la replicación entre cuadrículas si ya no desea copiar objetos a la otra cuadrícula.

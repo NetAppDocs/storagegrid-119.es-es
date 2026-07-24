@@ -15,12 +15,14 @@ Si desea utilizar un servidor OpenLDAP para la federación de identidad, debe co
 
 
 
+[[memberof-and-refint-overlays]]
 == Superposiciones de miembros y refinaciones
 
 Las superposiciones memberof y refint deben estar habilitadas.  Para obtener más información, consulte las instrucciones para el mantenimiento de la membresía de grupo inverso en la _Guía del administrador del software OpenLDAP_.
 
 
 
+[[indexing]]
 == Indexación
 
 Debe configurar los siguientes atributos OpenLDAP con las palabras clave de índice especificadas:

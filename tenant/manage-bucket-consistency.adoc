@@ -20,12 +20,14 @@ Los valores de consistencia se pueden usar para especificar la disponibilidad de
 
 
 
+[[bucket-consistency-guidelines]]
 == Pautas de consistencia del cubo
 
 La consistencia del depósito se utiliza para determinar la consistencia de las aplicaciones cliente que afectan a los objetos dentro de ese depósito S3.  En general, debe utilizar la consistencia *Lectura después de nueva escritura* para sus depósitos.
 
 
 
+[[change-bucket-consistencychange-bucket-consistency]]
 == [[change-bucket-consistency]]Cambiar la consistencia del depósito
 
 Si la consistencia de *Lectura después de nueva escritura* no cumple con los requisitos de la aplicación cliente, puede cambiar la consistencia configurando la consistencia del depósito o utilizando el `Consistency-Control` encabezamiento.  El `Consistency-Control` El encabezado anula la consistencia del depósito.
@@ -54,6 +56,7 @@ Aparece la página de detalles del depósito.
 
 
 
+[[what-happens-when-you-change-bucket-settings]]
 == ¿Qué sucede cuando cambias la configuración del depósito?
 
 Los depósitos tienen múltiples configuraciones que afectan el comportamiento de los depósitos y de los objetos dentro de ellos.

@@ -79,6 +79,7 @@ Para conocer las versiones compatibles, consulte la https://imt.netapp.com/matri
 |===
 
 
+[[download-and-extract-the-storagegrid-installation-files]]
 == Descargue y extraiga los archivos de instalación de StorageGRID
 
 .[[descargar y extraer archivos de instalación]]
@@ -413,6 +414,7 @@ NOTE: Para la instalación del dispositivo, estos archivos solo son necesarios s
 
 
 
+[[verify-hardware-and-networking]]
 == Verificar hardware y redes
 
 Antes de comenzar la expansión de su sistema StorageGRID , asegúrese de lo siguiente:

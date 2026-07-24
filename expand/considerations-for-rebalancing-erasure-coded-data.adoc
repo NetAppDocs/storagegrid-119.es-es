@@ -17,6 +17,7 @@ Después de revisar estas consideraciones, realice la expansión y luego vaya al
 
 
 
+[[what-is-ec-rebalancing]]
 == ¿Qué es el reequilibrio CE?
 
 El reequilibrio de EC es un procedimiento de StorageGRID que podría ser necesario después de una expansión de un nodo de almacenamiento.  El procedimiento se ejecuta como un script de línea de comandos desde el nodo de administración principal.  Cuando ejecuta el procedimiento de reequilibrio de EC, StorageGRID redistribuye los fragmentos codificados por borrado entre los nodos de almacenamiento existentes y los recientemente agregados en un sitio.
@@ -52,6 +53,7 @@ image::../media/used_space_with_larger_node.png[Espacio utilizado antes de la ex
 
 
 
+[[when-to-rebalance-erasure-coded-data]]
 == Cuándo reequilibrar los datos codificados por borrado
 
 Consideremos el siguiente escenario:
@@ -66,6 +68,7 @@ image::../media/used_space_before_expansion.png[Espacio utilizado antes de la ex
 
 
 
+[[rebalance-is-not-required-if-you-add-enough-nodes]]
 === No es necesario reequilibrar si se agregan suficientes nodos
 
 Para comprender cuándo no es necesario reequilibrar EC, supongamos que agregó tres (o más) nodos de almacenamiento nuevos.  En este caso, no es necesario realizar un reequilibrio de CE.  Los nodos de almacenamiento originales permanecerán llenos, pero los nuevos objetos ahora usarán los tres nuevos nodos para la codificación de borrado 2+1: los dos fragmentos de datos y el fragmento de paridad se pueden almacenar en un nodo diferente.
@@ -77,6 +80,7 @@ CAUTION: Si bien puede ejecutar el procedimiento de reequilibrio de EC en este c
 
 
 
+[[rebalance-is-required-if-you-cant-add-enough-nodes]]
 === Se requiere reequilibrio si no puede agregar suficientes nodos
 
 Para comprender cuándo es necesario reequilibrar la CE, supongamos que solo puede agregar dos nodos de almacenamiento, en lugar de tres.  Debido a que el esquema 2+1 requiere que al menos tres nodos de almacenamiento tengan espacio disponible, los nodos vacíos no se pueden usar para nuevos datos codificados por borrado.
@@ -89,6 +93,7 @@ image::../media/used_space_after_ec_rebalance.png[Espacio utilizado después del
 
 
 
+[[recommendations-for-ec-rebalancing]]
 == Recomendaciones para el reequilibrio de la CE
 
 NetApp requiere el reequilibrio de EC si _todas_ las siguientes afirmaciones son verdaderas:
@@ -103,6 +108,7 @@ Opcionalmente, puede ejecutar el procedimiento de reequilibrio de EC si prefiere
 
 
 
+[[how-ec-rebalance-procedure-interacts-with-other-maintenance-tasks]]
 == Cómo interactúa el procedimiento de reequilibrio de la CE con otras tareas de mantenimiento
 
 No es posible realizar determinados procedimientos de mantenimiento al mismo tiempo que se ejecuta el procedimiento de reequilibrio de CE.
@@ -180,6 +186,7 @@ Debe finalizar el procedimiento de reequilibrio de CE antes de ejecutar otros pr
 |===
 
 
+[[how-ec-rebalance-procedure-interacts-with-ilm]]
 == Cómo interactúa el procedimiento de reequilibrio de la CE con el ILM
 
 Mientras se ejecuta el procedimiento de reequilibrio de EC, evite realizar cambios en ILM que puedan cambiar la ubicación de los objetos con código de borrado existentes.  Por ejemplo, no comience a utilizar una regla ILM que tenga un perfil de codificación de borrado diferente.  Si necesita realizar dichos cambios en ILM, debe finalizar el procedimiento de reequilibrio de EC.

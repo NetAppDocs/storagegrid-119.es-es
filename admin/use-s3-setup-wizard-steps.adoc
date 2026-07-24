@@ -20,6 +20,7 @@ Puede utilizar el asistente de configuración de S3 para configurar StorageGRID 
 
 
 
+[[access-the-wizard]]
 == Acceder al asistente
 
 .Pasos
@@ -33,6 +34,7 @@ image::../media/help_menu.png[menú de ayuda]
 
 
 
+[[step-1-of-6-configure-ha-group]]
 == Paso 1 de 6: Configurar el grupo de alta disponibilidad
 
 Un grupo de alta disponibilidad es una colección de nodos que contienen cada uno el servicio StorageGRID Load Balancer.  Un grupo de alta disponibilidad puede contener nodos de puerta de enlace, nodos de administración o ambos.
@@ -135,6 +137,7 @@ Al menos una dirección debe ser IPv4.  Opcionalmente, puede especificar direcci
 
 
 
+[[step-2-of-6-configure-load-balancer-endpoint]]
 == Paso 2 de 6: Configurar el punto final del balanceador de carga
 
 StorageGRID utiliza un equilibrador de carga para administrar la carga de trabajo de las aplicaciones cliente.  El equilibrio de carga maximiza la velocidad y la capacidad de conexión en múltiples nodos de almacenamiento.
@@ -334,6 +337,7 @@ Copie el certificado del servidor para el balanceador de carga externo y péguel
 ====
 
 
+[[step-3-of-6-create-tenant-and-bucket]]
 == Paso 3 de 6: Crear inquilino y depósito
 
 Un inquilino es una entidad que puede utilizar aplicaciones S3 para almacenar y recuperar objetos en StorageGRID.  Cada inquilino tiene sus propios usuarios, claves de acceso, depósitos, objetos y un conjunto específico de capacidades.
@@ -401,6 +405,7 @@ Utilice la región predeterminada(`us-east-1` ) a menos que espere utilizar ILM 
 
 
 
+[[download-datastep-4-of-6-download-data]]
 == [[download-data]]Paso 4 de 6: Descargar datos
 
 En el paso de descarga de datos, puede descargar uno o dos archivos para guardar los detalles de lo que acaba de configurar.
@@ -424,6 +429,7 @@ CAUTION: No cierre esta página hasta que haya copiado ambas claves de acceso.  
 
 
 
+[[step-5-of-6-review-ilm-rule-and-ilm-policy-for-s3]]
 == Paso 5 de 6: Revisar la regla y la política de ILM para S3
 
 Las reglas de administración del ciclo de vida de la información (ILM) controlan la ubicación, la duración y el comportamiento de ingesta de todos los objetos en su sistema StorageGRID .  La política ILM incluida con StorageGRID realiza dos copias replicadas de todos los objetos.  Esta política estará vigente hasta que active al menos una nueva política.
@@ -438,6 +444,7 @@ Las reglas de administración del ciclo de vida de la información (ILM) control
 
 
 
+[[step-6-of-6-review-summary]]
 == Paso 6 de 6: Revisar el resumen
 
 .Pasos

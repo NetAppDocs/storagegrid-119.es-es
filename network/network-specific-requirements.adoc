@@ -15,6 +15,7 @@ Siga los requisitos para cada tipo de red StorageGRID .
 
 
 
+[[network-gateways-and-routers]]
 == Puertas de enlace y enrutadores de red
 
 * Si se configura, la puerta de enlace para una red determinada debe estar dentro de la subred de la red específica.
@@ -24,6 +25,7 @@ Siga los requisitos para cada tipo de red StorageGRID .
 
 
 
+[[subnets]]
 == Subredes
 
 
@@ -60,6 +62,7 @@ Por ejemplo, no utilice los siguientes rangos de subred para la red de cuadrícu
 
 
 
+[[grid-network]]
 == Red de cuadrícula
 
 * En el momento de la implementación, cada nodo de la red debe estar conectado a la red de la red y debe poder comunicarse con el nodo de administración principal mediante la configuración de red que especifique al implementar el nodo.
@@ -74,6 +77,7 @@ NOTE: La red Grid debe ser directamente enrutable entre cada nodo.  No se admite
 
 
 
+[[admin-network]]
 == Red de administración
 
 La red de administración es opcional.  Si planea configurar una red de administración, siga estos requisitos y pautas.
@@ -88,6 +92,7 @@ NOTE: Debe definir al menos una subred en la red de administración para habilit
 
 
 
+[[client-network]]
 == Red de clientes
 
 La red de clientes es opcional.  Si planea configurar una red de cliente, tenga en cuenta las siguientes consideraciones.

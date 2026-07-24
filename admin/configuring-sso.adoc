@@ -15,6 +15,7 @@ Cuando el inicio de sesión único (SSO) está habilitado, los usuarios solo pue
 
 
 
+[[how-single-sign-on-works]]
 == Cómo funciona el inicio de sesión único
 
 El sistema StorageGRID admite el inicio de sesión único (SSO) mediante el estándar Security Assertion Markup Language 2.0 (SAML 2.0).
@@ -23,6 +24,7 @@ Antes de habilitar el inicio de sesión único (SSO), revise cómo se ven afecta
 
 
 
+[[sign-in-when-sso-is-enabled]]
 === Sign in cuando el SSO esté habilitado
 
 Cuando SSO está habilitado e inicia sesión en StorageGRID, se lo redirige a la página SSO de su organización para validar sus credenciales.
@@ -82,6 +84,7 @@ No es necesario volver a ingresar sus credenciales SSO.
 
 
 
+[[sign-out-when-sso-is-enabled]]
 === Cerrar sesión cuando el SSO esté habilitado
 
 Cuando SSO está habilitado para StorageGRID, lo que sucede cuando cierra sesión depende de dónde haya iniciado sesión y desde dónde cierre sesión.

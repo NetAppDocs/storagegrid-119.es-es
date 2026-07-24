@@ -20,6 +20,7 @@ Para obtener más información, visitelink:../tenant/understanding-tenant-manage
 
 
 
+[[new-api-for-bucket-capacity-limit]]
 == Nueva API para el límite de capacidad del bucket
 
 Puedes utilizar el `/org/containers/{bucketName}/quota-object-bytes` API con operaciones GET/PUT para obtener y establecer el límite de capacidad de almacenamiento para un depósito.

@@ -15,6 +15,7 @@ Los mensajes de auditoría son generados por los servicios de StorageGRID y alma
 
 
 
+[[bucket-operations-tracked-in-the-audit-logs]]
 == Operaciones de bucket rastreadas en los registros de auditoría
 
 * Crear cubo
@@ -32,6 +33,7 @@ Los mensajes de auditoría son generados por los servicios de StorageGRID y alma
 
 
 
+[[object-operations-tracked-in-the-audit-logs]]
 == Operaciones de objetos rastreadas en los registros de auditoría
 
 * Carga completa de varias partes

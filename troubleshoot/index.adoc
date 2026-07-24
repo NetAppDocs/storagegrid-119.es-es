@@ -17,6 +17,7 @@ A menudo, usted puede resolver los problemas por su cuenta; sin embargo, es posi
 
 
 
+[[defineproblemdefine-the-problem]]
 == [[define_problem]]Define el problema
 
 El primer paso para resolver un problema es definirlo claramente.
@@ -78,6 +79,7 @@ Esta es la primera vez que veo este problema.
 |===
 
 
+[[assess-the-risk-and-impact-on-the-system]]
 == Evaluar el riesgo y el impacto en el sistema
 
 Después de haber definido el problema, evalúe su riesgo y su impacto en el sistema StorageGRID .  Por ejemplo, la presencia de alertas críticas no significa necesariamente que el sistema no esté prestando servicios básicos.
@@ -118,6 +120,7 @@ Sí, porque las aplicaciones cliente no pueden almacenar objetos en el sistema S
 |===
 
 
+[[collect-data]]
 == Recopilar datos
 
 Después de haber definido el problema y haber evaluado su riesgo e impacto, recopile datos para su análisis.  El tipo de datos que resulta más útil recopilar depende de la naturaleza del problema.
@@ -227,6 +230,7 @@ Es posible que el soporte técnico le solicite que recopile datos o revise infor
 |===
 
 
+[[createtimelinecreate-a-timeline-of-recent-changes]]
 === [[create_timeline]]Crea una línea de tiempo de cambios recientes
 
 Cuando ocurre un problema, debes considerar qué ha cambiado recientemente y cuándo ocurrieron esos cambios.
@@ -295,6 +299,7 @@ A continuación se presentan algunos ejemplos de cambios potencialmente signific
 
 
 
+[[establish-baselines]]
 === Establecer líneas de base
 
 Puede establecer líneas de base para su sistema registrando los niveles normales de varios valores operativos.  En el futuro, podrá comparar los valores actuales con estas líneas de base para ayudar a detectar y resolver valores anormales.
@@ -397,6 +402,7 @@ Seleccione *NODOS* > *_Nodo de almacenamiento_* > *Objetos*. En la tabla Consult
 |===
 
 
+[[analyze-data]]
 == Analizar datos
 
 Utilice la información que recopile para determinar la causa del problema y las posibles soluciones.
@@ -410,6 +416,7 @@ El análisis depende del problema, pero en general:
 
 
 
+[[escalation-information-checklist]]
 == Lista de verificación de información de escalada
 
 Si no puede resolver el problema por su cuenta, comuníquese con el soporte técnico.  Antes de contactar con el soporte técnico, reúna la información que aparece en la siguiente tabla para facilitar la resolución del problema.

@@ -15,6 +15,7 @@ Algunas características y capacidades fueron eliminadas o quedaron obsoletas en
 
 
 
+[[definitions]]
 == Definiciones
 
 Obsoleto:: Esta función *no debería* utilizarse en nuevos entornos de producción.  Los entornos de producción existentes pueden seguir utilizando la función.
@@ -24,6 +25,7 @@ Remoto:: Primera versión que *no* admite la función.
 
 
 
+[[storagegrid-end-of-feature-support]]
 == Fin del soporte de funciones de StorageGRID
 
 Las funciones obsoletas se eliminarán en N+2 versiones principales.  Por ejemplo, si una característica queda obsoleta en la versión N (por ejemplo, 6.3), la última versión donde existirá dicha característica será N+1 (por ejemplo, 6.4).  La versión N+2 (por ejemplo, 6.5) es el primer lanzamiento cuando la función no existe en el producto.

@@ -26,6 +26,7 @@ Las políticas de depósito especifican los permisos de acceso para el depósito
 
 
 
+[[example-allow-everyone-read-only-access-to-a-bucket]]
 == Ejemplo: Permitir a todos el acceso de solo lectura a un depósito
 
 En este ejemplo, todos, incluso los anónimos, pueden enumerar objetos en el depósito y realizar operaciones GetObject en todos los objetos del depósito.  Se denegarán todas las demás operaciones.  Tenga en cuenta que esta política puede no ser particularmente útil porque nadie excepto la cuenta raíz tiene permisos para escribir en el depósito.
@@ -46,6 +47,7 @@ En este ejemplo, todos, incluso los anónimos, pueden enumerar objetos en el dep
 ----
 
 
+[[example-allow-everyone-in-one-account-full-access-and-everyone-in-another-account-read-only-access-to-a-bucket]]
 == Ejemplo: Permitir a todos los usuarios de una cuenta acceso completo y a todos los usuarios de otra cuenta acceso de solo lectura a un depósito.
 
 En este ejemplo, a todos en una cuenta específica se les permite acceso completo a un depósito, mientras que a todos en otra cuenta específica solo se les permite listar el depósito y realizar operaciones GetObject en objetos en el depósito comenzando con el `shared/` prefijo de clave de objeto.
@@ -94,6 +96,7 @@ NOTE: En StorageGRID, los objetos creados por una cuenta que no es de propietari
 ----
 
 
+[[example-allow-everyone-read-only-access-to-a-bucket-and-full-access-by-specified-group]]
 == Ejemplo: Permitir a todos acceso de solo lectura a un depósito y acceso completo a un grupo específico
 
 En este ejemplo, todos, incluido el anónimo, pueden listar el depósito y realizar operaciones GetObject en todos los objetos del depósito, mientras que solo los usuarios que pertenecen al grupo `Marketing` En la cuenta especificada se permite el acceso completo.
@@ -127,6 +130,7 @@ En este ejemplo, todos, incluido el anónimo, pueden listar el depósito y reali
 ----
 
 
+[[example-allow-everyone-read-and-write-access-to-a-bucket-if-client-in-ip-range]]
 == Ejemplo: Permitir a todos el acceso de lectura y escritura a un depósito si el cliente está en el rango de IP
 
 En este ejemplo, todos, incluso los anónimos, pueden enumerar el depósito y realizar cualquier operación de objeto en todos los objetos del depósito, siempre que las solicitudes provengan de un rango de IP específico (54.240.143.0 a 54.240.143.255, excepto 54.240.143.188).  Se rechazarán todas las demás operaciones y todas las solicitudes fuera del rango de IP.
@@ -151,6 +155,7 @@ En este ejemplo, todos, incluso los anónimos, pueden enumerar el depósito y re
 ----
 
 
+[[example-allow-full-access-to-a-bucket-exclusively-by-a-specified-federated-user]]
 == Ejemplo: Permitir el acceso completo a un depósito exclusivamente a un usuario federado específico
 
 En este ejemplo, al usuario federado Alex se le permite acceso completo a la `examplebucket` cubo y sus objetos.  A todos los demás usuarios, incluido 'root', se les niega explícitamente todas las operaciones.  Sin embargo, tenga en cuenta que a 'root' nunca se le niegan los permisos para Put/Get/DeleteBucketPolicy.
@@ -190,6 +195,7 @@ En este ejemplo, al usuario federado Alex se le permite acceso completo a la `ex
 ----
 
 
+[[example-putoverwriteobject-permission]]
 == Ejemplo: Permiso PutOverwriteObject
 
 En este ejemplo, el `Deny` El efecto para PutOverwriteObject y DeleteObject garantiza que nadie pueda sobrescribir o eliminar los datos del objeto, los metadatos definidos por el usuario y el etiquetado de objetos S3.

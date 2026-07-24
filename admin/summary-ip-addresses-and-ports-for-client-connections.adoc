@@ -71,6 +71,7 @@ Puertos S3 predeterminados:
 |===
 
 
+[[example-urls]]
 == URL de ejemplo
 
 Para conectar una aplicación cliente al punto final del balanceador de carga de un grupo de alta disponibilidad de nodos de puerta de enlace, utilice una URL estructurada como se muestra a continuación:
@@ -83,6 +84,7 @@ Por ejemplo, si la dirección IP virtual del grupo HA es 192.0.2.5 y el número 
 
 
 
+[[where-to-find-ip-addresses]]
 == Dónde encontrar direcciones IP
 
 . Sign in en Grid Manager usando unlink:../admin/web-browser-requirements.html["navegador web compatible"] .

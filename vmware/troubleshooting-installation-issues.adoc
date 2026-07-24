@@ -26,6 +26,7 @@ Si necesita ayuda adicional, póngase en contacto con https://mysupport.netapp.c
 
 
 
+[[virtual-machine-resource-reservation-requires-adjustment]]
 == La reserva de recursos de la máquina virtual requiere un ajuste
 
 Los archivos OVF incluyen una reserva de recursos diseñada para garantizar que cada nodo de la red tenga suficiente RAM y CPU para funcionar de manera eficiente.  Si crea máquinas virtuales implementando estos archivos OVF en VMware y la cantidad predefinida de recursos no está disponible, las máquinas virtuales no se iniciarán.
@@ -49,6 +50,7 @@ Si está seguro de que el host de la máquina virtual tiene recursos suficientes
 
 
 
+[[temporary-installation-password-was-disabled]]
 == La contraseña de instalación temporal fue deshabilitada
 
 Al implementar un nodo VMware, puede especificar opcionalmente una contraseña de instalación temporal.  Debe tener esta contraseña para acceder a la consola de la VM o usar SSH antes de que el nuevo nodo se una a la red.

@@ -15,18 +15,21 @@ Puede configurar varias configuraciones de seguridad desde Grid Manager para ayu
 
 
 
+[[manage-encryption]]
 == Administrar el cifrado
 
 StorageGRID ofrece varias opciones para cifrar datos.  Deberíalink:reviewing-storagegrid-encryption-methods.html["revise los métodos de cifrado disponibles"] para determinar cuáles cumplen con sus requisitos de protección de datos.
 
 
 
+[[manage-certificates]]
 == Administrar certificados
 
 Puedelink:using-storagegrid-security-certificates.html["configurar y administrar los certificados del servidor"] Se utiliza para conexiones HTTP o los certificados de cliente utilizados para autenticar la identidad de un cliente o usuario en el servidor.
 
 
 
+[[configure-key-management-servers]]
 == Configurar servidores de administración de claves
 
 Usando unlink:kms-configuring.html["servidor de gestión de claves"] Le permite proteger los datos de StorageGRID incluso si se elimina un dispositivo del centro de datos.  Una vez cifrados los volúmenes del dispositivo, no podrá acceder a ningún dato del dispositivo a menos que el nodo pueda comunicarse con el KMS.
@@ -36,12 +39,14 @@ NOTE: Para utilizar la administración de claves de cifrado, debe habilitar la c
 
 
 
+[[manage-proxy-settings]]
 == Administrar la configuración del proxy
 
 Si está utilizando servicios de la plataforma S3 o grupos de almacenamiento en la nube, puede configurar unlink:configuring-storage-proxy-settings.html["servidor proxy de almacenamiento"] entre los nodos de almacenamiento y los puntos finales externos de S3.  Si envía paquetes de AutoSupport mediante HTTPS o HTTP, puede configurar unlink:configuring-admin-proxy-settings.html["servidor proxy de administración"] entre los nodos de administración y el soporte técnico.
 
 
 
+[[control-firewalls]]
 == Controlar cortafuegos
 
 Para mejorar la seguridad de su sistema, puede controlar el acceso a los nodos de administración de StorageGRID abriendo o cerrando puertos específicos en ellink:controlling-access-through-firewalls.html["cortafuegos externo"] .  También puede controlar el acceso a la red de cada nodo configurando sulink:manage-firewall-controls.html["cortafuegos interno"] .  Puede evitar el acceso a todos los puertos excepto aquellos necesarios para su implementación.

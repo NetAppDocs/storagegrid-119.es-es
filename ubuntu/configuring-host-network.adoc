@@ -36,6 +36,7 @@ NOTE: No utilice dispositivos de enlace o puente directamente como interfaz de r
 
 
 
+[[considerations-and-recommendations-for-mac-address-cloning]]
 == Consideraciones y recomendaciones para la clonación de direcciones MAC
 
 .[[clonación de direcciones MAC en Ubuntu]]
@@ -43,6 +44,7 @@ La clonación de direcciones MAC hace que el contenedor utilice la dirección MA
 
 
 
+[[enabling-mac-cloning]]
 === Habilitar la clonación de MAC
 
 En ciertos entornos, la seguridad se puede mejorar mediante la clonación de direcciones MAC porque permite utilizar una NIC virtual dedicada para la red de administración, la red de cuadrícula y la red de cliente.  Hacer que el contenedor utilice la dirección MAC de la NIC dedicada en el host le permite evitar el uso de configuraciones de red en modo promiscuo.
@@ -69,6 +71,7 @@ NOTE: Habilitar la clonación de MAC en un host virtual sin habilitar también e
 
 
 
+[[mac-cloning-use-cases]]
 === Casos de uso de clonación de MAC
 
 Hay dos casos de uso a considerar con la clonación de MAC:
@@ -84,6 +87,7 @@ Para habilitar la clonación de MAC, consulte lalink:creating-node-configuration
 
 
 
+[[mac-cloning-example]]
 === Ejemplo de clonación de MAC
 
 Ejemplo de clonación de MAC habilitada con un host que tiene la dirección MAC 11:22:33:44:55:66 para la interfaz ens256 y las siguientes claves en el archivo de configuración del nodo:
@@ -97,6 +101,7 @@ Resultado: la MAC del host para ens256 es b2:9c:02:c2:27:10 y la MAC de la red d
 
 
 
+[[example-1-1-to-1-mapping-to-physical-or-virtual-nics]]
 == Ejemplo 1: Asignación 1 a 1 a NIC físicas o virtuales
 
 El ejemplo 1 describe un mapeo de interfaz física simple que requiere poca o ninguna configuración del lado del host.
@@ -111,6 +116,7 @@ Si el Switch 1 es un switch físico, debe configurar los puertos conectados a la
 
 
 
+[[example-2-lacp-bond-carrying-vlans]]
 == Ejemplo 2: VLAN que transportan enlaces LACP
 
 El ejemplo 2 supone que está familiarizado con la vinculación de interfaces de red y con la creación de interfaces VLAN en la distribución de Linux que está utilizando.

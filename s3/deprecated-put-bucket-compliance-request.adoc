@@ -28,6 +28,7 @@ Debe especificar un valor para cada campo de la configuración de cumplimiento a
 
 
 
+[[request-example]]
 == Ejemplo de solicitud
 
 Esta solicitud de ejemplo modifica la configuración de cumplimiento para el depósito denominado `mybucket` .  En este ejemplo, los objetos en `mybucket` ahora se conservarán durante dos años (1.051.200 minutos) en lugar de un año, a partir del momento en que el objeto se incorpora a la red.  No existe ninguna retención legal sobre este cubo.  Cada objeto se eliminará automáticamente después de dos años.
@@ -79,6 +80,7 @@ Eliminación automática
 |===
 
 
+[[consistency-for-compliance-settings]]
 == Coherencia para la configuración de cumplimiento
 
 Cuando actualiza la configuración de cumplimiento de un bucket S3 con una solicitud de cumplimiento de bucket PUT, StorageGRID intenta actualizar los metadatos del bucket en toda la red.  De manera predeterminada, StorageGRID utiliza la consistencia *Strong-global* para garantizar que todos los sitios del centro de datos y todos los nodos de almacenamiento que contienen metadatos de bucket tengan consistencia de lectura después de escritura para las configuraciones de cumplimiento modificadas.
@@ -101,6 +103,7 @@ Consistency-Control: strong-site
 ----
 
 
+[[error-responses]]
 == Respuestas de error
 
 * Si el depósito no se creó para ser compatible, el código de estado HTTP para la respuesta es `404 Not Found` .

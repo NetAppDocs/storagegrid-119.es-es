@@ -15,6 +15,7 @@ Utilice StorageGRID en una configuración de nube híbrida implementando una ges
 
 
 
+[[cloud-storage-pools]]
 == Grupos de almacenamiento en la nube
 
 Los grupos de almacenamiento en la nube le permiten almacenar objetos fuera del sistema StorageGRID .  Por ejemplo, es posible que desee mover objetos a los que se accede con poca frecuencia a un almacenamiento en la nube de menor costo, como Amazon S3 Glacier, S3 Glacier Deep Archive, Google Cloud o el nivel de acceso de archivo en el almacenamiento de blobs de Microsoft Azure.  O bien, es posible que desee mantener una copia de seguridad en la nube de los objetos StorageGRID , que se puede utilizar para recuperar datos perdidos debido a una falla del volumen de almacenamiento o del nodo de almacenamiento.
@@ -26,6 +27,7 @@ NOTE: No se admite el uso de grupos de almacenamiento en la nube con FabricPool 
 
 
 
+[[s3-platform-services]]
 == Servicios de la plataforma S3
 
 Los servicios de la plataforma S3 le brindan la posibilidad de utilizar servicios remotos como puntos finales para la replicación de objetos, notificaciones de eventos o integración de búsqueda.  Los servicios de plataforma funcionan independientemente de las reglas ILM de la red y están habilitados para depósitos S3 individuales.  Se admiten los siguientes servicios:
@@ -39,6 +41,7 @@ Por ejemplo, puede utilizar la replicación de CloudMirror para reflejar registr
 
 
 
+[[ontap-data-tiering-using-fabricpool]]
 == Clasificación de datos de ONTAP mediante FabricPool
 
 Puede reducir el costo del almacenamiento de ONTAP al organizar los datos en StorageGRID mediante FabricPool.  FabricPool permite la clasificación automatizada de datos en niveles de almacenamiento de objetos de bajo costo, ya sea dentro o fuera de las instalaciones.

@@ -19,6 +19,7 @@ Consulte este archivo para ver si hay mensajes de error relacionados con fallas.
 
 
 
+[[service-with-an-error-state]]
 == Servicio con un estado de error
 
 Si detecta que un servicio ha entrado en un estado de error, intente reiniciar el servicio.

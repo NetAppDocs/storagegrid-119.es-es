@@ -24,6 +24,7 @@ NOTE: Se ha eliminado el soporte para nodos de archivo.  El traslado de objetos 
 
 
 
+[[storagegrid-benefits]]
 == Beneficios de StorageGRID
 
 Las ventajas del sistema StorageGRID incluyen las siguientes:

@@ -20,6 +20,7 @@ Administrar un servidor de administración de claves (KMS) implica ver o editar 
 
 
 
+[[view-kms-details]]
 == Ver detalles de KMS
 
 Puede ver información sobre cada servidor de administración de claves (KMS) en su sistema StorageGRID , incluidos los detalles de la clave y el estado actual de los certificados del servidor y del cliente.
@@ -139,6 +140,7 @@ Nunca intente rotar una clave cambiando el nombre de la clave (alias) para el KM
 
 
 
+[[manage-certificates]]
 == Administrar certificados
 
 Aborde rápidamente cualquier problema con el certificado del servidor o del cliente.  Si es posible, reemplace los certificados antes de que caduquen.
@@ -168,6 +170,7 @@ NOTE: Si obtiene un estado de *El estado del certificado del servidor es descono
 
 
 
+[[view-encrypted-nodes]]
 == Ver nodos cifrados
 
 Puede ver información sobre los nodos del dispositivo en su sistema StorageGRID que tienen habilitada la configuración *Cifrado de nodo*.
@@ -263,6 +266,7 @@ CAUTION: Debe abordar cualquier problema de inmediato para garantizar que sus da
 
 
 
+[[edit-a-kms]]
 == Editar un KMS
 
 Es posible que necesite editar la configuración de un servidor de administración de claves, por ejemplo, si un certificado está a punto de caducar.
@@ -364,6 +368,7 @@ Se guarda la configuración del KMS, pero no se prueba la conexión al KMS.
 
 
 
+[[remove-a-key-management-server-kms]]
 == Eliminar un servidor de administración de claves (KMS)
 
 Es posible que en algunos casos desees eliminar un servidor de administración de claves.  Por ejemplo, es posible que desees eliminar un KMS específico del sitio si has dado de baja el sitio.

@@ -27,6 +27,7 @@ Antes de realizar la migración o el mantenimiento del hipervisor, apague los no
 
 
 
+[[vmware-live-migration-not-supported]]
 == VMware Live Migration no compatible
 
 Al realizar una instalación completa en máquinas virtuales VMware, OpenStack Live Migration y VMware Live vMotion provocan saltos en el reloj de la máquina virtual y no son compatibles con nodos de red de ningún tipo.  Aunque es poco frecuente, los horarios de reloj incorrectos pueden provocar la pérdida de datos o actualizaciones de configuración.
@@ -35,6 +36,7 @@ Se admite la migración en frío.  En la migración en frío, se apagan los nodo
 
 
 
+[[consistent-network-interface-names]]
 == Nombres de interfaz de red consistentes
 
 Para mover un nodo de un host a otro, el servicio de host StorageGRID debe tener cierta confianza en que la conectividad de red externa que tiene el nodo en su ubicación actual se puede duplicar en la nueva ubicación.  Esta confianza se obtiene mediante el uso de nombres de interfaz de red consistentes en los hosts.
@@ -51,6 +53,7 @@ Hay muchas formas de lograr una denominación de interfaz de red consistente en 
 
 
 
+[[shared-storage]]
 == Almacenamiento compartido
 
 Para lograr migraciones de nodos rápidas y con baja sobrecarga, la función de migración de nodos de StorageGRID no mueve físicamente los datos del nodo.  En cambio, la migración de nodos se realiza como un par de operaciones de exportación e importación, de la siguiente manera:

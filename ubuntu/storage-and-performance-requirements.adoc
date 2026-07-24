@@ -24,6 +24,7 @@ Debe utilizar dispositivos de bloque respaldados por RAID para todas las categor
 
 
 
+[[performance-requirements]]
 == Requisitos de rendimiento
 
 El rendimiento de los volúmenes utilizados para el grupo de contenedores, los datos del sistema y los metadatos de los objetos afecta significativamente el rendimiento general del sistema.  Debe utilizar almacenamiento de nivel de rendimiento (SAS o SSD de 10K) para estos volúmenes a fin de garantizar un rendimiento de disco adecuado en términos de latencia, operaciones de entrada/salida por segundo (IOPS) y rendimiento.  Puede utilizar almacenamiento de nivel de capacidad (NL-SAS/SATA) para el almacenamiento persistente de datos de objetos.
@@ -32,6 +33,7 @@ Los volúmenes utilizados para el grupo de contenedores, los datos del sistema y
 
 
 
+[[requirements-for-hosts-that-use-netapp-ontap-storage]]
 == Requisitos para los hosts que utilizan almacenamiento NetApp ONTAP
 
 Si el nodo StorageGRID usa almacenamiento asignado desde un sistema NetApp ONTAP , confirme que el volumen no tenga habilitada una política de niveles de FabricPool .  Deshabilitar la organización en niveles de FabricPool para los volúmenes utilizados con nodos StorageGRID simplifica la resolución de problemas y las operaciones de almacenamiento.
@@ -41,6 +43,7 @@ NOTE: Nunca use FabricPool para agrupar datos relacionados con StorageGRID en St
 
 
 
+[[number-of-hosts-required]]
 == Número de hosts necesarios
 
 Cada sitio de StorageGRID requiere un mínimo de tres nodos de almacenamiento.
@@ -52,6 +55,7 @@ Se pueden implementar otros tipos de nodos, como nodos de administración o nodo
 
 
 
+[[number-of-storage-volumes-for-each-host]]
 == Número de volúmenes de almacenamiento para cada host
 
 La siguiente tabla muestra la cantidad de volúmenes de almacenamiento (LUN) necesarios para cada host y el tamaño mínimo requerido para cada LUN, en función de los nodos que se implementarán en ese host.
@@ -140,6 +144,7 @@ NOTE: Según el nivel de auditoría configurado, el tamaño de las entradas del 
 
 
 
+[[minimum-storage-space-for-a-host]]
 == Espacio mínimo de almacenamiento para un host
 
 La siguiente tabla muestra el espacio de almacenamiento mínimo requerido para cada tipo de nodo.  Puede utilizar esta tabla para determinar la cantidad mínima de almacenamiento que debe proporcionar al host en cada categoría de almacenamiento, en función de qué nodos se implementarán en ese host.
@@ -186,6 +191,7 @@ _no aplicable_
 |===
 
 
+[[example-calculating-the-storage-requirements-for-a-host]]
 == Ejemplo: Cálculo de los requisitos de almacenamiento para un host
 
 Supongamos que planea implementar tres nodos en el mismo host: un nodo de almacenamiento, un nodo de administración y un nodo de puerta de enlace. Debe proporcionar un mínimo de nueve volúmenes de almacenamiento al host. Necesitará un mínimo de 300 GB de almacenamiento de nivel de rendimiento para los contenedores de nodos, 670 GB de almacenamiento de nivel de rendimiento para datos del sistema y registros de transacciones, y 12 TB de almacenamiento de nivel de capacidad para datos de objetos.
@@ -287,6 +293,8 @@ Nodo de puerta de enlace
 |===
 
 
+[[storage-requirements-for-storage-nodes]]
+[[storage_req_SN]]
 == Requisitos de almacenamiento para nodos de almacenamiento
 
 Un nodo de almacenamiento basado en software puede tener de 1 a 48 volúmenes de almacenamiento; se recomiendan 3 o más volúmenes de almacenamiento. Cada volumen de almacenamiento debe ser de 4 TB o más.

@@ -34,6 +34,7 @@ Para obtener más información, consulte link:../tenant/index.html["Utilice una 
 
 
 
+[[how-do-i-create-a-tenant-account]]
 == ¿Cómo creo una cuenta de inquilino?
 
 Utilice el administrador de Grid para crear una cuenta de inquilino.  Al crear una cuenta de inquilino, se especifica la siguiente información:
@@ -47,6 +48,7 @@ Además, puede habilitar la configuración de Bloqueo de objetos S3 para el sist
 
 
 
+[[what-is-tenant-manager-used-for]]
 == ¿Para qué se utiliza Tenant Manager?
 
 Después de crear la cuenta de inquilino, los usuarios inquilinos pueden iniciar sesión en el Administrador de inquilinos para realizar tareas como las siguientes:

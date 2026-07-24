@@ -38,6 +38,7 @@ Para obtener más información sobre firewalls externos y seguridad de red, cons
 
 
 
+[[privileged-address-list-and-manage-external-access-tabs]]
 == Lista de direcciones privilegiadas y pestañas para administrar acceso externo
 
 La pestaña Lista de direcciones privilegiadas le permite registrar una o más direcciones IP a las que se les concede acceso a los puertos de la red que están cerrados.  La pestaña Administrar acceso externo le permite cerrar el acceso externo a puertos externos seleccionados o a todos los puertos externos abiertos (los puertos externos son puertos a los que pueden acceder los nodos que no pertenecen a la red de manera predeterminada).  Estas dos pestañas a menudo se pueden usar juntas para personalizar el acceso de red exacto que necesita permitir para su red.
@@ -47,6 +48,7 @@ NOTE: Las direcciones IP privilegiadas no tienen acceso al puerto de la red inte
 
 
 
+[[example-1-use-a-jump-host-for-maintenance-tasks]]
 === Ejemplo 1: Utilizar un host de salto para tareas de mantenimiento
 
 Supongamos que desea utilizar un host de salto (un host con seguridad reforzada) para la administración de la red.  Podrías utilizar estos pasos generales:
@@ -62,6 +64,7 @@ Después de guardar su configuración, todos los puertos externos en el nodo de 
 
 
 
+[[example-2-lock-down-sensitive-ports]]
 === Ejemplo 2: Bloquear puertos sensibles
 
 Supongamos que desea bloquear puertos sensibles y el servicio en ese puerto (por ejemplo, SSH en el puerto 22). Podrías utilizar los siguientes pasos generales:
@@ -77,12 +80,14 @@ Después de guardar su configuración, el puerto 22 y el servicio SSH estarán d
 
 
 
+[[example-3-disable-access-to-unused-services]]
 === Ejemplo 3: Deshabilitar el acceso a servicios no utilizados
 
 A nivel de red, podrías deshabilitar algunos servicios que no deseas utilizar.  Por ejemplo, para bloquear el tráfico del cliente HTTP S3, deberá utilizar el interruptor en la pestaña Administrar acceso externo para bloquear el puerto 18084.
 
 
 
+[[untrusted-client-networks-tab]]
 == Pestaña Redes de clientes no confiables
 
 Si utiliza una red de cliente, puede ayudar a proteger StorageGRID de ataques hostiles al aceptar tráfico de cliente entrante solo en puntos finales configurados explícitamente.
@@ -93,6 +98,7 @@ Puede reducir la amenaza de ataques hostiles en su sistema StorageGRID especific
 
 
 
+[[example-1-gateway-node-only-accepts-https-s3-requests]]
 === Ejemplo 1: El nodo de puerta de enlace solo acepta solicitudes HTTPS S3
 
 Supongamos que desea que un nodo de puerta de enlace rechace todo el tráfico entrante en la red del cliente, excepto las solicitudes HTTPS S3.  Realizarías estos pasos generales:
@@ -105,6 +111,7 @@ Después de guardar su configuración, se descarta todo el tráfico entrante en 
 
 
 
+[[example-2-storage-node-sends-s3-platform-services-requests]]
 === Ejemplo 2: El nodo de almacenamiento envía solicitudes de servicios de la plataforma S3
 
 Supongamos que desea habilitar el tráfico saliente de servicios de la plataforma S3 desde un nodo de almacenamiento, pero desea evitar cualquier conexión entrante a ese nodo de almacenamiento en la red del cliente.  Realizarías este paso general:
@@ -116,6 +123,7 @@ Después de guardar su configuración, el nodo de almacenamiento ya no acepta tr
 
 
 
+[[example-3-limiting-access-to-grid-manager-to-a-subnet]]
 === Ejemplo 3: Limitar el acceso a Grid Manager a una subred
 
 Supongamos que desea permitir el acceso a Grid Manager solo en una subred específica.  Realizarías los siguientes pasos:

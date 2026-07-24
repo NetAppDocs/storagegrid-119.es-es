@@ -24,6 +24,7 @@ NOTE: La compatibilidad con Docker como motor de contenedores para implementacio
 
 
 
+[[python-versions-tested]]
 == Versiones de Python probadas
 
 * 3.5.2-2
@@ -41,6 +42,7 @@ NOTE: La compatibilidad con Docker como motor de contenedores para implementacio
 
 
 
+[[podman-versions-tested]]
 == Versiones de Podman probadas
 
 * 3.2.3-0
@@ -54,6 +56,7 @@ NOTE: La compatibilidad con Docker como motor de contenedores para implementacio
 
 
 
+[[docker-versions-tested]]
 == Versiones de Docker probadas
 
 

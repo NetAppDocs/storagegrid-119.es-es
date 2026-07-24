@@ -17,6 +17,7 @@ Cuando realiza la actualización, se actualizan todos los nodos de su sistema St
 
 
 
+[[before-you-begin]]
 == Antes de empezar
 
 Revise estos temas para conocer las nuevas características y mejoras en StorageGRID 11.9, determinar si alguna característica ha quedado obsoleta o se ha eliminado y obtener información sobre los cambios en las API de StorageGRID .

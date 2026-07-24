@@ -17,6 +17,7 @@ Ver link:using-multiple-storage-pools-for-cross-site-replication.html["Ejemplos 
 
 
 
+[[guidelines-for-all-storage-pools]]
 == Directrices para todos los grupos de almacenamiento
 
 * Mantenga las configuraciones del grupo de almacenamiento lo más simples posible.  No cree más grupos de almacenamiento de los necesarios.
@@ -27,6 +28,7 @@ Ver link:using-multiple-storage-pools-for-cross-site-replication.html["Ejemplos 
 
 
 
+[[guidelines-for-storage-pools-used-for-replicated-copies]]
 == Directrices para los grupos de almacenamiento utilizados para copias replicadas
 
 * Para la protección contra pérdida de sitios utilizandolink:what-replication-is.html["replicación"] , especifique uno o más grupos de almacenamiento específicos del sitio en ellink:create-ilm-rule-define-placements.html["Instrucciones de colocación para cada regla ILM"] .
@@ -43,6 +45,7 @@ El uso de un grupo de almacenamiento para cada sitio garantiza que las copias de
 
 
 
+[[guidelines-for-storage-pools-used-for-erasure-coded-copies]]
 == Directrices para los grupos de almacenamiento utilizados para copias con código de borrado
 
 * Para la protección contra pérdida de sitios utilizandolink:what-erasure-coding-is.html["codificación de borrado"] , cree grupos de almacenamiento que consten de al menos tres sitios.  Si un grupo de almacenamiento incluye solo dos sitios, no podrá utilizar ese grupo de almacenamiento para la codificación de borrado.  No hay esquemas de codificación de borrado disponibles para un grupo de almacenamiento que tiene dos sitios.

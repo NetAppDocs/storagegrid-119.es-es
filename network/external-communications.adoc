@@ -15,6 +15,7 @@ Los clientes necesitan comunicarse con los nodos de la red para ingerir y recupe
 
 
 
+[[restricted-access-to-ports]]
 == Acceso restringido a los puertos
 
 Si las políticas de red empresarial restringen el acceso a cualquiera de los puertos, puede realizar una de las siguientes acciones:
@@ -32,6 +33,7 @@ Si las políticas de red empresarial restringen el acceso a cualquiera de los pu
 
 
 
+[[ports-used-for-external-communications]]
 == Puertos utilizados para comunicaciones externas
 
 La siguiente tabla muestra los puertos utilizados para el tráfico hacia los nodos.

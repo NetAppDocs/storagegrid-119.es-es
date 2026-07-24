@@ -20,6 +20,8 @@ NOTE: Para ver la documentación de AWS para cada operación, seleccione el enla
 
 
 
+[[common-uri-query-parameters-and-request-headers]]
+[[common-params]]
 == Parámetros de consulta URI comunes y encabezados de solicitud
 
 A menos que se indique lo contrario, se admiten los siguientes parámetros de consulta URI comunes:
@@ -47,6 +49,7 @@ A menos que se indique lo contrario, se admiten los siguientes encabezados de so
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapiabortmultipartupload-htmlabortmultipartupload]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_AbortMultipartUpload.html["AbortarMultipartUpload"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -63,6 +66,7 @@ link:operations-for-multipart-uploads.html["Operaciones para cargas multiparte"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapicompletemultipartupload-htmlcompletemultipartupload]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_CompleteMultipartUpload.html["Carga completa de varias partes"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -87,6 +91,7 @@ link:complete-multipart-upload.html["Carga completa de varias partes"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapicopyobject-htmlcopyobject]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_CopyObject.html["Copiar objeto"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -122,6 +127,7 @@ link:put-object-copy.html["Copiar objeto"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapicreatebucket-htmlcreatebucket]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html["Crear cubo"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -138,6 +144,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapicreatemultipartupload-htmlcreatemultipartupload]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateMultipartUpload.html["Crear carga de varias partes"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -169,6 +176,7 @@ link:initiate-multipart-upload.html["Crear carga de varias partes"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapideletebucket-htmldeletebucket]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucket.html["Eliminar cubo"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -179,6 +187,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapideletebucketcors-htmldeletebucketcors]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketCors.html["EliminarBucketCors"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -192,6 +201,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapideletebucketencryption-htmldeletebucketencryption]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketEncryption.html["Eliminar cifrado del cubo"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -205,6 +215,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapideletebucketlifecycle-htmldeletebucketlifecycle]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketLifecycle.html["Eliminar ciclo de vida del cubo"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -220,6 +231,7 @@ Ninguno
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapideletebucketpolicy-htmldeletebucketpolicy]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketPolicy.html["Política de eliminación de cubos"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -233,6 +245,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapideletebucketreplication-htmldeletebucketreplication]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketReplication.html["EliminarReplicaciónDeBucket"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -246,6 +259,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapideletebuckettagging-htmldeletebuckettagging]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketTagging.html["Eliminar etiquetado de cubo"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -259,6 +273,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapideleteobject-htmldeleteobject]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObject.html["Eliminar objeto"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -275,6 +290,7 @@ link:operations-on-objects.html["Operaciones sobre objetos"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapideleteobjects-htmldeleteobjects]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjects.html["Eliminar objetos"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -291,6 +307,7 @@ link:operations-on-objects.html["Operaciones sobre objetos"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapideleteobjecttagging-htmldeleteobjecttagging]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjectTagging.html["Eliminar etiquetado de objetos"^]
 
 StorageGRID admite todos<<common-params,parámetros y encabezados comunes>> para esta solicitud.
@@ -303,6 +320,7 @@ link:operations-on-objects.html["Operaciones sobre objetos"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapigetbucketacl-htmlgetbucketacl]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketAcl.html["ObtenerBucketAcl"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -316,6 +334,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapigetbucketcors-htmlgetbucketcors]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketCors.html["ObtenerBucketCors"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -329,6 +348,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapigetbucketencryption-htmlgetbucketencryption]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketEncryption.html["Obtener cifrado de cubo"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -342,6 +362,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapigetbucketlifecycleconfiguration-htmlgetbucketlifecycleconfiguration]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketLifecycleConfiguration.html["Obtener configuración del ciclo de vida del cubo"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -357,6 +378,7 @@ Ninguno
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapigetbucketlocation-htmlgetbucketlocation]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketLocation.html["Obtener la ubicación del cubo"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -370,6 +392,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapigetbucketnotificationconfiguration-htmlgetbucketnotificationconfiguration]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketNotificationConfiguration.html["Configuración de GetBucketNotification"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -383,6 +406,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapigetbucketpolicy-htmlgetbucketpolicy]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketPolicy.html["Obtener política de cubo"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -396,6 +420,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapigetbucketreplication-htmlgetbucketreplication]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketReplication.html["Obtener réplica de cubo"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -409,6 +434,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapigetbuckettagging-htmlgetbuckettagging]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketTagging.html["Obtener etiquetado de cubos"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -422,6 +448,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapigetbucketversioning-htmlgetbucketversioning]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetBucketVersioning.html["Obtener versiones de Bucket"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -435,6 +462,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapigetobject-htmlgetobject]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObject.html["Obtener objeto"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -470,6 +498,7 @@ link:get-object.html["Obtener objeto"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapigetobjectacl-htmlgetobjectacl]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectAcl.html["ObtenerObjetoAcl"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -483,6 +512,7 @@ link:operations-on-objects.html["Operaciones sobre objetos"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapigetobjectlegalhold-htmlgetobjectlegalhold]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectLegalHold.html["Obtener retención legal de objeto"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -496,6 +526,7 @@ link:../s3/use-s3-api-for-s3-object-lock.html["Utilice la API REST de S3 para co
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapigetobjectlockconfiguration-htmlgetobjectlockconfiguration]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectLockConfiguration.html["Obtener configuración de bloqueo de objeto"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -509,6 +540,7 @@ link:../s3/use-s3-api-for-s3-object-lock.html["Utilice la API REST de S3 para co
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapigetobjectretention-htmlgetobjectretention]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectRetention.html["Obtener retención de objetos"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -522,6 +554,7 @@ link:../s3/use-s3-api-for-s3-object-lock.html["Utilice la API REST de S3 para co
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapigetobjecttagging-htmlgetobjecttagging]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_GetObjectTagging.html["Obtener etiquetado de objetos"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -535,6 +568,7 @@ link:operations-on-objects.html["Operaciones sobre objetos"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapiheadbucket-htmlheadbucket]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_HeadBucket.html["Cubo de cabeza"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -548,6 +582,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapiheadobject-htmlheadobject]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_HeadObject.html["Objeto principal"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -572,6 +607,7 @@ link:head-object.html["Objeto principal"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapilistbuckets-htmllistbuckets]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListBuckets.html["Lista de cubos"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -585,6 +621,7 @@ link:operations-on-the-service.html["Operaciones en el servicio > ListBuckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapilistmultipartuploads-htmllistmultipartuploads]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListMultipartUploads.html["Lista de cargas de varias partes"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -605,6 +642,7 @@ link:list-multipart-uploads.html["Lista de cargas de varias partes"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapilistobjects-htmllistobjects]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjects.html["Lista de objetos"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -625,6 +663,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapilistobjectsv2-htmllistobjectsv2]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjectsV2.html["ListObjectsV2"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -647,6 +686,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapilistobjectversions-htmllistobjectversions]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjectVersions.html["Lista de versiones de objetos"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -668,6 +708,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapilistparts-htmllistparts]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListParts.html["Lista de partes"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -686,6 +727,7 @@ link:list-multipart-uploads.html["Lista de cargas de varias partes"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapiputbucketcors-htmlputbucketcors]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketCors.html["PonerBucketCors"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -699,6 +741,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapiputbucketencryption-htmlputbucketencryption]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketEncryption.html["Cifrado de PutBucket"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -718,6 +761,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapiputbucketlifecycleconfiguration-htmlputbucketlifecycleconfiguration]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketLifecycleConfiguration.html["Configuración del ciclo de vida de PutBucket"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -751,6 +795,7 @@ StorageGRID admite estas etiquetas XML del cuerpo de solicitud:
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapiputbucketnotificationconfiguration-htmlputbucketnotificationconfiguration]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketNotificationConfiguration.html["Configuración de notificación de PutBucket"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -778,6 +823,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapiputbucketpolicy-htmlputbucketpolicy]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketPolicy.html["Política de depósito de basura"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -788,6 +834,7 @@ Para obtener detalles sobre los campos de cuerpo JSON admitidos, consultelink:bu
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapiputbucketreplication-htmlputbucketreplication]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketReplication.html["Replicación de PutBucket"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -808,6 +855,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapiputbuckettagging-htmlputbuckettagging]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketTagging.html["Etiquetado de PutBucket"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -821,6 +869,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapiputbucketversioning-htmlputbucketversioning]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketVersioning.html["Versiones de PutBucket"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -838,6 +887,7 @@ link:operations-on-buckets.html["Operaciones en buckets"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapiputobject-htmlputobject]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObject.html["PonerObjeto"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -870,6 +920,7 @@ link:put-object.html["PonerObjeto"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapiputobjectlegalhold-htmlputobjectlegalhold]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectLegalHold.html["PonerObjetoLegalRetención"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -883,6 +934,7 @@ link:use-s3-api-for-s3-object-lock.html["Utilice la API REST de S3 para configur
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapiputobjectlockconfiguration-htmlputobjectlockconfiguration]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectLockConfiguration.html["Configuración de bloqueo de objeto de colocación"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -896,6 +948,7 @@ link:use-s3-api-for-s3-object-lock.html["Utilice la API REST de S3 para configur
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapiputobjectretention-htmlputobjectretention]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectRetention.html["PonerRetenciónDeObjeto"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -912,6 +965,7 @@ link:use-s3-api-for-s3-object-lock.html["Utilice la API REST de S3 para configur
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapiputobjecttagging-htmlputobjecttagging]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutObjectTagging.html["Etiquetado de objetos puestos"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -925,6 +979,7 @@ link:operations-on-objects.html["Operaciones sobre objetos"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapirestoreobject-htmlrestoreobject]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_RestoreObject.html["Restaurar objeto"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -935,6 +990,7 @@ Para obtener detalles sobre los campos corporales admitidos, consultelink:post-o
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapiselectobjectcontent-htmlselectobjectcontent]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_SelectObjectContent.html["Seleccionar contenido del objeto"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -949,6 +1005,7 @@ Para obtener detalles sobre los campos de cuerpo admitidos, consulte lo siguient
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapiuploadpart-htmluploadpart]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html["Subir parte"^]
 
 .Parámetros de consulta URI y encabezados de solicitud
@@ -975,6 +1032,7 @@ link:upload-part.html["Subir parte"]
 
 
 
+[[httpsdocs-aws-amazon-comamazons3latestapiapiuploadpartcopy-htmluploadpartcopy]]
 == https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPartCopy.html["Subir copia parcial"^]
 
 .Parámetros de consulta URI y encabezados de solicitud

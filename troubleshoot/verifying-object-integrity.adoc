@@ -17,6 +17,7 @@ Hay dos procesos de verificación: verificación en segundo plano y verificació
 
 
 
+[[what-is-background-verification]]
 == ¿Qué es la verificación de antecedentes?
 
 El proceso de verificación en segundo plano verifica de manera automática y continua los nodos de almacenamiento en busca de copias corruptas de datos de objetos e intenta reparar automáticamente cualquier problema que encuentre.
@@ -39,6 +40,7 @@ La verificación de antecedentes se ejecuta a un ritmo continuo que está diseñ
 
 
 
+[[alerts-related-to-background-verification]]
 === Alertas relacionadas con la verificación de antecedentes
 
 Si el sistema detecta un objeto corrupto que no puede corregir automáticamente (porque la corrupción impide identificar el objeto), se activa la alerta *Objeto corrupto no identificado detectado*.
@@ -47,6 +49,7 @@ Si la verificación de antecedentes no puede reemplazar un objeto dañado porque
 
 
 
+[[change-the-background-verification-rate]]
 === Cambiar la tasa de verificación de antecedentes
 
 Puede cambiar la velocidad a la que la verificación de fondo verifica los datos de objetos replicados en un nodo de almacenamiento si tiene inquietudes sobre la integridad de los datos.
@@ -124,6 +127,7 @@ NOTE: Si se activó la alerta *Objetos perdidos*, es posible que el soporte téc
 
 
 
+[[what-is-object-existence-check]]
 == ¿Qué es la comprobación de existencia de objetos?
 
 La verificación de existencia de objetos verifica si todas las copias replicadas esperadas de objetos y fragmentos codificados de borrado existen en un nodo de almacenamiento.  La verificación de existencia de objetos no verifica los datos del objeto en sí (la verificación en segundo plano lo hace); en cambio, proporciona una manera de verificar la integridad de los dispositivos de almacenamiento, especialmente si un problema de hardware reciente pudo haber afectado la integridad de los datos.
@@ -138,6 +142,7 @@ La verificación de existencia de objetos lee los metadatos de cada objeto almac
 
 
 
+[[run-object-existence-check]]
 === Ejecutar comprobación de existencia de objeto
 
 Crea y ejecuta un trabajo de verificación de existencia de objeto a la vez.  Cuando crea un trabajo, selecciona los nodos de almacenamiento y los volúmenes que desea verificar.  También selecciona la consistencia del trabajo.

@@ -31,6 +31,7 @@ Estas instrucciones se aplican a Windows Server 2016 AD FS.  Si está utilizando
 
 
 
+[[create-a-relying-party-trust-using-windows-powershell]]
 == Crear una relación de confianza de usuario autenticado mediante Windows PowerShell
 
 Puede utilizar Windows PowerShell para crear rápidamente una o más relaciones de confianza de usuario autenticado.
@@ -93,6 +94,7 @@ Si faltan los metadatos, confirme que la dirección de metadatos de la Federaci�
 
 
 
+[[create-a-relying-party-trust-by-importing-federation-metadata]]
 == Cree una relación de confianza entre usuarios autenticados mediante la importación de metadatos de la federación
 
 Puede importar los valores para cada entidad de confianza accediendo a los metadatos SAML de cada nodo de administración.
@@ -144,6 +146,7 @@ Si faltan los metadatos, confirme que la dirección de metadatos de la Federaci�
 
 
 
+[[create-a-relying-party-trust-manually]]
 == Crear una relación de confianza de usuario confiado manualmente
 
 Si decide no importar los datos de las confianzas de las partes confiables, puede ingresar los valores manualmente.

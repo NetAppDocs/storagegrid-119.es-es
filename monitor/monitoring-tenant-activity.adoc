@@ -20,6 +20,7 @@ Toda la actividad del cliente S3 está asociada con las cuentas de inquilino de 
 
 
 
+[[view-all-tenants]]
 == Ver todos los inquilinos
 
 La página Inquilinos muestra información básica de todas las cuentas de inquilinos actuales.
@@ -60,6 +61,7 @@ No puedes eliminar una cuenta de inquilino si la cuenta incluye depósitos o con
 
 
 
+[[view-a-specific-tenant]]
 == Ver un inquilino específico
 
 Puede ver los detalles de un inquilino específico.
@@ -124,6 +126,7 @@ Verlink:../admin/grid-federation-overview.html["¿Qué es la federación de red?
 
 
 
+[[view-network-traffic]]
 == Ver el tráfico de la red
 
 Si existen políticas de clasificación de tráfico para un inquilino, revise el tráfico de red de ese inquilino.
@@ -142,6 +145,7 @@ Ver link:../admin/managing-traffic-classification-policies.html["Administrar pol
 
 
 
+[[use-the-audit-log]]
 == Utilice el registro de auditoría
 
 Opcionalmente, puede utilizar el registro de auditoría para realizar un seguimiento más granular de las actividades de un inquilino.
@@ -160,6 +164,7 @@ Ver link:../audit/index.html["Revisar los registros de auditoría"] Para más in
 
 
 
+[[use-prometheus-metrics]]
 == Utilice las métricas de Prometheus
 
 Opcionalmente, utilice las métricas de Prometheus para informar sobre la actividad de los inquilinos.

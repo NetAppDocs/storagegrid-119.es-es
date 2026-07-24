@@ -20,6 +20,7 @@ Debe tener el permiso s3:PutBucketConsistency o ser la cuenta root para completa
 
 
 
+[[request]]
 == Pedido
 
 El `x-ntap-sg-consistency` El parámetro debe contener uno de los siguientes valores:
@@ -67,6 +68,7 @@ Proporciona consistencia eventual tanto para objetos nuevos como para actualizac
 
 
 
+[[request-example]]
 == Ejemplo de solicitud
 
 [listing, subs="specialcharacters,quotes"]

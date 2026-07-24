@@ -15,6 +15,7 @@ Puede utilizar los archivos de ejemplo para agregar cuatro interfaces físicas d
 
 
 
+[[physical-interfaces]]
 == Interfaces físicas
 
 Tenga en cuenta que los conmutadores en los otros extremos de los enlaces también deben tratar los cuatro puertos como un único canal troncal o puerto LACP y deben pasar al menos las tres VLAN referenciadas con etiquetas.
@@ -69,6 +70,7 @@ SLAVE=yes
 ----
 
 
+[[bond-interface]]
 == Interfaz de enlace
 
 `*/etc/sysconfig/network-scripts/ifcfg-bond0*`
@@ -84,6 +86,7 @@ BONDING_OPTS=mode=802.3ad
 ----
 
 
+[[vlan-interfaces]]
 == Interfaces VLAN
 
 `*/etc/sysconfig/network-scripts/ifcfg-bond0.1001*`

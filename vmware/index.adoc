@@ -38,6 +38,7 @@ Cuando se hayan implementado todos los nodos, utilice el Administrador de cuadr�
 
 
 
+[[automate-the-installation]]
 == Automatizar la instalación
 
 Para ahorrar tiempo y brindar coherencia, puede automatizar la implementación y la configuración de los nodos de la red y la configuración del sistema StorageGRID .

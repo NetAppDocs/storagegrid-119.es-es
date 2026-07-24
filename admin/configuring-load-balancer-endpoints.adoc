@@ -39,12 +39,15 @@ NOTE: Los cambios en un certificado de punto final pueden tardar hasta 15 minuto
 
 
 
+[[create-a-load-balancer-endpoint]]
+[[create-lb-endpoint]]
 == Crear un punto final de balanceador de carga
 
 Cada punto final del balanceador de carga del cliente S3 especifica un puerto, un tipo de cliente (S3) y un protocolo de red (HTTP o HTTPS). Los puntos finales del balanceador de carga de la interfaz de administración especifican un puerto, un tipo de interfaz y una red de cliente no confiable.
 
 
 
+[[access-the-wizard]]
 === Acceder al asistente
 
 .Pasos
@@ -56,6 +59,7 @@ Cada punto final del balanceador de carga del cliente S3 especifica un puerto, u
 
 
 
+[[enter-endpoint-details]]
 === Ingrese los detalles del punto final
 
 .Pasos
@@ -157,6 +161,7 @@ Cuando selecciona *Sí*, el puerto se abre en todas las redes de cliente que no 
 
 
 
+[[select-a-binding-mode]]
 === Seleccionar un modo de enlace
 
 .Pasos
@@ -224,6 +229,7 @@ Si está creando puntos finales de interfaz de administración, seleccione VIP a
 
 
 
+[[control-tenant-access]]
 === Controlar el acceso de los inquilinos
 
 
@@ -264,6 +270,7 @@ Las cuentas de inquilinos seleccionadas no pueden usar este punto final para acc
 
 
 
+[[attach-certificate]]
 === Adjuntar certificado
 
 .Pasos
@@ -390,6 +397,7 @@ Se crea el punto final del equilibrador de carga.  El certificado personalizado 
 
 
 
+[[after-you-finish]]
 === Después de terminar
 
 .Pasos
@@ -416,6 +424,7 @@ También debe asegurarse de que el registro DNS haga referencia a todos los nomb
 
 
 
+[[view-and-edit-load-balancer-endpoints]]
 == Ver y editar puntos finales del balanceador de carga
 
 Puede ver los detalles de los puntos finales del balanceador de carga existentes, incluidos los metadatos del certificado para un punto final seguro.  Puede cambiar ciertas configuraciones para un punto final.
@@ -526,6 +535,7 @@ Editar el acceso de los inquilinos
 
 
 
+[[remove-load-balancer-endpoints]]
 == Eliminar puntos finales del balanceador de carga
 
 Puede eliminar uno o más puntos finales mediante el menú *Acciones*, o puede eliminar un solo punto final desde la página de detalles.

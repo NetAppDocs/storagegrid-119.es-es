@@ -56,6 +56,7 @@ Hay un problema con la licencia de software para este sistema StorageGRID . Pued
 |===
 
 
+[[monitor-node-connection-states]]
 == Supervisar los estados de conexión de los nodos
 
 Si uno o más nodos se desconectan de la red, las operaciones críticas de StorageGRID podrían verse afectadas.  Supervise los estados de conexión de los nodos y solucione cualquier problema rápidamente.
@@ -111,6 +112,7 @@ No se requiere ninguna acción
 |===
 
 
+[[view-current-and-resolved-alerts]]
 == Ver alertas actuales y resueltas
 
 *Alertas actuales*: cuando se activa una alerta, se muestra un ícono de alerta en el panel.  También se muestra un icono de alerta para el nodo en la página Nodos.  Silink:email-alert-notifications.html["Las notificaciones de alerta por correo electrónico están configuradas"] También se enviará una notificación por correo electrónico, a menos que se haya silenciado la alerta.

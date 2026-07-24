@@ -28,6 +28,8 @@ image::../media/nodes_table.png[Menú de nodos]
 
 
 
+[[connection-state-icons]]
+[[connection-state]]
 == Iconos de estado de conexión
 
 Si un nodo se desconecta de la red, aparecerá cualquiera de los siguientes íconos junto al nombre del nodo.
@@ -74,6 +76,7 @@ Si un nodo está desconectado de la red, puede tener una alerta subyacente, pero
 
 
 
+[[alert-icons]]
 == Iconos de alerta
 
 Si hay una alerta activa para un nodo, aparece uno de los siguientes íconos junto al nombre del nodo:
@@ -86,6 +89,7 @@ image:../media/icon_alert_yellow_minor.png["Icono de alerta amarillo menor"]*Men
 
 
 
+[[view-details-for-a-system-site-or-node]]
 == Ver detalles de un sistema, sitio o nodo
 
 Para filtrar la información que se muestra en la tabla Nodos, ingrese una cadena de búsqueda en el campo *Buscar*.  Puede buscar por nombre del sistema, nombre para mostrar o tipo (por ejemplo, ingrese *gat* para localizar rápidamente todos los nodos de puerta de enlace).

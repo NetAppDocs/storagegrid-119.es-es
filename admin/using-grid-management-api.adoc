@@ -15,6 +15,7 @@ Puede realizar tareas de administración del sistema utilizando la API REST de a
 
 
 
+[[top-level-resources]]
 == Recursos de alto nivel
 
 La API de administración de red proporciona los siguientes recursos de nivel superior:
@@ -26,6 +27,7 @@ La API de administración de red proporciona los siguientes recursos de nivel su
 
 
 
+[[issue-api-requests]]
 == Emitir solicitudes de API
 
 La API de administración de red utiliza la plataforma API de código abierto Swagger.  Swagger proporciona una interfaz de usuario intuitiva que permite a los desarrolladores y no desarrolladores realizar operaciones en tiempo real en StorageGRID con la API.

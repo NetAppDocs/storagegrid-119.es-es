@@ -15,6 +15,7 @@ Los nodos StorageGRID se pueden implementar en máquinas virtuales VMware, dentr
 
 
 
+[[control-remote-ipmi-access-to-bmc]]
 == Controlar el acceso remoto de IPMI a BMC
 
 Puede habilitar o deshabilitar el acceso IPMI remoto para todos los dispositivos que contengan un BMC. La interfaz IPMI remota permite el acceso de hardware de bajo nivel a sus dispositivos StorageGRID por parte de cualquier persona con una cuenta y contraseña de BMC . Si no necesita acceso IPMI remoto al BMC, desactive esta opción.
@@ -29,6 +30,7 @@ Puede habilitar o deshabilitar el acceso IPMI remoto para todos los dispositivos
 
 
 
+[[firewall-configuration]]
 == Configuración del firewall
 
 Como parte del proceso de fortalecimiento del sistema, debe revisar las configuraciones del firewall externo y modificarlas para que el tráfico se acepte solo desde las direcciones IP y en los puertos desde los que es estrictamente necesario.
@@ -48,24 +50,28 @@ Para obtener una lista de todos los puertos internos y externos utilizados por S
 
 
 
+[[disable-unused-services]]
 == Deshabilitar servicios no utilizados
 
 Para todos los nodos de StorageGRID , debe deshabilitar o bloquear el acceso a los servicios no utilizados. Por ejemplo, si no planea utilizar DHCP, utilice el Administrador de cuadrícula para cerrar el puerto 68. Seleccione *CONFIGURACIÓN* > *Control de firewall* > *Administrar acceso externo*. A continuación, cambie el interruptor de estado del puerto 68 de *Abierto* a *Cerrado*.
 
 
 
+[[virtualization-containers-and-shared-hardware]]
 == Virtualización, contenedores y hardware compartido
 
 Para todos los nodos de StorageGRID , evite ejecutar StorageGRID en el mismo hardware físico que software no confiable.  No asuma que las protecciones del hipervisor evitarán que el malware acceda a los datos protegidos por StorageGRID si tanto StorageGRID como el malware existen en el mismo hardware físico.  Por ejemplo, los ataques Meltdown y Spectre explotan vulnerabilidades críticas en los procesadores modernos y permiten que los programas roben datos de la memoria de la misma computadora.
 
 
 
+[[protect-nodes-during-installation]]
 == Proteger los nodos durante la instalación
 
 No permita que usuarios no confiables accedan a los nodos de StorageGRID a través de la red cuando se estén instalando los nodos.  Los nodos no son completamente seguros hasta que se unen a la red.
 
 
 
+[[guidelines-for-admin-nodes]]
 == Pautas para los nodos de administración
 
 Los nodos de administración brindan servicios de gestión como configuración del sistema, monitoreo y registro. Cuando inicia sesión en Grid Manager o Tenant Manager, se conecta a un nodo de administración.
@@ -85,6 +91,7 @@ Para obtener más información, consulte las instrucciones paralink:../admin/ind
 
 
 
+[[guidelines-for-storage-nodes]]
 == Directrices para nodos de almacenamiento
 
 Los nodos de almacenamiento administran y almacenan datos de objetos y metadatos.  Siga estas pautas para proteger los nodos de almacenamiento en su sistema StorageGRID .
@@ -98,6 +105,7 @@ Los nodos de almacenamiento administran y almacenan datos de objetos y metadatos
 
 
 
+[[guidelines-for-gateway-nodes]]
 == Directrices para los nodos de enlace
 
 Los nodos de puerta de enlace proporcionan una interfaz de equilibrio de carga opcional que las aplicaciones cliente pueden usar para conectarse a StorageGRID.  Siga estas pautas para proteger cualquier nodo de puerta de enlace en su sistema StorageGRID :
@@ -109,6 +117,7 @@ Los nodos de puerta de enlace proporcionan una interfaz de equilibrio de carga o
 
 
 
+[[guidelines-for-hardware-appliance-nodes]]
 == Directrices para los nodos de dispositivos de hardware
 
 Los dispositivos de hardware StorageGRID están diseñados especialmente para su uso en un sistema StorageGRID .  Algunos dispositivos pueden utilizarse como nodos de almacenamiento.  Se pueden utilizar otros dispositivos como nodos de administración o nodos de puerta de enlace.  Puede combinar nodos de dispositivos con nodos basados ​​en software o implementar redes de dispositivos completamente diseñadas.

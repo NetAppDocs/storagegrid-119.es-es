@@ -15,12 +15,14 @@ Puede utilizar la federación de red para clonar inquilinos y replicar sus objet
 
 
 
+[[what-is-a-grid-federation-connection]]
 == ¿Qué es una conexión de federación de red?
 
 Una conexión de federación de red es una conexión bidireccional, confiable y segura entre los nodos de administración y de puerta de enlace en dos sistemas StorageGRID .
 
 
 
+[[workflow-for-grid-federation]]
 == Flujo de trabajo para la federación de redes
 
 El diagrama de flujo de trabajo resume los pasos para configurar una conexión de federación de red entre dos redes.
@@ -29,6 +31,7 @@ image::../media/grid-federation-workflow.png[Flujo de trabajo de conexión de la
 
 
 
+[[considerations-and-requirements-for-grid-federation-connections]]
 == Consideraciones y requisitos para las conexiones de federación de red
 
 * Las cuadrículas utilizadas para la federación de cuadrículas deben ejecutar versiones de StorageGRID que sean idénticas o que no tengan más de una diferencia de versión importante entre ellas.
@@ -42,6 +45,7 @@ Para obtener detalles sobre los requisitos de la versión, consulte lalink:../re
 
 
 
+[[networking-and-ip-address-requirements]]
 === Requisitos de red y dirección IP
 
 * Las conexiones de federación de red pueden ocurrir en la red de red, la red de administración o la red de cliente.
@@ -53,6 +57,7 @@ Para obtener detalles sobre los requisitos de la versión, consulte lalink:../re
 
 
 
+[[use-fqdns-to-load-balance-the-connection]]
 === Utilice FQDN para equilibrar la carga de la conexión
 
 Para un entorno de producción, utilice nombres de dominio completos (FQDN) para identificar cada cuadrícula en la conexión.  Luego, crea las entradas DNS apropiadas, de la siguiente manera:
@@ -69,6 +74,7 @@ Cuando se utilizan varias entradas DNS, las solicitudes para utilizar la conexi�
 
 
 
+[[port-requirements]]
 === Requisitos del puerto
 
 Al crear una conexión de federación de red, puede especificar cualquier número de puerto no utilizado del 23000 al 23999.  Ambas redes en esta conexión utilizarán el mismo puerto.
@@ -77,6 +83,7 @@ Debe asegurarse de que ningún nodo de ninguna de las redes utilice este puerto 
 
 
 
+[[certificate-requirements]]
 === Requisitos del certificado
 
 Cuando configura una conexión de federación de red, StorageGRID genera automáticamente cuatro certificados SSL:

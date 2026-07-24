@@ -19,6 +19,7 @@ La clonación de la información de la cuenta del inquilino es necesaria paralin
 
 
 
+[[tenant-workflow-for-account-clone]]
 == Flujo de trabajo del inquilino para la clonación de cuentas
 
 Si su cuenta de inquilino tiene el permiso *Usar conexión de federación de red*, revise el diagrama de flujo de trabajo para ver los pasos que realizará para clonar grupos, usuarios y claves de acceso S3.
@@ -57,12 +58,14 @@ Si necesita acceder a depósitos con las mismas claves de acceso en ambas cuadr�
 
 
 
+[[how-are-groups-users-and-s3-access-keys-cloned]]
 == ¿Cómo se clonan grupos, usuarios y claves de acceso S3?
 
 Revise esta sección para comprender cómo se clonan los grupos, los usuarios y las claves de acceso de S3 entre la red de origen del inquilino y la red de destino del inquilino.
 
 
 
+[[local-groups-created-on-source-grid-are-cloned]]
 === Los grupos locales creados en la red de origen se clonan
 
 Una vez que se crea una cuenta de inquilino y se replica en la red de destino, StorageGRID clona automáticamente cualquier grupo local que agregue a la red de origen del inquilino en la red de destino del inquilino.
@@ -76,6 +79,7 @@ NOTE: Cualquier usuario que seleccione al crear un grupo local en la cuadrícula
 
 
 
+[[local-users-created-on-source-grid-are-cloned]]
 === Los usuarios locales creados en la red de origen se clonan
 
 Cuando crea un nuevo usuario local en la red de origen, StorageGRID clona automáticamente ese usuario en la red de destino. Tanto el usuario original como su clon tienen el mismo nombre completo, nombre de usuario y configuración *Denegar acceso*. Ambos usuarios también pertenecen a los mismos grupos. Para obtener instrucciones, consultelink:managing-local-users.html["Administrar usuarios locales"] .
@@ -86,6 +90,7 @@ image::../media/grid-federation-local-user-clone.png[Imagen que muestra que los 
 
 
 
+[[federated-groups-created-on-source-grid-are-cloned]]
 === Los grupos federados creados en la red de origen se clonan
 
 Suponiendo que se cumplen los requisitos para usar la clonación de cuenta conlink:../admin/grid-federation-what-is-account-clone.html#account-clone-sso["inicio de sesión único"] ylink:../admin/grid-federation-what-is-account-clone.html#account-clone-identity-federation["federación de identidades"] Una vez cumplidos, los grupos federados que cree (importe) para el inquilino en la red de origen se clonan automáticamente en el inquilino en la red de destino.
@@ -98,6 +103,7 @@ image::../media/grid-federation-federated-group-clone.png[Imagen que muestra que
 
 
 
+[[s3-access-keys-can-be-manually-cloned]]
 === Las claves de acceso S3 se pueden clonar manualmente
 
 StorageGRID no clona automáticamente las claves de acceso de S3 porque la seguridad se mejora al tener claves diferentes en cada cuadrícula.
@@ -115,6 +121,7 @@ NOTE: Cuando se clonan claves de acceso S3 para un usuario federado, tanto el us
 
 
 
+[[groups-and-users-added-to-destination-grid-arent-cloned]]
 === Los grupos y usuarios agregados a la cuadrícula de destino no se clonan
 
 La clonación se produce únicamente desde la red de origen del inquilino a la red de destino del inquilino.  Si crea o importa grupos y usuarios en la cuadrícula de destino del inquilino, StorageGRID no clonará estos elementos en la cuadrícula de origen del inquilino.
@@ -123,6 +130,7 @@ image::../media/grid-federation-account-not-cloned.png[Imagen que muestra que lo
 
 
 
+[[edited-or-deleted-groups-users-and-access-keys-arent-cloned]]
 === Los grupos, usuarios y claves de acceso editados o eliminados no se clonan
 
 La clonación ocurre solo cuando se crean nuevos grupos y usuarios.

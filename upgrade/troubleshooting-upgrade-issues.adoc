@@ -15,36 +15,42 @@ Si algo sale mal al realizar una actualización, es posible que pueda resolver e
 
 
 
+[[upgrade-does-not-complete]]
 == La actualización no se completa
 
 Las siguientes secciones describen cómo recuperarse de situaciones en las que la actualización ha fallado parcialmente.
 
 
 
+[[upgrade-precheck-errors]]
 === Errores de comprobación previa de la actualización
 
 Para detectar y resolver problemas, puede ejecutar manualmente las comprobaciones previas a la actualización antes de comenzar la actualización real.  La mayoría de los errores de verificación previa brindan información sobre cómo resolver el problema.
 
 
 
+[[provisioning-failures]]
 === Fallos de aprovisionamiento
 
 Si el proceso de aprovisionamiento automático falla, comuníquese con el soporte técnico.
 
 
 
+[[grid-node-crashes-or-fails-to-start]]
 === El nodo de la red se bloquea o no se inicia
 
 Si un nodo de la red falla durante el proceso de actualización o no puede iniciarse exitosamente una vez finalizada la actualización, comuníquese con el soporte técnico para investigar y corregir cualquier problema subyacente.
 
 
 
+[[ingest-or-data-retrieval-is-interrupted]]
 === Se interrumpe la ingesta o recuperación de datos
 
 Si la ingesta o recuperación de datos se interrumpe inesperadamente cuando no está actualizando un nodo de la red, comuníquese con el soporte técnico.
 
 
 
+[[database-upgrade-errors]]
 === Errores de actualización de la base de datos
 
 Si la actualización de la base de datos falla con un error, vuelva a intentar la actualización.  Si vuelve a fallar, contacte con el soporte técnico.
@@ -54,12 +60,14 @@ link:checking-systems-condition-before-upgrading-software.html["Comprobación de
 
 
 
+[[user-interface-issues]]
 == Problemas de interfaz de usuario
 
 Es posible que experimente problemas con el Administrador de red o el Administrador de inquilinos durante o después de la actualización.
 
 
 
+[[grid-manager-displays-multiple-error-messages-during-upgrade]]
 === Grid Manager muestra varios mensajes de error durante la actualización
 
 Si actualiza su navegador o navega a otra página de Grid Manager mientras se actualiza el nodo de administración principal, es posible que vea varios mensajes "503: Servicio no disponible" y "Problema para conectarse al servidor".  Puede ignorar estos mensajes con seguridad: dejarán de aparecer tan pronto como se actualice el nodo.
@@ -68,6 +76,7 @@ Si estos mensajes aparecen durante más de una hora después de iniciar la actua
 
 
 
+[[web-interface-does-not-respond-as-expected]]
 === La interfaz web no responde como se esperaba
 
 Es posible que el administrador de red o el administrador de inquilinos no respondan como se espera después de actualizar el software StorageGRID .
@@ -87,6 +96,7 @@ Al borrar la memoria caché se eliminan los recursos obsoletos utilizados por la
 
 
 
+[[docker-image-availability-check-error-messages]]
 == Mensajes de error de "Comprobación de disponibilidad de imágenes de Docker"
 
 Al intentar iniciar el proceso de actualización, es posible que reciba un mensaje de error que indique "Los siguientes problemas fueron identificados por el conjunto de validación de verificación de disponibilidad de imágenes de Docker".  Todos los problemas deben resolverse antes de poder completar la actualización.

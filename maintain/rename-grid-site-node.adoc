@@ -26,6 +26,7 @@ NOTE: Puede agregar o actualizar nombres para mostrar desde un nodo de administr
 
 
 
+[[how-to-rename-grid-sites-or-nodes]]
 == Cómo cambiar el nombre de una cuadrícula, sitios o nodos
 
 Puede cambiar el nombre de su sistema StorageGRID , uno o más sitios, o uno o más nodos.
@@ -34,6 +35,7 @@ Puede utilizar un nombre para mostrar que haya sido usado previamente por un nod
 
 
 
+[[select-items-to-rename]]
 === Seleccionar elementos para cambiar el nombre
 
 Para comenzar, seleccione los elementos que desea cambiar de nombre.
@@ -97,6 +99,7 @@ Seleccione la casilla de verificación del nodo.
 
 
 
+[[propose-new-names]]
 === Proponer nuevos nombres
 
 Para el paso *Proponer nuevos nombres*, puede ingresar un nombre para mostrar para cada elemento individualmente o puede cambiar el nombre de los elementos en masa.
@@ -165,6 +168,7 @@ Se muestra un mensaje de éxito.  Los nuevos nombres para mostrar ahora se utili
 ====
 
 
+[[download-recovery-packagedownload-the-recovery-package]]
 === [[download-recovery-package]]Descargar el paquete de recuperación
 
 Cuando haya terminado de cambiar el nombre de los elementos, descargue y guarde un nuevo paquete de recuperación. Los nuevos nombres para mostrar de los elementos que renombró se incluyen en el `Passwords.txt` archivo.
@@ -186,6 +190,7 @@ CAUTION: El archivo del paquete de recuperación debe estar protegido porque con
 
 
 
+[[revert-display-names-back-to-system-names]]
 == Revertir los nombres para mostrar a los nombres del sistema
 
 Puede revertir una cuadrícula, un sitio o un nodo renombrado a su nombre de sistema original.  Cuando revierte un elemento a su nombre de sistema, las páginas de Grid Manager y otras ubicaciones de StorageGRID ya no muestran un *Nombre para mostrar* para ese elemento.  Sólo se muestra el nombre del sistema del elemento.

@@ -19,12 +19,14 @@ Para obtener detalles sobre la sintaxis de las consultas de Prometheus, consulte
 
 
 
+[[what-are-prometheus-metrics]]
 == ¿Qué son las métricas de Prometheus?
 
 Las métricas de Prometheus son mediciones de series de tiempo.  El servicio Prometheus en los nodos de administración recopila estas métricas de los servicios en todos los nodos.  Las métricas se almacenan en cada nodo de administración hasta que se llena el espacio reservado para los datos de Prometheus.  Cuando el `/var/local/mysql_ibdata/` Cuando el volumen alcanza su capacidad máxima, las métricas más antiguas se eliminan primero.
 
 
 
+[[where-are-prometheus-metrics-used]]
 == ¿Dónde se utilizan las métricas de Prometheus?
 
 Las métricas recopiladas por Prometheus se utilizan en varios lugares del Administrador de cuadrícula:
@@ -48,6 +50,7 @@ NOTE: Algunas funciones y elementos del menú dentro de la página Métricas no 
 
 
 
+[[list-of-most-common-metrics]]
 == Lista de métricas más comunes
 
 La siguiente lista contiene las métricas de Prometheus más utilizadas.
@@ -147,6 +150,7 @@ cuota_de_bytes_de_uso_de_inquilinos_de_la_red_de_almacenamiento:: La cantidad m�
 
 
 
+[[get-a-list-of-all-metrics]]
 == Obtenga una lista de todas las métricas
 
 [[obtain-all-metrics]]Para obtener la lista completa de métricas, utilice la API de administración de cuadrícula.

@@ -36,6 +36,7 @@ Cuando se completa la solicitud, la función Cambiar la contraseña raíz del in
 
 
 
+[[reactivate-deactivated-features]]
 == Reactivar funciones desactivadas
 
 De forma predeterminada, puede utilizar la API de administración de cuadrícula para reactivar una función que se ha desactivado.  Sin embargo, si desea evitar que las funciones desactivadas se vuelvan a activar, puede desactivar la función *activateFeatures*.

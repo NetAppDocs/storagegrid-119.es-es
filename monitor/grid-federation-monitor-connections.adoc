@@ -20,6 +20,7 @@ Puede monitorear información básica sobre todoslink:../admin/grid-federation-o
 
 
 
+[[view-all-connections]]
 == Ver todas las conexiones
 
 La página de federación de red muestra información básica sobre todas las conexiones de federación de red y sobre todas las cuentas de inquilinos que tienen permiso para usar conexiones de federación de red.
@@ -59,6 +60,7 @@ image::../media/grid-federation-permitted-tenants-tab.png[Pestaña de inquilinos
 
 
 
+[[view-specific-connectionview-a-specific-connection]]
 == [[view-specific-connection]]Ver una conexión específica
 
 Puede ver los detalles de una conexión de federación de red específica.
@@ -102,6 +104,7 @@ image::../media/grid-federation-certificates-tab.png[pestaña de certificados de
 
 
 
+[[review-cross-grid-replication-metrics]]
 == Revisar las métricas de replicación entre redes
 
 Puede utilizar el panel de replicación entre redes en Grafana para ver las métricas de Prometheus sobre las operaciones de replicación entre redes en su red.

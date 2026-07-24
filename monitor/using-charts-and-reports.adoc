@@ -18,6 +18,7 @@ NOTE: El Grid Manager se actualiza con cada versión y es posible que no coincid
 
 
 
+[[types-of-charts]]
 == Tipos de gráficos
 
 Los gráficos y tablas resumen los valores de métricas y atributos específicos de StorageGRID .
@@ -73,6 +74,7 @@ image::../media/state_graph.gif[Gráfico de estado]
 
 
 
+[[chart-legend]]
 == Leyenda del gráfico
 
 Las líneas y colores utilizados para dibujar gráficos tienen un significado específico.
@@ -125,6 +127,7 @@ Una mezcla de sombreado gris y azul indica que algunos de los valores de los atr
 |===
 
 
+[[display-charts-and-graphs]]
 == Mostrar gráficos y tablas
 
 La página Nodos contiene gráficos y tablas a los que debe acceder periódicamente para monitorear atributos como la capacidad de almacenamiento y el rendimiento.  En algunos casos, especialmente cuando se trabaja con soporte técnico, puede utilizar la página *SOPORTE* > *Herramientas* > *Topología de cuadrícula* para acceder a gráficos adicionales.
@@ -181,6 +184,7 @@ La pantalla cambia automáticamente a la página *Informes* > *Gráficos*.  El g
 
 
 
+[[generate-charts]]
 == Generar gráficos
 
 Los gráficos muestran una representación gráfica de los valores de los datos de atributos.  Puede informar sobre un sitio de centro de datos, un nodo de red, un componente o un servicio.

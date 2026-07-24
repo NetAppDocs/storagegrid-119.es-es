@@ -15,6 +15,7 @@ Es posible que necesite usar la API REST S3 de StorageGRID para administrar los 
 
 
 
+[[compliance-feature-deprecated]]
 == Función de cumplimiento obsoleta
 
 La función de cumplimiento de StorageGRID que estaba disponible en versiones anteriores de StorageGRID está obsoleta y ha sido reemplazada por S3 Object Lock.

@@ -15,6 +15,7 @@ Si tieneslink:../admin/configuring-sso.html["Inicio de sesión único (SSO) conf
 
 
 
+[[sign-in-to-the-api-if-single-sign-on-is-enabled]]
 == Sign in en la API si el inicio de sesión único está habilitado
 
 Estas instrucciones se aplican si utiliza Active Directory como proveedor de identidad SSO.
@@ -242,6 +243,7 @@ Ya puedes utilizar `MYTOKEN` para otras solicitudes, de forma similar a como usa
 
 
 
+[[sign-out-of-the-api-if-single-sign-on-is-enabled]]
 == Cerrar sesión en la API si el inicio de sesión único está habilitado
 
 Si se ha habilitado el inicio de sesión único (SSO), debe emitir una serie de solicitudes de API para cerrar sesión en la API de administración de red o en la API de administración de inquilinos.  Estas instrucciones se aplican si está utilizando Active Directory como proveedor de identidad SSO

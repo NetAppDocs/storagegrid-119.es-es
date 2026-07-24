@@ -15,6 +15,7 @@ Puede utilizar una máquina virtual para alojar cualquier tipo de nodo StorageGR
 
 
 
+[[vmware-vsphere-hypervisor]]
 == Hipervisor VMware vSphere
 
 Debe instalar VMware vSphere Hypervisor en un servidor físico preparado.  El hardware debe estar configurado correctamente (incluidas las versiones de firmware y la configuración del BIOS) antes de instalar el software VMware.
@@ -29,6 +30,7 @@ link:../network/index.html["Pautas para establecer redes"]
 
 
 
+[[esx-host-configuration-requirements]]
 == Requisitos de configuración del host ESX
 
 
@@ -36,6 +38,7 @@ CAUTION: Debe configurar correctamente el protocolo de tiempo de red (NTP) en ca
 
 
 
+[[vmware-configuration-requirements]]
 == Requisitos de configuración de VMware
 
 Debe instalar y configurar VMware vSphere y vCenter antes de implementar nodos StorageGRID .

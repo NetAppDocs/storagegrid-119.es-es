@@ -22,12 +22,14 @@ Consulte las instrucciones de instalación paralink:../rhel/index.html["Red Hat 
 
 
 
+[[host-network-configuration-for-container-engine-deployments]]
 == Configuración de red de host para implementaciones de motores de contenedores
 
 Antes de comenzar su implementación de StorageGRID en una plataforma de motor de contenedores, determine qué redes (Grid, Admin, Client) utilizará cada nodo.  Debe asegurarse de que la interfaz de red de cada nodo esté configurada en la interfaz de host física o virtual correcta y que cada red tenga suficiente ancho de banda.
 
 
 
+[[physical-hosts]]
 === Hosts físicos
 
 Si está utilizando hosts físicos para soportar nodos de red:
@@ -50,6 +52,7 @@ NOTE: Una interfaz física en el host puede ser utilizada por el propio host y u
 
 
 
+[[minimum-bandwidth-recommendations]]
 === Recomendaciones de ancho de banda mínimo
 
 La siguiente tabla proporciona las recomendaciones de ancho de banda de LAN mínimo para cada tipo de nodo StorageGRID y cada tipo de red.  Debe proporcionar a cada host físico o virtual suficiente ancho de banda de red para cumplir con los requisitos mínimos agregados de ancho de banda para la cantidad total y el tipo de nodos StorageGRID que planea ejecutar en ese host.

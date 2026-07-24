@@ -17,6 +17,7 @@ Las revisiones de StorageGRID contienen cambios de software que están disponibl
 
 
 
+[[considerations-for-applying-a-hotfix]]
 == Consideraciones para aplicar un hotfix
 
 No se puede aplicar una revisión de StorageGRID cuando se está ejecutando otro procedimiento de mantenimiento.  Por ejemplo, no se puede aplicar una revisión mientras se ejecuta un procedimiento de desmantelamiento, expansión o recuperación.
@@ -32,6 +33,7 @@ Si bien los nodos de la red se actualizan con la nueva versión de revisión, lo
 
 
 
+[[how-hotfixes-are-applied-for-recovery-and-expansion]]
 == Cómo se aplican las revisiones para la recuperación y expansión
 
 Después de aplicar una revisión a su red, el nodo de administración principal instala automáticamente la misma versión de revisión en cualquier nodo restaurado mediante operaciones de recuperación o agregado en una expansión.

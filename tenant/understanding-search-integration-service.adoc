@@ -24,6 +24,7 @@ NOTE: Debido a que el servicio de integración de búsqueda hace que se envíen 
 
 
 
+[[search-integration-and-s3-buckets]]
 == Integración de búsquedas y buckets S3
 
 Puede habilitar el servicio de integración de búsqueda para cualquier depósito con o sin versión.  La integración de búsqueda se configura asociando el XML de configuración de notificación de metadatos con el depósito que especifica sobre qué objetos actuar y el destino de los metadatos del objeto.
@@ -35,6 +36,7 @@ NOTE: Para las etiquetas y los metadatos del usuario, StorageGRID pasa fechas y 
 
 
 
+[[search-notifications]]
 == Notificaciones de búsqueda
 
 Las notificaciones de metadatos se generan y se ponen en cola para su entrega siempre que:
@@ -52,6 +54,7 @@ Después de agregar XML de configuración de notificación de metadatos a un buc
 
 
 
+[[search-integration-service-and-elasticsearch]]
 == Servicio de integración de búsqueda y Elasticsearch
 
 El servicio de integración de búsqueda StorageGRID admite un clúster Elasticsearch como destino.  Al igual que con los demás servicios de la plataforma, el destino se especifica en el punto final cuyo URN se utiliza en el XML de configuración para el servicio.  Utilice el https://imt.netapp.com/matrix/#welcome["Herramienta de matriz de interoperabilidad de NetApp"^] para determinar las versiones compatibles de Elasticsearch.

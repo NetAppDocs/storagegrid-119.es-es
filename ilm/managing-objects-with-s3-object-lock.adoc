@@ -15,6 +15,7 @@ Como administrador de la red, puede habilitar el bloqueo de objetos S3 para su s
 
 
 
+[[what-is-s3-object-lock]]
 == ¿Qué es el bloqueo de objetos S3?
 
 La función StorageGRID S3 Object Lock es una solución de protección de objetos que es equivalente a S3 Object Lock en Amazon Simple Storage Service (Amazon S3).
@@ -31,6 +32,7 @@ De hecho, todos los objetos recién ingeridos tienen configuraciones de retenci�
 
 
 
+[[retention-modes]]
 === Modos de retención
 
 La función de bloqueo de objetos de StorageGRID S3 admite dos modos de retención para aplicar diferentes niveles de protección a los objetos.  Estos modos son equivalentes a los modos de retención de Amazon S3.
@@ -53,6 +55,7 @@ La función de bloqueo de objetos de StorageGRID S3 admite dos modos de retenci�
 
 
 
+[[retention-settings-for-object-versions]]
 === Configuración de retención para versiones de objetos
 
 Si se crea un depósito con el bloqueo de objetos S3 habilitado, los usuarios pueden usar la aplicación cliente S3 para especificar opcionalmente las siguientes configuraciones de retención para cada objeto que se agregue al depósito:
@@ -71,6 +74,7 @@ Para obtener detalles sobre la configuración de los objetos, consultelink:../s3
 
 
 
+[[default-retention-setting-for-buckets]]
 === Configuración de retención predeterminada para depósitos
 
 Si se crea un depósito con el bloqueo de objetos S3 habilitado, los usuarios pueden especificar opcionalmente las siguientes configuraciones predeterminadas para el depósito:
@@ -85,6 +89,7 @@ Verlink:../tenant/creating-s3-bucket.html["Crear un bucket S3"] ylink:../tenant/
 
 
 
+[[comparing-s3-object-lock-to-legacy-compliance]]
 == Comparación del bloqueo de objetos S3 con la conformidad heredada
 
 El bloqueo de objetos S3 reemplaza la función de Cumplimiento que estaba disponible en versiones anteriores de StorageGRID .  Debido a que la función de bloqueo de objetos S3 se ajusta a los requisitos de Amazon S3, deja obsoleta la función de cumplimiento patentada de StorageGRID , que ahora se denomina "cumplimiento heredado".

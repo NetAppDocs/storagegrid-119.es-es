@@ -15,6 +15,7 @@ Es posible que necesite solucionar alertas y errores relacionados con las conexi
 
 
 
+[[grid-federation-errorsgrid-federation-connection-alerts-and-errors]]
 == [[grid-federation-errors]]Alertas y errores de conexión de la federación de red
 
 Es posible que reciba alertas o experimente errores con sus conexiones de federación de red.
@@ -23,6 +24,7 @@ Después de realizar cualquier cambio para resolver un problema de conexión, pr
 
 
 
+[[grid-federation-connection-failure-alert]]
 === Alerta de fallo de conexión de la federación de red
 
 .Asunto
@@ -40,6 +42,7 @@ Esta alerta indica que la conexión de federación de red entre las redes no est
 
 
 
+[[expiration-of-grid-federation-certificate-alert]]
 === Alerta de vencimiento del certificado de federación de red
 
 .Asunto
@@ -53,6 +56,7 @@ Consulte las instrucciones para rotar los certificados de conexión enlink:grid-
 
 
 
+[[error-editing-a-grid-federation-connection]]
 === Error al editar una conexión de federación de red
 
 .Asunto
@@ -69,10 +73,12 @@ Cuando edita una conexión de federación de red, StorageGRID intenta guardar un
 
 
 
+[[account-clone-errors]]
 == Errores de clonación de cuenta
 
 
 
+[[cant-sign-in-to-a-cloned-tenant-account]]
 === No puedo iniciar sesión en una cuenta de inquilino clonada
 
 .Asunto
@@ -88,6 +94,7 @@ Antes de que un usuario local clonado pueda iniciar sesión en la red de destino
 
 
 
+[[tenant-created-without-a-clone]]
 === Inquilino creado sin un clon
 
 .Asunto
@@ -113,10 +120,12 @@ Si se ha resuelto el error, la cuenta del inquilino ahora se clonará a la otra 
 
 
 
+[[cross-grid-replication-alerts-and-errors]]
 == Alertas y errores de replicación entre redes
 
 
 
+[[last-error-shown-for-connection-or-tenant]]
 === Último error mostrado para la conexión o el inquilino
 
 .Asunto
@@ -157,6 +166,7 @@ TIP: Después de eliminar el error, es posible que aparezca un nuevo *Último er
 
 
 
+[[cross-grid-replication-permanent-failure-alert]]
 === Alerta de fallo permanente de replicación entre redes
 
 .Asunto
@@ -206,6 +216,7 @@ NOTE: La alerta podría tardar hasta un día en desaparecer después de resolver
 
 
 
+[[cross-grid-replication-resource-unavailable-alert]]
 === Alerta de recurso de replicación entre redes no disponible
 
 .Asunto

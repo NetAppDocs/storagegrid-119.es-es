@@ -9,12 +9,14 @@ CAUTION: Para las fuentes de identidad que no sean ActiveDirectory o Azure, Stor
 
 
 
+[[memberof-and-refint-overlays]]
 === Superposiciones de miembros y refinaciones
 
 Las superposiciones memberof y refint deben estar habilitadas.  Para obtener más información, consulte las instrucciones para el mantenimiento inverso de la membresía del grupo enhttp://www.openldap.org/doc/admin24/index.html["Documentación de OpenLDAP: Guía del administrador de la versión 2.4"^] .
 
 
 
+[[indexing]]
 === Indexación
 
 Debe configurar los siguientes atributos OpenLDAP con las palabras clave de índice especificadas:

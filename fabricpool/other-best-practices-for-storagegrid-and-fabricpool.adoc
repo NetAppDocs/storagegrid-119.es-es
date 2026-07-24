@@ -15,6 +15,7 @@ Al configurar un sistema StorageGRID para su uso con FabricPool, es posible que 
 
 
 
+[[audit-message-and-log-destinations]]
 == Destinos de mensajes y registros de auditoría
 
 Las cargas de trabajo de FabricPool a menudo tienen una alta tasa de operaciones de lectura, lo que puede generar un gran volumen de mensajes de auditoría.
@@ -25,24 +26,28 @@ Las cargas de trabajo de FabricPool a menudo tienen una alta tasa de operaciones
 
 
 
+[[object-encryption]]
 == Cifrado de objetos
 
 Al configurar StorageGRID, puede habilitar opcionalmente lalink:../admin/changing-network-options-object-encryption.html["Opción global para el cifrado de objetos almacenados"] Si se requiere cifrado de datos para otros clientes de StorageGRID .  Los datos que se almacenan en niveles desde FabricPool a StorageGRID ya están cifrados, por lo que no es necesario habilitar la configuración de StorageGRID .  Las claves de cifrado del lado del cliente son propiedad de ONTAP.
 
 
 
+[[object-compression]]
 == Compresión de objetos
 
 Al configurar StorageGRID, no habilite lalink:../admin/configuring-stored-object-compression.html["Opción global para comprimir objetos almacenados"] .  Los datos almacenados en niveles desde FabricPool a StorageGRID ya están comprimidos.  El uso de la opción StorageGRID no reducirá aún más el tamaño de un objeto.
 
 
 
+[[bucket-consistency]]
 == Consistencia del cubo
 
 Para los buckets de FabricPool , la consistencia recomendada es *Lectura después de una nueva escritura*, que es la consistencia predeterminada para un bucket nuevo.  No edite los depósitos de FabricPool para usar *Disponible* o *Sitio fuerte*.
 
 
 
+[[fabricpool-tiering]]
 == Nivelación de FabricPool
 
 Si un nodo StorageGRID usa almacenamiento asignado desde un sistema NetApp ONTAP , confirme que el volumen no tenga habilitada una política de niveles de FabricPool .  Por ejemplo, si un nodo StorageGRID se ejecuta en un host VMware, asegúrese de que el volumen que respalda el almacén de datos para el nodo StorageGRID no tenga una política de niveles de FabricPool habilitada.  Deshabilitar la organización en niveles de FabricPool para los volúmenes utilizados con nodos StorageGRID simplifica la resolución de problemas y las operaciones de almacenamiento.

@@ -25,6 +25,7 @@ NOTE: Algunos servicios de StorageGRID no se han actualizado para usar los cifra
 
 
 
+[[select-a-security-policy]]
 == Seleccione una política de seguridad
 
 .Pasos
@@ -87,6 +88,7 @@ Aparece una marca de verificación verde junto a *Política actual* en el mosaic
 
 
 
+[[create-a-custom-security-policy]]
 == Crear una política de seguridad personalizada
 
 Puede crear una política personalizada si necesita aplicar sus propios cifrados.
@@ -108,6 +110,8 @@ Aparece una marca de verificación verde junto a *Política actual* en el mosaic
 
 
 
+[[temporarily-revert-to-the-default-security-policy]]
+[[temporarily-revert-to-default-security-policy]]
 == Revertir temporalmente a la política de seguridad predeterminada
 
 Si configuró una política de seguridad personalizada, es posible que no pueda iniciar sesión en Grid Manager si la política TLS configurada es incompatible con lalink:global-certificate-types.html["certificado de servidor configurado"] .

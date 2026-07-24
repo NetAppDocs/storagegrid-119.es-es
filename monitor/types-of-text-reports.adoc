@@ -15,6 +15,7 @@ Los informes de texto muestran una representación textual de los valores de dat
 
 
 
+[[raw-text-reports]]
 == Informes de texto sin procesar
 
 Un informe de texto sin formato muestra detalles sobre el atributo seleccionado:
@@ -28,6 +29,7 @@ image::../media/raw_text_report.gif[Captura de pantalla que muestra el informe d
 
 
 
+[[aggregate-text-reports]]
 == Informes de texto agregados
 
 Un informe de texto agregado muestra datos durante un período de tiempo más largo (normalmente una semana) que un informe de texto sin procesar.  Cada entrada es el resultado de resumir múltiples valores de atributos (un agregado de valores de atributos) por parte del servicio NMS a lo largo del tiempo en una única entrada con valores promedio, máximos y mínimos que se derivan de la agregación.
@@ -44,6 +46,7 @@ image::../media/aggregate_text_report.gif[Captura de pantalla que muestra el inf
 
 
 
+[[generate-text-reports]]
 == Generar informes de texto
 
 Los informes de texto muestran una representación textual de los valores de datos de atributos que han sido procesados por el servicio NMS.  Puede informar sobre un sitio de centro de datos, un nodo de red, un componente o un servicio.
@@ -85,6 +88,7 @@ Se genera un informe de texto después de unos momentos.  Deje pasar varios minu
 
 
 
+[[export-text-reports]]
 == Exportar informes de texto
 
 Los informes de texto exportados abren una nueva pestaña del navegador, que le permite seleccionar y copiar los datos.

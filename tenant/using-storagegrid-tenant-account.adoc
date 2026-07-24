@@ -30,6 +30,7 @@ NOTE: Si utiliza el protocolo de cliente S3, también puede usar depósitos S3 y
 
 
 
+[[create-tenant-accounts]]
 == Crear cuentas de inquilinos
 
 Las cuentas de inquilino son creadas por un administrador de red StorageGRID mediante el Administrador de red.  Al crear una cuenta de inquilino, el administrador de la red especifica la siguiente información:
@@ -46,6 +47,7 @@ Además, los administradores de la red pueden habilitar la configuración de Blo
 
 
 
+[[configure-s3-tenants]]
 == Configurar inquilinos de S3
 
 Después de crear una cuenta de inquilino S3, puede acceder al Administrador de inquilinos para realizar tareas como las siguientes:

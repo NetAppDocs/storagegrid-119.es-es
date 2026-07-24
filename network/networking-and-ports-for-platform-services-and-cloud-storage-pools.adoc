@@ -15,6 +15,7 @@ Si planea utilizar los servicios de la plataforma StorageGRID o grupos de almace
 
 
 
+[[networking-for-platform-services]]
 == Redes para servicios de plataforma
 
 Como se describe enlink:../admin/manage-platform-services-for-tenants.html["Gestionar servicios de plataforma para inquilinos"] ylink:../tenant/considerations-for-platform-services.html["Administrar los servicios de la plataforma"] Los servicios de la plataforma incluyen servicios externos que proporcionan integración de búsqueda, notificación de eventos y replicación de CloudMirror.
@@ -27,12 +28,14 @@ Los servicios de plataforma requieren acceso desde los nodos de almacenamiento q
 
 
 
+[[networking-for-cloud-storage-pools]]
 == Redes para grupos de almacenamiento en la nube
 
 Los grupos de almacenamiento en la nube también requieren acceso desde los nodos de almacenamiento a los puntos finales proporcionados por el servicio externo utilizado, como Amazon S3 Glacier o Microsoft Azure Blob Storage. Para obtener más información, consultelink:../ilm/what-cloud-storage-pool-is.html["¿Qué es un pool de almacenamiento en la nube?"] .
 
 
 
+[[ports-for-platform-services-and-cloud-storage-pools]]
 == Puertos para servicios de plataforma y grupos de almacenamiento en la nube
 
 De forma predeterminada, los servicios de la plataforma y las comunicaciones del grupo de almacenamiento en la nube utilizan los siguientes puertos:
@@ -47,6 +50,7 @@ Si utiliza un servidor proxy no transparente, también debelink:../admin/configu
 
 
 
+[[vlans-and-platform-services-and-cloud-storage-pools]]
 == VLAN y servicios de plataforma y grupos de almacenamiento en la nube
 
 No se pueden utilizar redes VLAN para servicios de plataforma o grupos de almacenamiento en la nube.  Los puntos finales de destino deben ser accesibles a través de la red Grid, la red de administración o la red del cliente.

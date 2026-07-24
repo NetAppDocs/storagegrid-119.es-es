@@ -17,6 +17,7 @@ El acceso a los servicios de la plataforma lo habilita un administrador de Stora
 
 
 
+[[what-is-a-platform-services-endpoint]]
 == ¿Qué es un punto final de servicios de plataforma?
 
 Un punto final de servicios de plataforma especifica la información que StorageGRID necesita para acceder al destino externo.
@@ -29,12 +30,14 @@ Puede utilizar el mismo punto final como destino para más de un depósito de or
 
 
 
+[[endpoints-for-cloudmirror-replication]]
 == Puntos finales para la replicación de CloudMirror
 
 StorageGRID admite puntos finales de replicación que representan depósitos S3.  Estos depósitos pueden estar alojados en Amazon Web Services, en el mismo StorageGRID o en una implementación remota del mismo, o en otro servicio.
 
 
 
+[[endpoints-for-notifications]]
 == Puntos finales para notificaciones
 
 StorageGRID admite puntos finales de Amazon SNS y Kafka. No se admiten los puntos finales de Simple Queue Service (SQS) ni de AWS Lambda.
@@ -43,6 +46,7 @@ Para los puntos finales de Kafka, no se admite TLS mutuo. Como resultado, si tie
 
 
 
+[[endpoints-for-the-search-integration-service]]
 == Puntos finales para el servicio de integración de búsqueda
 
 StorageGRID admite puntos finales de integración de búsqueda que representan clústeres de Elasticsearch.  Estos clústeres de Elasticsearch pueden estar en un centro de datos local o alojados en una nube de AWS o en otro lugar.

@@ -15,6 +15,7 @@ Utilice estos pasos de solución de problemas para ayudar a resolver errores que
 
 
 
+[[determine-if-an-error-has-occurred]]
 == Determinar si se ha producido un error
 
 StorageGRID realiza una comprobación de estado simple en cada grupo de almacenamiento en la nube leyendo el objeto conocido `x-ntap-sgws-cloud-pool-uuid` para garantizar que se pueda acceder al grupo de almacenamiento en la nube y que funcione correctamente.  Cuando StorageGRID detecta un error en el punto final, realiza una comprobación del estado cada minuto desde cada nodo de almacenamiento.  Cuando se resuelve el error, las comprobaciones de estado se detienen.  Si una verificación de estado detecta un problema, se muestra un mensaje en la columna Último error de la tabla Grupos de almacenamiento en la nube en la página Grupos de almacenamiento.
@@ -25,6 +26,7 @@ Además, se activa una alerta de *Error de conectividad del Cloud Storage Pool* 
 
 
 
+[[check-if-an-error-has-been-resolved]]
 == Comprobar si se ha resuelto un error
 
 Después de resolver cualquier problema subyacente, puede determinar si se ha resuelto el error.  Desde la página Grupo de almacenamiento en la nube, seleccione el punto final y seleccione *Borrar error*.  Un mensaje de confirmación indica que StorageGRID ha solucionado el error del grupo de almacenamiento en la nube.
@@ -33,6 +35,7 @@ Si se ha resuelto el problema subyacente, el mensaje de error ya no se muestra. 
 
 
 
+[[error-health-check-failed-error-from-endpoint]]
 == Error: Error en la comprobación de salud.  Error del punto final
 
 Es posible que encuentre este error cuando habilite el bloqueo de objetos S3 con retención predeterminada para su depósito de Amazon S3 después de comenzar a usar este depósito para un grupo de almacenamiento en la nube.  Este error ocurre cuando la operación PUT no tiene un encabezado HTTP con un valor de suma de comprobación de carga útil como `Content-MD5` .  AWS requiere este valor de encabezado para operaciones PUT en buckets con el bloqueo de objetos S3 habilitado.
@@ -41,6 +44,7 @@ Para corregir este problema, siga los pasos que se indican enlink:editing-cloud-
 
 
 
+[[error-this-cloud-storage-pool-contains-unexpected-content]]
 == Error: Este grupo de almacenamiento en la nube contiene contenido inesperado
 
 Es posible que encuentre este error cuando intente crear, editar o eliminar un grupo de almacenamiento en la nube.  Este error se produce si el depósito o contenedor incluye el `x-ntap-sgws-cloud-pool-uuid` archivo marcador, pero ese archivo no tiene el campo de metadatos con el UUID esperado.
@@ -60,6 +64,7 @@ Si estos pasos no se aplican a su situación, comuníquese con el soporte técni
 
 
 
+[[error-could-not-create-or-update-cloud-storage-pool-error-from-endpoint]]
 == Error: No se pudo crear o actualizar el grupo de almacenamiento en la nube.  Error del punto final
 
 Es posible que encuentre este error en las siguientes circunstancias:
@@ -85,6 +90,7 @@ Para corregir el problema, revise el mensaje de error del punto final.
 
 
 
+[[error-failed-to-parse-ca-certificate]]
 == Error: No se pudo analizar el certificado de CA
 
 Es posible que encuentre este error cuando intente crear o editar un grupo de almacenamiento en la nube.  El error ocurre si StorageGRID no pudo analizar el certificado ingresado al configurar el grupo de almacenamiento en la nube.
@@ -93,6 +99,7 @@ Para corregir el problema, verifique el certificado CA que proporcionó para ver
 
 
 
+[[error-a-cloud-storage-pool-with-this-id-was-not-found]]
 == Error: No se encontró un grupo de almacenamiento en la nube con este ID
 
 Es posible que encuentre este error cuando intente editar o eliminar un grupo de almacenamiento en la nube.  Este error ocurre si el punto final devuelve una respuesta 404, que puede significar cualquiera de las siguientes cosas:
@@ -110,6 +117,7 @@ Pruebe uno o más de estos pasos para corregir el problema:
 
 
 
+[[error-could-not-check-the-content-of-the-cloud-storage-pool-error-from-endpoint]]
 == Error: No se pudo comprobar el contenido del grupo de almacenamiento en la nube.  Error del punto final
 
 Es posible que encuentre este error cuando intente eliminar un grupo de almacenamiento en la nube.  Este error indica que algún tipo de problema de conectividad o configuración impide que StorageGRID lea el contenido del depósito de Cloud Storage Pool.
@@ -118,6 +126,7 @@ Para corregir el problema, revise el mensaje de error del punto final.
 
 
 
+[[error-objects-have-already-been-placed-in-this-bucket]]
 == Error: Ya se han colocado objetos en este depósito
 
 Es posible que encuentre este error cuando intente eliminar un grupo de almacenamiento en la nube.  No puedes eliminar un grupo de almacenamiento en la nube si contiene datos que ILM movió allí, datos que estaban en el depósito antes de configurar el grupo de almacenamiento en la nube o datos que alguna otra fuente colocó en el depósito después de que se creó el grupo de almacenamiento en la nube.
@@ -134,6 +143,7 @@ NOTE: Nunca elimine manualmente objetos de un grupo de almacenamiento en la nube
 
 
 
+[[error-proxy-encountered-an-external-error-while-trying-to-reach-the-cloud-storage-pool]]
 == Error: el proxy encontró un error externo al intentar acceder al grupo de almacenamiento en la nube
 
 Es posible que encuentre este error si ha configurado un proxy de almacenamiento no transparente entre los nodos de almacenamiento y el punto final S3 externo utilizado para el grupo de almacenamiento en la nube.  Este error se produce si el servidor proxy externo no puede acceder al punto final del grupo de almacenamiento en la nube.  Por ejemplo, es posible que el servidor DNS no pueda resolver el nombre de host o que haya un problema de red externa.
@@ -146,6 +156,7 @@ Pruebe uno o más de estos pasos para corregir el problema:
 
 
 
+[[error-x-509-certificate-is-out-of-validity-period]]
 == Error: el certificado X.509 está fuera del período de validez
 
 Es posible que encuentre este error cuando intente eliminar un grupo de almacenamiento en la nube.  Este error ocurre cuando la autenticación requiere un certificado X.509 para garantizar que se valide el grupo de almacenamiento en la nube externo correcto y el grupo externo está vacío antes de que se elimine la configuración del grupo de almacenamiento en la nube.

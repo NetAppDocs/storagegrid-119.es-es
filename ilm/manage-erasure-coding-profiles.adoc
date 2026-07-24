@@ -20,6 +20,7 @@ Puede ver los detalles de un perfil de codificación de borrado y cambiar el nom
 
 
 
+[[view-erasure-coding-profile-details]]
 == Ver detalles del perfil de codificación de borrado
 
 Puede ver los detalles de un perfil de codificación de borrado para determinar su estado, el esquema de codificación de borrado utilizado y otra información.
@@ -33,6 +34,7 @@ Puede ver los detalles de un perfil de codificación de borrado para determinar 
 
 
 
+[[rename-an-erasure-coding-profile]]
 == Cambiar el nombre de un perfil de codificación de borrado
 
 Es posible que desees cambiar el nombre de un perfil de codificación de borrado para que sea más obvio lo que hace el perfil.
@@ -54,6 +56,7 @@ NOTE: Los nombres de los perfiles de codificación de borrado deben ser únicos.
 
 
 
+[[deactivate-an-erasure-coding-profile]]
 == Desactivar un perfil de codificación de borrado
 
 Puede desactivar un perfil de codificación de borrado si ya no planea usarlo y si el perfil no se utiliza actualmente en ninguna regla de ILM.

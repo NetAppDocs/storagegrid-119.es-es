@@ -20,12 +20,14 @@ Para obtener más información, visitelink:../admin/using-grid-management-api.ht
 
 
 
+[[review-compliance-settings-after-enabling-global-s3-object-lock]]
 == Revisar la configuración de cumplimiento después de habilitar el bloqueo global de objetos S3
 
 Revise la configuración de cumplimiento de los inquilinos existentes después de habilitar la configuración global de Bloqueo de objetos S3.  Cuando habilita esta configuración, las configuraciones de bloqueo de objetos S3 por inquilino dependen de la versión de StorageGRID en el momento en que se creó el inquilino.
 
 
 
+[[legacy-mgmt-api-requests-removed]]
 == Solicitudes de mgmt-api heredadas eliminadas
 
 Se han eliminado estas solicitudes heredadas:
@@ -36,6 +38,7 @@ Se han eliminado estas solicitudes heredadas:
 
 
 
+[[changes-to-get-privatestorage-usage-api]]
 == Cambios en `GET /private/storage-usage` API
 
 * Una nueva propiedad, `usageCacheDuration` , se ha agregado al cuerpo de la respuesta.  Esta propiedad especifica la duración (en segundos) durante la cual la caché de búsqueda de uso permanece válida.  Este valor se aplica al verificar el uso frente a la cuota de almacenamiento del inquilino y los límites de capacidad del depósito.
@@ -45,6 +48,7 @@ Se han eliminado estas solicitudes heredadas:
 
 
 
+[[changes-to-get-cross-grid-replication-api]]
 == Cambios en `GET cross-grid-replication` API
 
 La API GET */org/containers/:name/cross-grid-replication* ya no requiere acceso root(`rootAccess` ) permiso; sin embargo, debe pertenecer a un grupo de usuarios que tenga el permiso Administrar todos los depósitos(`manageAllContainers` ) o Ver todos los depósitos(`viewAllContainers` ) permiso.

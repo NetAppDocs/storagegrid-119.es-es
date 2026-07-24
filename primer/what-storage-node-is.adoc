@@ -17,6 +17,7 @@ Cada sitio de su sistema StorageGRID debe tener al menos tres nodos de almacenam
 
 
 
+[[types-of-storage-nodes]]
 == Tipos de nodos de almacenamiento
 
 Durante la instalación, puede seleccionar el tipo de nodo de almacenamiento que desea instalar.  Estos tipos están disponibles para nodos de almacenamiento basados en software y para nodos de almacenamiento basados en dispositivos que admiten la función:
@@ -78,6 +79,7 @@ Al instalar nodos de solo datos, la cuadrícula debe contener lo siguiente:
 
 
 
+[[primary-services-for-storage-nodes]]
 == Servicios principales para nodos de almacenamiento
 
 La siguiente tabla muestra los servicios principales para los nodos de almacenamiento; sin embargo, esta tabla no enumera todos los servicios de los nodos.

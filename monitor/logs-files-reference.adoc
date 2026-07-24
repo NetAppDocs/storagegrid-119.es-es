@@ -25,6 +25,7 @@ NOTE: Los detalles proporcionados para cada tipo de registro son sólo para refe
 
 
 
+[[access-the-logs]]
 == Acceder a los registros
 
 Para acceder a los registros, puedelink:collecting-log-files-and-system-data.html["Recopilar archivos de registro y datos del sistema"] desde uno o más nodos como un único archivo de registro. O bien, si el nodo de administración principal no está disponible o no puede acceder a un nodo específico, puede acceder a archivos de registro individuales para cada nodo de la red de la siguiente manera:
@@ -37,6 +38,7 @@ Para acceder a los registros, puedelink:collecting-log-files-and-system-data.htm
 
 
 
+[[export-logs-to-the-syslog-server]]
 == Exportar registros al servidor syslog
 
 La exportación de los registros al servidor syslog proporciona estas capacidades:
@@ -51,6 +53,7 @@ Para exportar los registros, consultelink:../monitor/configure-audit-messages.ht
 
 
 
+[[log-file-categories]]
 == Categorías de archivos de registro
 
 El archivo de registro de StorageGRID contiene los registros descritos para cada categoría y archivos adicionales que contienen métricas y resultados de comandos de depuración.

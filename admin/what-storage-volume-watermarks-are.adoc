@@ -20,6 +20,7 @@ NOTE: Las marcas de agua del volumen de almacenamiento solo se aplican al espaci
 
 
 
+[[what-is-the-soft-read-only-watermark]]
 == ¿Qué es la marca de agua suave de solo lectura?
 
 La *marca de agua de solo lectura suave del volumen de almacenamiento* es la primera marca de agua que indica que el espacio utilizable de un nodo de almacenamiento para los datos de objetos se está llenando.
@@ -30,6 +31,7 @@ Por ejemplo, supongamos que cada volumen de un nodo de almacenamiento tiene una 
 
 
 
+[[what-is-the-hard-read-only-watermark]]
 == ¿Qué es la marca de agua de sólo lectura?
 
 La *marca de agua de solo lectura del volumen de almacenamiento* es la siguiente marca de agua que indica que el espacio utilizable de un nodo para los datos de objetos se está llenando.
@@ -42,6 +44,7 @@ La marca de agua de solo lectura dura siempre es menor que la marca de agua de s
 
 
 
+[[what-is-the-read-write-watermark]]
 == ¿Qué es la marca de agua de lectura y escritura?
 
 La *marca de agua de lectura y escritura del volumen de almacenamiento* se aplica únicamente a los nodos de almacenamiento que han pasado al modo de solo lectura.  Determina cuándo el nodo puede volver a ser de lectura y escritura.  Cuando el espacio libre en cualquier volumen de almacenamiento en un nodo de almacenamiento es mayor que la marca de agua de lectura y escritura de ese volumen, el nodo vuelve automáticamente al estado de lectura y escritura.
@@ -52,6 +55,7 @@ La marca de agua de lectura y escritura siempre es más grande que la marca de a
 
 
 
+[[view-storage-volume-watermarks]]
 == Ver marcas de agua del volumen de almacenamiento
 
 Puede ver la configuración actual de la marca de agua y los valores optimizados del sistema.  Si no se utilizan marcas de agua optimizadas, puede determinar si puede o debe ajustar la configuración.
@@ -64,6 +68,7 @@ Puede ver la configuración actual de la marca de agua y los valores optimizados
 
 
 
+[[view-current-watermark-settings]]
 === Ver la configuración actual de la marca de agua
 
 Puede ver la configuración actual de la marca de agua de almacenamiento en el Administrador de cuadrícula.
@@ -86,6 +91,7 @@ Al especificar configuraciones de marca de agua personalizadas, debe ingresar va
 
 
 
+[[view-optimized-storage-watermarksview-optimized-storage-watermarks]]
 === [[view-optimized-storage-watermarks]]Ver marcas de agua de almacenamiento optimizadas
 
 StorageGRID utiliza dos métricas de Prometheus para mostrar los valores optimizados que ha calculado para la marca de agua de solo lectura del volumen de almacenamiento.  Puede ver los valores mínimos y máximos optimizados para cada nodo de almacenamiento en su red.

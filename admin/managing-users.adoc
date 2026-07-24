@@ -20,6 +20,7 @@ Puede ver usuarios locales y federados.  También puede crear usuarios locales y
 
 
 
+[[create-a-local-user]]
 == Crear un usuario local
 
 Puede crear uno o más usuarios locales y asignar cada usuario a uno o más grupos locales.  Los permisos del grupo controlan a qué funciones de Grid Manager y Grid Management API puede acceder el usuario.
@@ -33,6 +34,7 @@ NOTE: Si el inicio de sesión único (SSO) está habilitado, los usuarios locale
 
 
 
+[[access-the-wizard]]
 === Acceder al asistente
 
 .Pasos
@@ -42,6 +44,7 @@ NOTE: Si el inicio de sesión único (SSO) está habilitado, los usuarios locale
 
 
 
+[[enter-user-credentials]]
 === Ingrese las credenciales de usuario
 
 .Pasos
@@ -52,6 +55,7 @@ NOTE: Si el inicio de sesión único (SSO) está habilitado, los usuarios locale
 
 
 
+[[assign-to-groups]]
 === Asignar a grupos
 
 .Pasos
@@ -67,6 +71,7 @@ Si un usuario pertenece a varios grupos, los permisos son acumulativos. Verlink:
 
 
 
+[[view-and-edit-local-users]]
 == Ver y editar usuarios locales
 
 Puede ver detalles de los usuarios locales y federados existentes.  Puede modificar un usuario local para cambiar su nombre completo, contraseña o membresía de grupo.  También puede impedir temporalmente que un usuario acceda al Administrador de Grid y a la API de administración de Grid.
@@ -175,6 +180,7 @@ Cambiar grupos (solo usuarios locales)
 
 
 
+[[duplicate-a-user]]
 == Duplicar un usuario
 
 Puede duplicar un usuario existente para crear un nuevo usuario con los mismos permisos.
@@ -187,6 +193,7 @@ Puede duplicar un usuario existente para crear un nuevo usuario con los mismos p
 
 
 
+[[delete-a-user]]
 == Eliminar un usuario
 
 Puede eliminar un usuario local para eliminarlo permanentemente del sistema.
