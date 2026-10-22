@@ -21,10 +21,10 @@ Puede utilizar el Administrador de inquilinos para crear depósitos S3 para dato
 NOTE: Los permisos para establecer o modificar las propiedades de bloqueo de objetos S3 de depósitos u objetos se pueden otorgar mediantelink:../s3/bucket-and-group-access-policies.html["política de cubos o política de grupo"] .
 
 * Si planea habilitar el Bloqueo de objetos S3 para un depósito, un administrador de la red ha habilitado la configuración global de Bloqueo de objetos S3 para el sistema StorageGRID y usted ha revisado los requisitos para los depósitos y objetos de Bloqueo de objetos S3.
-* Si cada inquilino tendrá 5000 depósitos, cada nodo de almacenamiento en la red tendrá un mínimo de 64 GB de RAM.
+* Si hay varios inquilinos y cada uno de ellos tiene hasta 5,000 buckets, cada nodo de almacenamiento en el grid tiene un mínimo de 64 GB de RAM.
 +
 
-NOTE: Cada cuadrícula puede tener un máximo de 100.000 contenedores.
+NOTE: El sistema StorageGRID admite un máximo de 5,000 buckets por cada cuenta de inquilino de S3. Cada grid puede tener un máximo de 100,000 buckets.
 
 
 
@@ -63,7 +63,7 @@ Un nombre para el depósito que cumple con estas reglas:
 ** No debe contener puntos en las solicitudes de estilo alojado virtualmente.  Los períodos causarán problemas con la verificación del certificado comodín del servidor.
 
 
-Para obtener más información, consulte la https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html["Documentación de Amazon Web Services (AWS) sobre las reglas de nombres de bucket"^] .
+Para obtener más información, consulta la https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html["Documentación de Amazon Web Services (AWS) sobre las reglas de nombres de bucket"^].
 
 *Nota*: No puedes cambiar el nombre del depósito después de crearlo.
 

@@ -19,7 +19,11 @@ Cada nodo de StorageGRID requiere los siguientes recursos mínimos:
 * RAM: depende de la RAM total disponible y de la cantidad de software que no sea StorageGRID que se ejecute en el sistema
 +
 ** Generalmente, al menos 24 GB por nodo y de 2 a 16 GB menos que la RAM total del sistema.
-** Un mínimo de 64 GB para cada inquilino que tendrá aproximadamente 5000 buckets
+** Si hay varios inquilinos y cada uno tiene hasta 5,000 buckets, al menos 64 GB por nodo
++
+
+NOTE: El sistema StorageGRID admite un máximo de 5000 depósitos para cada cuenta de inquilino de S3.
+
 
 
 

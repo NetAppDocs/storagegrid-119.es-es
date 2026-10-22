@@ -149,9 +149,6 @@ La red StorageGRID ahora se ha cerrado.
 [[start-up-grid-nodes]]
 == Nodos de red de puesta en marcha
 
-
-CAUTION: Si toda la red ha estado apagada durante más de 15 días, debe comunicarse con el soporte técnico antes de iniciar cualquier nodo de la red.  No intente los procedimientos de recuperación que reconstruyen los datos de Cassandra.  Si lo hace podría sufrir pérdida de datos.
-
 Si es posible, encienda los nodos de la red en este orden:
 
 * Aplique energía a los nodos de administración primero.
